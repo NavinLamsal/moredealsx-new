@@ -1,0 +1,328 @@
+import NextAuth, { User } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { jwtDecode } from "jwt-decode";
+
+import { AdapterUser } from "@auth/core/adapters";
+
+async function refreshAccessToken(token: any) {
+  if (!token.user.refreshToken) {
+    return {
+      ...token,
+      error: "NoRefreshTokenError",
+    };
+  }
+
+  if (token.user.refreshToken) {
+    const decodedToken = jwtDecode(token.user.refreshToken.toString());
+    const refreshTokenExpires = decodedToken?.exp
+      ? decodedToken.exp * 1000
+      : undefined;
+    if (Date.now() >= (refreshTokenExpires as number)) {
+      signOut();
+    }
+  }
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}auth/token/refresh/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token.user.refreshToken}`,
+        },
+        body: JSON.stringify({
+          refresh: token.user.refreshToken,
+        }),
+      }
+    );
+
+    const tokens = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        `Token refresh failed: ${response.status} ${response.statusText}`
+      );
+    }
+
+  
+
+    return {
+      ...token,
+      user: {
+        ...token.user,
+        accessToken: tokens.access,
+        refreshToken: tokens.refresh ?? token.user.refreshToken, // Fall back to old refresh token
+      },
+      accessToken: tokens.access,
+      refreshToken: tokens.refresh ?? token.user.refreshToken, // Fall back to old refresh token
+    };
+  } catch (error) {
+    return {
+      ...token,
+      error: "RefreshAccessTokenError",
+    };
+  }
+}
+
+export const {
+  handlers: { GET, POST },
+  auth,
+  signIn,
+  signOut,
+  
+} = NextAuth({
+  session: {
+    strategy: "jwt",
+    maxAge:  30 * 60, // 1 Day
+  },
+  pages: {
+    signIn: "/auth/login",
+    // signOut: "/auth/logout",
+  },
+  providers: [
+    CredentialsProvider({
+      credentials: {
+        email: {},
+        phone_number:{},
+        phone_prefix:{},
+        password: {},
+        via:{},
+        token: {},
+        refresh:{},
+        success: {},
+        redirectToken: {},
+        updateDetail:{},
+      },
+      async authorize(credentials) {
+        try {
+
+
+          // ✅ If user already has a token, fetch details
+          if (credentials.token) {
+            const user = await fetchUserDetails(credentials.token as string);
+            return {
+              accessToken: credentials.token,
+              refreshToken: credentials.refresh,
+              user,
+              email: "",
+            };
+          }
+      
+          // ✅ Sanitize credentials (remove null and "null" values)
+          const sanitizedCredentials: Record<string, any> = Object.fromEntries(
+            Object.entries(credentials).filter(
+              ([_, value]) => value !== "null" && value !== null && value !== undefined
+            )
+          );
+      
+          // ✅ Perform login request
+          const loginResponse = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}auth/login/`,
+            
+            {
+              method: "POST",
+              body: JSON.stringify({
+                email: sanitizedCredentials.email,
+                password: sanitizedCredentials.password,
+                phone_number: sanitizedCredentials.phone_number,
+                phone_prefix: sanitizedCredentials.phone_prefix,
+                via: sanitizedCredentials.via,
+              }),
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+      
+          const loginData = await loginResponse.json();
+
+          console.log("session", loginData)
+      
+          // ✅ Check if login was unsuccessful
+          if (loginData.success === 'False') {
+            throw new Error(
+              loginData?.errors?.non_field_errors?.[0] || "Invalid login credentials"
+            );
+          }
+        
+          // ✅ Fetch user details after login
+          const user = await fetchUserDetails(loginData.data.access_token);
+      
+          // ✅ Return login details
+          return {
+            accessToken: loginData.data.access_token,
+            refreshToken: loginData.data.refresh_token,
+            user,
+            email: "",
+          };
+        } catch (error: any) {
+          // console.error("❌ Authorization Error:", error);
+          throw new Error(error.message || "Authentication failed");
+        }
+      },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
+    }),
+  ],
+  callbacks: {
+    redirect: async ({ url, baseUrl }: { url: string; baseUrl: string }) => {
+      return url;
+    },
+    jwt: async ({
+      token,
+      account,
+      user,
+      trigger,
+      session
+      
+    }: {
+      token: any;
+      account: any;
+      user: any;
+      trigger?: any
+      session?: any
+    }) => {
+
+        
+      
+
+      if (account && user) {
+        return {
+          ...token,
+          accessToken: token?.accessToken,
+          refreshToken: token?.refreshToken,
+          user: user,
+        };
+      }
+
+      if (token.user.accessToken) {
+        const decodedToken = jwtDecode(token.user.accessToken.toString());
+        // const expiresAt = Date.now() / 1000 - 30;
+        // console.log("expiresAt",expiresAt)
+
+        const expiresAt = decodedToken?.exp;
+        if (expiresAt) {
+          // const thirtySecondsLater = expiresAt * 1000 ;
+          // token.accessTokenExpires = thirtySecondsLater;
+          const fiveMinutesBeforeExpiration = expiresAt * 1000 - 5 * 60 * 1000;
+          token.accessTokenExpires = fiveMinutesBeforeExpiration;
+        } else {
+          token.accessTokenExpires = undefined;
+        }
+      }
+      if (trigger === "update" && session) {
+        return {
+          ...token,
+          user: {
+            ...token.user,
+            user: session.user,
+          },
+        };
+      }
+
+      if (Date.now() > (token.accessTokenExpires as number)) {
+        return refreshAccessToken(token);
+      }else{
+        return token
+      } 
+
+      
+
+  
+
+    },
+
+    session: async ({ session, trigger, token , newSession }) => {
+      
+      if (token) {
+        const tokenAsToken = token as any;
+        session.accessToken = tokenAsToken.user.accessToken as string;
+        session.refreshToken = tokenAsToken.user.refreshToken as string;
+        session.user = tokenAsToken.user.user as User as AdapterUser & User;
+      }
+      return session;
+    },
+  },
+});
+
+
+
+export async function fetchUserDetails(token: string) {
+  try {
+    // Fetch user details
+    const userResponse = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}users/details/me/`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!userResponse.ok) throw new Error("Failed to fetch user details");
+    const userData = await userResponse.json();
+    const userDetails = userData?.data;
+    let businessDetails = null;
+    let permissions = null;
+   
+
+    // If the user is a business, fetch business details
+    if (userDetails.exists_business_profile === true && userDetails?.user_type === "BUSINESS") {
+      try {
+        const businessResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}business/profile/`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!businessResponse.ok) throw new Error("Failed to fetch business details");
+        const businessData = await businessResponse.json();
+        businessDetails = businessData.data;
+      } catch (error) {
+        console.error("❌ Error fetching business details:", error);
+      }
+    }
+
+    // Fetch permissions data
+    // try {
+    //   const permissionsResponse = await fetch(
+    //     `${process.env.NEXT_PUBLIC_BASE_URL}users/permissions/`,
+    //     {
+    //       method: "GET",
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     }
+    //   );
+
+    //   if (!permissionsResponse.ok) throw new Error("Failed to fetch permissions");
+
+    //   permissions = await permissionsResponse.json();
+    // } catch (error) {
+    //   console.error("❌ Error fetching permissions:", error);
+    // }
+
+    // Return all combined data
+    return {
+      userDetails,
+      businessDetails,
+      permissions,
+    };
+  } catch (error) {
+    console.error("❌ Error fetching user data:", error);
+    throw new Error("Failed to fetch user data");
+  }
+}

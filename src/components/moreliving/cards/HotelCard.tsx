@@ -1,0 +1,50 @@
+import { SaloonTypes } from "@/lib/type/moresalons/salon";
+import Image from "next/image";
+import Link from "next/link";
+import { forwardRef } from "react";
+
+type HotelCardProps = SaloonTypes
+
+const HotelCard = forwardRef<HTMLDivElement, HotelCardProps>(({ banner, address, id,  is_open, name, rating, review_count }, ref) => {
+  return (
+    <Link href={`/moreliving/hotel/${id}`}>
+      <div
+        ref={ref}
+        className="w-full min-w-xs max-w-xs rounded-lg overflow-hidden transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg active:shadow-xl hover:bg-card active:bg-card"
+      >
+        <div className="relative w-full h-40">
+
+          <Image
+            src={banner}
+            alt={name}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-lg"
+          />
+          {/* {offers && (
+            <span className="absolute top-2 left-2 bg-green-600 text-white text-xs font-semibold px-2 py-1 rounded-md">
+              {offers}
+            </span>
+          )} */}
+        </div>
+        <div className="p-4">
+          <h3 className="text-lg font-semibold  truncate">{name}</h3>
+          <div className="flex items-center space-x-1 text-sm text-muted-foreground">
+            <span className="text-yellow-500">&#9733;</span>
+            <span className="font-medium">{rating}</span>
+            <span>({review_count} reviews)</span>
+            <span>&#8226;</span>
+            {/* <span>{address} min</span> */}
+          </div>
+          <div className="flex items-center space-x-1 text-sm text-muted-foreground">
+            <span className="line-clamp-1">{address}</span>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+});
+
+HotelCard.displayName = "HotelCard";
+
+export default HotelCard;
