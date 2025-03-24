@@ -13,11 +13,10 @@ export default async function DealsSection() {
   return (
     <div className="p-6 container mx-auto">
       <Heading title="Onboard with our platforms" />
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-4">
         {categories && categories.map((category : BusinessListType, index: number) => (
            <AnimatedSection key={category.id} index={index}>
-             <PlatformCard name="Morefood" icon="/morefood/All.svg" slug="all" />
-
+             <PlatformCard name={category.name} icon={category.banner} slug={category.name} />
            </AnimatedSection>
           // <div
           //   key={index}

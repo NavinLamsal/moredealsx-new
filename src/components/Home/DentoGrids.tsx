@@ -2,24 +2,24 @@ export default function BentoGrids() {
     return (
       <div className="bg-inherit py-24 sm:py-32">
         <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-          <h2 className="text-center text-base/7 font-semibold text-indigo-600">About MoreDealsClub
+          <h2 className="text-center text-base/7 font-semibold text-primary">About More Deals Club
           </h2>
-          <p className="mx-auto mt-2 max-w-2xl text-center text-4xl font-semibold tracking-tight text-balance text-gray-950 sm:text-5xl">
+          <p className="mx-auto mt-2 max-w-2xl text-center text-4xl font-semibold tracking-tight text-balance  sm:text-5xl">
           Unlock the Best Deals, Every Day!
           </p>
-          <p className="mx-auto mt-6 max-w-4xl text-center text-lg font-medium text-pretty text-gray-600 sm:text-xl/8">At MoreDealsClub, we are dedicated to bringing you the best deals, exclusive discounts, and exciting offers from top brands and merchants. Our platform is designed to help savvy shoppers save more while enjoying premium products and services.</p>
+          <p className="mx-auto mt-6 max-w-4xl text-center text-lg font-medium text-pretty text-muted-foreground sm:text-xl/8">At MoreDealsClub, we are dedicated to bringing you the best deals, exclusive discounts, and exciting offers from top brands and merchants. Our platform is designed to help savvy shoppers save more while enjoying premium products and services.</p>
 
-          <h2 className="text-center text-base/7 font-semibold text-indigo-600">What We Offer
+          <h2 className="text-center text-base/7 font-semibold text-primary">What We Offer
           </h2>
           <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
             <div className="relative lg:row-span-2">
-              <div className="absolute inset-px rounded-lg bg-white lg:rounded-l-[2rem]"></div>
+              <div className="absolute inset-px rounded-lg bg-card lg:rounded-l-[2rem]"></div>
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
                 <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
-                  <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">
+                  <p className="mt-2 text-lg font-medium tracking-tight text-card-foreground max-lg:text-center">
                   🛍 Exclusive Discounts
                   </p>
-                  <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
+                  <p className="mt-2 max-w-lg text-sm/6 text-muted-foreground max-lg:text-center">
                   Get access to unbeatable deals and special offers across various categories, from electronics to fashion and dining experiences.
                   </p>
                 </div>
@@ -33,14 +33,14 @@ export default function BentoGrids() {
                   </div>
                 </div>
               </div>
-              <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 lg:rounded-l-[2rem]"></div>
+              <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 dark:ring-white/10 lg:rounded-l-[2rem]"></div>
             </div>
             <div className="relative max-lg:row-start-1">
-              <div className="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem]"></div>
+              <div className="absolute inset-px rounded-lg bg-card max-lg:rounded-t-[2rem]"></div>
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
                 <div className="px-8 pt-8 sm:px-10 sm:pt-10">
-                  <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">🚀 Fast & Secure Deals</p>
-                  <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
+                  <p className="mt-2 text-lg font-medium tracking-tight  max-lg:text-center">🚀 Fast & Secure Deals</p>
+                  <p className="mt-2 max-w-lg text-sm/6 text-muted-foreground max-lg:text-center">
                   Our platform ensures a seamless shopping experience, with verified offers and a user-friendly interface for quick access to savings.
                   </p>
                 </div>
@@ -52,14 +52,14 @@ export default function BentoGrids() {
                   />
                 </div>
               </div>
-              <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 max-lg:rounded-t-[2rem]"></div>
+              <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 dark:ring-white/10 max-lg:rounded-t-[2rem]"></div>
             </div>
             <div className="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2">
-              <div className="absolute inset-px rounded-lg bg-white"></div>
+              <div className="absolute inset-px rounded-lg bg-card"></div>
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
                 <div className="px-8 pt-8 sm:px-10 sm:pt-10">
-                  <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">🔒 Secure & Trustworthy</p>
-                  <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
+                  <p className="mt-2 text-lg font-medium tracking-tight text-card-foreground max-lg:text-center">🔒 Secure & Trustworthy</p>
+                  <p className="mt-2 max-w-lg text-sm/6 text-muted-foreground max-lg:text-center">
                   We prioritize customer security, ensuring every deal is authentic, trustworthy, and beneficial for our users.
                   </p>
                 </div>
@@ -71,16 +71,16 @@ export default function BentoGrids() {
                   />
                 </div>
               </div>
-              <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5"></div>
+              <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 dark:ring-white/10"></div>
             </div>
             <div className="relative lg:row-span-2">
-              <div className="absolute inset-px rounded-lg bg-white max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"></div>
+              <div className="absolute inset-px rounded-lg bg-card max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"></div>
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
                 <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
-                  <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">
+                  <p className="mt-2 text-lg font-medium tracking-tight text-card-foreground max-lg:text-center">
                   🌎 Wide Network of Partners
                   </p>
-                  <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
+                  <p className="mt-2 max-w-lg text-sm/6 text-muted-foreground max-lg:text-center">
                   We collaborate with top retailers and brands to deliver real value to our members. Whether it's a seasonal sale or a limited-time deal, we bring you the best.
                   </p>
                 </div>
@@ -98,7 +98,7 @@ export default function BentoGrids() {
                   </div>
                 </div>
               </div>
-              <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"></div>
+              <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 dark:ring-white/10 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"></div>
             </div>
           </div>
         </div>

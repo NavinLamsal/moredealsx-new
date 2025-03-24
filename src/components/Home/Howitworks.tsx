@@ -195,7 +195,7 @@ const HowItWorksSection = () => {
 
   return (
     <div ref={sectionRef} className="py-10 px-4 sm:px-6 lg:px-20">
-      <h2 className="text-2xl sm:text-3xl font-bold text-center text-purple-700 mb-10">
+      <h2 className="text-2xl sm:text-3xl font-bold text-center text-primary dark:text-white mb-10">
         How More Deals Club Works?
       </h2>
       <div className="flex flex-col sm:flex-row items-center justify-between gap-10 max-w-5xl mx-auto">
@@ -215,7 +215,7 @@ const HowItWorksSection = () => {
                 "w-24 h-24 flex items-center justify-center rounded-full text-4xl mb-4",
                 highlightIndex === index
                   ? "text-white shadow-lg bg-primary"
-                  : "bg-transparent border-2 border-primary border-dashed "
+                  : "bg-transparent border-2 border-primary dark:border-white border-dashed "
               )}
             >
               {step.icon}

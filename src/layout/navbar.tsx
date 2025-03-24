@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 import React from 'react'
 
 const Navbar = () => {
@@ -12,12 +13,18 @@ const Navbar = () => {
     </div>
 
     <div className='flex gap-3'>
+      <Link href={'/auth/login'}>
       <Button variant="outline" className="text-white">
         Login
       </Button>
+      
+      </Link>
+      <Link href={'/auth/register'}>
       <Button variant="default" className="">
         Register
       </Button>
+      </Link>
+
     </div>
       </div>
     </div>

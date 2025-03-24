@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function MobileAppShowcase() {
   return (
 
-    <section className="relative text-black  overflow-hidden shadow-lg flex flex-col md:flex-row items-center justify-between p-8 md:p-16 before:absolute before:inset-0 before:bg-[url('https://cdn.pixabay.com/photo/2015/02/02/11/09/office-620822_960_720.jpg')] before:bg-cover before:bg-center before:opacity-40 before:z-0">
+    <section className="relative   overflow-hidden shadow-lg flex flex-col lg:flex-row items-center justify-between p-8 md:p-16 before:absolute before:inset-0 before:bg-[url('https://cdn.pixabay.com/photo/2015/02/02/11/09/office-620822_960_720.jpg')] before:bg-cover before:bg-center before:opacity-40 before:z-0">
       
     {/* Left Content */}
     <div className="flex-1 text-center md:text-left relative z-10">
@@ -54,13 +54,13 @@ export default function MobileAppShowcase() {
 
         {/* Phones with Images */}
         <div className="absolute inset-0 flex justify-center items-center space-x-4">
-          <div className="bg-black w-32 h-64 rounded-xl shadow-lg border border-gray-200 dark:border-gray-600 transform rotate-[-15deg] overflow-hidden">
+          <div className="bg-black w-32 h-36 md:h-64 rounded-xl shadow-lg border border-gray-200 dark:border-gray-600 transform rotate-[-15deg] overflow-hidden">
             <Image src="/images/jpeg/app2.jpeg" alt="App Preview 1" width={144} height={288} quality={100} className="w-full h-full object-cover px-1 rounded-2xl" />
           </div>
-          <div className="bg-black w-36 h-72 rounded-xl shadow-lg border border-gray-200 dark:border-gray-600 z-10 overflow-hidden">
+          <div className="bg-black w-36 md:h-72 h-48  rounded-xl shadow-lg border border-gray-200 dark:border-gray-600 z-10 overflow-hidden">
             <Image src={"/images/jpeg/app1.jpeg"} alt="App Preview 2" width={144} height={288} quality={100} className="w-full h-full object-cover px-1 rounded-2xl " />
           </div>
-          <div className="bg-black w-32 h-64 rounded-xl shadow-lg border border-gray-200 dark:border-gray-600 transform rotate-[15deg] overflow-hidden">
+          <div className="bg-black w-32 h-36 md:h-64 rounded-xl shadow-lg border border-gray-200 dark:border-gray-600 transform rotate-[15deg] overflow-hidden">
             <Image src="/images/jpeg/app3.jpeg" alt="App Preview 3" width={144} height={288} quality={100} className="w-full h-full object-cover px-1 rounded-2xl" />
           </div>
         </div>
