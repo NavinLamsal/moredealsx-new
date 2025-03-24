@@ -18,7 +18,7 @@ export const useFetchEvents = () => {
   }> => {
     try {
       const pages = page ?? 1;
-      const response = await axios.get(
+      const response = await MoreClubApiClient.get(
         `events/list/?page=${pages}`
       );
       return { data: response.data.data, meta: response.data.meta };
@@ -35,7 +35,7 @@ export const useFetchEvents = () => {
   }> => {
     try {
       const pages = page ?? 1;
-      const response = await axios.get(
+      const response = await MoreClubApiClient.get(
         `events/list/?page=${pages}`
       );
       return { data: response.data.data, meta: response.data.meta };

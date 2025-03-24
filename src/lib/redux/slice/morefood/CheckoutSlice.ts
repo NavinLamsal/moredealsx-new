@@ -12,6 +12,7 @@ const getSessionStorageItem = <T,>(key: string, defaultValue: T): T => {
 
 // Load initial state from session storage
 const loadInitialState = (): CheckoutFormTypes => ({
+  step: getSessionStorageItem("orderStep", 1),
   deliverytype: getSessionStorageItem("deliverytype", ""),
   receiverName: getSessionStorageItem("receiverName", ""),
   mobileNumber: getSessionStorageItem("mobileNumber", ""),
@@ -37,8 +38,21 @@ const checkoutSlice = createSlice({
       }
       return { ...state, ...action.payload };
     },
+
+    nextStep: (state) => {
+      if (state.step < 2) {
+        state.step += 1;
+        sessionStorage.setItem("orderStep", String(state.step)); // Store in sessionStorage
+      }
+    },
+    prevStep: (state) => {
+      if (state.step > 1) {
+        state.step -= 1;
+        sessionStorage.setItem("orderStep", String(state.step)); // Store in sessionStorage
+      }
+    },
   },
 });
 
-export const { updateFormData } = checkoutSlice.actions;
+export const { updateFormData, nextStep, prevStep } = checkoutSlice.actions;
 export default checkoutSlice.reducer;

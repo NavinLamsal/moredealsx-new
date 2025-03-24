@@ -240,10 +240,22 @@ export const useFetchRestaurant = () => {
     page: number = 1
   ): Promise<{ data: ResturantListType[]; meta: MetaData }> => {
     try {
-      // Convert params object to query string
-      const queryParams = new URLSearchParams({ ...params, page: page.toString() });
+
+      const limit = 10;
+    const offset = (page - 1) * limit;
+
+    // Convert params object to query string
+    const queryParams = new URLSearchParams({
+      ...params,
+      offset: offset.toString(),
+      limit: limit.toString(),
+      page: page.toString(),
+    });
+
+      // // Convert params object to query string
+      // const queryParams = new URLSearchParams({ ...params, offset:"0", limit:"10", page: page.toString() });
   
-      const response = await axios.get(`restaurants/${type}/?${queryParams.toString()}`);
+      const response = await MoreFoodApiClient.get(`restaurants/${type}/?${queryParams.toString()}`);
   
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {

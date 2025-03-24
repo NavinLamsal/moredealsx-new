@@ -163,6 +163,7 @@ export interface OfferType {
 
 
 export interface CheckoutFormTypes {
+  step: number;
   deliverytype: string;        
   receiverName: string;
   mobileNumber: string;
@@ -172,5 +173,38 @@ export interface CheckoutFormTypes {
   location: string;
   lat: number;                 
   lon: number;   
+}
+
+
+export interface MoreDealOrderTypes {
+  restaurant_slug: string;
+  order_type: string;
+  items: { [id: string]: orderFoodItem };
+  offer_items: { [id: string]: orderItem };
+  full_name: string;
+  phone_no: string;
+  payment_method: string;
+  address?: string;
+  lat?: string;
+  lng?: string;
+  pin: string;
+  arrival_time?: string;
+  platform: string;
+  note?: string;
+}
+
+export interface orderItem {
+  id: string;
+  price: number;
+  quantity: number;
+}
+
+export interface orderFoodItem {
+  id: string;
+  price: number;
+  description: string;
+  name: string;
+  quantity: number;
+  related_food_item: string[]; 
 }
 

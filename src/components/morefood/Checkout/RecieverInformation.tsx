@@ -2,22 +2,43 @@
 import ReceiverDetail from '@/components/form/morefood/ReceiverDetail'
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
+import { updateFormData } from '@/lib/redux/slice/morefood/CheckoutSlice';
 import { RootState } from '@/lib/redux/store';
-import { Phone, User, UserRound } from 'lucide-react';
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import { Phone, SquareChartGantt, User, UserRound } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 
 const RecieverInformation = () => {
-     const [isOpen, setIsOpen] = useState(false);
+    const {data:session}= useSession();
+
+    const [isOpen, setIsOpen] = useState(false);
     const formData = useSelector((state: RootState) => state.delivery);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+      if (session) {
+        if(formData.receiverName === ""){
+          const updatedFormData = { ...formData, "receiverName": `${session.user.userDetails.first_name} ${session.user.userDetails.last_name}` };
+          dispatch(updateFormData(updatedFormData));
+        }
+        if(formData.mobileNumber === ""){
+          if(session.user.userDetails.phone_number !== null){
+          const updatedFormData = { ...formData, "mobileNumber": `${session.user.userDetails.phone_prefix}${session.user.userDetails.phone_number}` };
+          dispatch(updateFormData(updatedFormData));
+        }
+      }
+      }
+    }, [session]);
 
   return (
     <div className="mt-4 border-b pb-4">
-    <h3 className="font-medium flex items-center gap-1"><User fill='currentColor' className='mr-2'  />Reciever Information</h3>
+    <h3 className="font-medium flex items-center gap-1"><SquareChartGantt  className='mr-2'  />Reciever Information</h3>
     <div className="mt-2 space-y-2 flex justify-between items-end">
      <div className=' flex flex-col gap-3'>
-    <p className='flex items-center ml-6'><UserRound size={16} fill='currentColor' className='mr-2' /> {formData.receiverName}</p> 
-    <p className='flex items-center ml-6'><Phone size={16} fill='currentColor' className='mr-2' />{formData.mobileNumber}</p>   
+    <p className='flex items-center ml-6'><UserRound size={16} fill='currentColor' className='mr-2 ' /> 
+    {formData.receiverName === "" ? <span className='text-muted-foreground'>Receiver name is Required</span> : `${formData.receiverName}`}</p> 
+    <p className='flex items-center ml-6'><Phone size={16} fill='currentColor' className='mr-2' />{formData.mobileNumber === "" ? <span className='text-muted-foreground'>Phone Number is Required</span> : `${formData.mobileNumber}`}</p>   
     </div>   
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
@@ -26,11 +47,11 @@ const RecieverInformation = () => {
       <DialogContent className="border-none p-0">
         <div className="flex items-center justify-center">
           <div className="w-full max-w-xl rounded-xl p-6 shadow-lg">
-            <div className="text-xl font-semibold">What is your exact location?</div>
-            <p className="mt-2 text-gray-600">
-              Specifying your location enables more accurate search results, seamless order tracking, and personalized recommendations.
+            <div className="text-xl font-semibold">Who will be receiving the Order?</div>
+            <p className="my-2 text-gray-600">
+              Specifying reciver name and phone number enables, seamless order tracking for you. Please Provide the correct details
             </p>
-            <ReceiverDetail/>
+            <ReceiverDetail onSubmit={() => setIsOpen(false)}/>
             
           </div>
         </div>

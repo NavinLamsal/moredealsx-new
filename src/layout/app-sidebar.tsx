@@ -13,7 +13,6 @@ import {
 
 import { NavMain } from "@/layout/nav-main"
 import { NavProjects } from "@/layout/nav-projects"
-import { NavUser } from "@/layout/nav-user"
 import { TeamSwitcher } from "@/layout/team-switcher"
 import {
   Sidebar,
@@ -36,7 +35,6 @@ type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
 
 export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
  
-
   const pathname = usePathname()
   const session = useSession();
   const data = {
@@ -84,7 +82,7 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
         },]
         : [{
           title: "Network",
-          url: "/dashboard/networks",
+          url: "/networks",
           icon: Bot, 
           darkImage:"/images/svg/NetworkWhite..svg",
           lightImage:"/images/svg/NetworkYellow.svg",

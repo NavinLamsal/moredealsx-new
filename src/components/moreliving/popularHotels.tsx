@@ -42,7 +42,7 @@ const PopularHotels = () => {
      <HorizontalCarousel title="Featured Hotels" viewAll="/moreliving/category/featured-hotel?title=Featured Hotels">
      {data &&
             data.data.map((item: HotelTypes , index: number) => (
-       <div className="flex-shrink-0 w-60">
+       <div className="flex-shrink-0 w-60" key={item.id}>
         <AnimatedSection key={item.id} index={index}>
         <HotelCard key={item.id} {...item} />
          </AnimatedSection>

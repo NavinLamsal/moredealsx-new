@@ -2,6 +2,7 @@ import axios from "axios";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { RootState } from "./redux/store";
+import cookie from "cookie";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -115,6 +116,23 @@ export const fetchLiveLocation = async () => {
 };
 
 
+export const getCountryCode = async () => {
+  let countrycode = "";
+  if (typeof window !== "undefined") {
+    const cookies = document.cookie;
+    const parsedCookies = cookie.parse(cookies);
+    const countryCode = parsedCookies.countryCode;
+
+    if (countryCode) {
+      countrycode = countryCode;
+    } else {
+      const countryData = await fetchLiveLocation();
+      countrycode = countryData.countryCode;
+    }
+  }
+  return countrycode;
+};
+
 
 
 const apiUrlMapping: Record<string, string> = {
@@ -182,6 +200,15 @@ export const getServerApiUrl = (platform: string, countryCode?: string): string 
   // If no valid country-specific URL is found, return the platform's default URL
   return urls["default"] || "https://moretrek.com/api/";
 };
+
+
+export const getMorefoodServerurl = (countryCode?: string): string => {
+  const urls = platformUrls["morefood"];
+  if (countryCode && urls[countryCode]) {
+    return urls[countryCode];
+  }
+  return urls["default"] || "https://api.morefood.se/api/";
+}
 
 
 

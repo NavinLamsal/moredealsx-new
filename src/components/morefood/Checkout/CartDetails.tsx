@@ -1,0 +1,181 @@
+"use client"
+import Heading from '@/components/ui/heading';
+import { useAppDispatch, useAppSelector } from '@/lib/redux/hooks';
+import { decrementOffer, decrementProduct, incrementOffer, incrementProduct, removeOffer, removeProduct } from '@/lib/redux/slice/morefood/productCart';
+import { CartFoodItemsTypes, CartFoodOfferTypes } from '@/lib/type/morefood/restaurant'
+import { X } from 'lucide-react';
+import Image from 'next/image'
+import React from 'react'
+import { useDispatch } from 'react-redux';
+
+const CartDetails = () => {
+    const items = useAppSelector((state) => state.foodCart.items);
+    const offers = useAppSelector((state) => state.foodCart.exclusiveOffers);
+
+    const itemsubtotal = items.reduce(
+        (total, item) =>
+            total +
+            (item.price) *
+            (item.quantity ?? 0),
+        0
+    );
+
+    const offersubTotal = offers.reduce(
+        (total, item) => total + item.price * (item.quantity ?? 0),
+        0
+    );
+
+    const subtotal = itemsubtotal + offersubTotal;
+    const shipping = 0;
+    const total = subtotal + shipping;
+
+    const currency_symbol =
+        items && items.length > 0
+            ? items[0].currency_symbol
+            : offers && offers.length > 0
+                ? offers[0].currency_symbol
+                : "";
+    const totalItem = items.reduce((total, item) => total + (item.quantity || 0), 0);
+    const totalOffer = offers.reduce((total, item) => total + (item.quantity || 0), 0);
+    const totalItems = totalItem + totalOffer;
+
+    return (
+        <div className='flex flex-col justify-between'>
+            <div>
+                <Heading title="Your Cart" />
+                <div className="flex flex-col  gap-4 max-h-[400px] overflow-y-auto">
+
+                    {items.map((item: CartFoodItemsTypes) => (
+                        <OrderCard item={item} type='item'
+                        />
+                    ))}
+                    {offers.map((item: CartFoodOfferTypes) => (
+                        <OrderCard item={item} type='offer'
+                        />
+                    ))}
+                </div>
+            </div>
+            <div className='mt-auto'>
+                <div className="mt-4 border-b-2 pb-2 border-dashed">
+                    <h3 className="font-medium">Cart summary ({totalItems} item)</h3>
+                </div>
+                {/* Order Total */}
+                <div className="mt-4">
+                    {/* <h3 className="font-medium">Order total</h3> */}
+                    <div className="mt-2 text-sm text-gray-700">
+                        {/* <div className="flex justify-between"><span>Subtotal</span><span>$3.40</span></div>
+                <div className="flex justify-between"><span>Delivery Fee</span><span>$13.99</span></div>
+                <div className="flex justify-between"><span>Taxes & Other Fees</span><span>$5.30</span></div> */}
+                        <div className="flex justify-between font-semibold mt-2"><span>Total</span><span>{currency_symbol}&nbsp;{total}</span></div>
+                    </div>
+                </div>
+            </div>
+            {/* Cart Summary */}
+        </div>
+    )
+}
+
+export default CartDetails
+
+
+
+const OrderCard = ({ item, type }: { item: CartFoodItemsTypes | CartFoodOfferTypes, type: "item" | "offer" }) => {
+    const dispatch = useDispatch();
+
+    const handleRemove = (item: CartFoodItemsTypes | CartFoodOfferTypes) => {
+        if (type === 'item') {
+            dispatch(removeProduct(item as CartFoodItemsTypes));
+        }
+        if (type === 'offer') {
+            dispatch(removeOffer(item.id));
+        }
+    };
+
+    const handleIncrement = (
+        item: CartFoodItemsTypes | CartFoodOfferTypes
+    ) => {
+        if (type === 'item') {
+            dispatch(incrementProduct(item as CartFoodItemsTypes));
+        }
+        if (type === 'offer') {
+            dispatch(incrementOffer(item.id));
+        }
+    };
+
+    const handleDecrement = (item: CartFoodItemsTypes | CartFoodOfferTypes) => {
+        if (type === 'item') {
+            dispatch(decrementProduct(item as CartFoodItemsTypes));
+        }
+        if (type === 'offer') {
+            dispatch(decrementOffer(item.id));
+        }
+
+
+
+    };
+
+
+
+    return (
+        <div
+            key={item.id}
+            className="mb-6  rounded-md md:rounded-lg bg-white dark:bg-dark-secondary p-1 shadow-md flex justify-start"
+        >
+            <Image
+                src={item.image ? `${item.image}` : "/Images/morefood.jpg"}
+                alt={item.name}
+                width={500}
+                height={500}
+                className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-md md:rounded-lg"
+            />
+            <div className="ml-2 flex w-full justify-between">
+                <div className="mt-0 flex flex-col justify-between">
+                    <div>
+                        <h4 className="text-card-foreground text-xs ">{item.name}</h4>
+                        <p className='text-muted-foreground my-1' style={{ lineHeight: '8px', fontSize: "10px" }}>{item.description}</p>
+
+                    </div>
+
+                    <div className="flex items-center border-gray-100">
+                        <span
+                            onClick={() => handleDecrement(item)}
+                            className="cursor-pointer rounded-l bg-gray-100 dark:bg-dark-primary py-1 px-2 duration-100 hover:bg-S_btn hover:text-blue-50 dark:hover:bg-S_btn"
+                        >
+                            -
+                        </span>
+                        <input
+                            className="h-8 w-8 border bg-white dark:bg-dark-secondary text-center text-xs outline-none"
+                            type="number"
+                            name="quantity"
+                            id="quantity"
+                            value={item.quantity}
+                            readOnly
+                            min="1"
+                        />
+                        <span
+                            onClick={() => handleIncrement(item)}
+                            className="cursor-pointer rounded-r bg-gray-100 dark:bg-dark-primary py-1 px-2  duration-100 hover:bg-S_btn hover:text-blue-50 dark:hover:bg-S_btn"
+                        >
+                            +
+                        </span>
+                    </div>
+                </div>
+                <div className=" justify-between sm:space-y-6  flex flex-col  sm:space-x-6 pr-1">
+                    <div
+                        onClick={() => handleRemove(item)}
+                        className="flex items-center justify-end"
+                    >
+                        <X size={16} className='hover:text-destructive cursor-pointer' />
+                    </div>
+
+                    <div className="flex items-center space-x-4">
+                        <p className="text-sm">
+                            {item.currency_symbol}&nbsp;
+                            {item.price}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}

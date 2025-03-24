@@ -1,15 +1,9 @@
-import { auth } from "@/auth"
 import Offers from "@/components/Dashboard/Offers"
-// import QuickLinks from "@/components/Dashboard/QuickLinks"
-import SessionUpdate from "@/components/Dashboard/SessionUpdate"
-import PopularEvent from "@/components/Events/PopularEvent"
 import TrendingEvents from "@/components/Events/TrendingEvent"
 import BusinessSetupModal from "@/components/form/moredealsclub/BusinessRegistration/BusinessRegisterForm"
-import DealsSection from "@/components/Home/popularDeals"
-import WalletInfo, { QuickLinks } from "@/components/moreclub/wallets/WalletInfo"
-import PopularResturants from "@/components/morefood/popularRestaurantList"
+import PopularRestaurant from "@/components/morefood/PopularRestaurant"
+import PopularHotels from "@/components/moreliving/popularHotels"
 import PopularSalons from "@/components/moresalons/popularSalons"
-import SessionUdpate from "@/components/test/sessionUdpate"
 
 
 
@@ -19,9 +13,11 @@ export default async function Page() {
   return (    
     <div className="flex-1 space-y-4  pt-6">
      <BusinessSetupModal />
-
      <Offers />
      <TrendingEvents/>
+     <PopularRestaurant/>
+     <PopularSalons/>
+     <PopularHotels/>
    
     <div>
 

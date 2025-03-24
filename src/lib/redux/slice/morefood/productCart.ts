@@ -112,17 +112,75 @@ const cartSlice = createSlice({
       localStorage.setItem("Offers", JSON.stringify(state.exclusiveOffers));
     },
 
-    incrementProduct: (state, action: PayloadAction<string>) => {
-      const item = state.items.find((i: CartFoodItemsTypes) => i.id === action.payload);
-      if (item) item.quantity = (item.quantity || 0) + 1;
+    incrementProduct: (state, action: PayloadAction<CartFoodItemsTypes>) => {
+
+      const existingItem = state.items.find((item) => {
+        if (item.id === action.payload.id) {
+          // Compare related_food_item arrays after sorting
+          const existingRelatedIds = item.related_food_item.map((related) => related.id).sort();
+          const newRelatedIds = action.payload.related_food_item.map((related) => related.id).sort();
+          
+          // Compare the sorted related food item IDs
+          return JSON.stringify(existingRelatedIds) === JSON.stringify(newRelatedIds);
+        }
+        return false;
+      });
+      
+      
+      if (existingItem) {
+        existingItem.quantity = (existingItem.quantity || 0) + 1;
+    } else {
+        // If item doesn't exist, add it with quantity 1
+        state.items.push({ ...action.payload, quantity: 1 });
+    }
+      
       localStorage.setItem("Products", JSON.stringify(state.items));
     },
 
-    decrementProduct: (state, action: PayloadAction<string>) => {
-      const item = state.items.find((i: CartFoodItemsTypes) => i.id === action.payload);
-      if (item && (item.quantity || 0) > 1) item.quantity -= 1;
+    // decrementProduct: (state, action: PayloadAction<string>) => {
+
+    //   const existingItem = state.items.find((item) => {
+    //     if (item.id === action.payload.id) {
+    //       // Compare related_food_item arrays after sorting
+    //       const existingRelatedIds = item.related_food_item.map((related) => related.id).sort();
+    //       const newRelatedIds = action.payload.related_food_item.map((related) => related.id).sort();
+          
+    //       // Compare the sorted related food item IDs
+    //       return JSON.stringify(existingRelatedIds) === JSON.stringify(newRelatedIds);
+    //     }
+    //     return false;
+    //   });
+
+    //   if (existingItem) {
+    //     existingItem.quantity = (existingItem.quantity || 0) + 1;
+    // } else {
+    //     // If item doesn't exist, add it with quantity 1
+    //     state.items.push({ ...action.payload, quantity: 1 });
+    // }
+
+    //   const item = state.items.find((i: CartFoodItemsTypes) => i.id === action.payload);
+    //   if (item && (item.quantity || 0) > 1) item.quantity -= 1;
+    //   localStorage.setItem("Products", JSON.stringify(state.items));
+    // },
+    decrementProduct: (state, action: PayloadAction<CartFoodItemsTypes>) => {
+      const existingItem = state.items.find((item) => {
+          if (item.id === action.payload.id) {
+              const existingRelatedIds = item.related_food_item.map((related) => related.id).sort();
+              const newRelatedIds = action.payload.related_food_item.map((related) => related.id).sort();
+              return JSON.stringify(existingRelatedIds) === JSON.stringify(newRelatedIds);
+          }
+          return false;
+      });
+  
+      if (existingItem) {
+          if (existingItem.quantity > 1) {
+              existingItem.quantity -= 1;
+          }
+      }
+  
       localStorage.setItem("Products", JSON.stringify(state.items));
-    },
+  },
+  
 
     clearCart: (state) => {
       state.items = [];

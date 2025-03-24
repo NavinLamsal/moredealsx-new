@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/sidebar"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import Logout from "./Logout"
 
 export function NavUser({
   user,
@@ -118,8 +119,9 @@ export function NavUser({
             <Link href="/auth/logout">
             
             <DropdownMenuItem>
-              <LogOut />
-              Log out
+            <Logout/>
+              {/* <LogOut />
+              Log out */}
             </DropdownMenuItem>
             </Link>
           </DropdownMenuContent>

@@ -1,12 +1,13 @@
 "use client";
 
-import { useAxiosClient } from "@/lib/axios/axiosClient";
+// import { useAxiosClient } from "@/lib/axios/axiosClient";
 import { MetaData } from "@/lib/type/CommonType";
 import { HotelTypes } from "@/lib/type/moreliving/hotel";
+import axios from "axios";
 
 
 export const useFetchHotel = () => {
-  const axios = useAxiosClient("moreliving", true);
+  // const axios = useAxiosClient("moreliving", true);
 
   const fetchPopularHotelList = async (
     page?: number
@@ -17,7 +18,12 @@ export const useFetchHotel = () => {
     try {
       const pages = page ?? 1;
       const response = await axios.get(
-        `property/popular-properties/?page=${pages}`
+        `https://api.morelivingglobal.com/api/property/popular-properties/?page=${pages}`,{
+          "headers": {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "x-country-code": "NP"
+          }}
       );
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {

@@ -12,8 +12,9 @@ export default async function DealsSection() {
 
   return (
     <div className="p-6 container mx-auto">
-      <Heading title="Onboard with our platforms" />
-      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-4">
+      {/* <Heading title="Onboard with our platforms" /> */}
+      <h2 className='text-xl  font-semibold text-gray-800 dark:text-gray-100 text-center mb-10'>Onboard with our platforms </h2>
+      <div className="flex justify-center items-center gap-20">
         {categories && categories.map((category : BusinessListType, index: number) => (
            <AnimatedSection key={category.id} index={index}>
              <PlatformCard name={category.name} icon={category.banner} slug={category.name} />

@@ -96,3 +96,28 @@ export const validateRequired = (value: string , name: string): string => {
       return "";
     };
 
+    export const validateLocationDetails = (name: string, location: string, lat: string, lng: string): string => {
+  
+    
+      // Check if location (address) is provided
+      if (!location.trim()) return `${name} is required.`;
+    
+      // Check if latitude and longitude are provided
+      if (!lat.trim() || !lng.trim()) return "Invalid Location please choose from the map and try again.";
+    
+      const latitude = parseFloat(lat);
+      const longitude = parseFloat(lng);
+    
+      // Validate latitude
+      if (isNaN(latitude) || latitude < -90 || latitude > 90) {
+        return `Invalid ${name} please choose from the map and try again.`;
+      }
+    
+      // Validate longitude
+      if (isNaN(longitude) || longitude < -180 || longitude > 180) {
+        return `Invalid ${name} please choose from the map and try again.`;
+      }
+    
+      return ""; // No errors
+    };
+    

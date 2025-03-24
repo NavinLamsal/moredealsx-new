@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import LocationMapbox from "@/components/MapBox/LocationMapbox";
+import MapboxNavigationComponent from "@/components/MapBox/MapboxNavigationComponent";
 
-export function LocationDialog({ children }: { children: React.ReactNode }) {
+export function RestroLocationDialog({ children , location , details }: { children: React.ReactNode, location: string , details:{ lat: string; lng: string; } }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
 
@@ -31,14 +32,16 @@ export function LocationDialog({ children }: { children: React.ReactNode }) {
       <DialogContent className="border-none p-0">
         <div className="flex items-center justify-center">
           <div className="w-full max-w-xl rounded-xl p-6 shadow-lg">
-            <div className="text-xl font-semibold">What is your exact location?</div>
-            <p className="mt-2 text-gray-600">
+            <div className="text-xl font-semibold">Your {location} Location</div>
+            {/* <p className="mt-2 text-gray-600">
               Specifying your location enables more accurate search results, seamless order tracking, and personalized recommendations.
-            </p>
-            <LocationMapbox setNewAddress={handleSave} />
+            </p> */}
+            {details.lat && details.lng && (
+          <MapboxNavigationComponent lat={`${details.lat}`} lng={`${details.lng}`} height="200px" />
+        )}
             <DialogFooter className="my-4 mx-4">
               <DialogClose>
-                <Button onClick={() => handleSave(selectedAddress || "")}>Save</Button>
+                <Button onClick={() => handleSave(selectedAddress || "")}>Close</Button>
               </DialogClose>
             </DialogFooter>
           </div>

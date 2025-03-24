@@ -9,22 +9,14 @@ const RestaurantTab = ({details}:{details:Restaurant}) => {
     // const activetab = searchParams?.get("tab");
 
     const tablist = [
-        {
-          id: "1",
-          value: "overview",
-          name: "Overview",
-          content: (
-            <>
-            <Overview
-            details={details}
-            />
-            details
-            </>
-            // <Suspense fallback={<p>Loading...</p>}>
-            //   <ResturantAllDetail id={id} />
-            // </Suspense>
-          ),
-        },
+      {
+        id: "5",
+        value: "review",
+        name: "Reviews",
+        content: <Reviews slug={details.slug} />
+        
+      },
+        
         {
           id: "4",
           value: "gallery",
@@ -34,19 +26,28 @@ const RestaurantTab = ({details}:{details:Restaurant}) => {
           gallery
           </> ,
         },
+          
           {
-            id: "5",
-            value: "review",
-            name: "Reviews",
-            content: <Reviews slug={details.slug} />
-            ,
-          }
+            id: "1",
+            value: "overview",
+            name: "Overview",
+            content: (
+              <>
+              <Overview
+              details={details}
+              />
+              </>
+              // <Suspense fallback={<p>Loading...</p>}>
+              //   <ResturantAllDetail id={id} />
+              // </Suspense>
+            ),
+          },
       ]
 
 
   return (
     <Tabs
-        defaultValue={"overview"}
+        defaultValue={"review"}
         className="mx-auto w-full"
       >
         <TabsList className="4xl:max-w-9xl py- md:py-8 3xl:max-w-8xl max-w-7xl mx-auto w-full hide-scroll-bar overflow-x-scroll overflow-y-hidden bg-inherit dark:bg-inherit mt-5  rounded-none flex items-center justify-start border-t">

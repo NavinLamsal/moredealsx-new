@@ -50,7 +50,7 @@ const PopularSalons = () => {
    <div className="p-4">
      <HorizontalCarousel title="Featured Salons" viewAll="/moresalon/category/featured-salons?title=Featured Salons">
      {data.data.map((item: SaloonTypes , index: number) => (
-       <div className="flex-shrink-0 w-60">
+       <div className="flex-shrink-0 w-60" key={item.id}>
         <AnimatedSection key={item.id} index={index}>
         <SalonCard key={item.id} {...item} />
          </AnimatedSection>
