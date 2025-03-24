@@ -1,3 +1,4 @@
+import TrendingEvents from "@/components/Events/TrendingEvent";
 import MobileAppShowcase from "@/components/Home/appPromotion";
 import CallToAction from "@/components/Home/CallToAction";
 import BentoGrids from "@/components/Home/DentoGrids";
@@ -86,11 +87,11 @@ export default async function Home() {
    <ESewaLayout/>
    {/* <Hero data={MetaDatas} /> */}
    <div className="max-w-8xl mx-auto flex flex-col">
-    
    <DealsSection/>
    <PopularRestaurant />
    <PopularSalons/>
    <PopularHotels/>
+   <TrendingEvents/>
    <HowItWorksSection/>
 
    <CallToAction/>

@@ -1,9 +1,7 @@
 "use client";
 
 import React from "react";
-import { Search, User, Lock, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import {ChevronDown } from "lucide-react";
 import Offers from "../Dashboard/Offers";
 import Navbar from "@/layout/navbar";
 
@@ -12,7 +10,7 @@ const ESewaLayout = () => {
     <>
      <Navbar/>
       <div className="bg-primary text-white py-2 px-6  gap-6">
-        <div className="max-w-8xl flex gap-6 mx-auto  justify-start">
+        <div className="max-w-8xl flex flex-wrap gap-6 mx-auto  justify-start">
 
         <span className="cursor-pointer hover:underline">Load Fund</span>
         <span className="cursor-pointer hover:underline">Morefood</span>

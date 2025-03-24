@@ -37,10 +37,10 @@ const PopularRestaurant = () => {
 
 
   return (
-    <div className="p-4">
+    <div className="p-1 lg:p-4">
       <HorizontalCarousel title="Featured Restaurants" viewAll="/morefood/category/featured-restaurants?title=Featured Restaurants">
       {data.data.map((restaurant, index) => (
-        <div className="flex-shrink-0 w-60">
+        <div className="flex-shrink-0 w-60" key={index}>
          <AnimatedSection key={restaurant.id} index={index}>
          <RestaurantCard 
             key={index} 

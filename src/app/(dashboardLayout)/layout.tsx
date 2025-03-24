@@ -38,7 +38,7 @@ export default async function DashboardLayout({
         <Suspense fallback={<div>Loading...</div>}>
           <Headers />
         </Suspense>
-        <div className="relative flex min-h-svh flex-1 flex-col gap-4 p-4 pt-0">
+        <div className="relative flex min-h-svh flex-1 flex-col gap-4 p-1 lg:p-4 pt-0">
 
         {children}
         </div>

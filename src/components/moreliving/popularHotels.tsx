@@ -38,7 +38,7 @@ const PopularHotels = () => {
 
 
  return (
-   <div className="p-4">
+   <div className=" p-1 lg:p-4">
      <HorizontalCarousel title="Featured Hotels" viewAll="/moreliving/category/featured-hotel?title=Featured Hotels">
      {data &&
             data.data.map((item: HotelTypes , index: number) => (
