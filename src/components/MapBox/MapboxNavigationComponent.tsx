@@ -27,6 +27,7 @@ const MapboxNavigationComponent = ({
 
   
 }) => {
+  console.log(lat,lng)  
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markerRef = useRef<mapboxgl.Marker | null>(null);
@@ -59,14 +60,16 @@ const MapboxNavigationComponent = ({
   };
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setStart([position.coords.longitude, position.coords.latitude]);
-      },
-      (error) => {
-        console.error("Error getting current location:", error);
-      }
-    );
+    if( window !== undefined){
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setStart([position.coords.longitude, position.coords.latitude]);
+        },
+        (error) => {
+          console.error("Error getting current location:", error);
+        }
+      );
+    }
   }, []);
 
   useEffect(() => {

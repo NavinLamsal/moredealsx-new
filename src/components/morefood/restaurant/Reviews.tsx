@@ -13,20 +13,20 @@ const Reviews = ({slug}:{slug:string}) => {
       date:"08/01/24",
       rating:4.6
     },
-    {
-      id:2,
-      name:"John Doe",
-      review:"Hot, fresh, tasty chicken.",
-      date:"08/01/24",
-      rating:4.6
-    },
-    {
-      id:3,
-      name:"John Doe",
-      review:"Hot, fresh, tasty chicken.",
-      date:"08/01/24",
-      rating:4.6
-    }
+    // {
+    //   id:2,
+    //   name:"John Doe",
+    //   review:"Hot, fresh, tasty chicken.",
+    //   date:"08/01/24",
+    //   rating:4.6
+    // },
+    // {
+    //   id:3,
+    //   name:"John Doe",
+    //   review:"Hot, fresh, tasty chicken.",
+    //   date:"08/01/24",
+    //   rating:4.6
+    // }
   ]
 
 

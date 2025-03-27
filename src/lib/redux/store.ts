@@ -10,6 +10,7 @@ import balanceReducer from "./slice/BalanceSlice";
 import businessReducer from "./slice/moreclub/BusinessSlice";
 import productReducer from "./slice/morefood/productCart";
 import deliveryReducer from "./slice/morefood/CheckoutSlice";
+import packageReducer from "./slice/moreclub/Pricing";
 
 
 const rootReducer = combineReducers({
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   network: networkReducer,
   balance: balanceReducer,
   business: businessReducer,
+  pricing: packageReducer, 
 
 
   foodCart: productReducer,

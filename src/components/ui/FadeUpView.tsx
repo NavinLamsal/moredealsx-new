@@ -21,8 +21,8 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
         transition: {
           type: "spring",
           stiffness: 50,
-          duration: 0.4,
-          delay: index * 0.2, // Stagger based on index
+          duration: 0.2,
+          delay: index * 0.1, // Stagger based on index
         },
       }}
       viewport={{ once: true }} // Animate only once when visible

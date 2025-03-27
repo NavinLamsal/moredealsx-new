@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import React from 'react'
+import CityChooser from './cityChooser'
 
 const Navbar = () => {
   return (
@@ -9,7 +10,7 @@ const Navbar = () => {
 
     <div className="flex items-center gap-4">
       <h1 className="text-2xl font-bold text-primary">MoreDealsClub</h1>
-     
+      <CityChooser/>
     </div>
 
     <div className='flex gap-3'>
@@ -20,7 +21,7 @@ const Navbar = () => {
       
       </Link>
       <Link href={'/auth/register'}>
-      <Button variant="default" className="">
+      <Button variant="default" className="hidden sm:block">
         Register
       </Button>
       </Link>

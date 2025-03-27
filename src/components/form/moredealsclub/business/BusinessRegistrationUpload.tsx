@@ -5,9 +5,13 @@ import ImageUploadDropBox from "@/components/ui/customInputs/ImageUploads";
 import useMoredealsClient from "@/lib/axios/moredealsClient";
 import { showToast } from "@/lib/utilities/toastService";
 import { Loader2 } from "lucide-react";
+import { fetchBusinessData } from "@/lib/action/moreClub/Business";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/lib/redux/store";
 
 const BusinessDocumentUpload = ({ initialDocumentUrl }: { initialDocumentUrl?: string }) => {
   const axios = useMoredealsClient();
+  const dispatch = useDispatch<AppDispatch>();
   const [document, setDocument] = useState<File | null>(null);
   const [documentUrl, setDocumentUrl] = useState<string | undefined>(initialDocumentUrl);
   const [loading, setLoading] = useState(false);
@@ -36,6 +40,7 @@ const BusinessDocumentUpload = ({ initialDocumentUrl }: { initialDocumentUrl?: s
       });
       setDocumentUrl(response.data.document_url);
       setDocument(null);
+       dispatch(fetchBusinessData({ fetchForce: true }));
       showToast("Business document uploaded successfully", "success");
     } catch (err: any) {
       showToast("Error uploading business document", "error");

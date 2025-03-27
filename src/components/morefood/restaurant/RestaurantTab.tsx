@@ -48,7 +48,7 @@ const RestaurantTab = ({details}:{details:Restaurant}) => {
   return (
     <Tabs
         defaultValue={"review"}
-        className="mx-auto w-full"
+        className="mx-auto w-full mb-2"
       >
         <TabsList className="4xl:max-w-9xl py- md:py-8 3xl:max-w-8xl max-w-7xl mx-auto w-full hide-scroll-bar overflow-x-scroll overflow-y-hidden bg-inherit dark:bg-inherit mt-5  rounded-none flex items-center justify-start border-t">
           {tablist.map((item) => (

@@ -9,15 +9,16 @@ import AnimatedSection from "../ui/FadeUpView";
 
 
 const PopularRestaurant = () => {
+  const city = typeof window !== "undefined" ? localStorage.getItem("city") : null;
 
-    const { fetchPopularRestaurantsList} = useFetchRestaurant()
- 
-
+  const { fetchRestaurantList} = useFetchRestaurant()
    const { data, error, isLoading } = useQuery({
-     queryKey: ["Popular resturants" , 1],
-     queryFn: () => fetchPopularRestaurantsList(),
+     queryKey: ["Restaurant List", "popular" , {city_name: city} ],
+     queryFn: () => fetchRestaurantList("popular" ,{city_name: city}, 1) ,
      staleTime: 60000,
+     enabled: !!city
    });
+
 
    if (isLoading) {
      return (
@@ -38,7 +39,7 @@ const PopularRestaurant = () => {
 
   return (
     <div className="p-1 lg:p-4">
-      <HorizontalCarousel title="Featured Restaurants" viewAll="/morefood/category/featured-restaurants?title=Featured Restaurants">
+      <HorizontalCarousel title="Popular Restaurants" viewAll="/morefood/category/popular?title=Popular Restaurants">
       {data.data.map((restaurant, index) => (
         <div className="flex-shrink-0 w-60" key={index}>
          <AnimatedSection key={restaurant.id} index={index}>

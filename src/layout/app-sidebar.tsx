@@ -65,14 +65,14 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
           title: "Network",
           url: "#",
           icon: Bot,
-          darkImage:"/images/svg/NetworkWhite..svg",
+          darkImage:"/images/svg/NetworkWhite.svg",
           lightImage:"/images/svg/NetworkYellow.svg",
           items: [
             {
               title: "Networks",
               url: "/networks",
               darkImage:"/images/svg/NetworkWhite..svg",
-              lightImage:"/images/svg/Yellow.svg",
+              lightImage:"/images/svg/NetworkYellow.svg",
             },{
               title: "Leads", url: "/dashboard/leads",
               darkImage:"/images/svg/leads.svg",
@@ -84,7 +84,7 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
           title: "Network",
           url: "/networks",
           icon: Bot, 
-          darkImage:"/images/svg/NetworkWhite..svg",
+          darkImage:"/images/svg/NetworkWhite.svg",
           lightImage:"/images/svg/NetworkYellow.svg",
         }]),
     
@@ -93,7 +93,7 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
         title: "Wallet",
         url: "/wallet",
         icon: BookOpen,
-        darkImage:"/images/svg/load_amount.svg",
+        darkImage:"/images/svg/load_amountWhite.svg",
         lightImage:"/images/svg/load_amount.svg"
   
       },

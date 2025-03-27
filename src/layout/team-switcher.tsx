@@ -25,7 +25,7 @@ export function TeamSwitcher({
 
   return (
     <SidebarMenu className="flex">
-      <SidebarMenuItem className="bg-primary text-primary-foreground">
+      <SidebarMenuItem className="bg-card text-card-foreground">
             <div className="flex items-center gap-2 ">
                       <div className="flex  items-center justify-center rounded-lg text-sidebar-primary-foreground">
                         {/* <activeTeam.logo className="size-4" /> */}

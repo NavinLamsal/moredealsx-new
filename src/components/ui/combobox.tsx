@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { ChevronsUpDown, Check } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Button } from "./button";
 
 interface ComboboxProps {
@@ -56,7 +55,7 @@ export default function CustomCombobox({
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute w-full mt-2 bg-white dark:bg-primary dark:text-primary-foreground border border-gray-300 rounded-lg shadow-lg z-10">
+        <div className="absolute w-full mt-2 bg-white dark:bg-card dark:text-card-foreground border border-gray-300 rounded-lg shadow-lg z-10">
           {/* Search Input */}
           <input
             type="text"
@@ -72,7 +71,7 @@ export default function CustomCombobox({
               filteredOptions.map((option) => (
                 <li
                   key={option.value}
-                  className="flex justify-between items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
+                  className="flex justify-between items-center px-4 py-2 cursor-pointer hover:bg-primary hover:text-primary-foreground" 
                   onClick={() => handleSelect(option)}
                 >
                   <div className="flex items-center gap-2">

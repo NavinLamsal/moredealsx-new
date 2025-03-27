@@ -21,7 +21,7 @@ export default function CountrySelect({ onChange, initialValue = "", }: CountryS
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        const fetchCurrencies = async () => {
+        const fetchCountries = async () => {
             try {
                 const countries: CountryListType[] = await getCountryList();
                 const formattedcountries: CountryOption[] = countries.map((country) => ({
@@ -37,8 +37,8 @@ export default function CountrySelect({ onChange, initialValue = "", }: CountryS
             }
         };
 
-        fetchCurrencies();
-    }, []); // Re-fetch when country changes
+        fetchCountries();
+    }, []); 
 
     return (
         <CustomCombobox

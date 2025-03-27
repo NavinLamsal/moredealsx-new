@@ -5,7 +5,7 @@ import React, { Suspense } from "react";
 
 const Footer = ({data}:{data:CompanyMeta}) => {
   return (
-    <footer className="bg-gradient-to-b from-primary to-purple-950 text-primary-foreground dark:text-muted-foreground py-10">
+    <footer className=" py-10 bg-card text-card-foreground">
       <div className="mx-auto max-w-7xl px-6 sm:px-10 md:px-12">
         {/* Top Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 border-b border-gray-600 pb-10">

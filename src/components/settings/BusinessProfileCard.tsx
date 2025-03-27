@@ -1,18 +1,21 @@
 
-
-import React, { Suspense } from "react";
+"use client";
+import React, { Suspense, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
-import { auth } from "@/auth";
 import Image from "next/image";
 import BusinessQrGenerate from "./BusinessQrGenerate";
+import { RootState } from "@/lib/redux/store";
+import { useAppSelector } from "@/lib/redux/hooks";
 
-export default async function BusinessProfileCard() {
-    const session = await auth();
+export default function BusinessProfileCard() {
+    const business = useAppSelector((state: RootState) => state.business);
+   
+
     return (
-        <div className="flex flex-row flex-wrap xl:grid xl:grid-cols-2 gap-4 w-full ">
-            <Card className="max-w-lg flex-1 gradient-background text-white p-2 md:p-4 print:bg-white print:text-black">
+        <div className="flex flex-col flex-wrap gap-4 w-full max-w-xl">
+            <Card className="flex-1 gradient-background text-white p-2 md:p-4 print:bg-white print:text-black">
                 <CardHeader className="pb-2">
                     <CardTitle className="text-base md:text-lg text-center ">Business Membership Card</CardTitle>
                     <CardDescription className="text-sm">
@@ -21,29 +24,29 @@ export default async function BusinessProfileCard() {
 
                 <CardContent className="flex justify-between items-center space-y-2 mt-2">
                     <div>
-                        <Avatar className="w-12 h-12 md:w-16 md:h-16 bg-white mx-auto mb-4">
-                            <AvatarImage src={session?.user.businessDetails?.business_logo} className="w-12 h-12 md:w-16 md:h-16" />
-                            <AvatarFallback className="w-12 h-12 md:w-16 md:h-16 text-black font-bold bg-inherit">{session?.user.businessDetails?.business_name.charAt(0)}</AvatarFallback>
+                        <Avatar className=" size-12  md:size-16 lg:size-20 xl:size-24 2xl:size-28 bg-white mx-auto mb-4">
+                            <AvatarImage src={business?.businessProfile?.business_logo} className="size-12  md:size-16 lg:size-20 xl:size-24 2xl:size-28  " />
+                            <AvatarFallback className="size-12  md:size-16 lg:size-20 xl:size-24 2xl:size-28 text-black font-bold bg-inherit">{business?.businessProfile?.business_name.charAt(0)}</AvatarFallback>
                         </Avatar>
-                        <p className=" text-base md:text-lg font-semibold uppercase text-center">{session?.user.businessDetails?.business_name}</p>
+                        <p className=" text-base md:text-lg font-semibold uppercase text-center">{business?.businessProfile?.business_name}</p>
                     </div>
-                    <div className="space-y-2 text-sm md:text-base">
-                        <p className="text-right whitespace-nowrap ">{session?.user?.businessDetails?.business_phone}<strong>Phone</strong></p>
-                        <p className="text-right whitespace-nowrap ">{session?.user?.businessDetails?.business_email} <strong>EMAIL</strong></p>
-                        <p className="text-right ">{session?.user?.businessDetails?.business_address} <strong>ADDRESS</strong></p>
-                        <p className="text-right whitespace-nowrap ">{session?.user?.businessDetails?.business_registration_number}<strong>REG No</strong></p>
+                    <div className="space-y-2 lg:space-y-4 2xl:space-y-6 text-sm md:text-base">
+                        <p className="text-right whitespace-nowrap ">{business?.businessProfile?.business_phone}&nbsp;<strong>Phone</strong></p>
+                        <p className="text-right whitespace-nowrap ">{business?.businessProfile?.business_email}&nbsp;<strong>EMAIL</strong></p>
+                        <p className="text-right ">{business?.businessProfile?.business_address} &nbsp;<strong>ADDRESS</strong></p>
+                        <p className="text-right whitespace-nowrap ">{business?.businessProfile?.business_registration_number}&nbsp;<strong>REG No</strong></p>
                     </div>
                 </CardContent>
             </Card>
 
             {/* -- Discount QR Card -- */}
-            <Card className="max-w-lg flex-1 gradient-background text-white p-2 md:p-4 print:bg-white print:text-black">
-                <CardContent className="flex flex-row gap-3 justify-between items-center text-center space-y-2 mt-2">
+            <Card className="flex-1 gradient-background text-white p-2 md:p-4 print:bg-white print:text-black">
+                <CardContent className="grid grid-cols-12 gap-3 justify-between items-center text-center space-y-2 mt-2">
                     {/* Replace the src with your actual QR code image path */}
-                    <div className="flex flex-col items-center ">
-                        {session?.user?.businessDetails?.qr_code ?
+                    <div className="col-span-6  flex flex-col items-start space-y-2 lg:space-y-4 2xl:space-y-6">
+                        {business.businessProfile?.qr_code ?
                             <Image
-                                src={session?.user?.businessDetails?.qr_code}
+                                src={business.businessProfile?.qr_code}
                                 alt="Discount QR"
                                 className="w-24 h-24 object-cover"
                                 width={250}
@@ -56,18 +59,18 @@ export default async function BusinessProfileCard() {
                         }
                         <p className="text-xs font-medium text-yellow-500 whitespace-nowrap">Referal QR code</p>
                     </div>
-                    <div>
+                    <div className="col-span-6 lg:space-y-4 2xl:space-y-6 flex flex-col items-end">
                         <Image
-                            src="/logo.png"
+                            src="/images/png/MembersClubWhite.png"
                             alt="Discount QR"
-                            className="w-24 h-24 object-cover"
+                            className="w-auto h-14 mb-2  object-cover"
                             width={250}
                             height={250}
                             quality={100}
                         />
-                        <p className="text-right whitespace-nowrap  font-bold">More Deals Club</p>
-                        <p className="text-right whitespace-nowrap ">info@moredealsclub.com</p>
-                        <p className="text-right whitespace-nowrap ">+46 76 327 76 40</p>
+                        <p className="text-right whitespace-nowrap text-sm md:text-base lg:text-lg font-bold">More Deals Club</p>
+                        <p className="text-right whitespace-nowrap text-xs md:text-sm lg:text-base">+46 76 327 76 40</p>
+                        <p className="text-right whitespace-nowrap text-xs  md:text-sm lg:text-base">info@moredealsclub.com</p>
                     </div>
                 </CardContent>
                 <CardFooter className="text-center flex flex-col">

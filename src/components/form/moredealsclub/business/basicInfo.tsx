@@ -4,14 +4,18 @@ import MapboxComponent from '@/components/ui/customInputs/AddressInput';
 import PhoneNumberInput from '@/components/ui/customInputs/PhoneNumberInput';
 import Heading from '@/components/ui/heading';
 import { Input } from '@/components/ui/input';
+import { fetchBusinessData } from '@/lib/action/moreClub/Business';
 import useMoredealsClient from '@/lib/axios/moredealsClient';
+import { AppDispatch } from '@/lib/redux/store';
 import { showToast } from '@/lib/utilities/toastService';
 import { validateEmail, validatePhoneNumber, validateRequired } from '@/lib/validation/common';
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 
 
 const BasicInfoForm = ({ businessData }: { businessData: any }) => {
     const axios = useMoredealsClient()
+    const dispatch = useDispatch<AppDispatch>();
 
     const initialFormData =
     {
@@ -152,6 +156,7 @@ const BasicInfoForm = ({ businessData }: { businessData: any }) => {
             setLoading(true);
             const response = await axios.patch(`${process.env.NEXT_PUBLIC_BASE_URL}business/profile/`, data
             );
+             dispatch(fetchBusinessData({ fetchForce: true }));
             
             showToast("Business profile updated successfully", "success");
         } catch (err: any) {

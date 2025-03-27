@@ -133,29 +133,25 @@
 
 
 "use client"
-import { Button } from '@/components/ui/button';
-import MapboxComponent from '@/components/ui/customInputs/AddressInput';
-import PhoneNumberInput from '@/components/ui/customInputs/PhoneNumberInput';
+
+
 import Heading from '@/components/ui/heading';
-import { Input } from '@/components/ui/input';
-import useMoredealsClient from '@/lib/axios/moredealsClient';
-import { showToast } from '@/lib/utilities/toastService';
-import { validateEmail, validatePhoneNumber, validateRequired } from '@/lib/validation/common';
-import React, { useState } from 'react'
+
+import React from 'react'
 import TaxDocumentUpload from './TaxDocumentUpload';
 import BusinessLogoUpload from './BussinessLogoUpdate';
 import BusinessDocumentUpload from './BusinessRegistrationUpload';
 
 
-const BasicInfoForm = ({ businessData }: { businessData: any }) => {
-    const axios = useMoredealsClient()
 
+const BasicInfoForm = ({ businessData }: { businessData: any }) => {
+  
+  
 
 
     return (
         <div className="grid grid-cols-1 gap-3 w-full max-w-lg">
             <div>
-
                 <Heading title={"Business Profile"} />
                 <p className="text-gray-600 dark:text-gray-300 mb-4">Let's wrap up the registration process. Fill in your Business details and make your business profile. You will be a part of MoreDealsClub like never before!.</p>
             </div>

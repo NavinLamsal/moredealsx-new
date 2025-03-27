@@ -5,9 +5,13 @@ import ImageUploadDropBox from "@/components/ui/customInputs/ImageUploads";
 import useMoredealsClient from "@/lib/axios/moredealsClient";
 import { showToast } from "@/lib/utilities/toastService";
 import { Loader2 } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/lib/redux/store";
+import { fetchBusinessData } from "@/lib/action/moreClub/Business";
 
 const BusinessLogoUpload = ({ initialLogoUrl }: { initialLogoUrl?: string }) => {
   const axios = useMoredealsClient();
+  const dispatch = useDispatch<AppDispatch>();
   const [logo, setLogo] = useState<File | null>(null);
   const [logoUrl, setLogoUrl] = useState<string | undefined>(initialLogoUrl);
   const [loading, setLoading] = useState(false);
@@ -36,6 +40,7 @@ const BusinessLogoUpload = ({ initialLogoUrl }: { initialLogoUrl?: string }) => 
       });
       setLogoUrl(response.data.logo_url); // Update with new uploaded image URL
       setLogo(null);
+       dispatch(fetchBusinessData({ fetchForce: true }));
       showToast("Business logo uploaded successfully", "success");
     } catch (err: any) {
       showToast("Error uploading business logo", "error");

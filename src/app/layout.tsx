@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/HOC/theme-provider";
-import Footer from "@/layout/Footer";
 import { getMetadata } from "@/lib/action/PubilcCommon";
 import { CompanyMeta } from "@/lib/type/CommonType";
 import { SessionProvider } from "next-auth/react";

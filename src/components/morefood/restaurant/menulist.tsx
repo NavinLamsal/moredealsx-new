@@ -3,18 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Search } from "lucide-react";
 import { FoodListType } from "@/lib/type/morefood/restaurant";
+import { Input } from "@/components/ui/input";
 
-const categories = [
-  { name: "Get 1 Free", id: "get1free" },
-  { name: "Breakfast Meals", id: "breakfast-meals" },
-  { name: "Breakfast Sandwiches", id: "breakfast-sandwiches" },
-  { name: "Burritos", id: "burritos" },
-  { name: "Limited Time Only", id: "limited-time" },
-  { name: "Meals", id: "meals" },
-  { name: "Flame Grilled Burgers", id: "burgers" },
-  { name: "Chicken & Fish", id: "chicken-fish" },
-  { name: "Sides", id: "sides" },
-];
 
 export default function MenuSection({menulist }: {menulist:FoodListType[]}) {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -98,17 +88,17 @@ export default function MenuSection({menulist }: {menulist:FoodListType[]}) {
   };
 
   return (
-    <div className="w-full bg-white shadow-md py-2 px-4 sticky top-20 z-50">
+    <div className="w-full bg-card shadow-md py-2 px-4 sticky top-20 z-50">
       {/* Title and Search */}
       <div className="flex flex-wrap justify-between items-center mb-3">
         <h2 className="text-lg font-semibold">Main Menu</h2>
         <div className="relative w-full sm:w-auto">
-          <input
+          <Input
             type="text"
             placeholder={`Search Menu...`}
-            className="bg-gray-100 text-sm px-4 pl-8 py-2 rounded-full w-full sm:w-72 focus:outline-none relative"
+            className="text-sm px-4 pl-8 py-2 rounded-full w-full sm:w-72 focus:outline-none relative"
           />
-          <Search className="absolute top-1 left-1 text-gray-500" />
+          <Search className="absolute top-1 left-1 text-card-foreground" />
         </div>
       </div>
 
@@ -133,8 +123,8 @@ export default function MenuSection({menulist }: {menulist:FoodListType[]}) {
               key={category.id}
               id={`menu-item-${category.id}`}
               onClick={() => scrollToSection(category.id)}
-              className={`text-gray-700 font-medium hover:text-black transition-all whitespace-nowrap px-4 py-2 ${
-                activeCategory === category.id ? "border-b-2 border-black text-black" : ""
+              className={`text-white font-medium hover:text-black hover:dark:text-white transition-all whitespace-nowrap px-4 py-2 ${
+                activeCategory === category.id ? "border-b-2 border-black text-black dark:text-white" : ""
               }`}
             >
               {category.name}

@@ -133,6 +133,7 @@ export const useFetchRestaurant = () => {
   //   };
 
   const fetchPopularRestaurantsList = async (
+    city: string,
     page?: number
   ): Promise<{
     data: ResturantListType[];
@@ -140,7 +141,25 @@ export const useFetchRestaurant = () => {
   }> => {
     try {
       const pages = page ?? 1;
-      const response = await MoreFoodApiClient.get(`restaurants/popular/`);
+      const response = await MoreFoodApiClient.get(`restaurants/popular/?city_name=${city}`);
+      console.log("response", response.data);
+      return { data: response.data.data, meta: response.data.meta };
+    } catch (error) {
+      console.error("Error in fetching popular Restaurants", error);
+      return { data: [] as ResturantListType[], meta: {} as MetaData };
+    }
+  };
+
+  const fetchfeatiesRestaurantsList = async (
+    city: string,
+    page?: number
+  ): Promise<{
+    data: ResturantListType[];
+    meta: MetaData;
+  }> => {
+    try {
+      const pages = page ?? 1;
+      const response = await MoreFoodApiClient.get(`restaurants/featured-restaurants/?city_name=${city}`);
       console.log("response", response.data);
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
@@ -241,7 +260,7 @@ export const useFetchRestaurant = () => {
   ): Promise<{ data: ResturantListType[]; meta: MetaData }> => {
     try {
 
-      const limit = 10;
+    const limit = 10;
     const offset = (page - 1) * limit;
 
     // Convert params object to query string

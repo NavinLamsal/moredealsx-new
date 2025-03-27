@@ -1,12 +1,10 @@
 import Offers from "@/components/Dashboard/Offers"
 import TrendingEvents from "@/components/Events/TrendingEvent"
 import BusinessSetupModal from "@/components/form/moredealsclub/BusinessRegistration/BusinessRegisterForm"
+import FeaturedRestaurants from "@/components/morefood/FeaturedRestaurant"
 import PopularRestaurant from "@/components/morefood/PopularRestaurant"
 import PopularHotels from "@/components/moreliving/popularHotels"
 import PopularSalons from "@/components/moresalons/popularSalons"
-
-
-
 
 
 export default async function Page() {
@@ -15,7 +13,7 @@ export default async function Page() {
      <BusinessSetupModal />
      <Offers />
      <TrendingEvents/>
-     <PopularRestaurant/>
+     <FeaturedRestaurants/>
      <PopularSalons/>
      <PopularHotels/>
    

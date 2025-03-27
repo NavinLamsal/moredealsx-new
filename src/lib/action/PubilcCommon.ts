@@ -1,5 +1,5 @@
 import axios from "axios"
-import { Blog, BusinessListType, CompanyMeta, CountryListType, CurrencyListType, MetaData, PagesDataType } from "../type/CommonType"
+import { Blog, BusinessListType, CityListType, CompanyMeta, CountryListType, CurrencyListType, MetaData, PagesDataType } from "../type/CommonType"
 import { EventDetails } from "../type/moreclub/Event"
 
 export const getMetadata = async() =>{
@@ -56,6 +56,17 @@ export const getCurrencyList = async(country: string) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}currency/list/?country=${country}`, { next: { tags: [`country list for ${country}`] ,revalidate: 300 }})
     const data = await res.json()
     return data.data as CurrencyListType[]
+  }catch(err){
+    const error = err as Error
+    return [];
+  }
+}
+
+export const getCityList = async(country: string) => {
+  try{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}country/${country}/by-id/cities/list/`, { next: { tags: [`cities list for ${country}`] ,revalidate: 300 }})
+    const data = await res.json()
+    return data.data as CityListType[]
   }catch(err){
     const error = err as Error
     return [];

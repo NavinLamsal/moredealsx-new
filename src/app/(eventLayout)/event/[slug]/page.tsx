@@ -42,13 +42,21 @@ export async function generateMetadata(
         title: events.name,
         description: events.description,
         type: "article",
-        images: [...Object.values(events.event_photo.map((item) => item.image)), ...previousImages],
+        images: [
+          ...(events?.event_photo ? Object.values(events.event_photo.map((item) => item.image)) : []),
+          ...previousImages,
+        ],
+        // images: [...Object.values(events?.event_photo?.map((item) => item.image)), ...previousImages],
       },
       twitter: {
         card: "summary_large_image",
         title: events.name,
         description: events.description,
-        images: [...Object.values(events.event_photo.map((item) => item.image)), ...previousImages],
+        images: [
+          ...(events?.event_photo ? Object.values(events.event_photo.map((item) => item.image)) : []),
+          ...previousImages,
+        ],
+        // images: [...Object.values(events?.event_photo?.map((item) => item.image)), ...previousImages],
       },
     };
   } catch (error) {
@@ -156,7 +164,9 @@ async function EventDetailPage({ slug }: { slug: string }) {
 
         {/* Footer Section */}
         <footer className="bg-gray-800 text-white py-6 mt-8">
-        <EventsMap lat={events.lat} lng={events.lng}/>
+          {events.lat && events.lng && (            
+             <EventsMap lat={events.lat} lng={events.lng}/>
+          )}
         </footer>
       </div>
     );

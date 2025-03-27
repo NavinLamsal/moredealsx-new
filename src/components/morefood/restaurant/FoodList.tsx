@@ -39,17 +39,8 @@ export default function FoodList({ slug }: { slug: string }) {
         <>
          <MenuSection  menulist={data?.data} />
 
-          {data.data.map((category) => (
-            // <div
-            //   key={category.id}
-            //   id={category.id}
-            //   className="h-screen flex justify-center items-center border-b border-gray-200"
-            // >
-            //   <h2 className="text-3xl font-bold">{category.name}</h2>
-            // </div>
-
-
-            <div
+          {data.data.map((category) => (    
+        <div
               id={category.id}
               key={category.id}
               className="w-full mb-5 pt-10"

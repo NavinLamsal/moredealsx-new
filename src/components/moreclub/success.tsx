@@ -67,7 +67,7 @@ export default function PaymentSuccessPage({children}:{children:React.ReactEleme
           <div className="flex items-center justify-center space-x-2">
             <div className="w-12 h-12 bg-sky-100 rounded-full flex items-center justify-center">
               <Image
-                src="/images/Primarylogo.png"
+                src="/images/png/moredeals.png"
                 alt="Logo"
                 width={100}
                 height={100}

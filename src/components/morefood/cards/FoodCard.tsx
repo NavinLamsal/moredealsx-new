@@ -75,7 +75,7 @@ export default function FoodCard({ item }: { item: FoodtypeswithMenu }) {
 
       <div
         id={`#${name}-${item.id}`}
-        className="relative flex flex-row items-center justify-between w-full h-auto p-2 md:h-36 rounded-md bg-white dark:bg-dark-primary shadow-md hover:bg-red-200 cursor-pointer"
+        className="relative flex flex-row items-center justify-between w-full h-auto p-2 md:h-36 rounded-md bg-card shadow-md hover:bg-red-200 cursor-pointer"
         // onClick={handleViewDetails}
       >
         {/* Left Section */}

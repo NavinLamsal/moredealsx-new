@@ -24,7 +24,7 @@ const OrderItem = ({ name,description, price,quantity, img , onDelete }: { name:
         </div>
       </div>
       
-      <p className="text-xs text-gray-800 flex items-center gap-1">+ {quantity} x <span className='font-semibold text-sm'>{price}</span><Trash2 size="14"  onClick={() => {onDelete()}} className="inline-block ml-1 text-destructive"/></p>
+      <p className="text-xs text-muted-foreground flex items-center gap-1">+ {quantity} x <span className='font-semibold text-sm'>{price}</span><Trash2 size="14"  onClick={() => {onDelete()}} className="inline-block ml-1 text-destructive"/></p>
     </div>
   );
 

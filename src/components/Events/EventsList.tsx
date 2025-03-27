@@ -73,7 +73,7 @@ const EventList = () => {
                 {data?.pages.map((page, pageIndex) =>
                     page.data.map((event, index) => (
                         <div key={`${pageIndex}-${index}`}>
-                            <div className="flex-shrink-0 w-48 lg:w-60" key={event.id}>
+                            <div className="flex-shrink-0 w-40 lg:w-60" key={event.id}>
                                 <AnimatedSection key={event.id} index={index}>
                                     <EventCard
                                         key={index}

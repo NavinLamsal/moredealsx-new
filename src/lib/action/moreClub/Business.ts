@@ -67,14 +67,17 @@ export const fetchBusinessTypes = createAsyncThunk(
     }
   );
 
-export const fetchBusinessData = async (dispatch: Dispatch, getState: () => RootState, fetchForce = false) => {
-  const state = getState();
-  const lastFetchedProfileAt = state.business.lastFetchedProfileAt;
 
-  // Skip fetching if data is fresh (5-minute threshold) unless force fetch is enabled
-  if (!fetchForce && lastFetchedProfileAt && Date.now() - lastFetchedProfileAt < 5 * 60 * 1000) {
+  export const fetchBusinessData = createAsyncThunk(
+    "business/fetchBusinessTypes",
+    async ({ fetchForce }: { fetchForce?: boolean }, { dispatch, getState }) => {
+  const state = getState() as any;
+  const lastFetchedAt = state.business.lastFetchedProfileAt;
+
+    console.log("lastFetchedAt", lastFetchedAt);
+  if (!fetchForce && lastFetchedAt && Date.now() - lastFetchedAt < 5 * 60 * 1000) {
     return;
-  }
+  } 
 
   dispatch(setLoading(true));
 
@@ -94,7 +97,7 @@ export const fetchBusinessData = async (dispatch: Dispatch, getState: () => Root
   } finally {
     dispatch(setLoading(false));
   }
-};
+});
 
 
 // Function to Fetch Business QR Info with Tracking & Force Fetch Option

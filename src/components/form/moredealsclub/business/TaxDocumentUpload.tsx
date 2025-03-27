@@ -5,9 +5,13 @@ import ImageUploadDropBox from "@/components/ui/customInputs/ImageUploads";
 import useMoredealsClient from "@/lib/axios/moredealsClient";
 import { showToast } from "@/lib/utilities/toastService";
 import { Loader2 } from "lucide-react";
+import { fetchBusinessData } from "@/lib/action/moreClub/Business";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/lib/redux/store";
 
 const TaxDocumentUpload = ({ initialTaxUrl }: { initialTaxUrl?: string }) => {
   const axios = useMoredealsClient();
+  const dispatch = useDispatch<AppDispatch>();
   const [taxDocument, setTaxDocument] = useState<File | null>(null);
   const [taxUrl, setTaxUrl] = useState<string | undefined>(initialTaxUrl);
   const [loading, setLoading] = useState(false);
@@ -36,6 +40,7 @@ const TaxDocumentUpload = ({ initialTaxUrl }: { initialTaxUrl?: string }) => {
       });
       setTaxUrl(response.data.tax_url);
       setTaxDocument(null);
+       dispatch(fetchBusinessData({ fetchForce: true }));
       showToast("Tax document uploaded successfully", "success");
     } catch (err: any) {
       showToast("Error uploading tax document", "error");

@@ -271,30 +271,30 @@ export async function fetchUserDetails(token: string) {
     if (!userResponse.ok) throw new Error("Failed to fetch user details");
     const userData = await userResponse.json();
     const userDetails = userData?.data;
-    let businessDetails = null;
-    let permissions = null;
+    // let businessDetails = null;
+    // let permissions = null;
    
 
     // If the user is a business, fetch business details
-    if (userDetails.exists_business_profile === true && userDetails?.user_type === "BUSINESS") {
-      try {
-        const businessResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}business/profile/`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+    // if (userDetails.exists_business_profile === true && userDetails?.user_type === "BUSINESS") {
+    //   try {
+    //     const businessResponse = await fetch(
+    //       `${process.env.NEXT_PUBLIC_BASE_URL}business/profile/`,
+    //       {
+    //         method: "GET",
+    //         headers: {
+    //           Authorization: `Bearer ${token}`,
+    //         },
+    //       }
+    //     );
 
-        if (!businessResponse.ok) throw new Error("Failed to fetch business details");
-        const businessData = await businessResponse.json();
-        businessDetails = businessData.data;
-      } catch (error) {
-        console.error("❌ Error fetching business details:", error);
-      }
-    }
+    //     if (!businessResponse.ok) throw new Error("Failed to fetch business details");
+    //     const businessData = await businessResponse.json();
+    //     businessDetails = businessData.data;
+    //   } catch (error) {
+    //     console.error("❌ Error fetching business details:", error);
+    //   }
+    // }
 
     // Fetch permissions data
     // try {
@@ -318,8 +318,8 @@ export async function fetchUserDetails(token: string) {
     // Return all combined data
     return {
       userDetails,
-      businessDetails,
-      permissions,
+      // businessDetails,
+      // permissions,
     };
   } catch (error) {
     console.error("❌ Error fetching user data:", error);

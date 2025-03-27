@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import BasicInfoForm from "./BasicInfoForm";
 import TransactionPinForm from "../wallet/transactionPinSetup";
 import BusinessForm from "./BusinessForm";
 

@@ -50,7 +50,7 @@ export default async function ProfileCard() {
                     {/* Replace the src with your actual QR code image path */}
                     <div className="flex flex-col items-center ">
                         <Image
-                            src="/qr-code.png"
+                            src="/images/png/MembersClubWhite.png"
                             alt="Discount QR"
                             className="w-24 h-24 object-cover"
                             width={250}

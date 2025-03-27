@@ -11,6 +11,10 @@ import { showToast } from "@/lib/utilities/toastService";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { getSession } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { clearPackages } from "@/lib/redux/slice/moreclub/Pricing";
+import { fetchPackages } from "@/lib/action/moreClub/pricing";
+import { AppDispatch } from "@/lib/redux/store";
 
 
 // const CheckUserName = async (username: string) => {
@@ -88,6 +92,7 @@ const validatePhoneNumber = async (phone: string, prefix?: string) => {
 
 
 const LoginForm: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const [isEmailLogin, setIsEmailLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: "",
@@ -158,12 +163,19 @@ const LoginForm: React.FC = () => {
         if(session?.user?.userDetails?.is_pin_set === false){
           localStorage.setItem("pinset", "false");
         }
+        dispatch(clearPackages())
 
         if(session?.user?.userDetails?.user_type ==="BUSINESS"){
           if(session.user.userDetails?.exists_business_profile === false){
             localStorage.setItem("business_setup", "false");
           }
+          dispatch(fetchPackages({ type: "BUSINESS", cycle: "monthly" }));
+          dispatch(fetchPackages({ type: "BUSINESS", cycle: "yearly" }));
+        }else{
+          dispatch(fetchPackages({ type: "NORMAL", cycle: "monthly" }));
+          dispatch(fetchPackages({ type: "NORMAL", cycle: "yearly" }));
         }
+        
         
         const callbackUrl = searchParams.get("callbackUrl");
         window.location.href = callbackUrl ?? "/dashboard";

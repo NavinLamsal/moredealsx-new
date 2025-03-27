@@ -1,5 +1,6 @@
 import AllRestaurantList from '@/components/morefood/AllRestaurant'
 import CategoriesList from '@/components/morefood/CategoriesList'
+import FeaturedRestaurants from '@/components/morefood/FeaturedRestaurant'
 import Offers from '@/components/morefood/home/offer'
 import PopularCombos from '@/components/morefood/PopularCombos'
 import PopularRestaurant from '@/components/morefood/PopularRestaurant'
@@ -14,6 +15,7 @@ const Page = () => {
    <Offers />
    <TodaysOffer/>
    <CategoriesList/>
+   <FeaturedRestaurants/>
    <PopularRestaurant />
    <PopularCombos/>
    <Heading title="All Restaurants" />
