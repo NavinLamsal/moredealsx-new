@@ -22,20 +22,20 @@ const ArrivalTime = () => {
     const [workingHours, setWorkingHours] = useState<OpeningHours[] | null | undefined>(null);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-      if (session) {
-        if(formData.receiverName === ""){
-          const updatedFormData = { ...formData, "receiverName": `${session.user.userDetails.first_name} ${session.user.userDetails.last_name}` };
-          dispatch(updateFormData(updatedFormData));
-        }
-        if(formData.mobileNumber === ""){
-          if(session.user.userDetails.phone_number !== null){
-          const updatedFormData = { ...formData, "mobileNumber": `${session.user.userDetails.phone_prefix}${session.user.userDetails.phone_number}` };
-          dispatch(updateFormData(updatedFormData));
-        }
-      }
-      }
-    }, [session]);
+    // useEffect(() => {
+    //   if (session) {
+    //     if(formData.receiverName === ""){
+    //       const updatedFormData = { ...formData, "receiverName": `${session.user.userDetails.first_name} ${session.user.userDetails.last_name}` };
+    //       dispatch(updateFormData(updatedFormData));
+    //     }
+    //     if(formData.mobileNumber === ""){
+    //       if(session.user.userDetails.phone_number !== null){
+    //       const updatedFormData = { ...formData, "mobileNumber": `${session.user.userDetails.phone_prefix}${session.user.userDetails.phone_number}` };
+    //       dispatch(updateFormData(updatedFormData));
+    //     }
+    //   }
+    //   }
+    // }, [session]);
 
 
     if(formData.deliverytype === "delivery" || formData.deliverytype === ""){ 
@@ -44,24 +44,24 @@ const ArrivalTime = () => {
 
 
     
-  const getResturantsWorkingsHours = async () => {
+  // const getResturantsWorkingsHours = async () => {
    
-    try {
-      const res =await fetchRestaurantOpeningHours(restaurant_slug)
-      const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-      const sortedOpeningHours = res.sort((a, b) => 
-        daysOfWeek.indexOf(a.day) - daysOfWeek.indexOf(b.day)
-      );
-      setWorkingHours(sortedOpeningHours);
-    } catch (error) {
-      console.error("Error in fetching Resturant details from id", error);
-      setWorkingHours(null);
-    }
-  };
+  //   try {
+  //     const res =await fetchRestaurantOpeningHours(restaurant_slug)
+  //     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  //     const sortedOpeningHours = res.sort((a, b) => 
+  //       daysOfWeek.indexOf(a.day) - daysOfWeek.indexOf(b.day)
+  //     );
+  //     setWorkingHours(sortedOpeningHours);
+  //   } catch (error) {
+  //     console.error("Error in fetching Resturant details from id", error);
+  //     setWorkingHours(null);
+  //   }
+  // };
 
-  useEffect(() => {
-      getResturantsWorkingsHours();
-  }, [restaurant_slug]);
+  // useEffect(() => {
+  //     getResturantsWorkingsHours();
+  // }, [restaurant_slug]);
 
   return (
     <div className="mt-4 border-b pb-4">

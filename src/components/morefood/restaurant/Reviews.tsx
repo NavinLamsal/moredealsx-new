@@ -42,7 +42,7 @@ const Reviews = ({slug}:{slug:string}) => {
       </span>
       <p className="text-gray-500">110+ Ratings</p>
     </div>
-{dummyreview.map((review)=><ReviewCard comment={review.review} rating={review.rating} author={review.name} date={review.date} />)}
+{dummyreview.map((review)=><ReviewCard comment={review.review} rating={review.rating} author={review.name} date={review.date} key={review.id} />)}
    
     {/* <div className="mt-4 border p-4 rounded-lg shadow-sm">
       <p className="text-gray-700">"Food is so good and ranch is awesome."</p>

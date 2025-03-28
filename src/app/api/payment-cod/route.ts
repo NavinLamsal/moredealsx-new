@@ -7,7 +7,8 @@ export async function POST(request: NextRequest, response: NextResponse) {
   const formattedData = await request.json();
 
   const baseURL =await getMorefoodServerurl(formattedData.country_code);
-  
+  console.log("baseurl", baseURL);
+  console.log("formattedData", formattedData)
   try {
     const response = await MoreClubApiClient.post(
       `${baseURL}orders/create/`,
@@ -28,7 +29,8 @@ export async function POST(request: NextRequest, response: NextResponse) {
       { status: response.status }
     );
   } catch (error: any) {
-    console.log("errors", error.response)
+    console.log("response", error?.response)
+
     return NextResponse.json(
       {
         success: false,

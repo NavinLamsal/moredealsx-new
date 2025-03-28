@@ -11,7 +11,7 @@ const UserInformation = () => {
     <div>
     <h2 className="text-xl font-semibold">Checkout</h2>
     <DeliveryOptions 
-    deliveryOptions={["delivery", "packed", "dine-here"]} 
+    deliveryOptions={["delivery", "pickup", "dine-here"]} 
     />
 
     {/* Delivery Address */}

@@ -176,11 +176,57 @@ export interface CheckoutFormTypes {
 }
 
 
+// export interface FoodOrderTypes {
+//   restaurant_slug: string;
+//   order_type: string;
+//   items:{
+//     food_item?: string;
+//     quantity:number
+//     offer?:string
+//     related_food_item?: string[]
+//   }[];
+//   // offer_items: { [id: string]: orderItem };
+//   full_name: string;
+//   phone_no: string;
+//   // payment_method: string;
+//   address?: string;
+//   lat?: string;
+//   lng?: string;
+//   pin: string;
+//   arrival_time?: string;
+//   platform: string;
+//   note?: string;
+// }
+
+export interface FoodOrderTypes {
+  restaurant: string;
+  order_type: string;
+  items: {
+    food_item?: string;
+    quantity: number;
+    offer?: string;
+    related_food_items?: string[];
+  }[];
+  receiver_name: string;
+  phone_no: string;
+  address?: string;
+  lat?: string;
+  lng?: string;
+  pin: string;
+  arrival_time?: string;
+  platform: string;
+  note?: string;
+}
+
 export interface MoreDealOrderTypes {
   restaurant_slug: string;
   order_type: string;
-  items: { [id: string]: orderFoodItem };
-  offer_items: { [id: string]: orderItem };
+  items: {
+    food_item?: string;
+    quantity:number
+    offer?:string
+    related_food_item?: string[]
+  }[];
   full_name: string;
   phone_no: string;
   payment_method: string;

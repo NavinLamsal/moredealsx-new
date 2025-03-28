@@ -13,7 +13,7 @@ export default async function ProfileCard() {
     return (
 
 
-        <div className="flex flex-row flex-wrap xl:grid xl:grid-cols-2 gap-4 w-full ">
+        <div className="flex flex-row flex-wrap  gap-4 w-full ">
             {/* -- Membership Card -- */}
             <Card className="max-w-lg flex-1 gradient-background text-white p-2 md:p-4 print:bg-white print:text-black">
                 <CardHeader className="pb-2">
@@ -48,9 +48,9 @@ export default async function ProfileCard() {
             <Card className="max-w-lg flex-1 gradient-background text-white p-2 md:p-4 print:bg-white print:text-black">
                 <CardContent className="flex flex-row gap-3 justify-between items-center text-center space-y-2 mt-2">
                     {/* Replace the src with your actual QR code image path */}
-                    <div className="flex flex-col items-center ">
+                    {/* <div className="flex flex-col items-center ">
                         <Image
-                            src="/images/png/MembersClubWhite.png"
+                            src={session?.user?.userDetails?.qr_code}
                             alt="Discount QR"
                             className="w-24 h-24 object-cover"
                             width={250}
@@ -61,7 +61,7 @@ export default async function ProfileCard() {
                     </div>
                     <div>
                         <Image
-                            src="/logo.png"
+                            src="/images/png/MembersClubWhite.png"
                             alt="Discount QR"
                             className="w-24 h-24 object-cover"
                             width={250}
@@ -72,6 +72,30 @@ export default async function ProfileCard() {
                         <p className="text-right whitespace-nowrap ">info@moredealsclub.com</p>
                         <p className="text-right whitespace-nowrap ">+46 76 327 76 40</p>
 
+                    </div> */}
+                    <div className="col-span-6  flex flex-col items-start space-y-2 lg:space-y-4 2xl:space-y-6">
+                    <Image
+                            src={session?.user?.userDetails?.qr_code}
+                            alt="Discount QR"
+                            className="w-24 h-24 object-cover"
+                            width={250}
+                            height={250}
+                            quality={100}
+                        />
+                        <p className="text-xs font-medium text-yellow-500 whitespace-nowrap">Discount QR code</p>
+                    </div>
+                    <div className="col-span-6 lg:space-y-4 2xl:space-y-6 flex flex-col items-end">
+                        <Image
+                            src="/images/png/MembersClubWhite.png"
+                            alt="Discount QR"
+                            className="w-auto h-14 mb-2  object-cover"
+                            width={250}
+                            height={250}
+                            quality={100}
+                        />
+                        <p className="text-right whitespace-nowrap text-sm md:text-base lg:text-lg font-bold">More Deals Club</p>
+                        <p className="text-right whitespace-nowrap text-xs md:text-sm lg:text-base">+46 76 327 76 40</p>
+                        <p className="text-right whitespace-nowrap text-xs  md:text-sm lg:text-base">info@moredealsclub.com</p>
                     </div>
                 </CardContent>
                 <CardFooter className="text-center flex flex-col">

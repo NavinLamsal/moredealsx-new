@@ -1,98 +1,93 @@
-import React from "react";
-import PaymentForms from "./PayementForm";
-import { MoreDealOrderTypes, orderFoodItem, orderItem } from "@/lib/type/morefood/restaurant";
-import { useSelector } from "react-redux";
-import { RootState } from "@/lib/redux/store";
+"use client";
 
 
-const Moredeals = ({paymentfor}:{paymentfor:string}) => {
-    const products = useSelector((state: RootState) => state.foodCart);
-    const delivery = useSelector((state: RootState) => state.delivery);
+import { Button } from "@/components/ui/button";
+import PINInput from "@/components/ui/customInputs/PinInput";
+import { FoodOrderTypes } from "@/lib/type/morefood/restaurant";
+import { getCountryCode } from "@/lib/utils";
+import Link from "next/link";
+import { FormEvent, useState } from "react";
 
-    if(paymentfor === "morefood"){
-        const formattedData: Partial<MoreDealOrderTypes> = {
-            restaurant_slug: products.restaurant_slug,
-            order_type: delivery.deliverytype,
-            items: products.items.reduce(
-              (acc: { [id: string]: orderFoodItem }, item) => {
-                const uniqueKey = `${item.id}-${item.description}`;
-                acc[uniqueKey] = {
-                  id: item.id,
-                  price: item.price,
-                  description: item.description,
-                  name: item.name,
-                  quantity: item.quantity ?? 0,
-                  related_food_item: item.related_food_item.map((rel) => rel.id) ?? [],
-                };
-            
-                return acc;
-              },
-              {}
-            ),
-            offer_items: products.exclusiveOffers.reduce(
-              (acc: { [id: string]: orderItem }, item) => {
-                acc[item.id] = {
-                  id: item.id,
-                  price: item.price,
-                  quantity: item.quantity ?? 0,
-                };
-                return acc;
-              },
-              {}
-            ),
-            full_name: delivery.receiverName,
-            phone_no: delivery.mobileNumber,
-            payment_method: "moredeals",
-            platform: "morefood",
-            address: delivery.location,
-            lat: delivery.lat?.toString() ?? "",
-            lng: delivery.lon?.toString() ?? "",
-            // pin: pinvalue,
-            ...(delivery.deliverytype !== "delivery" && {arrival_time: delivery.arrivalTime}),
-            ...(delivery.note !== "" && { note: delivery.note }),
-          };
-        return(
-            <div>
-        <PaymentForms amount={100}  formattedData={formattedData} currency_symbol={"Rs"}  />
-      
-    </div>
-        )
+const MoredealsPayment = ({
+  amount,
+  formattedOrderType,
+  currency_symbol
+}: {
+  amount: number;
+  formattedOrderType: Partial<FoodOrderTypes>;
+  currency_symbol: string;
+  }) => {
 
+    const [pin ,setPin]= useState("");
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
+
+
+  const handleConfirmPinChange = (newPin: string) => {
+    setPin(newPin);
+};
+
+  
+
+ 
+  const handleMoredealsPayment = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsProcessing(true);
+    const pinvalue = pin
+    const countrycode = await getCountryCode();
+    const data ={ ...formattedOrderType, payment_method: "moredeals", pin: pinvalue }
+    try {
+        const response = await fetch(`/api/moredeals`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Country-Code": countrycode,
+            },
+            body: JSON.stringify({ formattedOrderType, country_code: countrycode }),
+          });
+    
+    } catch (error: any) {
+      setErrorMessage(error.message || "An unknown error occurred.");
+     
+    } finally {
+      setIsProcessing(false);
     }
+  };
 
   return (
-    <div>
-        <PaymentForms amount={100}  formattedData={{
-            "testing": "test"
-        }} currency_symbol={"Rs"}  />
+    <form
+      className=" p-4 rounded-lg "
+      onSubmit={handleMoredealsPayment}
+    >
+      {/* <h2 className="text-2xl font-bold mb-4 text-center ">Enter PIN</h2> */}
+        <PINInput length={4} labels="Confirm PIN" initialValue={pin} onChange={handleConfirmPinChange} className="max-w-56 mx-auto" />
       
-    </div>
+      {errorMessage && (
+        <p className="text-red-600 my-4 text-center">{errorMessage}</p>
+      )}
+      {errorMessage === "Insufficient Funds" && (
+        <Link href="https://www.moredealsclub.com/wallet" target="_blank" className="w-full flex justify-center">
+        
+        <Button variant={"destructive"} type="button" className="place-self-center">
+
+          Load Funds
+        </Button>
+        </Link>
+      )}
+      <button
+        type="submit"
+        className={`${
+          isProcessing
+            ? "bg-black text-white cursor-not-allowed "
+            : "bg-blue-500 text-white"
+        } mt-4 w-full   py-2 rounded-lg`}
+      >
+        {isProcessing ? "Processing..." : `Pay ${currency_symbol} ${amount}`}
+      </button>
+    </form>
   );
 };
 
-export default Moredeals;
+export default MoredealsPayment;
 
-
-// {
-//   "restaurant": "babu-roshan-restro-bar",
-//   "receiver_name": "John Doe",
-//   "email": "johndoe@example.com",
-//   "arrival_time": "2025-03-24T18:30:00Z",
-//   "phone_no": "1234567890",
-//   "order_type": "delivery",
-//   "lat": 40.712776,
-//   "lng": -74.005974,
-//   "address": "123 Example St, City, Country",
-//   "note": "Please deliver to the front door.",
-//   "items": [
-//       {
-//           "food_item": "a0600f52-2a5b-4bdf-b296-320c82088594",  
-//           "quantity": 2,
-//         "related_food_items:[""        },
-// {
-//             "offer": "ac5123c1-4d92-48a5-940a-84deb92ed7e3" 
-//           "quantity": 2,
-         
-//       }
-//   ]
-// }
