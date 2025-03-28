@@ -1,4 +1,5 @@
 import NotificationCard from '@/components/cards/notificationCard'
+import NotificationList from '@/components/notification/NotificationList'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu'
@@ -19,7 +20,8 @@ const NotificationDropDown = () => {
         <CardDescription></CardDescription>
       </CardHeader>
       <CardContent>
-        <NotificationCard notification={{
+      <NotificationList/>
+        {/* <NotificationCard notification={{
             id: 2,
             title: "Project Deployed",
             message: "Your project has been deployed successfully.",
@@ -45,7 +47,7 @@ const NotificationDropDown = () => {
             isUnread: true
         }}
         
-        />
+        /> */}
       </CardContent>
 
     </Card>

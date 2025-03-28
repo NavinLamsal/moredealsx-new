@@ -33,7 +33,7 @@ export default function FoodList({ slug }: { slug: string }) {
 
 
   return (
-    <div className="relative">
+    <div className="relative mt-2 ">
      
       {data && data.data && data.data.length > 0 && (
         <>

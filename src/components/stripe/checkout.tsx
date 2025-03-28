@@ -106,7 +106,7 @@ buttonText?:string
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-4 rounded-md">
+    <form onSubmit={handleSubmit} className="bg-card p-4 rounded-md">
       {clientSecret && <PaymentElement />}
       {errorMessage && <div className="text-red-500">{errorMessage}</div>}
       <button

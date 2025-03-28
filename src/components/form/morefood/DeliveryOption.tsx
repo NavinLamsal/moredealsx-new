@@ -145,7 +145,9 @@ export default function DeliveryOptions({ deliveryOptions }: { deliveryOptions: 
   };
 
   return (
+    
     <div className="flex bg-gray-100 rounded-full p-1 w-full max-w-md my-2">
+      <p>{formData.errors.deliverytype}</p>
       {deliveryOptions.map((option) => {
          const key = option as keyof typeof optionData; // Ensure option is a valid key
 

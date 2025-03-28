@@ -1,17 +1,21 @@
 import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
 import { BellDot } from 'lucide-react'
-import React from 'react'
+import React, { forwardRef } from 'react'
 import moment from 'moment'
 
 
-interface NotificationCardProps {
+interface NotificationCardProp {
   id: number,
 
   title: string, message: string, time: string, isUnread: boolean,
 
 }
 
-const NotificationCard = ({notification}:{notification:NotificationCardProps}) => {
+interface NotificationCardProps {
+  notification: NotificationCardProp;
+  }
+
+const NotificationCard = forwardRef<HTMLDivElement, NotificationCardProps>(({ notification }, ref) => {
   return (
     <div key={notification.id} className="flex items-center justify-between space-x-4 p-2 rounded-md bg-primary/10  shadow-md">
     <div className="flex items-center space-x-4">
@@ -30,6 +34,6 @@ const NotificationCard = ({notification}:{notification:NotificationCardProps}) =
     </span>
   </div>
   )
-}
+})
 
 export default NotificationCard

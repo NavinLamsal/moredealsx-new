@@ -59,12 +59,12 @@ const Paymentinformation = () => {
                   <input
                     type="radio"
                     name="payment"
-                    id="Stripe2"
+                    id="moredeals"
                     className="hidden"
                     onChange={() => handlePaymentChange("MoreDeals")}
                   />
                   <label
-                    htmlFor="Stripe2"
+                    htmlFor="moredeals"
                     className={`flex flex-col items-center p-4 w-full shadow-lg rounded-lg cursor-pointer border     ${
                       selectedPayment === "MoreDeals"
                         ? "border-2 bg-green-500 border-green-500 dark:border-green-500 hover:bg-P_text dark:hover:bg-P_text"
@@ -85,6 +85,43 @@ const Paymentinformation = () => {
                       height={500}
                       className="w-24 h-16 object-cover dark:block hidden"
                     />
+                  </label>
+
+                </div>
+
+                <div className="group">
+                  <input
+                    type="radio"
+                    name="payment"
+                    id="cod"
+                    className="hidden"
+                    onChange={() => handlePaymentChange("COD")}
+                  />
+                  <label
+                    htmlFor="cod"
+                    className={`flex flex-col items-center p-4 w-full shadow-lg rounded-lg cursor-pointer border     ${
+                      selectedPayment === "MoreDeals"
+                        ? "border-2 bg-green-500 border-green-500 dark:border-green-500 hover:bg-P_text dark:hover:bg-P_text"
+                        : "border-2 bg-white dark:bg-dark-primary border-black dark:border-gray-500 hover:bg-P_text dark:hover:bg-P_text"
+                    }`}
+                  >
+                    <div className='w-24 h-16 font-bold flex flex-wrap items-center justify-center'>
+                      <p>Cash on Delivery</p>
+                    </div>
+                    {/* <Image
+                      src="/images/png/moredeals.png"
+                      alt="More Deals"
+                      width={500}
+                      height={500}
+                      className="w-24 h-16 object-cover dark:hidden block"
+                    />
+                    <Image
+                      src="/images/png/MembersClubWhite.png"
+                      alt="More Deals"
+                      width={500}
+                      height={500}
+                      className="w-24 h-16 object-cover dark:block hidden"
+                    /> */}
                   </label>
                 </div>
               </div>

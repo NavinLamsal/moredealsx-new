@@ -34,11 +34,17 @@ const RecieverInformation = () => {
   return (
     <div className="mt-4 border-b pb-4">
     <h3 className="font-medium flex items-center gap-1"><SquareChartGantt  className='mr-2'  />Reciever Information</h3>
+    <p>{formData.errors.receiverName}</p>
+   
     <div className="mt-2 space-y-2 flex justify-between items-end">
      <div className=' flex flex-col gap-3'>
     <p className='flex items-center ml-6'><UserRound size={16} fill='currentColor' className='mr-2 ' /> 
-    {formData.receiverName === "" ? <span className='text-muted-foreground'>Receiver name is Required</span> : `${formData.receiverName}`}</p> 
-    <p className='flex items-center ml-6'><Phone size={16} fill='currentColor' className='mr-2' />{formData.mobileNumber === "" ? <span className='text-muted-foreground'>Phone Number is Required</span> : `${formData.mobileNumber}`}</p>   
+    {formData.receiverName === "" ? <span className='text-muted-foreground text-sm'>Receiver name is Required</span> : `${formData.receiverName}`}</p>
+    {formData.errors.receiverName &&
+    <p className='text-destructive text-sm'>{formData.errors.receiverName}</p>   
+    }
+    <p className='flex items-center ml-6'><Phone size={16} fill='currentColor' className='mr-2' />{formData.mobileNumber === "" ? <span className='text-muted-foreground'>Phone Number is Required</span> : `${formData.mobileNumber}`}</p>
+    {formData.errors.mobileNumber &&<p className='text-destructive text-sm'>{formData.errors.mobileNumber}</p>}   
     </div>   
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>

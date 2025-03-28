@@ -123,9 +123,13 @@ export default function MenuSection({menulist }: {menulist:FoodListType[]}) {
               key={category.id}
               id={`menu-item-${category.id}`}
               onClick={() => scrollToSection(category.id)}
-              className={`text-white font-medium hover:text-black hover:dark:text-white transition-all whitespace-nowrap px-4 py-2 ${
-                activeCategory === category.id ? "border-b-2 border-black text-black dark:text-white" : ""
-              }`}
+              className={`
+                
+                font-medium hover:text-primary hover:dark:text-white 
+                transition-all whitespace-nowrap px-4 py-2 
+                ${activeCategory === category.id ? "border-b-2 border-primary dark:border-white text-primary dark:text-white" : "text-black dark:text-muted-foreground"}
+              `}
+    
             >
               {category.name}
             </button>

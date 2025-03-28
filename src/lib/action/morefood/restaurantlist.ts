@@ -288,10 +288,7 @@ export const useFetchRestaurant = () => {
     slug: string,
   ): Promise<OpeningHours[]> => {
     try {
-      // Convert params object to query string
-     
       const response = await MoreFoodApiClient.get(`restaurants/${slug}/working-hour/`);
-  
       return  response.data.data;
     } catch (error) {
       console.error("Error fetching restaurants:", error);

@@ -1,6 +1,5 @@
 "use client"
 import { Button } from '@/components/ui/button';
-import Heading from '@/components/ui/heading'
 import { LocationDialog } from '@/layout/Setloaction';
 import { RootState } from '@/lib/redux/store';
 import React, { useEffect, useState } from 'react'
@@ -56,16 +55,17 @@ const LocationChange = () => {
       <div className="flex justify-between items-center mt-1 ml-3">
         {formData.deliverytype === "delivery" &&
           <>
-            <p className="text-gray-700 font-medium">{fullAddress ?? <span className='text-muted-foreground'>Set Your Location</span>}</p>
+            <p className="text-muted-foreground font-medium">{fullAddress ?? <span className='text-muted-foreground'>Set Your Location</span>}</p>
             <LocationDialog>
               <Button  variant="morefoodOutline" size={"sm"} className="text-xs px-2 py-1">Change</Button>
             </LocationDialog>
-
+            {formData.errors.location && <p className="text-red-500">{formData.errors.location}</p>}
           </>
         }
+        
         {formData.deliverytype !== "delivery" &&
           <>
-            <p className="text-gray-700 font-medium">{fullAddress ?? <span className='text-muted-foreground'>Set Your Location</span>}</p>
+            <p className="text-muted-foreground font-medium">{fullAddress ?? <span className='text-muted-foreground'>Set Your Location</span>}</p>
             <RestroLocationDialog location={formData.deliverytype === "packed" ? "Pick Up" : formData.deliverytype === "dine-here" ? "Dine In" : "Delivery"} details={{ lat: "28.208887051121366", lng: "83.97276146596613" }}>
               <Button variant="morefoodOutline" size={"sm"} className="text-xs px-2 py-1">View</Button>
             </RestroLocationDialog>

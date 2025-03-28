@@ -224,7 +224,7 @@ const BasicInfoForm = () => {
                             <RadioGroupItem value="EMAIL" id="EMAIL" className="peer sr-only" />
                             <label
                                 htmlFor="EMAIL"
-                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-transparent hover:text-foreground hover:border-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary peer-data-[state=checked]:bg-primary [&:has([data-state=checked])]:bg-primary peer-data-[state=checked]:text-primary-foreground [&:has([data-state=checked])]:text-primary-foreground" 
                             >
                                 <Mail />
 
@@ -239,7 +239,7 @@ const BasicInfoForm = () => {
                             />
                             <label
                                 htmlFor="PHONE"
-                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-transparent hover:text-foreground hover:border-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary peer-data-[state=checked]:bg-primary [&:has([data-state=checked])]:bg-primary peer-data-[state=checked]:text-primary-foreground [&:has([data-state=checked])]:text-primary-foreground"
                             >
                                 <Phone />
                                 Phone
@@ -283,7 +283,7 @@ const BasicInfoForm = () => {
                             <RadioGroupItem value="MALE" id="male" className="peer sr-only" />
                             <label
                                 htmlFor="male"
-                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-transparent hover:text-foreground hover:border-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary peer-data-[state=checked]:bg-primary [&:has([data-state=checked])]:bg-primary peer-data-[state=checked]:text-primary-foreground [&:has([data-state=checked])]:text-primary-foreground"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-mars"><path d="M16 3h5v5" /><path d="m21 3-6.75 6.75" /><circle cx="10" cy="14" r="6" /></svg>
 
@@ -298,7 +298,7 @@ const BasicInfoForm = () => {
                             />
                             <label
                                 htmlFor="female"
-                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-transparent hover:text-foreground hover:border-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary peer-data-[state=checked]:bg-primary [&:has([data-state=checked])]:bg-primary peer-data-[state=checked]:text-primary-foreground [&:has([data-state=checked])]:text-primary-foreground"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-venus"><path d="M12 15v7" /><path d="M9 19h6" /><circle cx="12" cy="9" r="6" /></svg>
                                 Female
@@ -308,7 +308,7 @@ const BasicInfoForm = () => {
                             <RadioGroupItem value="OTHER" id="other" className="peer sr-only" />
                             <label
                                 htmlFor="other"
-                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-transparent hover:text-foreground hover:border-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary peer-data-[state=checked]:bg-primary [&:has([data-state=checked])]:bg-primary peer-data-[state=checked]:text-primary-foreground [&:has([data-state=checked])]:text-primary-foreground"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-mars-stroke"><path d="m14 6 4 4" /><path d="M17 3h4v4" /><path d="m21 3-7.75 7.75" /><circle cx="9" cy="15" r="6" /></svg>
                                 Other

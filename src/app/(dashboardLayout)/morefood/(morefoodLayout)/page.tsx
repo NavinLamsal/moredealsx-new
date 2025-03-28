@@ -11,7 +11,6 @@ import React from 'react'
 const Page = () => {
   return (
    <>
-   
    <Offers />
    <TodaysOffer/>
    <CategoriesList/>
@@ -21,8 +20,6 @@ const Page = () => {
    <Heading title="All Restaurants" />
    <AllRestaurantList/>
    </>
-   
-
   )
 }
 

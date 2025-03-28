@@ -11,9 +11,12 @@ import businessReducer from "./slice/moreclub/BusinessSlice";
 import productReducer from "./slice/morefood/productCart";
 import deliveryReducer from "./slice/morefood/CheckoutSlice";
 import packageReducer from "./slice/moreclub/Pricing";
+import notificationsReducer from "./slice/notificationSlice";
 
 
 const rootReducer = combineReducers({
+  notification:notificationsReducer,
+
   // products: productReducer,
   comments:commentsReducer,
   currency: currencyReducer,

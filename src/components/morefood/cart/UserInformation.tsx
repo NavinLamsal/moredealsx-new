@@ -4,6 +4,7 @@ import LocationChange from '../Checkout/LocationChange'
 import RecieverInformation from '../Checkout/RecieverInformation'
 import Note from '@/components/form/morefood/Note'
 import CheckoutButton from '../Checkout/CheckoutButton'
+import ArrivalTime from '../Checkout/Arriavaltime'
 
 const UserInformation = () => {
   return (
@@ -15,9 +16,13 @@ const UserInformation = () => {
 
     {/* Delivery Address */}
     <LocationChange/>
+
+
    
     
     <RecieverInformation/>
+
+    <ArrivalTime/>
       
     {/* Payment */}
     <div className="mt-4">

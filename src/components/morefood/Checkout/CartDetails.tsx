@@ -1,6 +1,6 @@
 "use client"
 import Heading from '@/components/ui/heading';
-import { useAppDispatch, useAppSelector } from '@/lib/redux/hooks';
+import { useAppSelector } from '@/lib/redux/hooks';
 import { decrementOffer, decrementProduct, incrementOffer, incrementProduct, removeOffer, removeProduct } from '@/lib/redux/slice/morefood/productCart';
 import { CartFoodItemsTypes, CartFoodOfferTypes } from '@/lib/type/morefood/restaurant'
 import { X } from 'lucide-react';
@@ -46,23 +46,23 @@ const CartDetails = () => {
                 <div className="flex flex-col  gap-4 max-h-[400px] overflow-y-auto">
 
                     {items.map((item: CartFoodItemsTypes) => (
-                        <OrderCard item={item} type='item'
+                        <OrderCard item={item} type='item' key={`${item.id}-items`}
                         />
                     ))}
                     {offers.map((item: CartFoodOfferTypes) => (
-                        <OrderCard item={item} type='offer'
+                        <OrderCard item={item} type='offer' key={`${item.id}-offers`}
                         />
                     ))}
                 </div>
             </div>
             <div className='mt-auto'>
-                <div className="mt-4 border-b-2 pb-2 border-dashed">
+                <div className="mt-4 border-b-2 pb-2 border-dashed border-card-foreground">
                     <h3 className="font-medium">Cart summary ({totalItems} item)</h3>
                 </div>
                 {/* Order Total */}
                 <div className="mt-4">
                     {/* <h3 className="font-medium">Order total</h3> */}
-                    <div className="mt-2 text-sm text-gray-700">
+                    <div className="mt-2 text-sm text-card-foreground">
                         {/* <div className="flex justify-between"><span>Subtotal</span><span>$3.40</span></div>
                 <div className="flex justify-between"><span>Delivery Fee</span><span>$13.99</span></div>
                 <div className="flex justify-between"><span>Taxes & Other Fees</span><span>$5.30</span></div> */}
@@ -119,7 +119,7 @@ const OrderCard = ({ item, type }: { item: CartFoodItemsTypes | CartFoodOfferTyp
     return (
         <div
             key={item.id}
-            className="mb-6  rounded-md md:rounded-lg bg-white dark:bg-dark-secondary p-1 shadow-md flex justify-start"
+            className="mb-6  rounded-md md:rounded-lg bg-white dark:bg-gray-600 p-1 shadow-md flex justify-start"
         >
             <Image
                 src={item.image ? `${item.image}` : "/Images/morefood.jpg"}
@@ -139,12 +139,12 @@ const OrderCard = ({ item, type }: { item: CartFoodItemsTypes | CartFoodOfferTyp
                     <div className="flex items-center border-gray-100">
                         <span
                             onClick={() => handleDecrement(item)}
-                            className="cursor-pointer rounded-l bg-gray-100 dark:bg-dark-primary py-1 px-2 duration-100 hover:bg-S_btn hover:text-blue-50 dark:hover:bg-S_btn"
+                            className="cursor-pointer rounded-l bg-gray-100 dark:bg-gray-400 py-1 px-2 duration-100 hover:bg-S_btn hover:text-blue-50 dark:hover:bg-S_btn"
                         >
                             -
                         </span>
                         <input
-                            className="h-8 w-8 border bg-white dark:bg-dark-secondary text-center text-xs outline-none"
+                            className="h-8 w-8 border bg-white dark:bg-transparent text-center text-xs outline-none"
                             type="number"
                             name="quantity"
                             id="quantity"
@@ -154,7 +154,7 @@ const OrderCard = ({ item, type }: { item: CartFoodItemsTypes | CartFoodOfferTyp
                         />
                         <span
                             onClick={() => handleIncrement(item)}
-                            className="cursor-pointer rounded-r bg-gray-100 dark:bg-dark-primary py-1 px-2  duration-100 hover:bg-S_btn hover:text-blue-50 dark:hover:bg-S_btn"
+                            className="cursor-pointer rounded-r  bg-gray-100 dark:bg-gray-400  py-1 px-2  duration-100 hover:bg-S_btn hover:text-blue-50 dark:hover:bg-S_btn"
                         >
                             +
                         </span>

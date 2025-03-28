@@ -87,7 +87,7 @@ const PasswordForm = () => {
                         <RadioGroupItem value="NORMAL" id="NORMAL" className="peer sr-only" />
                         <label
                             htmlFor="NORMAL"
-                            className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-1.5 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-transparent hover:text-foreground hover:border-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary peer-data-[state=checked]:bg-primary [&:has([data-state=checked])]:bg-primary peer-data-[state=checked]:text-primary-foreground [&:has([data-state=checked])]:text-primary-foreground"
                         >
                             <User2Icon fill='currentColor' />
 
@@ -102,7 +102,7 @@ const PasswordForm = () => {
                         />
                         <label
                             htmlFor="BUSINESS"
-                            className="flex flex-col  items-center justify-center rounded-md border-2 border-muted bg-popover p-1.5 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-transparent hover:text-foreground hover:border-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary peer-data-[state=checked]:bg-primary [&:has([data-state=checked])]:bg-primary peer-data-[state=checked]:text-primary-foreground [&:has([data-state=checked])]:text-primary-foreground"
                         >
                             <Building2Icon className='mx-2' />
                             Business
@@ -112,7 +112,7 @@ const PasswordForm = () => {
                         <RadioGroupItem value="DELIVERY" id="DELIVERY" className="peer sr-only" />
                         <label
                             htmlFor="DELIVERY"
-                            className="flex flex-col  items-center justify-center rounded-md border-2 border-muted bg-popover p-1.5 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-transparent hover:text-foreground hover:border-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary peer-data-[state=checked]:bg-primary [&:has([data-state=checked])]:bg-primary peer-data-[state=checked]:text-primary-foreground [&:has([data-state=checked])]:text-primary-foreground"
                         >
                             <Bike fill='currentColor' />
 

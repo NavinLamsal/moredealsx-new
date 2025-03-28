@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { updateFormData } from '@/lib/redux/slice/morefood/CheckoutSlice';
+import { setFieldError, updateFormData } from '@/lib/redux/slice/morefood/CheckoutSlice';
 import { RootState } from '@/lib/redux/store';
+import { CheckoutFormTypes } from '@/lib/type/morefood/restaurant';
 import { validateRequired } from '@/lib/validation/common';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,7 +11,7 @@ const ReceiverDetail = ({onSubmit}:{onSubmit: () => void}) => {
     const dispatch = useDispatch();
     const formData = useSelector((state: RootState) => state.delivery);
     const {receiverName , mobileNumber} = useSelector((state: RootState) => state.delivery);
-    const [errors, setErrors] = React.useState<{ [key: string]: string }>({});
+    const [errors, setErrors] = React.useState<{ [key: string]: string }>(formData.errors || {});
 
 
     const handleChange = (
@@ -20,6 +21,7 @@ const ReceiverDetail = ({onSubmit}:{onSubmit: () => void}) => {
         const updatedFormData = { ...formData, [name]: value };
         dispatch(updateFormData(updatedFormData));
         setErrors({ ...errors, [name]: "" });
+        dispatch(setFieldError({ field: name as keyof CheckoutFormTypes, message: "" }));
       };
 
         const validate = async (fieldValues: Partial<{
@@ -72,6 +74,7 @@ const ReceiverDetail = ({onSubmit}:{onSubmit: () => void}) => {
             onChange={handleChange}
             className={`  ${errors.receiverName ? "border-red-500 focus:ring-red-500 focus:border-red-500" : ""}  `}
           />
+          {errors.receiverName && <p className="text-red-500 text-sm">{errors.receiverName}</p>}
         </div>
         <div>
           <label
