@@ -121,3 +121,16 @@ export const validateRequired = (value: string , name: string): string => {
       return ""; // No errors
     };
     
+
+    export const validateNumber = (value: number, max: number, name: string): string => {
+      if (value === undefined || value === null || isNaN(value)) {
+        return `${name} is required and must be a valid number.`;
+      }
+    
+      if (value > max) {
+        return `${name} cannot exceed ${max}.`;
+      }
+    
+      return ""; // No errors
+    };
+    

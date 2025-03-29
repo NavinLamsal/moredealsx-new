@@ -8,7 +8,7 @@ import Image from "next/image";
 
 const RestaurantDetail = ({details}:{details:Restaurant}) => {
   return (
-    <div className="max-w-5xl mx-auto bg-card shadow-lg rounded-lg overflow-hidden">
+    <div className="max-w-5xl mx-auto bg-card shadow-lg rounded-t-lg overflow-hidden">
       {/* Header Image */}
       <div className="relative w-full h-64">
         <Image
@@ -44,7 +44,6 @@ const RestaurantDetail = ({details}:{details:Restaurant}) => {
         </p>
       </div>
 
-      <RestaurantTab details={details}/>      
     </div>
   );
 };

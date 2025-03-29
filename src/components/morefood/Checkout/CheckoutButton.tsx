@@ -27,6 +27,7 @@
 import { Button } from '@/components/ui/button';
 import { nextStep, setFieldError } from '@/lib/redux/slice/morefood/CheckoutSlice';
 import { RootState } from '@/lib/redux/store';
+import { showToast } from '@/lib/utilities/toastService';
 import { validateLocationDetails, validateRequired } from '@/lib/validation/common';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -170,6 +171,7 @@ const CheckoutButton = () => {
 
     // Check if there are products in the cart
     if (totalItems === 0) {
+      showToast("Your cart is empty. Please add items before proceeding.", "error");
       // alert('Your cart is empty. Please add items before proceeding.');
       return;
     }

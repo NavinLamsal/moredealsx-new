@@ -2,10 +2,11 @@ import MoreFoodApiClient from '@/lib/axios/morefood/MoreFoodApiClient';
 import { FoodOrderTypes } from '@/lib/type/morefood/restaurant'
 import { showToast } from '@/lib/utilities/toastService';
 import { getCountryCode } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 import React, { FormEvent, useState } from 'react'
 
 const CashOnDelivery = ({ formattedOrderType, currency_symbol, amount }: { formattedOrderType: Partial<FoodOrderTypes>, currency_symbol: string, amount: number }) => {
-
+    const router = useRouter();
     const [errorMessage, setErrorMessage] = useState("");
     const [isProcessing, setIsProcessing] = useState(false);
 
@@ -17,6 +18,7 @@ const CashOnDelivery = ({ formattedOrderType, currency_symbol, amount }: { forma
         try {
             const response = await MoreFoodApiClient.post(`orders/create/`, data)
             showToast("order placed", "success")
+            window.location.replace(`/morefood/checkout/success/`)
 
         } catch (error: any) {
             setErrorMessage(error.message || "An unknown error occurred.");

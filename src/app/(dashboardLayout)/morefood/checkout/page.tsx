@@ -13,7 +13,7 @@ export default function Checkout() {
           </div>
           
           {/* Right Section */}
-          <div className="col-span-12 lg:col-span-5 bg-card p-6 rounded-lg shadow order-1 lg:order-2 h-screen">
+          <div className="col-span-12 lg:col-span-5 bg-card p-6 rounded-lg shadow order-1 lg:order-2 lg:h-screen">
           <CartDetails/>
           </div>
         </div>

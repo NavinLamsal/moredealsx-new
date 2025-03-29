@@ -44,6 +44,7 @@ const cartSlice = createSlice({
       
       localStorage.setItem("Restaurant_slug", state.restaurant_slug);
       localStorage.setItem("Offers", JSON.stringify(state.exclusiveOffers));
+      sessionStorage.setItem("orderStep", "1");
     },
 
     addProduct: (state, action: PayloadAction<CartFoodItemsTypes>) => {
@@ -63,6 +64,7 @@ const cartSlice = createSlice({
       localStorage.setItem("Restaurant_id", state.restaurant_id);
       localStorage.setItem("Restaurant_slug", state.restaurant_slug);
       localStorage.setItem("Products", JSON.stringify(state.items));
+      sessionStorage.setItem("orderStep", "1");
     },
 
     removeOffer: (state, action: PayloadAction<string>) => {
@@ -186,11 +188,9 @@ const cartSlice = createSlice({
       state.items = [];
       state.exclusiveOffers = [];
       state.restaurant_id = "";
-      state.restaurant_slug = "";
       localStorage.removeItem("Products");
       localStorage.removeItem("Offers");
       localStorage.removeItem("Restaurant_id");
-      localStorage.removeItem("Restaurant_slug");
     },
   },
 });

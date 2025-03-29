@@ -10,6 +10,7 @@ import {
   OfferType,
   OpeningHours,
   ResturantListType,
+  Review,
 } from "@/lib/type/morefood/restaurant";
 // import { CuisineTypes, MetaData, ResturantListType, StationListType } from "../Type";
 
@@ -303,6 +304,9 @@ export const useFetchRestaurant = () => {
     data: FoodListType[];
     meta: MetaData;
   }> => {
+
+    
+
     try {
       const response = await MoreFoodApiClient.get(`menus/restaurant/${slug}/foods/`);
 
@@ -312,6 +316,51 @@ export const useFetchRestaurant = () => {
       return { data: [] as FoodListType[], meta: {} as MetaData };
     }
   };
+
+
+
+  const fetchRestaurantReview = async (
+    slug: string,
+    page: number,
+    limitvalue?: number
+  ): Promise<{
+    data: Review[];
+    meta: MetaData;
+  }> => {
+    const limit = 10;
+    const offset = (page - 1) * limit;
+
+    // Convert params object to query string
+    const queryParams = new URLSearchParams({
+      offset: offset.toString(),
+      limit: limit.toString(),
+      page: page.toString(),
+    });
+    try {
+      const response = await MoreFoodApiClient.get(`reviews/restaurant/${slug}/reviews/`);
+
+      return { data: response.data.data, meta: response.data.meta };
+    } catch (error) {
+      console.error("Error in fetching popular Restaurants", error);
+      return { data: [] as Review[], meta: {} as MetaData };
+    }
+  };
+
+  const fetchRestaurantUserReview = async (
+    slug: string,
+  ): Promise<Review
+   
+  > => {
+    try {
+      const response = await MoreFoodApiClient.get(`reviews/restaurant/${slug}/user-review/`);
+
+      return response.data.data;
+    } catch (error) {
+      console.error("Error in fetching popular Restaurants", error);
+      return {} as Review;
+    }
+  };
+
 
   // const fetchRestaurantFeatures = async (
   //   slug: string,
@@ -413,5 +462,8 @@ export const useFetchRestaurant = () => {
     fetchOffersList,
     fetchcomboList,
     fetchRestroOffersList,
+
+    fetchRestaurantReview,
+    fetchRestaurantUserReview,
   };
 };

@@ -139,42 +139,38 @@ export interface CartFoodOfferTypes {
 }
 
 export interface OfferType {
-  id: string//"c1d5eb8f-d5f2-4834-bd28-b413f784ceba";
-  name:string// "Daju Bhai Bhati PasaL offer";
-  price:string// 800;
-  description:string// "authenic swedish dishes";
-  banner:string
-  restaurant:string// "daju-bhai-bhati-pasal-offer";
-  food_item: 
-    {
-      id: string;
-          name: string,
-          variation_type: string,
-          value: string,
-          image: string
-          ingredients: string
-    }[]
-  start_date:string// "2025-03-20";
-  end_date:string// "2025-03-26";
-  currency_symbol:string// "Rs";
-  currency_code:string// "NPR";
+  id: string; //"c1d5eb8f-d5f2-4834-bd28-b413f784ceba";
+  name: string; // "Daju Bhai Bhati PasaL offer";
+  price: string; // 800;
+  description: string; // "authenic swedish dishes";
+  banner: string;
+  restaurant: string; // "daju-bhai-bhati-pasal-offer";
+  food_item: {
+    id: string;
+    name: string;
+    variation_type: string;
+    value: string;
+    image: string;
+    ingredients: string;
+  }[];
+  start_date: string; // "2025-03-20";
+  end_date: string; // "2025-03-26";
+  currency_symbol: string; // "Rs";
+  currency_code: string; // "NPR";
 }
-
-
 
 export interface CheckoutFormTypes {
   step: number;
-  deliverytype: string;        
+  deliverytype: string;
   receiverName: string;
   mobileNumber: string;
   receiverEmail: string;
   note: string;
-  arrivalTime: string;         
+  arrivalTime: string;
   location: string;
-  lat: number;                 
-  lon: number;   
+  lat: number;
+  lon: number;
 }
-
 
 // export interface FoodOrderTypes {
 //   restaurant_slug: string;
@@ -223,9 +219,9 @@ export interface MoreDealOrderTypes {
   order_type: string;
   items: {
     food_item?: string;
-    quantity:number
-    offer?:string
-    related_food_item?: string[]
+    quantity: number;
+    offer?: string;
+    related_food_item?: string[];
   }[];
   full_name: string;
   phone_no: string;
@@ -251,6 +247,19 @@ export interface orderFoodItem {
   description: string;
   name: string;
   quantity: number;
-  related_food_item: string[]; 
+  related_food_item: string[];
 }
 
+export interface Review {
+  comment: string;
+  created_at: string;
+  id: string;
+  image: string[];
+  rating: number;
+  restaurant: {
+    id: string;
+    logo: string; 
+    name: string; 
+  };
+  user: { first_name: string; last_name: string };
+}
