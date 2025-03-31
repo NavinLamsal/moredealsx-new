@@ -77,12 +77,13 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useFetchRestaurant } from "@/lib/action/morefood/restaurantlist";
 import AnimatedSection from "@/components/ui/animations/FadeUpView";
 import OrderCard from "../cards/OrderCard";
+import { Card, CardContent } from "@/components/ui/card";
 
 
 
 const OrderList = ({type , searchParams}:{type: string , searchParams:{ [key: string]: string | string[] | undefined }}) => {
-    console.log("searchParams", searchParams);
-    const city = typeof window !== "undefined" ? localStorage.getItem("city") : null;
+
+
     const { fetchOrderList } = useFetchRestaurant()
     const observerRef = useRef<IntersectionObserver | null>(null);
     const {
@@ -126,7 +127,7 @@ const OrderList = ({type , searchParams}:{type: string , searchParams:{ [key: st
     if (isLoading) {
         return (
             <div className="flex justify-center items-center h-40">
-                <p className="text-gray-600">Loading restaurants...</p>
+                <p className="text-gray-600">Loading order...</p>
             </div>
         );
     }
@@ -136,21 +137,23 @@ const OrderList = ({type , searchParams}:{type: string , searchParams:{ [key: st
     }
 
     return (
-        <div className="">
+        <div className="max-w-5xl">
+            
+
             {/* No Transactions Found */}
-            {data?.pages[0].data.length === 0 && <p className="text-center">No restaurants Found</p>}
+            {data?.pages[0].data.length === 0 && <p className="text-center">No order Found</p>}
 
             {/* Transaction List */}
-            <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3">
+            <div className="grid grid-cols-1  gap-3">
                 {data?.pages.map((page, pageIndex) =>
                     page.data.map((order, index) => (
                         <div key={`${pageIndex}-${index}`}>
-                            <div className="flex-shrink-0 sm:w-48 lg:w-60" key={order.order_id}>
+                            <div className="flex-shrink-0 w-full" key={order.order_id}>
                                 <AnimatedSection key={order.order_id} index={index}>
                                     <OrderCard
                                         key={index}
                                         item={order}
-                                        // ref={index === page.data.length - 1 ? lastRestaurantRef : null}
+                                        ref={index === page.data.length - 1 ? lastRestaurantRef : null}
                                     />
                                 </AnimatedSection>
                             </div>
@@ -159,7 +162,8 @@ const OrderList = ({type , searchParams}:{type: string , searchParams:{ [key: st
             </div>
 
             {/* Loading More Transactions */}
-            {isFetchingNextPage && <p className="text-center mt-4 text-gray-600">Loading more restaurants...</p>}
+            {isFetchingNextPage && <p className="text-center mt-4 text-gray-600">Loading more orders...</p>}
+
         </div>
     );
 };

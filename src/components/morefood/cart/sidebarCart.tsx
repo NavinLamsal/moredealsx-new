@@ -67,7 +67,11 @@ const SidebarCart = () => {
       : offers && offers.length > 0
         ? offers[0].currency_symbol
           : "";
-  
+    
+    const totalItem = items.reduce((total, item) => total + (item.quantity || 0), 0);
+    const totalOffer = offers.reduce((total, item) => total + (item.quantity || 0), 0);
+    const totalItems = totalItem + totalOffer;
+    
 
   return (
     <>
@@ -117,7 +121,7 @@ const SidebarCart = () => {
 
   {/* Checkout Button */}
   <Link href="/morefood/checkout">
-  <Button variant={"morefoodPrimary"} className="mt-4 w-full py-3 rounded-lg text-lg">
+  <Button variant={"morefoodPrimary"} disabled={totalItem === 0} className="mt-4 w-full py-3 rounded-lg text-lg">
     Checkout
   </Button>
   </Link>

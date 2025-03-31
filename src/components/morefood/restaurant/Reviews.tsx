@@ -56,7 +56,7 @@ export const ReviewCard = ({ comment, rating, author, date }: { comment: string;
         {Array.from({ length: rating }, (_, i) => (
           <Crown key={i} fill={"currentcolor"} className="w-4 h-4 text-yellow-500" />
         ))}
-        - {author} • {moment.utc(date).local().format("YYYY-MM-DD")}
+        - {author} • {moment.utc(date).local().format("DD MMM,YY")}
       </p>
     </div>
   );

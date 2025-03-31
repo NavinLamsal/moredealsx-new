@@ -1,16 +1,19 @@
 "use client"
+import { Button } from '@/components/ui/button';
 import Heading from '@/components/ui/heading';
 import { useAppSelector } from '@/lib/redux/hooks';
 import { decrementOffer, decrementProduct, incrementOffer, incrementProduct, removeOffer, removeProduct } from '@/lib/redux/slice/morefood/productCart';
 import { CartFoodItemsTypes, CartFoodOfferTypes } from '@/lib/type/morefood/restaurant'
-import { X } from 'lucide-react';
+import { LucideUtensilsCrossed, X } from 'lucide-react';
 import Image from 'next/image'
+import Link from 'next/link';
 import React from 'react'
 import { useDispatch } from 'react-redux';
 
 const CartDetails = () => {
     const items = useAppSelector((state) => state.foodCart.items);
     const offers = useAppSelector((state) => state.foodCart.exclusiveOffers);
+    const restaurant_slug = useAppSelector((state) => state.foodCart.restaurant_slug);
 
     const itemsubtotal = items.reduce(
         (total, item) =>
@@ -43,6 +46,21 @@ const CartDetails = () => {
         <div className='flex flex-col justify-between'>
             <div>
                 <Heading title="Your Cart" />
+                {!items.length && !offers.length &&
+                    <div className="flex flex-wrap flex-col justify-center items-center bg-white dark:bg-inherit">
+                        <h2 className="text-bold text-xl">Add items into cart</h2>
+                        <div className="flex flex-col items-center">
+                            <LucideUtensilsCrossed size={60} className="text-P_icons" />
+                            <p className="text-xl font-bold">Hungry ?</p>
+                            <Link href={`${!restaurant_slug ? `/morefood/` : `/morefood/restaurant/${restaurant_slug}`}`}>
+                                <Button variant="morefoodPrimary">
+                                    {!restaurant_slug ? "View Resturants" : "Add Food Items"}
+                                </Button>
+                            </Link>
+                        </div>
+                    </div>
+                }
+
                 <div className="flex flex-col  gap-4 max-h-[400px] overflow-y-auto">
 
                     {items.map((item: CartFoodItemsTypes) => (
@@ -59,18 +77,13 @@ const CartDetails = () => {
                 <div className="mt-4 border-b-2 pb-2 border-dashed border-card-foreground">
                     <h3 className="font-medium">Cart summary ({totalItems} item)</h3>
                 </div>
-                {/* Order Total */}
                 <div className="mt-4">
-                    {/* <h3 className="font-medium">Order total</h3> */}
                     <div className="mt-2 text-sm text-card-foreground">
-                        {/* <div className="flex justify-between"><span>Subtotal</span><span>$3.40</span></div>
-                <div className="flex justify-between"><span>Delivery Fee</span><span>$13.99</span></div>
-                <div className="flex justify-between"><span>Taxes & Other Fees</span><span>$5.30</span></div> */}
+
                         <div className="flex justify-between font-semibold mt-2"><span>Total</span><span>{currency_symbol}&nbsp;{total}</span></div>
                     </div>
                 </div>
             </div>
-            {/* Cart Summary */}
         </div>
     )
 }

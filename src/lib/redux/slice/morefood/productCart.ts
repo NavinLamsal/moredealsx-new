@@ -69,7 +69,11 @@ const cartSlice = createSlice({
 
     removeOffer: (state, action: PayloadAction<string>) => {
       state.exclusiveOffers = state.exclusiveOffers.filter((offer: CartFoodOfferTypes) => offer.id !== action.payload);
+      if(state.items.length === 0 || state.exclusiveOffers.length === 0){
+        sessionStorage.setItem("orderStep" ,"1");
+      }
       localStorage.setItem("Offers", JSON.stringify(state.exclusiveOffers));
+
     },
 
   
@@ -92,7 +96,10 @@ const cartSlice = createSlice({
       if (existingItem) {
         state.items = state.items.filter((item) => item !== existingItem);
       }
-    
+       
+      if(state.items.length === 0 || state.exclusiveOffers.length === 0){
+        sessionStorage.setItem("orderStep" ,"1");
+      }
     
       // Optionally store the updated items in localStorage
       if (typeof window !== "undefined") {

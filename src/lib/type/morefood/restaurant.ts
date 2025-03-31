@@ -284,16 +284,19 @@ export type FoodItem = {
 
 export type Order = {
   order_id: string;
-  created_at: string; // ISO date format
+  created: string; // ISO date format
   order_status: string;
   order_type: string;
   restaurant_name: string;
   items: OrderItem[];
 };
 
+
+
 export type OrderItem = {
   food_item?: OrderFoodItem;
   offer?: OrderOffer;
+  related_food_items?:any[];
 };
 
 export type OrderFoodItem = {

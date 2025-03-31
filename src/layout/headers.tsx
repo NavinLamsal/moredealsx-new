@@ -66,8 +66,11 @@ const Headers = ({teams}:{teams?:{
           </Breadcrumb> */}
         </div>
         <div className="flex items-center gap-2">
+          
+         {<div className='hidden md:block'>
           <BalanceViewer />
-         {<div className='hidden md:block'><ModeToggle /></div>} 
+          <ModeToggle />
+          </div>} 
           <NotificationDropDown />
          <NavUser user={users}/>
         </div>

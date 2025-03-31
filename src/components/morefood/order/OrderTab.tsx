@@ -31,13 +31,13 @@ const OrderTab = ({type}:{type:string}) => {
         {
             id: "4",
             value: "Cancelled",
-            name: "Cancelled",
+            name: "Cancel",
             link: `/morefood/order?order_status=Cancelled`,
         },
     ];
 
     return (
-        <div className="w-full  overflow-hidden pb-2 max-w-5xl mx-auto">
+        <div className="w-full  overflow-hidden pb-2 max-w-5xl">
 
             <div className=" w-full flex items-center justify-start  border-b border-muted-foreground dark:border-gray-700 bg-inherit rounded-none overflow-x-auto hide-scroll-bar">
                 {tablist.map((item) => (
