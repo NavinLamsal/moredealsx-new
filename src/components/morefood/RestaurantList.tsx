@@ -2,14 +2,14 @@
 
 import React, { useRef, useCallback } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import AnimatedSection from "../ui/FadeUpView";
+import AnimatedSection from "../ui/animations/FadeUpView";
 import { useFetchRestaurant } from "@/lib/action/morefood/restaurantlist";
 import RestaurantCard from "../cards/morefood/RestaurantCard";
 
 
 
 const RestaurantList = ({type , searchParams}:{type: string , searchParams:{ [key: string]: string | string[] | undefined }}) => {
-
+    const city = typeof window !== "undefined" ? localStorage.getItem("city") : null;
     const { fetchRestaurantList } = useFetchRestaurant()
     const observerRef = useRef<IntersectionObserver | null>(null);
     const {
@@ -21,8 +21,8 @@ const RestaurantList = ({type , searchParams}:{type: string , searchParams:{ [ke
         isFetchingNextPage,
         refetch,
     } = useInfiniteQuery({
-        queryKey: ["Restaurant List", type, searchParams ],
-        queryFn: ({ pageParam = 1 }) => fetchRestaurantList(type , searchParams , pageParam),
+        queryKey: ["Restaurant List", type, {...searchParams, city_name: city} ],
+        queryFn: ({ pageParam = 1 }) => fetchRestaurantList(type , {...searchParams, city_name: city} , pageParam),
         getNextPageParam: (lastPage) => {
             const nextPage = lastPage.meta.page_number + 1;
             return nextPage <= lastPage.meta.total_pages ? nextPage : null;
@@ -68,11 +68,11 @@ const RestaurantList = ({type , searchParams}:{type: string , searchParams:{ [ke
             {data?.pages[0].data.length === 0 && <p className="text-center">No restaurants Found</p>}
 
             {/* Transaction List */}
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3">
                 {data?.pages.map((page, pageIndex) =>
                     page.data.map((restaurant, index) => (
                         <div key={`${pageIndex}-${index}`}>
-                            <div className="flex-shrink-0 w-48 lg:w-60" key={restaurant.id}>
+                            <div className="flex-shrink-0 sm:w-48 lg:w-60" key={restaurant.id}>
                                 <AnimatedSection key={restaurant.id} index={index}>
                                     <RestaurantCard
                                         key={index}

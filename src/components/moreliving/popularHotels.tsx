@@ -3,7 +3,7 @@ import React, { Suspense } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { CardSkeleton } from "../Skeletons/CardSkeleton";
 import Heading from "../ui/heading";
-import AnimatedSection from "../ui/FadeUpView";
+import AnimatedSection from "../ui/animations/FadeUpView";
 import HotelCard from "./cards/HotelCard";
 import { HotelTypes } from "@/lib/type/moreliving/hotel";
 import { useFetchHotel } from "@/lib/action/moreliving/hotellist";

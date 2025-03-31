@@ -119,7 +119,7 @@ const OrderCard = ({ item, type }: { item: CartFoodItemsTypes | CartFoodOfferTyp
     return (
         <div
             key={item.id}
-            className="mb-6  rounded-md md:rounded-lg bg-white dark:bg-gray-600 p-1 shadow-md flex justify-start"
+            className="mb-6 p-2 rounded-md md:rounded-lg bg-white dark:bg-gray-600  shadow-md flex justify-start"
         >
             <Image
                 src={item.image ? `${item.image}` : "/Images/morefood.jpg"}

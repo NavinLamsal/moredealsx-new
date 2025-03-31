@@ -10,7 +10,7 @@ import { ReviewForm } from "@/components/form/morefood/reviewForm";
 import Heading from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 
-export const UserReviewCard = ({ review }: { review: Review }) => {
+export const UserReviewCard = ({ review, slug }: { review: Review , slug: string}) => {
   const [isOpen, setIsOpen] = useState(false); // State to manage modal visibility
   const [isEditMode, setIsEditMode] = useState(false); // State to toggle edit mode
   const [editedComment, setEditedComment] = useState(review.comment); // Store the edited comment
@@ -53,7 +53,7 @@ export const UserReviewCard = ({ review }: { review: Review }) => {
         <Dialog open={isOpen} onOpenChange={()=>setIsOpen(false)} >
             <DialogContent className="sm:max-w-[425px] md:max-w-md lg:max-w-lg xl:max-w-xl md:max-h-[60%] lg:max-h-[75%] overflow-y-scroll hide-scroll-bar ">
                 <Heading title="Edit Review" />
-                <ReviewForm initialReview={review} isEditing={true} onSubmit={() => {handleSave()}} onCancel={()=>{handleCancel()}} />
+                <ReviewForm initialReview={review} isEditing={true} onSubmit={() => {handleSave()}} onCancel={()=>{handleCancel()}} slug={slug} />
             </DialogContent>
         </Dialog>
       )}
@@ -66,7 +66,7 @@ export const UserReviewCard = ({ review }: { review: Review }) => {
                 <SheetTitle>Edit Review</SheetTitle>
               </SheetHeader>
                 <SheetDescription>
-                <ReviewForm  initialReview={review} isEditing={true} onSubmit={() => {handleSave()}} onCancel={()=>{handleCancel()}} />
+                <ReviewForm  initialReview={review} isEditing={true} onSubmit={() => {handleSave()}} onCancel={()=>{handleCancel()}} slug={slug} />
             </SheetDescription>
         </SheetContent>
         </Sheet>

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React from 'react';
 import Heading from '../ui/heading';
 import PlatformCard from '../moreclub/PlatformCard';
-import AnimatedSection from '../ui/FadeUpView';
+import AnimatedSection from '../ui/animations/FadeUpView';
 
 export default async function DealsSection() {
 

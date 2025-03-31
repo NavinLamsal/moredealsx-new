@@ -1,4 +1,5 @@
 import { ResturantListType } from "@/lib/type/morefood/restaurant";
+import { Crown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { forwardRef } from "react";
@@ -28,12 +29,18 @@ const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner
           )}
         </div>
         <div className="p-4">
-          <h3 className="text-lg font-semibold  truncate">{name}</h3>
+          <h3 className="text-base font-semibold  truncate">{name}</h3>
           <div className="flex items-center space-x-1 text-sm text-muted-foreground">
-            <span className="text-yellow-500">&#9733;</span>
-            <span className="font-medium">{rating}</span>
-            <span>({review_count} reviews)</span>
-            <span>&#8226;</span>
+            <span className="text-yellow-500"><Crown className="w-4 h-4" /></span>
+            {rating ?
+              <>
+                <span className="font-medium">{rating ?? 0}</span>
+                <span>({review_count ?? 0} reviews)</span>
+              </>
+              :
+              <span>No review yet</span>
+            }
+            
             {/* <span>{address} min</span> */}
           </div>
           <div className="flex items-center space-x-1 text-sm text-muted-foreground">

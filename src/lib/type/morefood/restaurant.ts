@@ -16,12 +16,14 @@ export interface CategoryListType {
   name: string;
   icon: string;
   slug: string;
+  active?: boolean;
 }
 
 export interface Restaurant {
   id: string; // "cdb7f165-2ecd-4973-8661-77d92eab7dd5",
   logo: string; // "https://res.cloudinary.com/duehpgb6o/image/upload/v1/media/restaurants/logo/majestic4_kqufuj",
   restaurant_rating: number; // 5.0,
+  review_count: number; // 1,
   open_hrs: string; // "Closed",
   country_code: string; // "NP",
   city_id: string; // "082e4210-a58c-42af-9dd7-3c30c5fd3022",
@@ -48,6 +50,7 @@ export interface Restaurant {
   instagram_link: string; // "http://sujit.com",
   slug: string; // "siddhartha-gautam",
   banner: string; // "https://res.cloudinary.com/duehpgb6o/image/upload/v1/media/restaurants/banner/majestic4_y7qpzj"
+  cuisine: string[];
 }
 
 export interface OpeningHours {
@@ -144,7 +147,7 @@ export interface OfferType {
   price: string; // 800;
   description: string; // "authenic swedish dishes";
   banner: string;
-  restaurant: string; // "daju-bhai-bhati-pasal-offer";
+  restaurant_slug: string; // "daju-bhai-bhati-pasal-offer";
   food_item: {
     id: string;
     name: string;
@@ -263,3 +266,138 @@ export interface Review {
   };
   user: { first_name: string; last_name: string };
 }
+
+export interface ImagesList {
+  
+    id: string;
+    image: string; 
+}
+
+
+export type FoodItem = {
+  id: string;
+  name: string;
+  description?: string;
+  price: number;
+  imageUrl?: string;
+};
+
+export type Order = {
+  order_id: string;
+  created_at: string; // ISO date format
+  order_status: string;
+  order_type: string;
+  restaurant_name: string;
+  items: OrderItem[];
+};
+
+export type OrderItem = {
+  food_item?: OrderFoodItem;
+  offer?: OrderOffer;
+};
+
+export type OrderFoodItem = {
+  food_item_name: string;
+  food_item_image: string;
+  quantity: number;
+};
+
+export type OrderOffer = {
+  offer_id: string;
+  offer_name: string;
+  quantity: number;
+  offer_banner: string;
+};
+
+
+export interface OrderDetailsTypes {
+  id: string;
+  items: orderFoodItemTypes[],
+  offer:OrderOfferItemTypes[]
+  total_price: number;
+  currency_symbol: string;
+  currency_code: string;
+  order_id: string;
+  full_name: string;
+  email: string;
+  phone_no: string;
+  order_status: string;
+  order_type: string;
+  lat: number;
+  lng: number;
+  address: string;
+  ordered_date: string;
+  note: string;
+  user_sent_amount: string;
+  user: {
+    id: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+    is_staff: boolean;
+    is_active: boolean;
+    date_joined: string;
+    username: string;
+    phone_number: string;
+    is_restaurant_user: boolean;
+  };
+  restaurant: {
+    id: string;
+    logo: string;
+    name: string;
+    address: string;
+    short_description: string;
+    long_description: string;
+    lat: number;
+    lng: number;
+    banner: string;
+    email: string;
+    contact_no: string;
+    is_delivery: boolean;
+    is_pickup: boolean;
+    is_dine: boolean;
+    min_order: number;
+    delivery_per_km: number;
+    delivery_time: string;
+    website_link: string;
+    facebook_link: string;
+    instagram_link: string;
+    user: string;
+    country: number;
+    currency: number;
+  };
+  station: {
+    id: string;
+    name: string;
+    lat: number;
+    lng: number;
+    banner: string;
+    address: string;
+    restaurant: string;
+    contact: string;
+    email: string;
+  };
+}
+
+export interface orderFoodItemTypes{
+  id: string;
+  quantity: number;
+  price: number;
+  name: string;
+  image: string | null;
+  description: string;
+  related_food_item: {
+    name: string;
+    image: string |null;
+    price: number;
+}[],
+}
+
+export interface OrderOfferItemTypes {
+  id: string;
+  name: string;
+  variation_type: string;
+  value: string;
+  price: String;
+  discount_price: string;
+  }

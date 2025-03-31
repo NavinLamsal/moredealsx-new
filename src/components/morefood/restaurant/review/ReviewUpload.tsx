@@ -42,7 +42,7 @@ export const ReviewUpload = ({slug}:{slug:string}) => {
         <Dialog open={isOpen} onOpenChange={()=>setIsOpen(false)} >
             <DialogContent className="sm:max-w-[425px] md:max-w-md lg:max-w-lg xl:max-w-xl md:max-h-[60%] lg:max-h-[75%] overflow-y-scroll hide-scroll-bar ">
                 <Heading title="Edit Review" />
-                <ReviewForm isEditing={false} onSubmit={() => {handleSave()}} onCancel={() => {handleCancel()}}/>
+                <ReviewForm isEditing={false} onSubmit={() => {handleSave()}} onCancel={() => {handleCancel()}} slug={slug}/>
             </DialogContent>
         </Dialog>
       )}
@@ -55,7 +55,7 @@ export const ReviewUpload = ({slug}:{slug:string}) => {
                 <SheetTitle>Edit Review</SheetTitle>
               </SheetHeader>
                 <SheetDescription>
-                <ReviewForm  isEditing={false} onSubmit={() => {handleSave()}} onCancel={() => {handleCancel()}} />
+                <ReviewForm slug={slug} isEditing={false} onSubmit={() => {handleSave()}} onCancel={() => {handleCancel()}} />
             </SheetDescription>
         </SheetContent>
         </Sheet>

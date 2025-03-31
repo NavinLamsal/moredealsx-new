@@ -2,7 +2,7 @@
 import OfferCard from '@/components/cards/morefood/OfferCard';
 import HorizontalCarousel from '@/components/carousel/horizontalCarousel';
 import { CardSkeleton } from '@/components/Skeletons/CardSkeleton';
-import AnimatedSection from '@/components/ui/FadeUpView';
+import AnimatedSection from '@/components/ui/animations/FadeUpView';
 import { useFetchRestaurant } from '@/lib/action/morefood/restaurantlist';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react'

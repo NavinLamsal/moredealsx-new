@@ -1,91 +1,26 @@
-// "use client"
-// import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-// import { Restaurant } from '@/lib/type/morefood/restaurant'
-// import React from 'react'
-// import Overview from './overview'
-// import Reviews from './Reviews'
-
-// const RestaurantTab = ({details}:{details:Restaurant}) => {
-//     // const activetab = searchParams?.get("tab");
-
-//     const tablist = [
-//       {
-//         id: "5",
-//         value: "review",
-//         name: "Reviews",
-//         content: <Reviews slug={details.slug} />
-        
-//       },
-        
-//         {
-//           id: "4",
-//           value: "gallery",
-//           name: "Gallery",
-//           content:<>
-//           {/* <ResturantGallery Gallery={Gallery} /> */}
-//           gallery
-//           </> ,
-//         },
-          
-//           {
-//             id: "1",
-//             value: "overview",
-//             name: "Overview",
-//             content: (
-//               <>
-//               <Overview
-//               details={details}
-//               />
-//               </>
-//             ),
-//           },
-//       ]
-
-
-//   return (
-//     <Tabs
-//         defaultValue={"review"}
-//         className="mx-auto w-full"
-//       >
-//         <TabsList className="4xl:max-w-9xl py- md:py-8 3xl:max-w-8xl max-w-7xl mx-auto w-full hide-scroll-bar overflow-x-scroll overflow-y-hidden bg-inherit dark:bg-inherit mt-5  rounded-none flex items-center justify-start border-t">
-//           {tablist.map((item) => (
-//             <TabsTrigger
-//               key={item.id}
-//               value={item.value}
-//               className="w-1/2 text-xs sm:text-sm md:text-base lg:text-lg py-1 sm:py-2 data-[state=active]:border-b-4 data-[state=active]:shadow-none data-[state=active]:bg-morefoodPrimary  data-[state=active]:text-white rounded-none data-[state=active]:border-morefoodPrimary data-[state=active]:dark:bg-morefoodPrimary data-[state=active]:dark:text-white"
-//             >
-//               {item.name}
-//             </TabsTrigger>
-//           ))}
-//         </TabsList>
-//         {tablist.map((item) => (
-//           <TabsContent key={item.id} value={item.value}>
-//             {item.content}
-//           </TabsContent>
-//         ))}
-//       </Tabs>
-//   )
-// }
-
-// export default RestaurantTab
-
-"use client"
+"use client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Restaurant } from "@/lib/type/morefood/restaurant";
-import React from "react";
+import React, { Suspense } from "react";
 import Overview from "./overview";
-import Reviews from "./Reviews";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
+import HomeReview from "./review/homeReview";
+import { ContainerSkeleton } from "@/components/MapBox/Skeletons";
+import OpeningHours from "./OpeningHours";
+import { Card } from "@/components/ui/card";
+import { Loader2 } from "lucide-react";
 
 const RestaurantTab = ({ details }: { details: Restaurant }) => {
   const searchParams = useSearchParams();
-  const activetab = searchParams?.get("tab");
+  const router = useRouter();
+  const activetab = searchParams?.get("tab") || "review";
+
   const tablist = [
     {
       id: "3",
       value: "review",
       name: "Reviews",
-      content: <Reviews slug={details.slug} />,
+      content: <HomeReview slug={details.slug} rating={`${details.restaurant_rating}`} totalReview={details.review_count ? `${details.review_count}` : "0"} />,
     },
     {
       id: "1",
@@ -97,32 +32,35 @@ const RestaurantTab = ({ details }: { details: Restaurant }) => {
       id: "2",
       value: "gallery",
       name: "Gallery",
-      content: <>Gallery Section</>,
+      link: `/morefood/restaurant/${details.slug}/gallery`,
+      content: <Card className="h-40 flex items-center justify-center"><Loader2 size={24} className="animate-spin duration-1000" /></Card>,
     },
     {
       id: "4",
       value: "opening",
       name: "Availability",
-      content: <>Available Section</>,
-    },
-    {
-      id: "5",
-      value: "openings",
-      name: "Availability",
-      content: <>Available Section</>,
+      content: <Suspense fallback={<ContainerSkeleton />}>
+        <OpeningHours id={details.slug} />
+      </Suspense>,
     },
   ];
 
   return (
-    <Tabs defaultValue={activetab || "review"} className="mx-auto w-full max-w-5xl bg-card">
+    <Tabs defaultValue={activetab} className="mx-auto w-full max-w-5xl bg-card">
       {/* Tab List */}
-      <TabsList className=" w-full flex items-center justify-start border-b border-muted-foreground dark:border-gray-700 bg-inherit rounded-none overflow-x-auto hide-scroll-bar">
-      {tablist.map((item) => (
+      <TabsList className="w-full flex items-center justify-start border-b border-muted-foreground dark:border-gray-700 bg-inherit rounded-none overflow-x-auto hide-scroll-bar">
+        {tablist.map((item) => (
           <TabsTrigger
             key={item.id}
             value={item.value}
-            className="relative px-4 py-2 text-sm sm:text-base font-medium text-muted-foreground hover:text-morefoodPrimary transition-all duration-300 
+            className="relative px-4 py-1 text-sm sm:text-base font-medium text-muted-foreground hover:text-morefoodPrimary transition-all duration-300 
               data-[state=active]:border-b-4 data-[state=active]:shadow-none data-[state=active]:bg-transparent  data-[state=active]:text-morefoodPrimary rounded-none data-[state=active]:border-morefoodPrimary data-[state=active]:dark:bg-transparent data-[state=active]:dark:text-white"
+            onClick={(e) => {
+              if (item.link) {
+                e.preventDefault(); // Prevent default tab switch
+                router.push(item.link);
+              }
+            }}
           >
             {item.name}
             {/* Active Tab Underline */}
@@ -132,11 +70,14 @@ const RestaurantTab = ({ details }: { details: Restaurant }) => {
       </TabsList>
 
       {/* Tab Content */}
-      {tablist.map((item) => (
-        <TabsContent key={item.id} value={item.value} className="py-2">
-          {item.content}
-        </TabsContent>
-      ))}
+      {tablist.map(
+        (item) =>
+        (
+          <TabsContent key={item.id} value={item.value} className="py-2">
+            {item.content}
+          </TabsContent>
+        )
+      )}
     </Tabs>
   );
 };

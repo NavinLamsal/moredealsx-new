@@ -15,7 +15,8 @@ export function TeamSwitcher({
 }: {
   teams: {
     name: string
-    logo: string
+    light: string
+    dark: string
     plan: string
   }[]
 }) {
@@ -29,7 +30,9 @@ export function TeamSwitcher({
             <div className="flex items-center gap-2 ">
                       <div className="flex  items-center justify-center rounded-lg text-sidebar-primary-foreground">
                         {/* <activeTeam.logo className="size-4" /> */}
-                        <Image src={activeTeam.logo} alt={activeTeam.name} width={200} height={200} className='h-[4.5rem] w-auto' />
+                        <Image src={activeTeam.dark} alt={activeTeam.name} width={200} height={200} className='h-[4.5rem] w-auto hidden dark:block' />
+                        <Image src={activeTeam.light} alt={activeTeam.name} width={200} height={200} className='h-[4.5rem] w-auto  block dark:hidden' />
+
                       </div>
                       <div className="grid flex-1 text-left text-sm leading-tight">
                         <span className="truncate font-semibold">

@@ -1,11 +1,11 @@
 "use client"
-import { menuCategories, useFetchRestaurant } from '@/lib/action/morefood/restaurantlist';
+import { useFetchRestaurant } from '@/lib/action/morefood/restaurantlist';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 import { CardSkeleton } from '../Skeletons/CardSkeleton';
 import HorizontalCarousel from '../carousel/horizontalCarousel';
 import CategoryCard from '../cards/morefood/CategoryCard';
-import AnimatedSection from '../ui/FadeUpView';
+import AnimatedSection from '../ui/animations/FadeUpView';
 import { getTimeOfDay } from '@/lib/utils';
 
 
@@ -38,7 +38,7 @@ const CategoriesList = () => {
 
 
   return (
-    <div className="p-4">
+    <div className="p-4 ">
       <HorizontalCarousel title="Choose Your Craving">
       {data.map((category, index) => (
     //   {menuCategories.map((category , index)=>(

@@ -42,11 +42,11 @@ const GlobalRestaurantTab = ({slug}:{slug:string}) => {
     ];
 
     return (
-        <div className="w-full bg-card shadow-lg rounded-b-lg overflow-hidden pb-2">
+        <div className="w-full bg-card shadow-lg rounded-b-lg overflow-hidden pb-2  max-w-5xl mx-auto">
 
             <div className=" w-full flex items-center justify-start  border-b border-muted-foreground dark:border-gray-700 bg-inherit rounded-none overflow-x-auto hide-scroll-bar">
                 {tablist.map((item) => (
-                    <Link href={item.link}>
+                    <Link href={item.link} key={item.id}>
                     <div
                         key={item.id}
                        

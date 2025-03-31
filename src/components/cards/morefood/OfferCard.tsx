@@ -10,6 +10,7 @@ import { useState } from "react";
 export default function OfferCard({ index, offer }: { index: number, offer: OfferType }) {
 
   const pathname = usePathname();
+  console.log("pathname", pathname)
   const router = useRouter();
    const [showSheet, setShowSheet] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
@@ -17,7 +18,7 @@ export default function OfferCard({ index, offer }: { index: number, offer: Offe
 
   const handleViewDetails = (show: string) => {
 
-    if(pathname === `/morefood/restaurant/${offer.restaurant}`){
+    if(pathname.includes( `/morefood/restaurant/${offer.restaurant_slug}`)){
       if (show === "sheet") {
         setShowSheet(true);
       }
@@ -25,7 +26,7 @@ export default function OfferCard({ index, offer }: { index: number, offer: Offe
         setShowDialog(true);
       }
     }else{
-      router.push(`/morefood/restaurant/${offer.restaurant}`);
+      router.push(`/morefood/restaurant/${offer.restaurant_slug}`);
     }
    
   };

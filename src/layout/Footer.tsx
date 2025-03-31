@@ -14,7 +14,8 @@ const Footer = ({data}:{data:CompanyMeta}) => {
           {/* Company Info */}
           <div>
             <div className="mb-4">
-              <img src={data?.white_logo} alt="More Deals Logo" className="w-32" />
+              <img src={data?.white_logo} alt="More Deals Logo" className="w-32 hidden dark:block" />
+              <img src={data?.black_logo} alt="More Deals Logo" className="w-32 block dark:hidden" />
             </div>
             <p className="text-gray-400 mb-2">{data?.description}</p>
             <p className="text-gray-400">Email: {data?.email}</p>

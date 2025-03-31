@@ -4,7 +4,7 @@ import RestaurantCard from "../cards/morefood/RestaurantCard";
 import HorizontalCarousel from "../carousel/horizontalCarousel";
 import { useQuery } from "@tanstack/react-query";
 import { CardSkeleton } from "../Skeletons/CardSkeleton";
-import AnimatedSection from "../ui/FadeUpView";
+import AnimatedSection from "../ui/animations/FadeUpView";
 import OfferCard from "../cards/morefood/OfferCard";
 
 

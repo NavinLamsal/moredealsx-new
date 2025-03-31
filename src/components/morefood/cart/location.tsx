@@ -39,12 +39,12 @@ const Location = () => {
     <div className="mt-4">
       <p className="text-sm font-semibold">Your Address</p>
       <div className="flex justify-between items-center mt-1">
-        <p className="text-gray-700 font-medium">{selectedAddress ?? "Set Your Location"}</p>
+        <p className="text-foreground font-medium">{selectedAddress ?? "Set Your Location"}</p>
         <LocationDialog>
           <Button variant="outline" className="text-xs px-2 py-1">Change</Button>
         </LocationDialog>
       </div>
-      <p className="text-xs text-gray-500">{fullAddress ?? ""}</p>
+      <p className="text-xs text-muted-foreground">{fullAddress ?? ""}</p>
     </div>
   );
 };

@@ -25,6 +25,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import Link from "next/link"
 
 export function NavProjects({
   projects,
@@ -46,14 +47,14 @@ export function NavProjects({
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild size={"lg"}>
-              <a href={item.url}>
+              <Link href={item.url}>
               <Avatar className="flex items-center h-7 w-7">
                     <AvatarImage src={item.lightImage} className="h-7 w-7 block dark:hidden" />
                     <AvatarImage src={item.darkImage} className="h-7 w-7 hidden dark:block" />
                     <AvatarFallback >{item.name[0]}</AvatarFallback>
                   </Avatar>
                 <span>{item.name}</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

@@ -75,7 +75,7 @@ const SidebarCart = () => {
     <h3 className="text-lg font-semibold">Order Menu</h3>
     <div className="space-y-3 mt-3">
        {!items.length && !offers.length && 
-       <div className="flex flex-wrap flex-col justify-center items-center bg-white dark:bg-dark-primary">
+       <div className="flex flex-wrap flex-col justify-center items-center bg-white dark:bg-inherit">
        <h2 className="text-bold text-xl">Add items into cart</h2>
        <div className="flex flex-col items-center">
          <LucideUtensilsCrossed size={60} className="text-P_icons" />

@@ -1,23 +1,8 @@
-// import React from 'react'
 
-// const Page = () => {
-//   return (
-//     <div>
-
-//     </div>
-//   )
-// }
-
-// export default Page
-
-
-
-
-
-import React, { Suspense } from "react";
-import type { Metadata, ResolvingMetadata } from "next";
+import React from "react";
 import Heading from "@/components/ui/heading";
 import RestaurantList from "@/components/morefood/RestaurantList";
+import CategoriesTopList from "@/components/morefood/Category/categoryListing";
 
 
 
@@ -124,13 +109,29 @@ export default async function Page({
   }
 
   return (
-    <div className="p-4">
+    <>
+      <CategoriesTopList activepath={slug}/>
+      {title === "category" ? 
+      <div className="mt-4">
+      <Heading title={`Find your restaurant for ${slug.replace(/-/g, " ").toLowerCase()}`} />
+      <RestaurantList
+        type={`global-menu/${slug}/lists`}
+        searchParams={searchparams}
+      />
+      </div>
+      :
+      <>
       <Heading title={title as string} />
+
       <RestaurantList
         type={slug as string}
         searchParams={searchparams}
       />
-    </div>
+      
+      
+      </>
+      }
+    </>
   );
 }
 

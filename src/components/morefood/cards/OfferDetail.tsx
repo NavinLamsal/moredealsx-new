@@ -14,17 +14,17 @@ const DetailComponent = ({
 
 }) => {
 
-    
-   
+
+
 
     const dispatch = useAppDispatch();
 
-    
-      const handleAddToCart = () => {
 
-          const cartitems = {
+    const handleAddToCart = () => {
+
+        const cartitems = {
             id: item.id,
-            restaurant_slug: item.restaurant,
+            restaurant_slug: item.restaurant_slug,
             name: `${item.name}`,
             image: item.banner as string,
             description: item.description,
@@ -32,12 +32,12 @@ const DetailComponent = ({
             quantity: 1,
             currency_symbol: item.currency_symbol,
             currency_code: item.currency_code,
-                    }
-          dispatch(addOffer(cartitems));
-        
+        }
+        dispatch(addOffer(cartitems));
 
-       showToast("Item added to cart", "success");
-      };
+
+        showToast("Item added to cart", "success");
+    };
 
 
 
@@ -61,18 +61,18 @@ const DetailComponent = ({
                         <h1 className="text-sm sm:text-base md:text-xl font-bold text-center">{item.name}</h1>s
                     </div>
                     <div className="p-4 flex justify-between items-center ">
-                    <Button variant={"morefoodOutline"} className="text-sm sm:text-base md:text-xl font-semibold  border-morefoodPrimary">{item.currency_symbol}&nbsp;{item.price}
-                    </Button>
-                    <Button variant={"morefoodPrimary"} className="flex justify-center items-center space-x-2 py-2 rounded-md"
-                    // disabled={!item.has_variation ? false: !selectedVariation }
-                    onClick={handleAddToCart}
-                    >
-                        <CirclePlus />
-                        <span>Add to Cart</span>
-                    </Button>
-                </div>
+                        <Button variant={"morefoodOutline"} className="text-sm sm:text-base md:text-xl font-semibold  border-morefoodPrimary">{item.currency_symbol}&nbsp;{item.price}
+                        </Button>
+                        <Button variant={"morefoodPrimary"} className="flex justify-center items-center space-x-2 py-2 rounded-md"
+                            // disabled={!item.has_variation ? false: !selectedVariation }
+                            onClick={handleAddToCart}
+                        >
+                            <CirclePlus />
+                            <span>Add to Cart</span>
+                        </Button>
+                    </div>
 
-                    
+
 
                     {/* Related Items Section */}
                     {item.food_item.length > 0 &&
@@ -85,7 +85,7 @@ const DetailComponent = ({
                                 {item.food_item.map((relatedItem) => (
                                     <div
                                         id={`#${name}-${relatedItem.id}`}
-                                        className="relative flex flex-row items-center justify-between w-full h-auto p-2 md:h-36 rounded-md bg-white dark:bg-dark-primary shadow-md hover:bg-red-200 cursor-pointer"
+                                        className="relative flex flex-row items-center justify-between w-full h-auto p-2 md:h-36 rounded-md bg-white dark:bg-slate-600 shadow-md hover:bg-red-200 cursor-pointer mb-2"
                                     >
                                         <div className="flex flex-col w-2/3 md:w-full pl-2 overflow-hidden"
                                         >
@@ -112,7 +112,7 @@ const DetailComponent = ({
                         </div>
                     }
                     <h6 className="text-sm sm:text-base md:text-lg font-semibold p-2">Description</h6>
-                    <p className="text-sm text-gray-600 p-2 pb-4">{item.description}</p>
+                    <p className="text-sm text-muted-foreground p-2 pb-4">{item.description}</p>
                 </div>
             </div>
         </>

@@ -1,4 +1,4 @@
-import PhotoGallery from '@/components/morefood/restaurant/Gallery';
+import PhotoGallery from '@/components/morefood/restaurant/gallery/Gallery';
 import GlobalRestaurantTab from '@/components/morefood/restaurant/GlobalRestaurantTab';
 import React, { Suspense } from 'react'
 
@@ -10,7 +10,7 @@ const Gallery = async({params }:{ params: Promise<{ slug: string }>}) => {
         <GlobalRestaurantTab slug={slug}/>
         </Suspense>
         <Suspense fallback={<div>Loading...</div>}>
-        <PhotoGallery/>
+        <PhotoGallery slug={slug}/>
         </Suspense>
         </div>
   )

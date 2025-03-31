@@ -48,7 +48,8 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
     teams: [
       {
         name: "MOREDEALS CLUB",
-        logo: metadata.white_logo,
+        dark: metadata.white_logo,
+        light: metadata.black_logo,
         plan: "",
       },
     ],

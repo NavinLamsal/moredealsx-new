@@ -6,22 +6,21 @@ import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 
-export default function PaymentSuccess({
-  searchParams: { amount },
-}: {
-  searchParams: { amount: string };
-}) {
+export default function PaymentSuccess() {
   const dispatch = useDispatch();
-  // console.log("Payment confirmed successfully and cart cleared");
-  dispatch(clearCart()); // Dispatch the action to clear the cart
-  // Redirect or further update the UI as needed
+ 
+  useEffect(() => {
+    dispatch(clearCart());
+  }, [dispatch]);
+
 
   const restaurant_slug = useAppSelector((state) => state.foodCart.restaurant_slug);
 
-  const paths = restaurant_slug ? `/restaurant/${restaurant_slug.replace(/^"(.*)"$/, "$1")}` : "/restaurant";
+  const paths =  restaurant_slug ? `/restaurant/${restaurant_slug.replace(/^"(.*)"$/, "$1")}` : "/restaurant";
 
   return (
     <div className="flex items-center justify-center p-4">
@@ -91,29 +90,3 @@ export default function PaymentSuccess({
     
   );
 }
-
-// <div className="flex flex-col items-center justify-center p-10">
-    //   <div className="bg-white dark:bg-dark-primary rounded-lg shadow p-5 text-center">
-    //     <div className="text-orange-500  animate-bounce mb-4">
-    //       <TiTick className="text-[200px] mx-auto rotate-12" />
-    //     </div>
-        // <h2 className="text-2xl font-semibold mb-2">Thank you for ordering!</h2>
-        
-        // <p className="mb-4">
-        //   Your order has been placed Successfully 
-        // </p>
-    //     <div className="flex gap-4">
-        //   <Link href="/restaurant">
-        //     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        //       View Resturants
-        //     </button>
-        //   </Link>
-
-    //       <Link href={paths}>
-    //         <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
-    //           Add More Items
-    //         </button>
-    //       </Link>
-    //     </div>
-    //   </div>
-    // </div>

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import AnimatedSection from "../ui/FadeUpView";
+import AnimatedSection from "../ui/animations/FadeUpView";
 import { useFetchRestaurant } from "@/lib/action/morefood/restaurantlist";
 import RestaurantCard from "../cards/morefood/RestaurantCard";
 import { Button } from "../ui/button";
@@ -53,11 +53,11 @@ const AllRestaurantList = () => {
             {data?.pages[0].data.length === 0 && <p className="text-center">No restaurants Found</p>}
 
             {/* Transaction List */}
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap  xl:grid xl:grid-cols-3 2xl:flex 2xl:flex-wrap gap-3">
                 {data?.pages.map((page, pageIndex) =>
                     page.data.map((restaurant, index) => (
                         <div key={`${pageIndex}-${index}`}>
-                            <div className="flex-shrink-0 w-48 lg:w-60" key={restaurant.id}>
+                            <div className="flex-shrink-0 sm:w-48 lg:w-60 xl:w-48" key={restaurant.id}>
                                 <AnimatedSection key={restaurant.id} index={index}>
                                     <RestaurantCard
                                         key={index}

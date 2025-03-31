@@ -14,7 +14,7 @@ import SalonCard from "./cards/SalonCard";
 import { SaloonTypes } from "@/lib/type/moresalons/salon";
 import { useFetchSalon } from "@/lib/action/moreSalon/salonlist";
 import Heading from "../ui/heading";
-import AnimatedSection from "../ui/FadeUpView";
+import AnimatedSection from "../ui/animations/FadeUpView";
 import HorizontalCarousel from "../carousel/horizontalCarousel";
 
 const PopularSalons = () => {

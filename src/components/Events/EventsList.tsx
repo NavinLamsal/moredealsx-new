@@ -3,7 +3,7 @@
 import React, { useRef, useCallback } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useFetchEvents } from "@/lib/action/moreClub/Events";
-import AnimatedSection from "../ui/FadeUpView";
+import AnimatedSection from "../ui/animations/FadeUpView";
 import EventCard from "../cards/moreclub/EventCard";
 
 

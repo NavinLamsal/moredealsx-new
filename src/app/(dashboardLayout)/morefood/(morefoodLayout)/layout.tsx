@@ -1,3 +1,4 @@
+import CartButton from "@/components/morefood/cart/CartButton";
 import BalanceCartView from "@/layout/morefood/balanceCartView";
 import { getMetadata } from "@/lib/action/PubilcCommon";
 import { CompanyMeta } from "@/lib/type/CommonType";
@@ -19,10 +20,11 @@ export default async function DashboardLayout({
   };
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 xl:p-4 w-full relative min-h-screen">
+    <div className="grid grid-cols-1 xl:grid-cols-12 gap-4  w-full relative min-h-screen">
       {/* Left Side - Main Content */}
       <div className="col-span-12 xl:col-span-8 2xl:col-span-9 space-y-4">
         {children}
+        <CartButton/>
       </div>
 
       {/* Right Side - Sidebar */}

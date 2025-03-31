@@ -27,7 +27,7 @@ const AddressSection = ({ details }: { details: Restaurant }) => {
 
 
   return (
-    <div className="bg-slate-200 dark:bg-dark-primary rounded-md drop-shadow-md p-2 my-4">
+    <div className="bg-slate-200 dark:bg-card p-2 ">
       <Heading title="Address Information" />
       <ul className="my-4 flex items-start gap-2">
         <MapPin />
@@ -44,7 +44,7 @@ const AddressSection = ({ details }: { details: Restaurant }) => {
         }
       >
         {details.lat && details.lng && (
-          <MapboxNavigationComponent lat={`${details.lat}`} lng={`${details.lng}`} height="200px" />
+          <MapboxNavigationComponent lat={`${details.lat}`} lng={`${details.lng}`}  />
         )}
         {!details.lat || !details.lng ? (
           <>

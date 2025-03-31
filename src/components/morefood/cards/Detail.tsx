@@ -124,14 +124,14 @@ const DetailComponent = ({
             
           </div>
           <h6 className="text-sm sm:text-base md:text-lg font-semibold p-2">Ingredients</h6>
-          <p className="text-sm text-gray-600  p-2">{item.ingredient}</p>
+          <p className="text-sm text-muted-foreground  p-2">{item.ingredient}</p>
           <h6 className="text-sm sm:text-base md:text-lg font-semibold p-2">Description</h6>
-          <p className="text-sm text-gray-600  p-2">{item.description}</p>
+          <p className="text-sm text-muted-foreground  p-2">{item.description}</p>
 
           {/* Variations Section */}
           {item.has_variation && 
           
-          <div className="bg-slate-200 dark:bg-dark-secondary p-2 m-2 rounded-lg">
+          <div className="bg-slate-200 dark:bg-slate-800 p-2 m-2 rounded-lg">
             {Object.keys(item.variations).map((variationGroup) => (
               <div key={variationGroup}>
                 <h4 className="text-sm sm:text-base md:text-lg font-semibold flex justify-between">
@@ -141,7 +141,7 @@ const DetailComponent = ({
                 {item.variations[variationGroup].map((variation) => (
                   <div
                     key={variation.id}
-                    className="flex items-center justify-between p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer my-2 bg-white dark:bg-dark-secondary"
+                    className="flex items-center justify-between p-4 border border-muted-foreground rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer my-2 bg-inherit"
                   >
                     <label className="flex items-center space-x-4">
                       <input

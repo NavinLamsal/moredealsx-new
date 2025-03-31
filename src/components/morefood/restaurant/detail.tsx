@@ -1,8 +1,7 @@
 import React from "react";
-import { Star } from "lucide-react";
+import { Crown} from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
-import RestaurantTab from "./RestaurantTab";
 import { Restaurant } from "@/lib/type/morefood/restaurant";
 import Image from "next/image";
 
@@ -33,11 +32,11 @@ const RestaurantDetail = ({details}:{details:Restaurant}) => {
       {/* Restaurant Details */}
       <div className="p-6">
         <h1 className="text-3xl font-bold">{details.name}</h1>
-        <div className="flex items-center text-gray-600 mt-2">
+        <div className="flex items-center text-muted-foreground mt-2">
           <span className="flex items-center gap-1 text-yellow-500">
-            <Star className="w-5 h-5" /> 4.6
+            <Crown fill="currentcolor" className="w-5 h-5" /> {details.restaurant_rating}
           </span>
-          <span className="ml-2">({details.restaurant_rating}+ ratings) • Wings • Chicken • American</span>
+          <span className="ml-2">({details?.review_count ?? 0} ratings) {details.cuisine && details.cuisine.length > 0 && details?.cuisine?.map((cuisine) => cuisine).join(" • ")}</span>
         </div>
         <p className="text-gray-500 mt-2">
           {details.short_description}

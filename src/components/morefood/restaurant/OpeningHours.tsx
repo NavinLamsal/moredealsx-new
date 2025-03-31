@@ -54,7 +54,7 @@ const tomorrowData = details && details.find(
 );
 
   return (
-    <div className="bg-slate-200 dark:bg-dark-primary rounded-md drop-shadow-md p-2 my-4">
+    <div className="bg-inherit rounded-md drop-shadow-md p-2">
       <div className="flex items-center gap-2">
         <Clock className="mb-6"/>
       <Heading title="Opening Hours" />
@@ -103,7 +103,7 @@ const Allweek = ({ details }: { details: OpeningHoursType[] }) => {
   return (
     <>
       {details.map((dayData) => (
-        <>
+        <React.Fragment key={dayData.day}>
           <h6>{dayData.day}</h6>
           <p className="text-end">
             {dayData.is_open ? (
@@ -115,7 +115,7 @@ const Allweek = ({ details }: { details: OpeningHoursType[] }) => {
               "Closed"
             )}
           </p>
-        </>
+        </React.Fragment>
       ))}
     </>
   );
