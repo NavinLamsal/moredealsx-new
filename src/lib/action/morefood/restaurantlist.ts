@@ -10,6 +10,7 @@ import {
   OfferType,
   OpeningHours,
   Order,
+  OrderDetail,
   ResturantListType,
   Review,
 } from "@/lib/type/morefood/restaurant";
@@ -315,13 +316,13 @@ export const useFetchRestaurant = () => {
 
   const fetchOrderDetails = async (
    id: string
-  ): Promise<Order> => {
+  ): Promise<OrderDetail> => {
     try {
-      const response = await MoreFoodApiClient.get(`orders/order/${id}/`);
+      const response = await MoreFoodApiClient.get(`orders/${id}/details/`);
       return response.data.data;
     } catch (error) {
       console.error("Error fetching restaurants:", error);
-      return {} as Order;
+      return {} as OrderDetail;
     }
   };
 

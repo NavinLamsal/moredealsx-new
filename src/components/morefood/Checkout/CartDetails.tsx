@@ -152,7 +152,7 @@ const OrderCard = ({ item, type }: { item: CartFoodItemsTypes | CartFoodOfferTyp
                 <div className="mt-0 flex flex-col justify-between">
                     <div>
                         <h4 className="text-card-foreground text-xs ">{item.name}</h4>
-                        <p className='text-muted-foreground my-1' style={{ lineHeight: '8px', fontSize: "10px" }}>{item.description}</p>
+                        <p className='text-muted-foreground my-1 line-clamp-3' style={{ lineHeight: '8px', fontSize: "10px" }}>{item.description}</p>
 
                     </div>
 

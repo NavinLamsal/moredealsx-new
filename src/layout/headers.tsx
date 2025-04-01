@@ -67,7 +67,7 @@ const Headers = ({teams}:{teams?:{
         </div>
         <div className="flex items-center gap-2">
           
-         {<div className='hidden md:block'>
+         {<div className='hidden md:flex gap-2 items-center'>
           <BalanceViewer />
           <ModeToggle />
           </div>} 

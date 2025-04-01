@@ -9,7 +9,7 @@ export interface ResturantListType {
   banner: string;
   address: string;
   review_count: number;
-  rating: number;
+  restaurant_rating: number;
 }
 
 export interface CategoryListType {
@@ -261,18 +261,16 @@ export interface Review {
   rating: number;
   restaurant: {
     id: string;
-    logo: string; 
-    name: string; 
+    logo: string;
+    name: string;
   };
   user: { first_name: string; last_name: string };
 }
 
 export interface ImagesList {
-  
-    id: string;
-    image: string; 
+  id: string;
+  image: string;
 }
-
 
 export type FoodItem = {
   id: string;
@@ -291,12 +289,10 @@ export type Order = {
   items: OrderItem[];
 };
 
-
-
 export type OrderItem = {
   food_item?: OrderFoodItem;
   offer?: OrderOffer;
-  related_food_items?:any[];
+  related_food_items?: any[];
 };
 
 export type OrderFoodItem = {
@@ -312,95 +308,59 @@ export type OrderOffer = {
   offer_banner: string;
 };
 
+export interface Order_Restaurant {
+  name: string;
+  phone_number: string;
+  lat: number;
+  lng: number;
+  address: string;
+}
 
-export interface OrderDetailsTypes {
-  id: string;
-  items: orderFoodItemTypes[],
-  offer:OrderOfferItemTypes[]
-  total_price: number;
-  currency_symbol: string;
-  currency_code: string;
+export interface OrderDetail_foodItem {
+  name: string;
+  image: string;
+  quantity: number;
+  price: number;
+}
+export interface OrderDetail_offerItem {
+  offer_id: string;
+  offer_name: string;
+  quantity: number;
+  offer_banner: string;
+  offer_price: number;
+}
+
+export interface OrderDetail_RelatedFooditem {
+  name: string;
+  image: string;
+}
+
+export interface OrderDetail_orderItem {
+  food_item: OrderDetail_foodItem;
+  offer: OrderDetail_offerItem;
+  related_food_items: OrderDetail_RelatedFooditem[];
+}
+
+export interface OrderDetail {
   order_id: string;
-  full_name: string;
-  email: string;
+  restaurant: Order_Restaurant;
+  receiver_name: string;
+  email: string | null;
+  arrival_time: string | null;
   phone_no: string;
   order_status: string;
   order_type: string;
   lat: number;
   lng: number;
+  no_of_people: number | null;
   address: string;
   ordered_date: string;
-  note: string;
+  note: string | null;
+  currency: string | null;
+  payment_method: string;
   user_sent_amount: string;
-  user: {
-    id: string;
-    first_name: string;
-    last_name: string;
-    email: string;
-    is_staff: boolean;
-    is_active: boolean;
-    date_joined: string;
-    username: string;
-    phone_number: string;
-    is_restaurant_user: boolean;
-  };
-  restaurant: {
-    id: string;
-    logo: string;
-    name: string;
-    address: string;
-    short_description: string;
-    long_description: string;
-    lat: number;
-    lng: number;
-    banner: string;
-    email: string;
-    contact_no: string;
-    is_delivery: boolean;
-    is_pickup: boolean;
-    is_dine: boolean;
-    min_order: number;
-    delivery_per_km: number;
-    delivery_time: string;
-    website_link: string;
-    facebook_link: string;
-    instagram_link: string;
-    user: string;
-    country: number;
-    currency: number;
-  };
-  station: {
-    id: string;
-    name: string;
-    lat: number;
-    lng: number;
-    banner: string;
-    address: string;
-    restaurant: string;
-    contact: string;
-    email: string;
-  };
+  transaction_id: string | null;
+  refferal_points_id: string | null;
+  items: OrderDetail_orderItem[];
+  order_total_price: number;
 }
-
-export interface orderFoodItemTypes{
-  id: string;
-  quantity: number;
-  price: number;
-  name: string;
-  image: string | null;
-  description: string;
-  related_food_item: {
-    name: string;
-    image: string |null;
-    price: number;
-}[],
-}
-
-export interface OrderOfferItemTypes {
-  id: string;
-  name: string;
-  variation_type: string;
-  value: string;
-  price: String;
-  discount_price: string;
-  }

@@ -6,7 +6,7 @@ import { forwardRef } from "react";
 
 type RestaurantCardProps = ResturantListType
 
-const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner, address, id, slug, is_open, name, rating, review_count, offers, }, ref) => {
+const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner, address, id, slug, is_open, name, restaurant_rating, review_count, offers, }, ref) => {
   return (
     <Link href={`/morefood/restaurant/${slug}`}>
       <div
@@ -32,9 +32,9 @@ const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner
           <h3 className="text-base font-semibold  truncate">{name}</h3>
           <div className="flex items-center space-x-1 text-sm text-muted-foreground">
             <span className="text-yellow-500"><Crown className="w-4 h-4" /></span>
-            {rating ?
+            {restaurant_rating ?
               <>
-                <span className="font-medium">{rating ?? 0}</span>
+                <span className="font-medium">{restaurant_rating ?? 0}</span>
                 <span>({review_count ?? 0} reviews)</span>
               </>
               :

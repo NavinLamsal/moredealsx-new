@@ -144,14 +144,14 @@ const OrderList = ({type , searchParams}:{type: string , searchParams:{ [key: st
             {data?.pages[0].data.length === 0 && <p className="text-center">No order Found</p>}
 
             {/* Transaction List */}
-            <div className="grid grid-cols-1  gap-3">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
                 {data?.pages.map((page, pageIndex) =>
                     page.data.map((order, index) => (
                         <div key={`${pageIndex}-${index}`}>
-                            <div className="flex-shrink-0 w-full" key={order.order_id}>
-                                <AnimatedSection key={order.order_id} index={index}>
+                            <div className="flex-shrink-0 w-full" key={`${order.order_id}-${index}`}>
+                                <AnimatedSection key={`${order.order_id}-${index}`} index={index}>
                                     <OrderCard
-                                        key={index}
+                                        key={`${order.order_id}-${index}`}
                                         item={order}
                                         ref={index === page.data.length - 1 ? lastRestaurantRef : null}
                                     />

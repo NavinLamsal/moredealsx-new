@@ -19,8 +19,8 @@ const OrderItem = ({ name, description, price, quantity, img, onDelete }: { name
         <AvatarFallback>{name[0]}</AvatarFallback>
       </Avatar>
       <div>
-        <p className="text-muted-foreground text-xs line-clamp-1 w-32">{name}</p>
-        <p className='text-muted-foreground' style={{ lineHeight: '8px', fontSize: "10px" }}>({description})</p>
+        <p className="text-muted-foreground text-xs line-clamp-1 w-28">{name}</p>
+        <p className='text-muted-foreground line-clamp-2 w-28' style={{ lineHeight: '8px', fontSize: "10px" }}>({description})</p>
       </div>
     </div>
 
@@ -120,14 +120,14 @@ const SidebarCart = () => {
 
 
       {/* Checkout Button */}
-      {(totalItem === 0 || !totalItem) ? (
-        <Button variant={"morefoodPrimary"} disabled={totalItem === 0} className="mt-4 w-full py-3 rounded-lg text-lg">
+      {(totalItems === 0 || !totalItems) ? (
+        <Button variant={"morefoodPrimary"} disabled={totalItems === 0} className="mt-4 w-full py-3 rounded-lg text-lg">
           Checkout
         </Button>
       ) :
         (
           <Link href="/morefood/checkout">
-            <Button variant={"morefoodPrimary"} disabled={totalItem === 0} className="mt-4 w-full py-3 rounded-lg text-lg">
+            <Button variant={"morefoodPrimary"} disabled={totalItems === 0} className="mt-4 w-full py-3 rounded-lg text-lg">
               Checkout
             </Button>
           </Link>

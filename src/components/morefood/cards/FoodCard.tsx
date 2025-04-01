@@ -8,6 +8,7 @@ import DetailComponent from "./Detail";
 import { addProduct } from "@/lib/redux/slice/morefood/productCart";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { showToast } from "@/lib/utilities/toastService";
+import { prevStep } from "@/lib/redux/slice/RegistrationSlice";
 
 
 
@@ -44,6 +45,7 @@ export default function FoodCard({ item }: { item: FoodtypeswithMenu }) {
 
       console.log("adding to cart " , cartitems)
       dispatch(addProduct(cartitems));
+      
       showToast("Item added to cart", "success");
     }else{
       if (show === "sheet") {

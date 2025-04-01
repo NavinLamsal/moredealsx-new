@@ -5,11 +5,17 @@ import RecieverInformation from '../Checkout/RecieverInformation'
 import Note from '@/components/form/morefood/Note'
 import CheckoutButton from '../Checkout/CheckoutButton'
 import ArrivalTime from '../Checkout/Arriavaltime'
+import { Button } from '@/components/ui/button'
+import { ArrowLeft } from 'lucide-react'
 
 const UserInformation = () => {
   return (
     <div>
-    <h2 className="text-xl font-semibold">Checkout</h2>
+      <div className='flex items-center justify-between'>
+
+    <h2 className="text-xl font-semibold ">Checkout</h2>
+    <Button variant={"link"} onClick={() => window.history.back()}><ArrowLeft />back</Button>
+      </div>
     <DeliveryOptions 
     deliveryOptions={["delivery", "dine-here"]} 
     />
