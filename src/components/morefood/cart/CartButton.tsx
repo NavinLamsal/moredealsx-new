@@ -1,6 +1,4 @@
 "use client";
-import { Button } from '@/components/ui/button';
-import { useIsMobile } from '@/hooks/use-mobile';
 import {  useAppSelector } from '@/lib/redux/hooks';
 import { ShoppingCartIcon } from 'lucide-react';
 import Link from 'next/link';

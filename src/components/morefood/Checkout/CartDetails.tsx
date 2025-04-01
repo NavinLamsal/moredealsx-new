@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import Heading from '@/components/ui/heading';
 import { useAppSelector } from '@/lib/redux/hooks';
+import { prevStep } from '@/lib/redux/slice/morefood/CheckoutSlice';
 import { decrementOffer, decrementProduct, incrementOffer, incrementProduct, removeOffer, removeProduct } from '@/lib/redux/slice/morefood/productCart';
 import { CartFoodItemsTypes, CartFoodOfferTypes } from '@/lib/type/morefood/restaurant'
 import { LucideUtensilsCrossed, X } from 'lucide-react';
@@ -94,13 +95,19 @@ export default CartDetails
 
 const OrderCard = ({ item, type }: { item: CartFoodItemsTypes | CartFoodOfferTypes, type: "item" | "offer" }) => {
     const dispatch = useDispatch();
-
+    const carts = useAppSelector((state) => state.foodCart);
     const handleRemove = (item: CartFoodItemsTypes | CartFoodOfferTypes) => {
         if (type === 'item') {
             dispatch(removeProduct(item as CartFoodItemsTypes));
+            if((carts.items.length === 1 || carts.items.length === 0) && carts.exclusiveOffers.length === 0){
+                dispatch(prevStep());  
+            }
         }
         if (type === 'offer') {
             dispatch(removeOffer(item.id));
+            if(carts.items.length === 0 && (carts.exclusiveOffers.length === 1 || carts.exclusiveOffers.length === 0)){
+                dispatch(prevStep());  
+            }
         }
     };
 

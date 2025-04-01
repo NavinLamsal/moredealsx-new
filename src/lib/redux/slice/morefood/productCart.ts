@@ -75,8 +75,6 @@ const cartSlice = createSlice({
       localStorage.setItem("Offers", JSON.stringify(state.exclusiveOffers));
 
     },
-
-  
     removeProduct: (state, action: PayloadAction<CartFoodItemsTypes>) => {
      
       // Find the existing item based on the product id
@@ -97,9 +95,7 @@ const cartSlice = createSlice({
         state.items = state.items.filter((item) => item !== existingItem);
       }
        
-      if(state.items.length === 0 || state.exclusiveOffers.length === 0){
-        sessionStorage.setItem("orderStep" ,"1");
-      }
+
     
       // Optionally store the updated items in localStorage
       if (typeof window !== "undefined") {
