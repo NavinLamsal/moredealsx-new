@@ -66,6 +66,7 @@ export const ReviewForm = ({ onSubmit, initialReview, isEditing , onCancel , slu
         showToast("Review submitted successfully", "success");
       }
       queryClient.invalidateQueries({ queryKey: ["user-review", slug] }),
+      queryClient.invalidateQueries({ queryKey: ["User Review list"] }),      
       onSubmit();
     } catch (err) {
       showToast("Error uploading your changes", "error");

@@ -11,6 +11,7 @@ import {
   OpeningHours,
   Order,
   OrderDetail,
+  Restaurant,
   ResturantListType,
   Review,
 } from "@/lib/type/morefood/restaurant";
@@ -146,8 +147,14 @@ export const useFetchRestaurant = () => {
       // const queryParams = new URLSearchParams({ ...params, offset:"0", limit:"10", page: page.toString() });
   
       const response = await MoreFoodApiClient.get(`restaurants/${type}/?${queryParams.toString()}`);
-  
-      return { data: response.data.data, meta: response.data.meta };
+    
+      if(type === "featured-restaurants"){
+        const extractedData = response.data.data.map((item: { restaurant: ResturantListType }) => item.restaurant);
+        return { data: extractedData, meta: response.data.meta };
+      }else{
+        return { data: response.data.data, meta: response.data.meta };
+      }
+
     } catch (error) {
       console.error("Error fetching restaurants:", error);
       return { data: [] as ResturantListType[], meta: {} as MetaData };
@@ -170,15 +177,19 @@ export const useFetchRestaurant = () => {
 
   const fetchRestaurantsFooditems = async (
     slug: string,
+    searchParam:string
   ): Promise<{
     data: FoodListType[];
     meta: MetaData;
   }> => {
 
-    
+    const url = searchParam 
+    ? `menus/restaurant/${slug}/foods/?query=${encodeURIComponent(searchParam)}`
+    : `menus/restaurant/${slug}/foods/`;
+
 
     try {
-      const response = await MoreFoodApiClient.get(`menus/restaurant/${slug}/foods/`);
+      const response = await MoreFoodApiClient.get(url);
 
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
@@ -228,6 +239,33 @@ export const useFetchRestaurant = () => {
     } catch (error) {
       console.error("Error in fetching popular Restaurants", error);
       return {} as Review;
+    }
+  };
+
+
+  const fetchUserReview = async (
+    page: number,
+    limitvalue?: number
+  ): Promise<{
+    data: Review[];
+    meta: MetaData;
+  }> => {
+    const limit = limitvalue ?? 10;
+    const offset = (page - 1) * limit;
+
+    // Convert params object to query string
+    const queryParams = new URLSearchParams({
+      offset: offset.toString(),
+      limit: limit.toString(),
+      page: page.toString(),
+    });
+    try {
+      const response = await MoreFoodApiClient.get(`reviews/user-reviews/?${queryParams.toString()}`);
+
+      return { data: response.data.data, meta: response.data.meta };
+    } catch (error) {
+      console.error("Error in fetching popular Restaurants", error);
+      return { data: [] as Review[], meta: {} as MetaData };
     }
   };
 
@@ -327,12 +365,32 @@ export const useFetchRestaurant = () => {
   };
 
 
+
+ const fetchResturantDetails = async (
+      slug: string
+    ): Promise<Restaurant> => {
+      try {
+        const response = await MoreFoodApiClient.get(`restaurants/${slug}/details/`) 
+        const data =response.data.data
+  
+        return data;
+      } catch (error: any) {
+        console.error(
+          `Error in fetching Resturant details for ${slug}`,
+          error.response
+        );
+        return {} as Restaurant;
+      }
+    };
+
+
   return {
     fetchPopularRestaurantsList,
     fetchRestaurantList,
     fetchCategoryList,
     fetchRestaurantOpeningHours,
     fetchRestaurantsFooditems,
+    fetchResturantDetails,
 
 
     fetchOffersList,
@@ -341,11 +399,13 @@ export const useFetchRestaurant = () => {
 
     fetchRestaurantReview,
     fetchRestaurantUserReview,
+    fetchUserReview,
 
     fetchRestaurantGallery,
     fetchRestaurantUserGallery,
 
     fetchOrderList,
     fetchOrderDetails
+
   };
 };

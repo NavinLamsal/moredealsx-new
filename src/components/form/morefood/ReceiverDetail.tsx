@@ -4,6 +4,7 @@ import { setFieldError, updateFormData } from '@/lib/redux/slice/morefood/Checko
 import { RootState } from '@/lib/redux/store';
 import { CheckoutFormTypes } from '@/lib/type/morefood/restaurant';
 import { validateRequired } from '@/lib/validation/common';
+import { UserRound } from 'lucide-react';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -56,14 +57,14 @@ const ReceiverDetail = ({onSubmit}:{onSubmit: () => void}) => {
 
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit}>
+    <form className="space-y-6 my-4" onSubmit={handleSubmit}>
         <div>
           <label
             htmlFor="receiverName"
             className="block text-sm font-medium text-gray-700 dark:text-gray-100"
           >
-            <p>
-              <span className="text-red-500">*</span> Receiver&apos;s Name
+            <p className='flex items-center'>
+            <UserRound size={16} fill='currentColor' className='mr-2 ' /><span className="text-red-500">*</span> Receiver&apos;s Name
             </p>
           </label>
           <Input
@@ -135,10 +136,10 @@ const ReceiverDetail = ({onSubmit}:{onSubmit: () => void}) => {
         } */}
         <div className='flex justify-end w-full items-center gap-2'>
 
-        <Button variant={"secondary"} onClick={(e) => {e.preventDefault(); onSubmit()}}>
+        <Button variant={"outline"} onClick={(e) => {e.preventDefault(); onSubmit()}}>
           Cancel
         </Button>
-        <Button type='submit'>
+        <Button type='submit' onClick={(e) => {e.preventDefault(); onSubmit()}}>
           Save
         </Button>
         </div>

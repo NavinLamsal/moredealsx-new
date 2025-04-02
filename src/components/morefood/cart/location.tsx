@@ -2,15 +2,20 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { LocationDialog } from "@/layout/Setloaction";
+import { updateFormData } from "@/lib/redux/slice/morefood/CheckoutSlice";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Location = () => {
+  const dispatch = useDispatch();
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
   const [fullAddress, setFullAddress] = useState<string | null>(null);
 
   const fetchLocation = () => {
     if (typeof window !== "undefined") {
       const location = localStorage.getItem("location");
+      const lat = localStorage.getItem("latitude");
+      const lon = localStorage.getItem("longitude");
       if (location) {
         const parts = location.split(",").map((part) => part.trim());
         if (parts.length > 2) {
@@ -19,6 +24,7 @@ const Location = () => {
           setSelectedAddress(location);
         }
         setFullAddress(location);
+        dispatch(updateFormData({ location: location , lat: lat ? parseFloat(lat) : 0, lon: lon ? parseFloat(lon) : 0, }));
       }
     }
   };

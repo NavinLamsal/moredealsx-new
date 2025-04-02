@@ -51,6 +51,8 @@ export interface Restaurant {
   slug: string; // "siddhartha-gautam",
   banner: string; // "https://res.cloudinary.com/duehpgb6o/image/upload/v1/media/restaurants/banner/majestic4_y7qpzj"
   cuisine: string[];
+  positive_review_count: number;
+  negative_review_count: number;
 }
 
 export interface OpeningHours {
@@ -263,6 +265,7 @@ export interface Review {
     id: string;
     logo: string;
     name: string;
+    slug: string;
   };
   user: { first_name: string; last_name: string };
 }

@@ -10,7 +10,6 @@ import { useState } from "react";
 export default function OfferCard({ index, offer }: { index: number, offer: OfferType }) {
 
   const pathname = usePathname();
-  console.log("pathname", pathname)
   const router = useRouter();
    const [showSheet, setShowSheet] = useState(false);
     const [showDialog, setShowDialog] = useState(false);

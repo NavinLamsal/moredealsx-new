@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import React from 'react'
+// import CityChooser from './cityChooser'
+import { LocationDialog } from './location/LocationDialog'
 import CityChooser from './cityChooser'
 
 const Navbar = () => {
@@ -11,6 +13,7 @@ const Navbar = () => {
     <div className="flex items-center gap-4">
       <h1 className="text-2xl font-bold text-primary">MoreDealsClub</h1>
       <CityChooser/>
+      {/* <LocationDialog /> */}
     </div>
 
     <div className='flex gap-3'>

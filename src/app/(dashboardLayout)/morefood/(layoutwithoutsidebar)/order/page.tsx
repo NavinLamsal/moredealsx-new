@@ -1,34 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import Link from 'next/link';
-// import { OrderCardSkeleton } from "@/components/ui/Skeletions";
-import dynamic from "next/dynamic";
-
-// const Allorder = dynamic(
-//   () => import("@/components/order/pageviews/Allorder"),
-//   { ssr: false }
-// );
-// const ToCancelled = dynamic(
-//   () => import("@/components/order/pageviews/Cancelled"),
-//   { ssr: false }
-// );
-// const Completed = dynamic(
-//   () => import("@/components/order/pageviews/Completed"),
-//   { ssr: false }
-// );
-// const ToPickUp = dynamic(
-//   () => import("@/components/order/pageviews/ToPickUp"),
-//   { ssr: false }
-// );
-// const ToDine = dynamic(() => import("@/components/order/pageviews/ToReceive"), {
-//   ssr: false,
-// });
-
-// const ToDelivery = dynamic(() => import("@/components/order/pageviews/ToDelivery"), {
-//   ssr: false,
-// });
-
-import React, { Suspense, useMemo } from "react";
-import { OrderCardSkeleton } from '@/components/Skeletons/OrderCardSkeleton';
+import React from "react";
 import OrderList from '@/components/morefood/order/orderlisting';
 import OrderTab from '@/components/morefood/order/OrderTab';
 import Heading from '@/components/ui/heading';

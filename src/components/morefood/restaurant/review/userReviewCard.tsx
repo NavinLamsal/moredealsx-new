@@ -10,7 +10,7 @@ import { ReviewForm } from "@/components/form/morefood/reviewForm";
 import Heading from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 
-export const UserReviewCard = ({ review, slug }: { review: Review , slug: string}) => {
+export const UserReviewCard = ({ review, slug, showName=false}: { review: Review , slug: string , showName?: boolean}) => {
   const [isOpen, setIsOpen] = useState(false); // State to manage modal visibility
   const [isEditMode, setIsEditMode] = useState(false); // State to toggle edit mode
   const [editedComment, setEditedComment] = useState(review.comment); // Store the edited comment
@@ -37,7 +37,7 @@ export const UserReviewCard = ({ review, slug }: { review: Review , slug: string
 
   return (
     <div className="border p-4 rounded-lg shadow-sm bg-white dark:bg-slate-900 flex flex-col gap-2 mb-2 ">
-      <h6 className="text-base font-bold ">Your Review</h6>  
+      <h6 className="text-base font-bold ">{showName ? `Review for ${review.restaurant.name}`: "Your Review"} </h6>  
       <p className="text-muted-foreground h-12 italic">"{review.comment}"
         <Button variant="ghost" size={"icon"}  onClick={() => setIsOpen(true)}> <Edit2 className="w-4 h-4" /></Button>
       </p>

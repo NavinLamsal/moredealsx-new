@@ -11,6 +11,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { OpeningHours } from '@/lib/type/morefood/restaurant';
 import { useFetchRestaurant } from '@/lib/action/morefood/restaurantlist';
+import { Input } from '@/components/ui/input';
 
 
 const ArrivalTime = () => {
@@ -71,18 +72,15 @@ const ArrivalTime = () => {
             ? "Pick-Up Time"
             : formData.deliverytype === "dine-here"
               ? "Dine-In Time"
-              : <span className='text-muted-foreground'>Select a Delivery Option</span>}</h3>
+              : <span className='text-muted-foreground'>Arrival Time</span>}</h3>
     
    
     <div className="mt-2 space-y-2 flex justify-between items-end">
      <div className=' flex flex-col gap-3'>
     
      <CalendarSelect workingHours={workingHours}/>
-
+      {formData.errors.arrivalTime && <p className='text-destructive'>{formData.errors.arrivalTime}</p>}
     </div>   
-    
-      
-      
     
     </div>
     </div>
@@ -137,15 +135,6 @@ const isDateSelectable = (date: Date) => {
     
   return (
     <div>
-      <label
-        htmlFor="arrivalTime"
-        className="block text-sm font-medium text-gray-700 dark:text-gray-100"
-      >
-        <p>
-          <span className="text-red-500">*</span> Arrival Time
-        </p>
-      </label>
-
       <DatePicker
         selected={startDate}
         onChange={(date) => handleChange(date)}
@@ -153,13 +142,14 @@ const isDateSelectable = (date: Date) => {
         timeFormat="HH:mm"
         timeIntervals={10}
         timeCaption="time"
+        placeholderText='Pick a time'
         dateFormat="MMMM d, yyyy h:mm aa"
         minDate={new Date(new Date().getTime() + 30 * 60 * 1000)}
         // filterDate={isDateSelectable}
         customInput={
-          <input
+          <Input
             type="text"
-            className="mt-1 w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-red-500 focus:border-red-500"
+            className=""
           />
         }
         wrapperClassName="w-full px-4 py-2 h-12"

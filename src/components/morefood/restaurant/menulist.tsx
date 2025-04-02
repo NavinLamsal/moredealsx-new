@@ -5,12 +5,21 @@ import { ArrowLeft, ArrowRight, Search } from "lucide-react";
 import { FoodListType } from "@/lib/type/morefood/restaurant";
 import { Input } from "@/components/ui/input";
 
+interface MenuSectionProps {
+  searchTerm: string;
+  setSearchTerm: (value: string) => void;
+  menulist: FoodListType[]; // Adjust this based on actual type
+}
 
-export default function MenuSection({menulist }: {menulist:FoodListType[]}) {
+const MenuSection: React.FC<MenuSectionProps> = ({ searchTerm, setSearchTerm, menulist }) => {
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
-  const [activeCategory, setActiveCategory] = useState(menulist[0].id);
+  const [activeCategory, setActiveCategory] = useState(() => {
+    const firstValidCategory = menulist.find(category => category.food_items && category.food_items.length > 0);
+    return firstValidCategory ? firstValidCategory.id : null; // Set to null if no valid category exists
+  });
 
   useEffect(() => {
     const checkScroll = () => {
@@ -96,6 +105,8 @@ export default function MenuSection({menulist }: {menulist:FoodListType[]}) {
           <Input
             type="text"
             placeholder={`Search Menu...`}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="text-sm px-4 pl-8 py-2 rounded-full w-full sm:w-72 focus:outline-none relative"
           />
           <Search className="absolute top-1 left-1 text-card-foreground" />
@@ -118,7 +129,7 @@ export default function MenuSection({menulist }: {menulist:FoodListType[]}) {
           ref={scrollRef}
           className="flex space-x-4 overflow-x-auto scrollbar-hide flex-nowrap px-8 scroll-smooth w-full"
         >
-          {menulist.map((category) => (
+          {menulist.filter(category => category.food_items && category.food_items.length > 0).map((category) => (
             <button
               key={category.id}
               id={`menu-item-${category.id}`}
@@ -149,3 +160,5 @@ export default function MenuSection({menulist }: {menulist:FoodListType[]}) {
     </div>
   );
 }
+
+export default MenuSection;

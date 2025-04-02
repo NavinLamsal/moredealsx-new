@@ -64,23 +64,19 @@ export const fetchRecentTransactions = async (
 ): Promise<TransactionResponse> => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-    const endpoint = `${baseUrl}wallets/transaction/`;
+    const endpoint = `${baseUrl}wallets/transaction/list/`;
 
     let transactions: transactionList[] = [];
     let currentPage = 1;
     let hasMorePages = true;
 
     while (transactions.length < 4 && hasMorePages) {
-      const response = await axios.get(endpoint, {
+      const response = await MoreClubApiClient.get(endpoint, {
         params: {
           start_date: startDate || undefined,
           end_date: endDate || undefined,
           search: searchQuery || undefined,
-          page: currentPage,
-        },
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AUTH_TOKEN}`,
+          page: currentPage, // Fixed incorrect pageParam
         },
       });
 
@@ -92,15 +88,15 @@ export const fetchRecentTransactions = async (
         transactions.push(...dayData.transactions);
       });
 
-      // Stop if we reached 7 transactions
+      // Stop fetching if we have at least 4 transactions
       if (transactions.length >= 4) {
-        transactions = transactions.slice(0, 4);
+        transactions = transactions.slice(0, 4); // Ensure only 4 are returned
         break;
       }
 
-      // Check if another page is available
+      // Move to the next page if available
       currentPage++;
-      hasMorePages = meta.links?.next !== null;
+      hasMorePages = meta?.links?.next ? true : false; // Ensure reliable check
     }
 
     return {
@@ -134,6 +130,7 @@ export const fetchRecentTransactions = async (
     };
   }
 };
+
 
 
 // export const fetchTransactionDetail = async (transactionId: number) => {

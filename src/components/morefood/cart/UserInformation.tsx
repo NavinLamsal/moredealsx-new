@@ -17,7 +17,7 @@ const UserInformation = () => {
     <Button variant={"link"} onClick={() => window.history.back()}><ArrowLeft />back</Button>
       </div>
     <DeliveryOptions 
-    deliveryOptions={["delivery", "dine-here"]} 
+    deliveryOptions={["delivery", "dine-here" , "pickup"]} 
     />
 
     {/* Delivery Address */}

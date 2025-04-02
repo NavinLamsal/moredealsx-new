@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { RecentSales } from '../Transaction/recentTransactions'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/lib/redux/store'
+import Link from 'next/link'
 
 const WalletPageContent = () => {
 
@@ -84,7 +85,7 @@ const WalletPageContent = () => {
                     </CardContent>
                 </Card>
             </div>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+            <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-7">
 
                 <Overview />
                 <Card className="col-span-3">
@@ -93,12 +94,14 @@ const WalletPageContent = () => {
                             <div>
                                 <CardTitle>Recent Transactions</CardTitle>
                                 <CardDescription>
-                                    You made 265 transaction this month.
+                                    Your transaction this month.
                                 </CardDescription>
 
                             </div>
 
+                            <Link href={'/transaction/user'}>
                             <Button variant={"link"}>View All</Button>
+                            </Link>
 
                         </div>
                     </CardHeader>

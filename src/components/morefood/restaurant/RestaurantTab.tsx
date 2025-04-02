@@ -20,7 +20,7 @@ const RestaurantTab = ({ details }: { details: Restaurant }) => {
       id: "3",
       value: "review",
       name: "Reviews",
-      content: <HomeReview slug={details.slug} rating={`${details.restaurant_rating}`} totalReview={details.review_count ? `${details.review_count}` : "0"} />,
+      content: <HomeReview slug={details.slug} rating={details.restaurant_rating} totalReview={details.review_count ? details.review_count : 0} postitveReview={details.positive_review_count} negativeReview={details.negative_review_count} />,
     },
     {
       id: "1",

@@ -77,7 +77,6 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useFetchRestaurant } from "@/lib/action/morefood/restaurantlist";
 import AnimatedSection from "@/components/ui/animations/FadeUpView";
 import OrderCard from "../cards/OrderCard";
-import { Card, CardContent } from "@/components/ui/card";
 
 
 

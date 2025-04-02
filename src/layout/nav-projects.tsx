@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 export function NavProjects({
   projects,
@@ -38,6 +39,7 @@ export function NavProjects({
     lightImage:string
   }[]
 }) {
+   const pathname = usePathname(); // Get the current pathname
   const { isMobile } = useSidebar()
 
   return (
@@ -45,8 +47,8 @@ export function NavProjects({
       <SidebarGroupLabel>Projects</SidebarGroupLabel>
       <SidebarMenu>
         {projects.map((item) => (
-          <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild size={"lg"}>
+          <SidebarMenuItem key={item.name} >
+            <SidebarMenuButton asChild size={"lg"} isActive={pathname.includes(item.url)}>
               <Link href={item.url}>
               <Avatar className="flex items-center h-7 w-7">
                     <AvatarImage src={item.lightImage} className="h-7 w-7 block dark:hidden" />

@@ -6,6 +6,9 @@ import { useAppDispatch } from "@/lib/redux/hooks";
 import { addOffer, addProduct } from "@/lib/redux/slice/morefood/productCart";
 import { showToast } from "@/lib/utilities/toastService";
 import { CirclePlus } from "lucide-react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/redux/store";
+import { prevStep } from "@/lib/redux/slice/morefood/CheckoutSlice";
 
 const DetailComponent = ({
     item
@@ -18,6 +21,7 @@ const DetailComponent = ({
 
 
     const dispatch = useAppDispatch();
+    const delivery = useSelector((state: RootState) => state.delivery);
 
 
     const handleAddToCart = () => {
@@ -27,15 +31,16 @@ const DetailComponent = ({
             restaurant_slug: item.restaurant_slug,
             name: `${item.name}`,
             image: item.banner as string,
-            description: item.description,
+            description: ``,
             price: Number(item.price),
             quantity: 1,
             currency_symbol: item.currency_symbol,
             currency_code: item.currency_code,
         }
         dispatch(addOffer(cartitems));
-
-
+        if (delivery.step !== 1) {
+            dispatch(prevStep());
+        }
         showToast("Item added to cart", "success");
     };
 

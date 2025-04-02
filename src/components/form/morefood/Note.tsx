@@ -34,7 +34,7 @@ const Note = () => {
             id="note"
             value={formData.note}
             onChange={handleChange}
-            className="mt-1 w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-red-500 focus:border-red-500"
+            className="mt-1 w-full p-2 bg-inherit border-input border rounded shadow-sm focus:ring-red-500 focus:border-red-500"
           ></textarea>
         </div>
         

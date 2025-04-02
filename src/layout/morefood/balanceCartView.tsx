@@ -1,12 +1,10 @@
 import { WalletDetail } from '@/components/moreclub/wallets/WalletInfo'
 import SidebarCart from '@/components/morefood/cart/sidebarCart'
-import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { CoinsIcon, ShoppingCart } from 'lucide-react'
+import { CoinsIcon } from 'lucide-react'
 import React from 'react'
-import { LocationDialog } from '../Setloaction'
 import Location from '@/components/morefood/cart/location'
+import DeliveryOptions from '@/components/form/morefood/DeliveryOption'
 
 const BalanceCartView = () => {
   return (
@@ -19,6 +17,7 @@ const BalanceCartView = () => {
 
       {/* Address Section */}
       <Location/>
+      <DeliveryOptions deliveryOptions={["delivery", "dine-here", "pickup"]} showicon={false}/>
 
       {/* Order Menu */}
       <SidebarCart />

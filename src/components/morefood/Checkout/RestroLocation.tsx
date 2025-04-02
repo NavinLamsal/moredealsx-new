@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
-import LocationMapbox from "@/components/MapBox/LocationMapbox";
 import MapboxNavigationComponent from "@/components/MapBox/MapboxNavigationComponent";
 
 export function RestroLocationDialog({ children , location , details }: { children: React.ReactNode, location: string , details:{ lat: string; lng: string; } }) {

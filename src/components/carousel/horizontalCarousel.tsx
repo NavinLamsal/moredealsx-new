@@ -36,10 +36,10 @@ const HorizontalCarousel: React.FC<HorizontalCarouselProps> = ({ title, viewAll,
         {/* <h2 className="text-xl font-semibold">{title}</h2> */}
         {showNav && (
           <div className="flex space-x-2 mb-6 ml-2">
-            <button onClick={() => scroll(-1)} className="p-2 bg-gray-200 rounded-full">
+            <button onClick={() => scroll(-1)} className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full">
               <ChevronLeft size={20} />
             </button>
-            <button onClick={() => scroll(1)} className="p-2 bg-gray-200 rounded-full">
+            <button onClick={() => scroll(1)} className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full">
               <ChevronRight size={20} />
             </button>
           </div>

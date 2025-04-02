@@ -114,8 +114,9 @@ import { useFetchRestaurant } from "@/lib/action/morefood/restaurantlist";
 import { ReviewCard } from "../Reviews";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { ReviewUpload } from "./ReviewUpload";
 
-const HomeReview = ({ slug, rating, totalReview }: { slug: string; rating: string; totalReview: string }) => {
+const HomeReview = ({ slug, rating, totalReview , postitveReview , negativeReview }: { slug: string; rating: number; totalReview: number , postitveReview: number , negativeReview: number }) => {
     const { fetchRestaurantReview } = useFetchRestaurant();
 
     const {
@@ -138,24 +139,28 @@ const HomeReview = ({ slug, rating, totalReview }: { slug: string; rating: strin
 
     // Extract first review safely
     const firstReview = review?.pages?.[0]?.data?.[0] || null;
-    const totalReviewsCount = review?.pages?.flatMap((page) => page.data).length || 0;
 
     return (
         <div className="px-2 sm:px-6 border-t">
             <Heading title="Reviews and Ratings" />
             <div className="grid grid-cols-12 gap-4 mt-3">
                 {/* Rating Section */}
-                <div className="col-span-12 md:col-span-4 flex flex-col items-start md:items-center gap-2">
+                {rating && rating > 0 && 
+                <div className="col-span-12 md:col-span-4 flex flex-col items-start md:items-center gap-2 ">
                     <span className="text-yellow-500 flex items-center gap-1">
                         <Crown fill={"currentcolor"} className="w-6 h-6" />
                         <span className="text-lg lg:text-3xl font-bold">{rating}</span>
                     </span>
                     <p className="text-sm lg:text-base text-muted-foreground">{totalReview} Ratings</p>
+                    <p className="text-sm lg:text-base text-muted-foreground">{postitveReview} Postive Ratings</p>
+                    <p className="text-sm lg:text-base text-muted-foreground">{negativeReview} Negative Ratings</p>
                 </div>
+                }
 
                 {/* Review Section */}
-                <div className="col-span-12 md:col-span-8 flex flex-col gap-4">
+                
                     {firstReview ? (
+                        <div className="col-span-12 md:col-span-8 flex flex-col gap-4">
                         <ReviewCard
                             comment={firstReview.comment}
                             rating={firstReview.rating}
@@ -163,19 +168,7 @@ const HomeReview = ({ slug, rating, totalReview }: { slug: string; rating: strin
                             date={firstReview.created_at}
                             key={firstReview.id}
                         />
-                    ) : (
-                        <section className="py-8 px-4">
-                            <div className="border rounded-lg p-4">
-                                <div className="flex flex-col items-center mb-2">
-                                    <h2>No reviews</h2>
-                                    <p className="text-base">Be the first to review</p>
-                                </div>
-                            </div>
-                        </section>
-                    )}
-
-                    {/* Show More Button */}
-                    {Number(totalReview) > 1 && (
+                         {Number(totalReview) > 1 && (
                         <div className="text-center mt-4">
                             <Link href={`/morefood/restaurant/${slug}/reviews`}>
                                 <Button variant="outline">Show more</Button>
@@ -183,6 +176,20 @@ const HomeReview = ({ slug, rating, totalReview }: { slug: string; rating: strin
                         </div>
                     )}
                 </div>
+                    ) : (
+                        <section className="py-2 px-4 col-span-12">
+                            <div className="border rounded-lg p-4">
+                                <div className="flex flex-col items-center mb-2">
+                                    <h2>No reviews</h2>
+                                    <p className="text-base">Be the first to review</p>
+                                    <ReviewUpload slug={slug} />
+                                </div>
+                            </div>
+                        </section>
+                    )}
+
+                    {/* Show More Button */}
+                   
             </div>
         </div>
     );

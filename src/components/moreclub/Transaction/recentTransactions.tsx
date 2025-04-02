@@ -24,6 +24,9 @@ export function RecentSales() {
 
 
     <div className="">
+
+ {!data?.data[0]?.transactions.length && <p className="text-center">No Transactions Found</p>}
+ 
 {data?.data[0]?.transactions.map((row) => (
       <TransactionCard
       key={`${row.id}`}

@@ -8,7 +8,9 @@ import DetailComponent from "./Detail";
 import { addProduct } from "@/lib/redux/slice/morefood/productCart";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { showToast } from "@/lib/utilities/toastService";
-import { prevStep } from "@/lib/redux/slice/RegistrationSlice";
+import { RootState } from "@/lib/redux/store";
+import { useSelector } from "react-redux";
+import { prevStep } from "@/lib/redux/slice/morefood/CheckoutSlice";
 
 
 
@@ -17,7 +19,7 @@ export default function FoodCard({ item }: { item: FoodtypeswithMenu }) {
   const [showSheet, setShowSheet] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const dispatch = useAppDispatch();
-
+  const delivery = useSelector((state: RootState) => state.delivery);
 
 
 
@@ -25,7 +27,6 @@ export default function FoodCard({ item }: { item: FoodtypeswithMenu }) {
     
 
     if(!item.has_variation && item.related_food_items.length === 0){
-        console.log("dont have variation and related food")
       setShowSheet(false);
       setShowDialog(false);
       const price: number =  Number(item.discount_price) > 0 ? Number(item.discount_price) < Number(item.price) ? Number(item.discount_price) : item.price : item.price// Ensure item.price is a number    
@@ -35,7 +36,7 @@ export default function FoodCard({ item }: { item: FoodtypeswithMenu }) {
         restaurant_slug: item.restaurant_slug,
         name: item.name,
         image: item.image as string,
-        description: item.description ,
+        description: ``,
         price: Number(price),
         quantity: 1,
         currency_symbol: item.currency_symbol,
@@ -43,9 +44,10 @@ export default function FoodCard({ item }: { item: FoodtypeswithMenu }) {
         related_food_item: [],
       }
 
-      console.log("adding to cart " , cartitems)
       dispatch(addProduct(cartitems));
-      
+        if(delivery.step !== 1){
+           dispatch(prevStep()); 
+        }
       showToast("Item added to cart", "success");
     }else{
       if (show === "sheet") {

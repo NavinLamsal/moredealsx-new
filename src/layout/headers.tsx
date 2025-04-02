@@ -10,6 +10,7 @@ import BalanceViewer from '@/components/moreclub/wallets/BalanceViewer'
 import { NavUser } from './nav-user'
 import { useSession } from 'next-auth/react'
 import CityChooser from './cityChooser'
+import MenuDropdown from './MenuDropdown'
 
 const Headers = ({teams}:{teams?:{
   name: string,
@@ -68,7 +69,9 @@ const Headers = ({teams}:{teams?:{
         <div className="flex items-center gap-2">
           
          {<div className='hidden md:flex gap-2 items-center'>
+
           <BalanceViewer />
+          <MenuDropdown/>
           <ModeToggle />
           </div>} 
           <NotificationDropDown />
