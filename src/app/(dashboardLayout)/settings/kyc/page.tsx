@@ -47,13 +47,13 @@ const KycProps :KYCProps = {
   date_of_birth: data?.data?.kyc_profile?.date_of_birth?? "",
   user_type: session?.user.userDetails?.user_type?? "",
   
-  secondary_email: data?.data?.kyc_profile.secondary_email?? "",
-  secondary_phone_number: data?.data?.kyc_profile.secondary_phone_number?? "",
+  secondary_email: data?.data?.kyc_profile?.secondary_email?? "",
+  secondary_phone_number: data?.data?.kyc_profile?.secondary_phone_number?? "",
   address: data?.data?.kyc_profile?.address?? "",
   city: data?.data?.kyc_profile?.city?? "",
   street: data?.data?.kyc_profile?.street?? "",
   zip_code: data?.data?.kyc_profile?.zip_code?? "",
-  house_number: data?.data?.kyc_profile.house_no ?? "",
+  house_number: data?.data?.kyc_profile?.house_no ?? "",
   
   marital_status : data?.data?.marital_status ??"",
   occupation: data?.data.occupation?? "",
@@ -61,11 +61,11 @@ const KycProps :KYCProps = {
   father_name:data?.data.father_name?? "",
   mother_name: data?.data.mother_name?? "",
 
-  document_type: data?.data.document_type?? "",
-  document_id: data?.data.document_id?? "",
-  date_format: data?.data.date_format?? "",
-  issue_date: data?.data.issue_date?? "",
-  document_front: data?.data.document_front ?? "",
+  document_type: data?.data?.document_type?? "",
+  document_id: data?.data?.document_id?? "",
+  date_format: data?.data?.date_format?? "",
+  issue_date: data?.data?.issue_date?? "",
+  document_front: data?.data?.document_front ?? "",
   document_back: data?.data.document_back?? "",
   
   agreed_to_terms: data?.data.agreed_to_terms ?? false,

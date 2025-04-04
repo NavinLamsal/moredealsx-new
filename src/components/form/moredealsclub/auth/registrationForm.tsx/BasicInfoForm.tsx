@@ -15,7 +15,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export const CheckUserName = async (username: string, prefix?: string) => {
     const isEmail = (username: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username);
-    const isPhoneNumber = (username: string) => /^[1-9]\d{9,14}$/.test(username); // Ensures 10-15 digit numbers
+    const isPhoneNumber = (username: string) => /^\+?\d{1,4}?\d{9,14}$/.test(username); // Ensures 10-15 digit numbers
+  
 
     const removePrefix = (phone: string, prefix: string) => {
         if (phone.startsWith(prefix)) {
@@ -134,8 +135,6 @@ const BasicInfoForm = () => {
                 let errors = "";
                 errors = await validatePhoneNumber(fieldValues.phone || "");
                 if (errors === "") {
-
-
                     errors = await CheckUserName(fieldValues.phone || "", prefix);
                 }
                 tempErrors.phone = errors

@@ -67,13 +67,14 @@ export const useFetchRestaurant = () => {
     try {
       const pages = page ?? 1;
       const response = await MoreFoodApiClient.get(`offers/list/`);
-      console.log("response", response.data);
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
       console.error("Error in fetching popular Restaurants", error);
       return { data: [] as OfferType[], meta: {} as MetaData };
     }
   };
+
+
 
   const fetchcomboList = async (
     page?: number
@@ -84,7 +85,6 @@ export const useFetchRestaurant = () => {
     try {
       const pages = page ?? 1;
       const response = await MoreFoodApiClient.get(`offers/combo/list/`);
-      console.log("response", response.data);
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
       console.error("Error in fetching popular Restaurants", error);
@@ -124,6 +124,38 @@ export const useFetchRestaurant = () => {
   };
 
  
+
+  const fetchAllOfferList = async (
+    type: string,
+    params: Record<string, any> = {}, // Flexible search parameters
+    page: number = 1
+  ): Promise<{ data: OfferType[]; meta: MetaData }> => {
+    try {
+
+    const limit = 10;
+    const offset = (page - 1) * limit;
+
+    // Convert params object to query string
+    const queryParams = new URLSearchParams({
+      ...params,
+      offset: offset.toString(),
+      limit: limit.toString(),
+      page: page.toString(),
+    });
+
+      // // Convert params object to query string
+      // const queryParams = new URLSearchParams({ ...params, offset:"0", limit:"10", page: page.toString() });
+  
+      const response = await MoreFoodApiClient.get(`offers/${type}/?${queryParams.toString()}`);
+
+      return { data: response.data.data, meta: response.data.meta };
+      
+
+    } catch (error) {
+      console.error("Error fetching restaurants:", error);
+      return { data: [] as OfferType[], meta: {} as MetaData };
+    }
+  };
 
   const fetchRestaurantList = async (
     type: string,
@@ -396,6 +428,7 @@ export const useFetchRestaurant = () => {
     fetchOffersList,
     fetchcomboList,
     fetchRestroOffersList,
+    fetchAllOfferList,
 
     fetchRestaurantReview,
     fetchRestaurantUserReview,

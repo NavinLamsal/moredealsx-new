@@ -12,8 +12,8 @@ const Navbar = () => {
 
     <div className="flex items-center gap-4">
       <h1 className="text-2xl font-bold text-primary">MoreDealsClub</h1>
-      <CityChooser/>
-      {/* <LocationDialog /> */}
+      {/* <CityChooser/> */}
+      <LocationDialog />
     </div>
 
     <div className='flex gap-3'>

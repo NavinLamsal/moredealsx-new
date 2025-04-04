@@ -12,20 +12,15 @@ interface TransactionResponse {
 // Fetch Transactions with Error Handling and Headers
 export const fetchTransactions = async (
   pageParam: number = 1,
-  startDate?: string,
-  endDate?: string,
-  searchQuery: string = ""
+  searchQuery: { [key: string]: any } = {}
 ): Promise<TransactionResponse> => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL; // Use Environment Variable
     const endpoint = `${baseUrl}wallets/transaction/list/`;
 
-
     const response = await MoreClubApiClient.get(endpoint, {
       params: {
-        start_date: startDate || undefined,
-        end_date: endDate || undefined,
-        search: searchQuery || undefined,
+        ...searchQuery,
         page: pageParam,
       },
     });

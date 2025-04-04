@@ -289,7 +289,7 @@ export type Order = {
   order_status: string;
   order_type: string;
   restaurant_name: string;
-  items: OrderItem[];
+  order_banner:string;
 };
 
 export type OrderItem = {

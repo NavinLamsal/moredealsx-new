@@ -3,13 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 import { AppDispatch, RootState } from "@/lib/redux/store";
 import NotificationCard from "../cards/notificationCard";
-import { fetchNextPage, markAllAsReadApi } from "@/lib/action/notification";
+import { fetchNextPage, fetchNotifications, markAllAsReadApi } from "@/lib/action/notification";
 import { debounce } from "lodash";
 
 const NotificationList: React.FC = () => {
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const notification = useSelector((state: RootState) => state.notification);
   const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(()=>{
+    dispatch(fetchNotifications())
+
+  },[dispatch])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -44,18 +49,26 @@ const NotificationList: React.FC = () => {
   }
 
   return (
-    <div className="max-w-lg mx-auto p-4 bg-gray-50 rounded-lg shadow">
-      <div className="flex justify-between items-center pb-2">
+    <div className="max-w-lg mx-auto  rounded-lg">
+     
         {notification.unreadCount > 0 && (
-          <>
-            <span className="text-sm text-gray-700">Unread: {notification.unreadCount}</span>
+          <div className="flex justify-between items-center pb-2">
+            <span className="text-sm text-card-foreground">Unread: {notification.unreadCount}</span>
             <button
               onClick={handleReadAll}
               className="text-sm text-blue-600 hover:underline"
             >
               Mark all as read
             </button>
-          </>
+            </div>
+         )}
+      
+      <div className="space-y-4">
+        {notification.notifications.length === 0  && (
+          <div className="text-sm text-card-foreground text-center">
+            No notification available
+          </div>
+
         )}
       </div>
 

@@ -31,7 +31,7 @@ const TransactionCard = forwardRef<HTMLDivElement, TransactionCardProps>(
     return (
       <>
         {/* Transaction Card */}
-        <div className="p-2 xl:p-4  border-b border-gray-200 cursor-pointer hover:bg-gray-100 transition-all duration-300"
+        <div className="p-2 xl:p-4  border-b border-gray-200 cursor-pointer hover:bg-background transition-all duration-300"
         onClick={() => setIsModalOpen(true)}
         ref={ref} // ✅ Attach ref here for infinite scrolling
         >

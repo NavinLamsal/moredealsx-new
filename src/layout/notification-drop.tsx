@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu'
 import { Bell } from 'lucide-react'
+import Link from 'next/link'
 import React from 'react'
 
 const NotificationDropDown = () => {
@@ -11,42 +12,19 @@ const NotificationDropDown = () => {
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size={"icon"} ><Bell /></Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-[350px]" side={"bottom"}
-            align="end">
-      <Card className="w-[350px]">
+      <DropdownMenuContent className="w-[350px] bg-background" side={"bottom"}
+            align="end" >
+      <Card className="w-[350px] bg-background">
       <CardHeader>
-        <CardTitle>Notification</CardTitle>
+        <CardTitle className='flex justify-between items-center'>
+          <h2 className='flex justify-between'>Notification</h2><Link href={'/dashboard/notification'}>
+          <Button  variant={"link"}>View All</Button>
+          </Link></CardTitle>
+        
         <CardDescription></CardDescription>
       </CardHeader>
       <CardContent>
       <NotificationList/>
-        {/* <NotificationCard notification={{
-            id: 2,
-            title: "Project Deployed",
-            message: "Your project has been deployed successfully.",
-            time: "2023-06-01T10:00:00Z",
-            isUnread: true
-        }}
-        
-        />
-         <NotificationCard notification={{
-            id: 3,
-            title: "Project Deployed",
-            message: "Your project has been deployed successfully.",
-            time: "2023-06-01T10:00:00Z",
-            isUnread: true
-        }}
-        
-        />
-         <NotificationCard notification={{
-            id: 1,
-            title: "Project Deployed",
-            message: "Your project has been deployed successfully.",
-            time: "2023-06-01T10:00:00Z",
-            isUnread: true
-        }}
-        
-        /> */}
       </CardContent>
 
     </Card>

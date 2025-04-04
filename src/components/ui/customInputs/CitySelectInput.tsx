@@ -1,36 +1,94 @@
+// "use client";
+
+// import { useEffect, useState } from "react";
+// import CustomCombobox from "../combobox";
+// import { getCityList } from "@/lib/action/PubilcCommon";
+// import { CityListType } from "@/lib/type/CommonType";
+
+// interface CityOption {
+//     value: string;
+//     label: string;
+//     icon?: string; // ✅ Allow undefined to prevent TypeScript errors
+// }
+
+// interface CitiesSelectProps {
+//     onChange: (currency: CityOption) => void;
+//     initialValue?: string;
+//     country: string;
+// }
+
+// export default function CitySelect({ onChange, initialValue = "", country = "1" }: CitiesSelectProps) {
+//     const [cityList, setCityList] = useState<CityOption[]>([]);
+//     const [loading, setLoading] = useState<boolean>(true);
+
+//     useEffect(() => {
+//         const fetchCities = async () => {
+//             try {
+//                 const cities: CityListType[] = await getCityList(country);
+//                 const formattedCity: CityOption[] = cities.map((city) => ({
+//                     value: city.name,
+//                     label: `${city.name}`,
+//                     icon: city.image || undefined, // ✅ Ensures `undefined` if no icon
+//                 }));
+//                 setCityList(formattedCity);
+
+//             } catch (err) {
+//                 console.error("Failed to load cities:", err);
+//             } finally {
+//                 setLoading(false);
+//             }
+//         };
+
+//         fetchCities();
+//     }, [country]); // Re-fetch when country changes
+    
+//     return (
+//         <CustomCombobox
+//             options={cityList}
+//             onChange={onChange}
+//             initialValue={initialValue}
+//             placeholder={loading ? "Loading cities..." : "Choose a City"}
+//             showIcons={true} // Custom prop to tell combobox to show images
+//         />
+//     );
+// }
+
+
 "use client";
 
 import { useEffect, useState } from "react";
 import CustomCombobox from "../combobox";
 import { getCityList } from "@/lib/action/PubilcCommon";
-import { CityListType, CurrencyListType } from "@/lib/type/CommonType";
+import { CityListType } from "@/lib/type/CommonType";
 
 interface CityOption {
     value: string;
     label: string;
-    icon?: string; // ✅ Allow undefined to prevent TypeScript errors
+    icon?: string;
 }
 
 interface CitiesSelectProps {
-    onChange: (currency: CityOption) => void;
+    onChange: (city: CityOption) => void;
     initialValue?: string;
     country: string;
 }
 
-export default function CitySelect({ onChange, initialValue = "", country = "1" }: CitiesSelectProps) {
-    const [cityList, setCity] = useState<CityOption[]>([]);
+export default function CitySelect({ onChange, initialValue = "", country }: CitiesSelectProps) {
+    const [cityList, setCityList] = useState<CityOption[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchCities = async () => {
+            setLoading(true); // Ensure UI updates when loading new cities
             try {
+                console.log("Fetching cities for country:", country); // Debugging
                 const cities: CityListType[] = await getCityList(country);
                 const formattedCity: CityOption[] = cities.map((city) => ({
-                    value: city.id.toString(),
-                    label: `${city.name}`,
-                    icon: city.image || undefined, // ✅ Ensures `undefined` if no icon
+                    value: city.name,
+                    label: city.name,
+                    icon: city.image || undefined,
                 }));
-                setCity(formattedCity);
+                setCityList([...formattedCity]); // ✅ Ensure state updates correctly
             } catch (err) {
                 console.error("Failed to load cities:", err);
             } finally {
@@ -38,16 +96,18 @@ export default function CitySelect({ onChange, initialValue = "", country = "1" 
             }
         };
 
-        fetchCities();
-    }, [country]); // Re-fetch when country changes
+        if (country) {
+            fetchCities();
+        }
+    }, [country]); // ✅ Re-fetch when `country` changes
 
     return (
         <CustomCombobox
-            options={cityList}
+            options={cityList} // ✅ Ensures updated city list is passed
             onChange={onChange}
             initialValue={initialValue}
             placeholder={loading ? "Loading cities..." : "Choose a City"}
-            showIcons={true} // Custom prop to tell combobox to show images
+            showIcons={true}
         />
     );
 }

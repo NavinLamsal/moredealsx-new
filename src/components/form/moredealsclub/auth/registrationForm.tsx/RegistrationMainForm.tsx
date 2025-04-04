@@ -2,7 +2,6 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import React from 'react'
 import BasicInfoForm from './BasicInfoForm'
-import AuthHeaders from '@/layout/authHeaders'
 
 import PasswordForm from './PasswordForm'
 import Heading from '@/components/ui/heading'

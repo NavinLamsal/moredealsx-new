@@ -43,24 +43,21 @@ export default async function EventLayout({ children }: { children: React.ReactN
             <Suspense fallback={<div>Loading...</div>}>
                 <Headers />
             </Suspense>
-            <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:p-4 relative w-full ">
-                    {/* Left Side - Main Content */}
-                    <div className="col-span-12 lg:col-span-8 2xl:col-span-9 space-y-4 overflow-y-auto">
-                        {children}
+          
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:p-4 relative w-full  min-h-screen">
+                  {/* Left Side - Main Content */}
+                  <div className="col-span-12 lg:col-span-8 2xl:col-span-9 space-y-4 overflow-y-auto">
+                    {children}
+                  </div>
+            
+                  {/* Right Side - Sidebar */}
+                  <div className="hidden lg:block lg:col-span-4 2xl:col-span-3 h-screen sticky top-20 z-40">
+                    <div className="sticky top-20 flex flex-col space-y-4 w-full">
+                      <WalletInfo />
+                      <QuickLinks />
                     </div>
-
-                    {/* Right Side - Sidebar */}
-                    <div className="hidden lg:grid lg:col-span-4 2xl:col-span-3 ">
-                        <div className="sticky top-20 grid space-y-4 w-full">
-
-                            <WalletInfo />
-                            <QuickLinks />
-                        </div>
-                    </div>
+                  </div>
                 </div>
-            </div>
             <Footer data={MetaDatas} />
         </SidebarInset>
     </SidebarProvider> :

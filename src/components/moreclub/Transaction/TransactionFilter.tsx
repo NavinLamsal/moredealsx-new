@@ -1,131 +1,160 @@
+
 "use client";
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useRouter } from "next/navigation";
+import moment from "moment";
 
-interface FilterProps {
-  // isOpen: boolean;
-  // onClose: () => void;
-  // onApply: (filters: FilterState) => void;
-}
+interface FilterProps {}
 
 interface FilterState {
-  status: string;
-  channel: string;
-  transactionType: string;
-  dateFrom: Date;
-  dateTo: Date;
-  quickDate: number;
-  transactionProperty: string;
+  transaction_status: string;
+  transaction_type: string;
+  start_date: Date | null;
+  end_date: Date | null;
+  quickDate: number | null;
 }
 
-const statusOptions = ["All", "Pending", "Complete", "Cancelled", "Refunded"];
-const channelOptions = ["All", "Web", "App"];
-const transactionTypeOptions = ["All", "Debit", "Credit"];
+const statusOptions = [
+  { label: "All", value: "" },
+  { label: "Pending", value: "pending" },
+  { label: "Complete", value: "complete" },
+  { label: "Refunded", value: "refunded" },
+];
+
+const transactionTypeOptions = [
+  { label: "All", value: "" },
+  { label: "Send", value: "SEND" },
+  { label: "Receive", value: "RECEIVE" },
+  { label: "Discounts", value: "DISCOUNT" },
+];
+
 const quickDateOptions = [7, 14, 30];
 
 const FilterComponent: React.FC<FilterProps> = () => {
-  const [filters, setFilters] = useState<FilterState>({
-    status: "All",
-    channel: "All",
-    transactionType: "All",
-    dateFrom: new Date(),
-    dateTo: new Date(),
-    quickDate: 7,
-    transactionProperty: "",
-  });
+  const router = useRouter();
 
+  const [filters, setFilters] = useState<FilterState>({
+    transaction_status: "",
+    transaction_type: "",
+    start_date: null,
+    end_date: null,
+    quickDate: null,
+   
+  });
 
   const handleFilterChange = (key: keyof FilterState, value: any) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleQuickDateChange = (days: number) => {
-    const today = new Date();
-    const pastDate = new Date();
+    const today = new Date()
+    const pastDate = new Date()
     pastDate.setDate(today.getDate() - days);
     setFilters((prev) => ({
       ...prev,
-      dateFrom: pastDate,
-      dateTo: today,
+      start_date: pastDate,
+      end_date: today,
       quickDate: days,
     }));
   };
 
-return (
-    <div className=" p-6 rounded-lg">
 
-      {/* Status */}
+  const handleReset = () => {
+    // Reset the filters in state
+    setFilters({
+      transaction_status: "",
+      transaction_type: "",
+      start_date: null,
+      end_date: null,
+      quickDate: null,
+    });
+  
+    // Clear all the query parameters from the URL
+    const url = new URL(window.location.href);
+    url.search = '';  // This removes all search params
+    
+    // Push the updated URL (without any search params)
+    router.push(url.toString());
+  };
+  
+  const handleApply = () => {
+    const query = new URLSearchParams();
+
+    if (filters.transaction_status) query.set("transaction_status", filters.transaction_status);
+    if (filters.transaction_type) query.set("transaction_type", filters.transaction_type);
+    if (filters.start_date) query.set("start_date", new Date(filters.start_date).toISOString().split("T")[0]);
+    if (filters.end_date) query.set("end_date", new Date(filters.end_date).toISOString().split("T")[0]);
+    if (filters.quickDate) query.set("quickDate", String(filters.quickDate));
+
+    router.push(`?${query.toString()}`);
+  };
+
+  return (
+    <div className="p-6 rounded-lg">
+
+      {/* Status Filter */}
       <div className="mb-4">
         <p className="text-sm font-medium">Status</p>
         <div className="flex gap-2 mt-2 flex-wrap">
           {statusOptions.map((option) => (
             <Button
-              key={option}
-              variant={filters.status === option ? "default" : "outline"}
-              onClick={() => handleFilterChange("status", option)}
+              key={option.value}
+              variant={filters.transaction_status === option.value ? "default" : "outline"}
+              onClick={() => handleFilterChange("transaction_status", option.value)}
               className="px-3 py-1 text-sm"
             >
-              {option}
+              {option.label}
             </Button>
           ))}
         </div>
       </div>
 
-      {/* Channel */}
-      <div className="mb-4">
-        <p className="text-sm font-medium">Channel</p>
-        <div className="flex gap-2 mt-2 flex-wrap">
-          {channelOptions.map((option) => (
-            <Button
-              key={option}
-              variant={filters.channel === option ? "default" : "outline"}
-              onClick={() => handleFilterChange("channel", option)}
-              className="px-3 py-1 text-sm"
-            >
-              {option}
-            </Button>
-          ))}
-        </div>
-      </div>
-
-      {/* Transaction Type */}
+      {/* Transaction Type Filter */}
       <div className="mb-4">
         <p className="text-sm font-medium">Transaction Type</p>
         <div className="flex gap-2 mt-2 flex-wrap">
           {transactionTypeOptions.map((option) => (
             <Button
-              key={option}
-              variant={filters.transactionType === option ? "default" : "outline"}
-              onClick={() => handleFilterChange("transactionType", option)}
+              key={option.value}
+              variant={filters.transaction_type === option.value ? "default" : "outline"}
+              onClick={() => handleFilterChange("transaction_type", option.value)}
               className="px-3 py-1 text-sm"
             >
-              {option}
+              {option.label}
             </Button>
           ))}
         </div>
       </div>
 
-      {/* Date Selection */}
+      {/* Date Picker */}
       <div className="mb-4">
         <p className="text-sm font-medium">Date</p>
         <div className="flex gap-4 mt-2">
           <DatePicker
-            selected={filters.dateFrom}
-            onChange={(date) => handleFilterChange("dateFrom", date)}
-            className="bg-gray-800 text-white p-2 rounded-md w-full"
+            selected={filters.start_date}
+            placeholderText={`${moment(new Date).format("YYYY-MM-DD")}`}
+            // onChange={(date) => handleFilterChange("dateFrom", date)}
+            onChange={(date) => {
+              const formatted = date && date.toISOString().split("T")[0]; // "yyyy-mm-dd"
+              handleFilterChange("start_date", formatted);
+            }}
+            className="border border-input bg-transparent px-3 py-1 text-base  p-2 rounded-md w-full"
           />
-
           <DatePicker
-            selected={filters.dateTo}
-            onChange={(date) => handleFilterChange("dateTo", date)}
-            className="bg-gray-800 text-white p-2 rounded-md w-full"
+            selected={filters.end_date}
+            onChange={(date) => {
+              const formatted = date && date.toISOString().split("T")[0]; // "yyyy-mm-dd"
+              handleFilterChange("end_date", formatted);
+            }}
+            placeholderText={`${moment(new Date).format("YYYY-MM-DD")}`}
+            className="border border-input bg-transparent px-3 py-1 text-base  p-2 rounded-md w-full"
           />
         </div>
 
-        {/* Quick Date Selection */}
         <div className="flex gap-2 mt-3">
           {quickDateOptions.map((days) => (
             <Button
@@ -141,37 +170,18 @@ return (
       </div>
 
       {/* Transaction Property */}
-      <div className="mb-4">
-        <p className="text-sm font-medium">Transaction Property</p>
-        <input
-          type="text"
-          placeholder="e.g. SC No., Customer ID"
-          value={filters.transactionProperty}
-          onChange={(e) => handleFilterChange("transactionProperty", e.target.value)}
-          className="w-full px-3 py-2 bg-gray-800 text-white rounded-md outline-none"
-        />
-      </div>
+      
 
       {/* Reset & Apply Buttons */}
       <div className="flex justify-between mt-4">
         <Button
           variant="outline"
           className="w-1/3"
-          onClick={() =>
-            setFilters({
-              status: "All",
-              channel: "All",
-              transactionType: "All",
-              dateFrom: new Date(),
-              dateTo: new Date(),
-              quickDate: 7,
-              transactionProperty: "",
-            })
-          }
+          onClick={handleReset}
         >
           RESET
         </Button>
-        <Button variant="default" className="w-1/3" >
+        <Button variant="default" className="w-1/3" onClick={handleApply}>
           APPLY
         </Button>
       </div>

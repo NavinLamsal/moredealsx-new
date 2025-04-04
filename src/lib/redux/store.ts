@@ -12,6 +12,7 @@ import productReducer from "./slice/morefood/productCart";
 import deliveryReducer from "./slice/morefood/CheckoutSlice";
 import packageReducer from "./slice/moreclub/Pricing";
 import notificationsReducer from "./slice/notificationSlice";
+import walletReducer from "./slice/WalletSlice";
 
 
 const rootReducer = combineReducers({
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   businessRegistration: businessRegistrationReducer,
   network: networkReducer,
   balance: balanceReducer,
+  wallet: walletReducer,
   business: businessReducer,
   pricing: packageReducer, 
 

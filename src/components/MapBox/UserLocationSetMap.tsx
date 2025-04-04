@@ -27,7 +27,7 @@
 //   features: Feature[];
 // }
 
-// const UserLocationSetMap = ({ setNewAddress }: { setNewAddress?: any }) => {
+// const UserLocationSetMap = ({ setNewAddress , setChoosefield }: { setNewAddress?: any , setChoosefield?: any }) => {
 //   const mapContainerRef = useRef<HTMLDivElement>(null);
 //   const mapRef = useRef<mapboxgl.Map | null>(null);
 //   const markerRef = useRef<mapboxgl.Marker | null>(null);
@@ -270,6 +270,7 @@ import React, { useState, useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { debounce } from "lodash";
+import { AlertOctagonIcon } from "lucide-react";
 
 interface Coordinates {
   lat: number;
@@ -289,7 +290,7 @@ interface Feature {
   place_name: string;
 }
 
-const UserLocationSetMap = ({ setNewAddress }: { setNewAddress?: any }) => {
+const UserLocationSetMap = ({ setNewAddress , setChoosefield }: { setNewAddress?: any , setChoosefield?: any }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markerRef = useRef<mapboxgl.Marker | null>(null);
@@ -299,6 +300,7 @@ const UserLocationSetMap = ({ setNewAddress }: { setNewAddress?: any }) => {
     lat: parseFloat(localStorage.getItem("latitude") ?? "51.505"),
     lon: parseFloat(localStorage.getItem("longitude") ?? "-0.09"),
   });
+  const [error , setError] = useState("");
 
   useEffect(() => {
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN as string;
@@ -333,7 +335,21 @@ const UserLocationSetMap = ({ setNewAddress }: { setNewAddress?: any }) => {
     return () => map.remove();
   }, []);
 
+
+    const selectSuggestion = (suggestion: Suggestion) => {
+    const [lon, lat] = suggestion.center;
+    if (mapRef.current) {
+      mapRef.current.flyTo({ center: [lon, lat], zoom: 15 });
+      markerRef.current?.setLngLat([lon, lat]);
+    }
+    // setSearchText(suggestion.place_name);
+    // setNewAddress(suggestion.place_name);
+    setSuggestions([]);
+    handleMapClick(lon, lat);
+  };
+
   const handleMapClick = async (lon: number, lat: number) => {
+    setError("");
     if (markerRef.current) markerRef.current.setLngLat([lon, lat]);
     setCoordinates({ lat, lon });
     localStorage.setItem("latitude", lat.toString());
@@ -353,9 +369,31 @@ const UserLocationSetMap = ({ setNewAddress }: { setNewAddress?: any }) => {
       
       setSearchText(fullAddress);
       setNewAddress?.({ fullAddress, city: cityName, country: countryName });
+
       localStorage.setItem("location", fullAddress);
       localStorage.setItem("city", cityName);
       localStorage.setItem("country", countryName);
+      
+      const validationUrl = `http://192.168.1.155:8000/api/moredealsx/country/validate/?country_name=${encodeURIComponent(
+        countryName
+      )}&city_name=${encodeURIComponent(cityName)}`;
+  
+      const validationResponse = await fetch(validationUrl,{
+        method:"GET"
+      });
+      const validationData = await validationResponse.json();
+  
+      if (!validationData.success) {
+        setError("Service is not available in your region or city.");
+        setChoosefield(true);
+        localStorage.removeItem("location");
+        localStorage.removeItem("city")
+        localStorage.removeItem("country");
+        localStorage.removeItem("latitude");
+        localStorage.removeItem("longitude");
+      }else{
+        setChoosefield(false);
+      }
     }
   };
 
@@ -369,7 +407,12 @@ const UserLocationSetMap = ({ setNewAddress }: { setNewAddress?: any }) => {
 
   return (
     <div>
-      <div className="relative">
+       <>
+       {error && <p className="flex items-center justify-center w-full text-center text-sm text-red-600 p-2 mb-2 bg-red-200 md:col-span-2 lg:col-span-3">
+        <AlertOctagonIcon className="mr-2 h-4 w-4" />&nbsp;{error}&nbsp;<AlertOctagonIcon className="ml-2 h-4 w-4 " />
+      </p>}
+       </>
+      <div className="relative">  
         <input
           type="text"
           value={searchText}
@@ -380,12 +423,14 @@ const UserLocationSetMap = ({ setNewAddress }: { setNewAddress?: any }) => {
           placeholder="Search for places"
           className="my-2 p-1 w-full"
         />
+        <div className="relative">
+
         {suggestions.length > 0 && (
-          <ul className="bg-white dark:bg-slate-500 absolute z-20 overflow-y-auto h-40">
+          <ul className="bg-white dark:bg-slate-500 absolute z-20 top-0 left-0 right-0 overflow-y-auto h-40">
             {suggestions.map((s) => (
               <li
                 key={s.id}
-                onClick={() => handleMapClick(s.center[0], s.center[1])}
+                onClick={() =>selectSuggestion(s)}
                 className="cursor-pointer p-1 border-b-2 border-light-primary dark:border-dark-primary"
               >
                 {s.place_name}
@@ -393,6 +438,7 @@ const UserLocationSetMap = ({ setNewAddress }: { setNewAddress?: any }) => {
             ))}
           </ul>
         )}
+        </div>
       </div>
       <div ref={mapContainerRef} style={{ height: "350px", width: "100%" }} className="map-container" />
     </div>

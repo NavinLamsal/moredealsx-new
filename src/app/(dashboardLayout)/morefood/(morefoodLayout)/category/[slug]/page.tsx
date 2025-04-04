@@ -3,6 +3,7 @@ import React from "react";
 import Heading from "@/components/ui/heading";
 import RestaurantList from "@/components/morefood/RestaurantList";
 import CategoriesTopList from "@/components/morefood/Category/categoryListing";
+import OfferList from "@/components/morefood/OfferList";
 
 
 
@@ -108,29 +109,56 @@ export default async function Page({
     return null
   }
 
-  return (
-    <>
-      <CategoriesTopList activepath={slug}/>
-      {title === "category" ? 
-      <div className="mt-4">
-      <Heading title={`Find your restaurant for ${slug.replace(/-/g, " ").toLowerCase()}`} />
-      <RestaurantList
-        type={`global-menu/${slug}/lists`}
-        searchParams={searchparams}
-      />
-      </div>
-      :
-      <>
-      <Heading title={title as string} />
+  const normalizedSlug = slug.toLowerCase();
+  const isComboToday = normalizedSlug.includes("combos") || normalizedSlug.includes("today-offer");
 
-      <RestaurantList
-        type={slug as string}
-        searchParams={searchparams}
-      />
+  return (
+    // <>
+    //   <CategoriesTopList activepath={slug}/>
+    //   {title === "category" ? 
+    //   <div className="mt-4">
+    //   <Heading title={`Find your restaurant for ${slug.replace(/-/g, " ").toLowerCase()}`} />
+    //   <RestaurantList
+    //     type={`global-menu/${slug}/lists`}
+    //     searchParams={searchparams}
+    //   />
+    //   </div>
+    //   :
+    //   <>
+    //   <Heading title={title as string} />
+
+    //   <RestaurantList
+    //     type={slug as string}
+    //     searchParams={searchparams}
+    //   />
+    //   </>
+    //   }
+    // </>
+    <>
+      <CategoriesTopList activepath={slug} />
       
-      
-      </>
-      }
+      {isComboToday ? (
+        <>
+          <Heading title={title as string} />
+          <OfferList type={slug === "combos" ? "combo/list" : "list"} searchParams={searchparams} />
+        </>
+      ) : title === "category" ? (
+        <div className="mt-4">
+          <Heading title={`Find your restaurant for ${slug.replace(/-/g, " ").toLowerCase()}`} />
+          <RestaurantList
+            type={`global-menu/${slug}/lists`}
+            searchParams={searchparams}
+          />
+        </div>
+      ) : (
+        <>
+          <Heading title={title as string} />
+          <RestaurantList
+            type={slug as string}
+            searchParams={searchparams}
+          />
+        </>
+      )}
     </>
   );
 }

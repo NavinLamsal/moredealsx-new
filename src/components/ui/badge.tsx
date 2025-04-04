@@ -26,7 +26,7 @@ export const Badge = ({ variant = "default", size = "md", children, className }:
   return (
     <span
       className={cn(
-        "cursor-pointer rounded-sm font-bold hidden sm:inline",
+        "cursor-pointer rounded-sm font-bold inline",
         variantStyles[variant],
         sizeStyles[size],
         className

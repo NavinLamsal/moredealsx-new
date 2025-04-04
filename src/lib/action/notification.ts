@@ -10,7 +10,7 @@ export const fetchNotifications = createAsyncThunk(
     try {
       const response = await MoreClubApiClient.get(`notifications/list/?page=1`);
       const notifications = response.data.data;
-      const hasNextPage = !!response.data.meta.links.next;
+      const hasNextPage = !!response.data?.meta?.links?.next;
 
       dispatch(fetchNotificationsSuccess({ notifications, hasNextPage }));
     } catch (error: any) {

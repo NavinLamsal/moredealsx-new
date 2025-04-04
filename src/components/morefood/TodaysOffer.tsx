@@ -40,7 +40,7 @@ const TodaysOffer = () => {
 
   return (
     <div className="p-4">
-      <HorizontalCarousel title="Today's Offers">
+      <HorizontalCarousel title="Today's Offers" viewAll="/morefood/category/today-offer?title=Today's Offers">
       {data.data.map((offer, index) => (
         <div className="flex-shrink-0 w-96" key={index}>
          <AnimatedSection key={index} index={index}>

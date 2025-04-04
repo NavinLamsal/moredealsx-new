@@ -13,7 +13,19 @@ import { getCurrencySymbolKey, getTransactionAmountKey } from "@/lib/utils";
 
 const TransactionList = () => {
   const searchParams = useSearchParams();
-  const searchQuery = searchParams.get("search") || "";
+  const transaction_status = searchParams.get("transaction_status") || "";
+  const transaction_type = searchParams.get("transaction_type") || "";
+  const start_date = searchParams.get("start_date") || "";
+  const end_date = searchParams.get("end_date") || "";
+  const quickDate = searchParams.get("quickDate") || "7";
+
+  const searchQuery = {
+    transaction_status,
+    transaction_type,
+    start_date,
+    end_date,
+    quickDate,
+  };
   
   // Ref for Intersection Observer
   const observerRef = useRef<IntersectionObserver | null>(null);

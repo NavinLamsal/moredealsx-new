@@ -1,53 +1,32 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import menuData from "@/data.json"; 
 
 // Define types for menu data
 interface MenuItem {
-  name: string;
+  title: string;
   description: string;
-  image: string;
-  link: string;
+  icon: string;
+  url: string;
 }
 
 interface MenuCategory {
-  category: string;
+ title: string;
   items: MenuItem[];
+  horizontal?: boolean;
 }
 
-const menuData: MenuCategory[] = [
-  {
-    category: "Club",
-    items: [
-      { name: "Profile", description: "Manage your profile and settings.", image: "/images/png/user.png", link: "/profile" },
-      { name: "Kyc", description: "Update and manage your Kyc Details", image: "/images/png/user.png", link: "/kyc" },
-      { name: "Activity Log", description: "See Your Activity across the platform", image: "/images/png/user.png", link: "/activity-log" },
-    ],
-  },
-  {
-    category: "MoreFood",
-    items: [
-      { name: "Order", description: "See your Order History.", image: "/images/png/restaurant.png", link: "/morefood/order" },
-      { name: "Reviews", description: "Manage and View your Reviews at the restaurant", image: "/images/png/restaurant.png", link: "/morefood/reviews" },
-    ],
-  },
-  {
-    category: "More Living",
-    items: [
-      { name: "Bookings", description: "See and Manage your Bookings", image: "/images/png/restaurant.png", link: "/moreliving/bookings" },
-      { name: "Reviews", description: "Manage and View your Reviews at the Hotel", image: "/images/png/restaurant.png", link: "/moreliving/reviews" },
-    ],
-  },
-];
+
 
 export default function Menu() {
   const [search, setSearch] = useState<string>("");
 
   // Filter the menu data based on the search query
-  const filteredMenu: MenuCategory[] = menuData
-    .map((section) => {
-      const filteredItems = section.items.filter((item) =>
-        item.name.toLowerCase().includes(search.toLowerCase())
+  const filteredMenu: MenuCategory[] = menuData.menuData
+    .map((section: MenuCategory) => {
+      const filteredItems = section.items.filter((item: MenuItem) =>
+        item.title.toLowerCase().includes(search.toLowerCase())
       );
       return filteredItems.length > 0 ? { ...section, items: filteredItems } : null;
     })
@@ -64,15 +43,15 @@ export default function Menu() {
       {filteredMenu.length > 0 ? (
         <div className="space-y-5">
           {filteredMenu.map((section) => (
-            <div key={section.category}>
-              <h3 className="text-sm font-bold text-gray-400">{section.category}</h3>
+            <div key={section.title}>
+              <h3 className="text-sm font-bold text-gray-400">{section.title}</h3>
               <div className="space-y-2">
                 {section.items.map((item) => (
-                  <Link key={item.name} href={item.link} className="block">
+                  <Link key={item.title} href={item.url} className="block">
                     <div className="flex items-center space-x-2 p-2 rounded hover:bg-white dark:hover:bg-gray-800">
-                      <img src={item.image} alt={item.name} className="w-6 h-6 rounded" />
+                      <img src={item.icon} alt={item.title} className="w-6 h-6 rounded" />
                       <div>
-                        <p className="text-sm font-semibold">{item.name}</p>
+                        <p className="text-sm font-semibold">{item.title}</p>
                         <p className="text-xs text-gray-400">{item.description}</p>
                       </div>
                     </div>

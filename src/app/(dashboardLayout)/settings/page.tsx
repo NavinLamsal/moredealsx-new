@@ -1,8 +1,12 @@
+"use client";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
+import menuData from "@/data.json";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { usePathname, useRouter } from "next/navigation";
 
 interface SettingItem {
   url: string;
@@ -11,137 +15,30 @@ interface SettingItem {
   icon?: string; // Optional: If you want to display an icon
 }
 
-interface SettingsSection {
-  title: string;
-  horizontal: boolean;
-  items: SettingItem[];
-}
 
-const sampleData: SettingsSection[] = [
-  {
-    title: "Most visited settings",
-    horizontal: true,
-    items: [
-      {
-        url: "/dashboard/profile",
-        icon: "/images/svg/leads.svg",
-        title: "Profile",
-        description: "Manage your profile and update your profile information.",
-      },
-      {
-        url: "/dashboard/user-log",
-        icon: "/images/svg/leads.svg",
-        title: "Activity log",
-        description: "Manage and manage your activity on Facebook.",
-      },
-      {
-        url: "/settings/kyc",
-        icon: "/images/svg/leads.svg",
-        title: "KYC",
-        description: "Update your KYC information to help us verify your identity.",
-      },
-    ],
-  },
-  {
-    title: "Business Settings",
-    horizontal: true,
-    items: [
-      {
-        url: "/business/profile",
-        icon: "/images/svg/leads.svg",
-        title: "Business Profile",
-        description: "Manage your Business profile and update your profile information.",
-      },
-      {
-        url: "/business/business-log",
-        icon: "/images/svg/leads.svg",
-        title: "Activity log",
-        description: "Manage and manage your activity on Facebook.",
-      },
-      { 
-        url: "/business/card-info",
-        icon: "/images/svg/leads.svg",
-        title: "Card Information",
-        description: "Update your KYC information to help us verify your identity.",
-      },
-    ],
-  },
-  {
-    title: "Subscription and Referals",
-    horizontal: false,
-    items: [
-      {
-        url: "/dashboard/subscription",
-        icon: "/images/svg/leads.svg",
-        title: "Subscription",
-        description: "manage and upgrade your subscription plan.",
-      },
-      {
-        url: "/dashboard/referals",
-        icon: "/images/svg/leads.svg",
-        title: "Refreals and invites",
-        description: "Invite our friends and earn rewards.",
-      },
-    ],
-  },
-  {
-    title: "Security",
-    horizontal: false,
-    items: [
-      {
-        url:"/dashboard/change-password",
-        icon: "/images/svg/leads.svg",
-        title: "Change password",
-        description: "Learn how to manage and control your privacy across Meta products.",
-      },
-      {
-        url:"/dashboard/change-pin",
-        icon: "/images/svg/leads.svg",
-        title: "Change PIN",
-        description: "Learn more about our updated settings experience on Facebook.",
-      },
-    ],
-  },
-
-  {
-    title: "privacy and safety",
-    horizontal: false,
-    items: [
-      {
-        url:"/faq",
-        icon: "/images/svg/leads.svg",
-        title: "FAQ",
-        description: "Learn more about our updated settings experience on Facebook.",
-      },
-      {
-        url:"/support",
-        icon: "/images/svg/leads.svg",
-        title: "Support",
-        description: "Learn more about our updated settings experience on Facebook.",
-      },
-      {
-        url:"/privacy-policy",
-        icon: "/images/svg/leads.svg",
-        title: "Privacy policy",
-        description: "Learn how to manage and control your privacy across Meta products.",
-      },
-      {
-        url:"/terms-and-conditions",
-        icon: "/images/svg/leads.svg",
-        title: "Terms and conditions",
-        description: "Learn more about our updated settings experience on Facebook.",
-      },
-    ],
-  },
-];
 
 const SettingsLayout: React.FC = () => {
+
+   const pathname = usePathname();
+  const isMobile = useIsMobile(); // Check if it's a mobile device
+  const router = useRouter();
+
+  // useEffect(() => {
+  //   if (isMobile) {
+  //     if (pathname === "/settings") {
+  //     router.back(); // Redirect to the previous page
+  //     }
+  //   }
+  // }, [isMobile, router]);
+
+  // if (!isMobile) return null; // Hide content before redirection
+
   return (
        <div className="p-4">
 
 
        <Card className="max-w-6xl p-4 space-y-8 ">
-      {sampleData.map((section, index) => {
+      {menuData.menuData.map((section, index) => {
         const isSingleItem = section.items.length === 1;
 
         return (

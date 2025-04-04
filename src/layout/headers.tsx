@@ -9,8 +9,8 @@ import BalanceViewer from '@/components/moreclub/wallets/BalanceViewer'
 
 import { NavUser } from './nav-user'
 import { useSession } from 'next-auth/react'
-import CityChooser from './cityChooser'
 import MenuDropdown from './MenuDropdown'
+import { LocationDialog } from './location/LocationDialog'
 
 const Headers = ({teams}:{teams?:{
   name: string,
@@ -45,7 +45,8 @@ const Headers = ({teams}:{teams?:{
             <span className="truncate text-xs">{teams.plan}</span>
           </div> */}
            <SidebarTrigger className="flex items-center " />
-           <CityChooser/>
+            <LocationDialog dashboard={true}/>
+           {/* <CityChooser/> */}
            {/* <Input placeholder="Search" className="h-8 w-full bg-background shadow-none focus-visible:ring-2 focus-visible:ring-sidebar-ring" /> */}
           {/* <Separator orientation="vertical" className="mr-2 h-4" /> */}
           {/* <Breadcrumb>

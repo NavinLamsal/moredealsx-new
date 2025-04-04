@@ -38,7 +38,7 @@ const PopularCombos = () => {
 
  return (
    <div className="p-4">
-     <HorizontalCarousel title="Popular Combos">
+     <HorizontalCarousel title="Popular Combos" viewAll="/morefood/category/combos?title=Popular Combos">
      {data.data.map((offer, index) => (
        <div className="flex-shrink-0 w-96" key={index}>
         <AnimatedSection key={index} index={index}>
