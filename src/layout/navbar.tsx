@@ -3,7 +3,6 @@ import Link from 'next/link'
 import React from 'react'
 // import CityChooser from './cityChooser'
 import { LocationDialog } from './location/LocationDialog'
-import CityChooser from './cityChooser'
 
 const Navbar = () => {
   return (

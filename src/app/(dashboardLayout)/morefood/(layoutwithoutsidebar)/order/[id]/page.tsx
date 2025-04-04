@@ -1,5 +1,5 @@
 "use client";
-import { getTotalQuantity } from "@/components/morefood/cards/OrderCard";
+// import { getTotalQuantity } from "@/components/morefood/cards/OrderCard";
 import MapView from "@/components/morefood/order/MapView";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +10,6 @@ import { OrderDetail_foodItem, OrderDetail_offerItem, OrderDetail_orderItem, Ord
 import { useQuery } from "@tanstack/react-query";
 import { Mail, MailOpen, MapPin, NotebookIcon, Phone, User, Utensils } from "lucide-react";
 import moment from "moment";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 
 
@@ -40,7 +39,7 @@ const OrderDetailPage = () => {
   }
 
 
-  const totalQuantity = getTotalQuantity(orderdetail);
+  // const totalQuantity = getTotalQuantity(orderdetail);
 
   return (
 
@@ -113,8 +112,8 @@ const OrderDetailPage = () => {
             <div className="text-xs lg:text-sm 2xl:text-base  p-4 w-full mt-4 bg-white rounded-md">
               <h1 className="text-lg font-semibold">Total Summary</h1>
               <div className="grid grid-cols-2">
-                <p>Total Items</p>
-                <p className="text-end">{totalQuantity}</p>
+                {/* <p>Total Items</p>
+                <p className="text-end">{totalQuantity}</p> */}
                 <p>Total Amount</p>
                 <p className="text-end">
                   {orderdetail.currency}&nbsp;{orderdetail.order_total_price}
