@@ -374,7 +374,7 @@ const UserLocationSetMap = ({ setNewAddress , setChoosefield }: { setNewAddress?
       localStorage.setItem("city", cityName);
       localStorage.setItem("country", countryName);
       
-      const validationUrl = `${process.env.NEXT_PUBLIC_HOST_URL}country/validate/?country_name=${encodeURIComponent(
+      const validationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}country/validate/?country_name=${encodeURIComponent(
         countryName
       )}&city_name=${encodeURIComponent(cityName)}`;
   
