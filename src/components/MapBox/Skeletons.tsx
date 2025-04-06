@@ -6,7 +6,7 @@ export function ContainerSkeleton() {
     const skeletonItems = Array(5).fill(null);
   
     return (
-      <div className="container bg-slate-200 dark:bg-dark-primary rounded-md drop-shadow-md  my-4 mx-auto grid max-w-7xl ">
+      <div className="container bg-slate-200 dark:bg-slate-800 text-primary rounded-md drop-shadow-md  my-4 mx-auto grid max-w-7xl ">
         {Array(2)
           .fill(null)
           .map((_, index) => (

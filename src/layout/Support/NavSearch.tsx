@@ -44,7 +44,7 @@ const NavSearch = () => {
   return (
     <>
       {/* Page Header */}
-      <header className="bg-sidebar text-white text-center pt-16 pb-28 relative">
+      <header className="bg-navbar text-white text-center pt-16 pb-28 relative">
         <span className="w-4/12 lg:w-2/12 aspect-square bg-gradient-to-tr from-blue-600 to-green-400 absolute -top-5 left-0 rounded-full skew-y-12 blur-2xl opacity-40 skew-x-12 rotate-90 h-32 md:h-auto"></span>
         <h1 className="text-2xl lg:text-4xl font-semibold mt-5 md:mt-6">{lastSegment}</h1>
       </header>

@@ -11,6 +11,7 @@ import { NavUser } from './nav-user'
 import { useSession } from 'next-auth/react'
 import MenuDropdown from './MenuDropdown'
 import { LocationDialog } from './location/LocationDialog'
+import AuthNavbarContent from './AuthNavbarContent'
 
 const Headers = ({teams}:{teams?:{
   name: string,
@@ -67,17 +68,8 @@ const Headers = ({teams}:{teams?:{
             </BreadcrumbList>
           </Breadcrumb> */}
         </div>
-        <div className="flex items-center gap-2">
-          
-         {<div className='hidden md:flex gap-2 items-center'>
-
-          <BalanceViewer />
-          <MenuDropdown/>
-          <ModeToggle />
-          </div>} 
-          <NotificationDropDown />
-         <NavUser user={users}/>
-        </div>
+        <AuthNavbarContent />
+        
       </div>
     </header>
   )

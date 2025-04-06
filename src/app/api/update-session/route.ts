@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Extend expiry
     };
 
-    console.log("updatedbody", updatedSession.user.userDetails);
+    // console.log("updatedbody", updatedSession.user.userDetails);
 
     
     const secret = process.env.AUTH_SECRET!; 

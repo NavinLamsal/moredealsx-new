@@ -22,7 +22,7 @@ const CustomDatePicker: React.FC<CustomDatePickerProps> = ({ value, name, onChan
     <DatePicker
       selected={value ? moment(value, "YYYY-MM-DD").toDate() : null}
       onChange={(date) => onChange(name, moment(date).format("YYYY-MM-DD"))}
-      dateFormat="YYYY-MM-DD"
+      dateFormat="yyyy-mm-dd"
       maxDate={moment().toDate()} // Prevent future dates
       showYearDropdown
       showMonthDropdown

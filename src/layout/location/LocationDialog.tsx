@@ -46,6 +46,7 @@ export function LocationDialog({dashboard}:{dashboard?:boolean}) {
           <Button variant="ghost" size={"icon"}  className="hover:scale-105 ">
             <MapPin size={20} />
           </Button>
+          {(city || country)?
           <input
             name="address"
             id="address"
@@ -54,7 +55,19 @@ export function LocationDialog({dashboard}:{dashboard?:boolean}) {
             className={ ` ${dashboard ? "text-black dark:text-white" : "text-white"} text-sm w-full rounded p-2 bg-transparent`}
             value={`${city || ""}, ${country || ""}`}
             readOnly
-          />
+          />:
+
+          <input
+           name="address"
+           id="address"
+           type="text"
+           placeholder="Your address (e.g., Tulegatan 1)"
+           className={ ` ${dashboard ? "text-black dark:text-white" : "text-white"} text-sm w-full rounded p-2 bg-transparent`}
+           value={`Select your location`}
+           readOnly
+         />
+          
+        }
         </div>
       </DialogTrigger>
 

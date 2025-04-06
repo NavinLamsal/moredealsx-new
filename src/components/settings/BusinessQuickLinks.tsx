@@ -88,7 +88,7 @@ const BusinessQuickLinks = () => {
                             type="text"
                             defaultValue={
                                 business?.businessProfile?.id
-                                    ? `${process.env.NEXT_PUBLIC_HOST_URL}/register-membership?bpms=${business?.businessProfile?.id}`
+                                    ? `${process.env.NEXT_PUBLIC_HOST_URL}/auth/register/?bpms=${business?.businessProfile?.id}`
                                     : ""
                             }
                             className="bg-black text-white border-0 p-1 w-4/5 outline-none"

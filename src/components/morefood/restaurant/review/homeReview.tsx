@@ -115,9 +115,12 @@ import { ReviewCard } from "../Reviews";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ReviewUpload } from "./ReviewUpload";
+import { UserReviewCard } from "./userReviewCard";
+import { ContainerSkeleton } from "@/components/MapBox/Skeletons";
 
 const HomeReview = ({ slug, rating, totalReview , postitveReview , negativeReview }: { slug: string; rating: number; totalReview: number , postitveReview: number , negativeReview: number }) => {
-    const { fetchRestaurantReview } = useFetchRestaurant();
+    const { fetchRestaurantReview , fetchRestaurantUserReview} = useFetchRestaurant();
+    const { data: session } = useSession();
 
     const {
         data: review,
@@ -134,11 +137,18 @@ const HomeReview = ({ slug, rating, totalReview , postitveReview , negativeRevie
         staleTime: 36000,
     });
 
-    if (reviewLoading) return <p>Loading...</p>;
-    if (reviewError) return <div>Error: Unable to fetch reviews.</div>;
+     const { data: userReview, isLoading: userReviewLoading } = useQuery({
+            queryKey: ["user-review", slug],
+            queryFn: () => (session ? fetchRestaurantUserReview(slug) : null),
+            staleTime: 480000,
+            enabled: !!session, 
+        });
 
-    // Extract first review safely
-    const firstReview = review?.pages?.[0]?.data?.[0] || null;
+    if (reviewLoading || (session && userReviewLoading)) return <ContainerSkeleton/>;
+    if (reviewError) return <div>Error: Unable to fetch reviews.</div>;
+    
+    const firstReview = review?.pages?.[0]?.data?.[0] ??  null;
+    
 
     return (
         <div className="px-2 sm:px-6 border-t">
@@ -152,13 +162,13 @@ const HomeReview = ({ slug, rating, totalReview , postitveReview , negativeRevie
                         <span className="text-lg lg:text-3xl font-bold">{rating}</span>
                     </span>
                     <p className="text-sm lg:text-base text-muted-foreground">{totalReview} Ratings</p>
-                    <p className="text-sm lg:text-base text-muted-foreground">{postitveReview} Postive Ratings</p>
-                    <p className="text-sm lg:text-base text-muted-foreground">{negativeReview} Negative Ratings</p>
+                    <p className="text-sm lg:text-base text-muted-foreground">{postitveReview} Postive Reviews</p>
+                    {/* <p className="text-sm lg:text-base text-muted-foreground">{negativeReview} Negative Ratings</p> */}
                 </div>
                 }
 
                 {/* Review Section */}
-                
+                    
                     {firstReview ? (
                         <div className="col-span-12 md:col-span-8 flex flex-col gap-4">
                         <ReviewCard
@@ -176,7 +186,13 @@ const HomeReview = ({ slug, rating, totalReview , postitveReview , negativeRevie
                         </div>
                     )}
                 </div>
-                    ) : (
+                    ) : <>
+                    {(userReview && JSON.stringify(userReview) !== "{}") ?
+                    <div className="col-span-12 md:col-span-8 flex flex-col gap-4">
+                    <UserReviewCard review={userReview} slug={slug} />
+                    </div>
+                    :
+                    (
                         <section className="py-2 px-4 col-span-12">
                             <div className="border rounded-lg p-4">
                                 <div className="flex flex-col items-center mb-2">
@@ -186,7 +202,10 @@ const HomeReview = ({ slug, rating, totalReview , postitveReview , negativeRevie
                                 </div>
                             </div>
                         </section>
-                    )}
+                    )
+                    }
+                    </>
+                    }
 
                     {/* Show More Button */}
                    

@@ -79,6 +79,18 @@ export default function FoodList({ slug }: { slug: string }) {
             </div>
           ))
       )}
+
+      {menuData
+          .filter(category => category.food_items && category.food_items.length === 0) &&
+          <section className="py-8 px-4">
+                        <div className="border rounded-lg p-4">
+                            <div className="flex flex-col items-center mb-2">
+                                <h2>No food items for "{searchTerm}"</h2>
+                                
+                            </div>
+                        </div>
+                    </section>
+          }
     </div>
   );
 }

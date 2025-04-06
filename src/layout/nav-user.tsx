@@ -3,9 +3,7 @@
 import {
   BadgeCheck,
   Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
+
   Sparkles,
 } from "lucide-react"
 
@@ -23,39 +21,32 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from "@/components/ui/sidebar"
+
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+
 import Logout from "./Logout"
 
 export function NavUser({
   user,
+  header
 }: {
   user: {
     name: string
     email: string
     avatar: string
   }
+  header?: boolean
 }) {
-  const { isMobile } = useSidebar()
+
 
   return (
-    // <SidebarMenu className="px-6">
-    //   <SidebarMenuItem>
+    
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            {/* <SidebarMenuButton
-              size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-            > */}
+            
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg uppercase">{user.name[0]}</AvatarFallback>
+                <AvatarFallback className={`${header? 'text-black bg-slate-200' : ''} rounded-lg uppercase`}>{user.name[0]}</AvatarFallback>
               </Avatar>
               {/* <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{user.name}</span>
@@ -126,7 +117,6 @@ export function NavUser({
             </Link>
           </DropdownMenuContent>
         </DropdownMenu>
-    //   </SidebarMenuItem>
-    // </SidebarMenu>
+    
   )
 }

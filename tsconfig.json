@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/lib/type/moresalons", "src/lib/type/morefood", "src/app/auth/logout", "src/app/auth/forgot-password/otp-verify"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/lib/type/moresalons", "src/lib/type/morefood", "src/app/auth/logout", "src/app/auth/forgot-password/otp-verify", "src/app/(landing)/(support)/offers"],
   "exclude": ["node_modules"]
 }

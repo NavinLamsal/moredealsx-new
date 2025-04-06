@@ -68,6 +68,10 @@ export default {
           DEFAULT: "hsl(var(--header-background))",
           foreground: "hsl(var(--header-foreground))",
         },
+        navbar:{
+          DEFAULT: "hsl(var(--navbar-background))",
+          foreground: "hsl(var(--navbar-foreground))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

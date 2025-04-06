@@ -7,15 +7,18 @@ import { prevStep, updateField } from '@/lib/redux/slice/RegistrationSlice';
 import { RootState } from '@/lib/redux/store';
 import { removePrefix } from '@/lib/utils';
 import { validateRequired } from '@/lib/validation/common';
+import { useSearchParams } from 'next/navigation';
 
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 const CurrencyForm = () => {
-
+    const searchParams = useSearchParams();
+    const breferalcode = searchParams.get("bpms");
+    const ureferalcode = searchParams.get("referral");
     const dispatch = useDispatch();
     const { firstName, lastName, email, phone, phoneOnly, prefix, countryCode, country, gender, userType, password, agreeToTerms, currency, registerMethod } = useSelector((state: RootState) => state.registration);
-    const [errors, setErrors] = useState<{country?:string; currency?: string; agreeToTerms?: string, }>({});
+    const [errors, setErrors] = useState<{ country?: string; currency?: string; agreeToTerms?: string, }>({});
     const [loading, setLoading] = useState<boolean>(false);
 
 
@@ -38,7 +41,7 @@ const CurrencyForm = () => {
     };
 
     const validate = async (fieldValues: Partial<{
-        country:string;
+        country: string;
         agreeToTerms: boolean;
         currency: string;
 
@@ -107,18 +110,35 @@ const CurrencyForm = () => {
             // country_code: countryCode, (Commented out as per your original code)
             currency: currency,
         };
-        
+
 
         try {
-            let url = ""
+            // let url = ""
+            // if (registerMethod === "EMAIL") {
+            //     url = `${process.env.NEXT_PUBLIC_BASE_URL}auth/register/by-email/`;
+            // } else if (registerMethod === "PHONE") {
+            //     url = `${process.env.NEXT_PUBLIC_BASE_URL}auth/register/by-phonenumber/`;
+            // } else {
+            //     return;
+            // }
+            let baseUrl = "";
             if (registerMethod === "EMAIL") {
-                url = `${process.env.NEXT_PUBLIC_BASE_URL}auth/register/by-email/`;
+                baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}auth/register/by-email/`;
             } else if (registerMethod === "PHONE") {
-                url = `${process.env.NEXT_PUBLIC_BASE_URL}auth/register/by-phonenumber/`;
+                baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}auth/register/by-phonenumber/`;
             } else {
                 return;
             }
 
+            // Create a URL object to handle query params easily
+            const urlObj = new URL(baseUrl);
+
+            // Append query params if available
+            if (breferalcode) urlObj.searchParams.append("bpms", breferalcode);
+            if (ureferalcode) urlObj.searchParams.append("referral", ureferalcode);
+
+            const url = urlObj.toString();
+            console.log("url", url)
             const response = await fetch(url, {
                 method: "POST",
                 body: JSON.stringify(combinedFormData),
@@ -153,14 +173,14 @@ const CurrencyForm = () => {
     return (
         <>
             <form onSubmit={handleSubmit} className='flex flex-col gap-4 p-2'>
-            <div>
+                <div>
                     <label>Country</label>
                     <div className="relative">
                         <CountrySelect onChange={handleCountrySelection} initialValue={country} />
                     </div>
                     {errors.country && <p className="text-red-500 text-sm">{errors.country}</p>}
                 </div>
-                
+
                 <div>
                     <label>Currency</label>
                     <div className="relative">

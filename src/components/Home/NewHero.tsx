@@ -8,7 +8,7 @@ import Navbar from "@/layout/navbar";
 const ESewaLayout = () => {
   return (
     <>
-     <Navbar/>
+     {/* <Navbar/> */}
       <div className="bg-primary text-white py-2 px-6  gap-6">
         <div className="max-w-8xl flex flex-wrap gap-6 mx-auto  justify-start">
 

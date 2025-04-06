@@ -109,7 +109,7 @@ const OrderDetailPage = () => {
               return null; // Prevent React warnings
             })}
 
-            <div className="text-xs lg:text-sm 2xl:text-base  p-4 w-full mt-4 bg-white rounded-md">
+            <div className="text-xs lg:text-sm 2xl:text-base  p-4 w-full mt-4 bg-white dark:bg-white/15 rounded-md">
               <h1 className="text-lg font-semibold">Total Summary</h1>
               <div className="grid grid-cols-2">
                 {/* <p>Total Items</p>

@@ -8,7 +8,8 @@
           { "title": "Kyc", "description": "Update and manage your Kyc Details", "icon": "/images/png/kyc.png", "url": "/settings/kyc" },
           { "title": "Activity Log", "description": "See Your Activity across the platform", "icon": "/images/png/activity.png", "url": "/dashboard/profile/activity" },
           { "url": "/business/profile", "icon": "/images/png/businessProfile.png", "title": "Business Profile", "description": "Manage your Business profile and update your profile information." },
-          { "url": "#", "icon": "/images/png/cardinformation.png", "title": "Card Information", "description": "Update your KYC information to help us verify your identity." }
+          { "url": "#", "icon": "/images/png/cardinformation.png", "title": "Card Information", "description": "Update your KYC information to help us verify your identity." },
+          { "url": "/event/booked", "icon": "/images/svg/events.svg", "title": "Event Bookings", "description": "See and manage  your Event Bookings" }
         ]
       },
       {

@@ -6,11 +6,11 @@ import { Bell } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
-const NotificationDropDown = () => {
+const NotificationDropDown = ({header}:{header?:boolean}) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size={"icon"} ><Bell /></Button>
+        <Button variant="outline" size={"icon"} className={header? 'text-white' : 'text-black dark:text-white'} ><Bell /></Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[350px] bg-background" side={"bottom"}
             align="end" >

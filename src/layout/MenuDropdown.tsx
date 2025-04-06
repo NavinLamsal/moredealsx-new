@@ -1,20 +1,20 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu'
 import { LayoutDashboard } from 'lucide-react'
 import React from 'react'
 import Menu from './menu'
+import { DropdownMenu,DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 
-const MenuDropdown = () => {
+const MenuDropdown = ({header}:{header?:boolean}) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon">
-          <LayoutDashboard />
+          <LayoutDashboard className={header? 'text-white' : 'text-black dark:text-white'} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
-        className="w-[350px] max-h-[500px] overflow-hidden " 
+        className="w-[350px] max-h-[500px] overflow-hidden  " 
         side="bottom" align="end"
       >
         <Card className="w-full dark:bg-background">

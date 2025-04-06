@@ -391,6 +391,7 @@ const UserLocationSetMap = ({ setNewAddress , setChoosefield }: { setNewAddress?
         localStorage.removeItem("country");
         localStorage.removeItem("latitude");
         localStorage.removeItem("longitude");
+        setNewAddress?.();
       }else{
         setChoosefield(false);
       }

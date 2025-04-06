@@ -2,11 +2,13 @@ import { Blog } from '@/lib/type/CommonType'
 import moment from 'moment'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { forwardRef } from 'react'
 
-const BlogCard = ({ blog }: { blog: Blog }) => {
+type BlogCardProps = { blog: Blog }
+
+const BlogCard = forwardRef<HTMLDivElement, BlogCardProps>(({ blog }, ref) => {
     return (
-        <div className="w-full px-4">
+        <div className="w-full px-4" ref={ref}>
             <div className="max-w-[370px] mx-auto mb-10">
                 <div className="rounded overflow-hidden mb-8">
                     <Image
@@ -40,5 +42,6 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
         </div>
     )
 }
+)
 
 export default BlogCard
