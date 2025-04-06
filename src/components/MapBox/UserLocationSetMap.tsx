@@ -374,7 +374,7 @@ const UserLocationSetMap = ({ setNewAddress , setChoosefield }: { setNewAddress?
       localStorage.setItem("city", cityName);
       localStorage.setItem("country", countryName);
       
-      const validationUrl = `http://192.168.1.155:8000/api/moredealsx/country/validate/?country_name=${encodeURIComponent(
+      const validationUrl = `${process.env.NEXT_PUBLIC_HOST_URL}country/validate/?country_name=${encodeURIComponent(
         countryName
       )}&city_name=${encodeURIComponent(cityName)}`;
   
