@@ -1,4 +1,8 @@
-export default function TrackRecordSection() {
+import { getStatdata } from "@/lib/action/PubilcCommon";
+
+export default async function TrackRecordSection() {
+  const stat = await getStatdata()
+
     return (
       <section className="relative container bg-primary text-white py-16 px-8 xl:rounded-2xl overflow-hidden mx-auto max-w-7xl sm:px-6 sm:py-32 lg:px-8 shadow-2xl">
         {/* Background overlay */}
@@ -22,19 +26,19 @@ export default function TrackRecordSection() {
           {/* Stats */}
           <div className="flex-1 grid grid-cols-2  md:grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 text-center">
             <div>
-              <h3 className="text-3xl font-extrabold">8,000+</h3>
+              <h3 className="text-3xl font-extrabold">{stat.customer}+</h3>
               <p className="text-gray-400">Users on the platform</p>
             </div>
             <div>
-              <h3 className="text-3xl font-extrabold">3%</h3>
+              <h3 className="text-3xl font-extrabold">{stat.business}+</h3>
               <p className="text-gray-400">Business on the platform</p>
             </div>
             <div>
-              <h3 className="text-3xl font-extrabold">99.9%</h3>
+              <h3 className="text-3xl font-extrabold">{stat.lead}+</h3>
               <p className="text-gray-400">Leads</p>
             </div>
             <div>
-              <h3 className="text-3xl font-extrabold">$70M</h3>
+              <h3 className="text-3xl font-extrabold">{stat.verified_business}</h3>
               <p className="text-gray-400">Verified Business Users</p>
             </div>
           </div>

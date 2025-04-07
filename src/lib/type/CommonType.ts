@@ -104,6 +104,13 @@ export type PagesDataType = {
   image: string | null;
 };
 
+export type StatData={
+    customer: number,
+    business: number,
+    lead: number,
+    verified_business: number
+}
+
 export interface Blog {
   id: number;
   title: string;

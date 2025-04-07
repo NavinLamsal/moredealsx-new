@@ -21,7 +21,7 @@ export async function middleware(request: any) {
   const { nextUrl, method } = request;
   const loginPagePath = "/auth/";
 
-    const publicPaths = ["/", "/about", "/contact", "/public", "/terms-and-condition", "/events" , "/privacy-policy", "/faq", "/support" ,  ,"/offers"]; // Add more public paths as needed
+    const publicPaths = ["/", "/about", "/contact", "/public", "/terms-and-condition", "/events" , "/privacy-policy", "/faq", "/support" ,  ,"/offers" ]; // Add more public paths as needed
     const wildcardPaths = ["/events", "/blog"];
     const isPublicPath = publicPaths.includes( nextUrl.pathname) || wildcardPaths.some((path) => nextUrl.pathname.startsWith(`${path}/`));
 

@@ -1,10 +1,12 @@
 import axios from "axios"
-import { Blog, BusinessListType, CityListType, CompanyMeta, CountryListType, CurrencyListType, MetaData, PagesDataType } from "../type/CommonType"
+import { Blog, BusinessListType, CityListType, CompanyMeta, CountryListType, CurrencyListType, MetaData, PagesDataType, StatData } from "../type/CommonType"
 import { EventDetails } from "../type/moreclub/Event"
 
 export const getMetadata = async() =>{
     try{
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}meta/company/information/`)
+      // const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}meta/company/information/`)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}helpcenter/company/information/`, { next: { tags: ['company information'] ,revalidate: 300 }})
+      
       const data = await res.json()
       return data.data as CompanyMeta
     }catch(err){
@@ -76,7 +78,7 @@ export const getCityList = async(country: string) => {
 
 export const getlegalPages = async(pagetype:string) => {
   try{
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}meta/${pagetype}/`, { next: { tags: [`${pagetype}`] ,revalidate: 300 }})
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}helpcenter/${pagetype}/`, { next: { tags: [`${pagetype}`] ,revalidate: 300 }})
     const data = await res.json()
     return data.data as PagesDataType[]
   }catch(err){
@@ -85,6 +87,22 @@ export const getlegalPages = async(pagetype:string) => {
   }
 }
 
+
+export const getStatdata = async() => {
+  try{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}helpcenter/home/data/`, { next: { tags: [`Stat Data`] ,revalidate: 300 }})
+    const data = await res.json()
+    return data.data as StatData
+  }catch(err){
+    const error = err as Error
+    return {
+      customer: 0,
+      business: 0,
+      lead: 0,
+      verified_business: 0
+    };
+  }
+}
 
 
 
