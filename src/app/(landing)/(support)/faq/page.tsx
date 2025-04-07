@@ -1,7 +1,7 @@
 import React from "react";
 import { getlegalPages } from "@/lib/action/PubilcCommon";
 import { Button } from "@/components/ui/button";
-import  FAQRecommendation  from "@/components/moreclub/Blog/FAQRecommendation";
+import FAQRecommendation from "@/components/moreclub/Blog/FAQRecommendation";
 
 
 const FAQContent = async () => {
@@ -89,9 +89,9 @@ const FAQContent = async () => {
                 <div className="col-span-12 lg:col-span-4">
                     {/* Support & Recent Posts */}
                     <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 mt-10">
-                        
+
                         <div>
-                            <FAQRecommendation includeSupport={true}/>
+                            <FAQRecommendation includeSupport={true} />
                         </div>
                     </div>
                 </div>

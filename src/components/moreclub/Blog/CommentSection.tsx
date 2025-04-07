@@ -8,10 +8,10 @@ import { fetchComments, addComment, addReply } from "@/lib/redux/slice/CommentSl
 import { AppDispatch } from "@/lib/redux/store";
 import { useSession } from "next-auth/react";
 
-const CommentSection = ({ id }: { id: number }) => {
+const CommentSection = ({ slug }: { slug: string }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const {data:status} = useSession()
-  const comments = useSelector((state: any) => state.comments[id] || []);
+  const {data:session} = useSession()
+  const comments = useSelector((state: any) => state.comments[slug] || []);
 
   const [commentText, setCommentText] = useState("");
   const [cmtIsLoading, setCmtIsLoading] = useState(false);
@@ -20,15 +20,15 @@ const CommentSection = ({ id }: { id: number }) => {
   const [activeReplyCommentId, setActiveReplyCommentId] = useState<string | null>(null);
 
   useEffect(() => {
-    dispatch(fetchComments(id));
-  }, [id, dispatch]);
+    dispatch(fetchComments(slug));
+  }, [slug, dispatch]);
 
   // ✅ Handle new comment
   const handleAddComment = async () => {
     if (commentText.trim()) {
       try {
         setCmtIsLoading(true);
-        await dispatch(addComment({ id, body: commentText })).unwrap();
+        await dispatch(addComment({ postId:slug, body: commentText })).unwrap();
         toast.success("Comment added successfully");
         setCommentText("");
       } catch (error) {
@@ -47,7 +47,7 @@ const CommentSection = ({ id }: { id: number }) => {
     if (replyText.trim()) {
       try {
         setReplyIsLoading((prev) => ({ ...prev, [commentId]: true }));
-        await dispatch(addReply({ id, commentId, reply: replyText })).unwrap();
+        await dispatch(addReply({ postId:slug ,  commentId, reply: replyText })).unwrap();
         toast.success("Reply added successfully");
         setReplyTexts((prev) => ({ ...prev, [commentId]: "" }));
       } catch (error) {
@@ -74,6 +74,7 @@ const CommentSection = ({ id }: { id: number }) => {
           onChange={(e) => setCommentText(e.target.value)}
         />
         {/* {Cookies.get("moretechglobal_access") ? ( */}
+         {!!session ?
           <button
             className="mt-2 bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition"
             onClick={handleAddComment}
@@ -81,10 +82,12 @@ const CommentSection = ({ id }: { id: number }) => {
           >
             {cmtIsLoading ? "Posting..." : "Post Comment"}
           </button>
-        {/* ) : ( */}
+         :
           <a href="/login" className="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition inline-block">
             Login to Post Comment
           </a>
+        }
+        {/* ) : ( */}
         {/* )} */}
       </div>
 

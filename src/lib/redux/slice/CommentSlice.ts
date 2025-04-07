@@ -1,7 +1,6 @@
 import { fetchCommentsApi, postCommentApi, postReplyApi } from "@/lib/action/moreClub/Comment";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
-
 // ✅ Define Comment & Reply Types
 export interface Reply {
   id: number;
@@ -20,7 +19,7 @@ export interface Comment {
 
 // ✅ Define the Redux State Type
 interface CommentsState {
-  [postId: string]: Comment[];
+  [postId: string]: Comment[]; // postId is now a string
 }
 
 // ✅ Initial State
@@ -28,8 +27,8 @@ const initialState: CommentsState = {};
 
 // ✅ Thunk to fetch comments for a specific post
 export const fetchComments = createAsyncThunk<
-  { postId: number; comments: Comment[] },
-  number, // postId
+  { postId: string; comments: Comment[] },
+  string, // Changed postId type to string
   { rejectValue: string }
 >("comments/fetchComments", async (postId, { rejectWithValue }) => {
   try {
@@ -42,13 +41,13 @@ export const fetchComments = createAsyncThunk<
 
 // ✅ Thunk to add a new comment to the post
 export const addComment = createAsyncThunk<
-  { id: number; newComment: Comment },
-  { id: number; body: string },
+  { postId: string; newComment: Comment }, // postId is now a string
+  { postId: string; body: string }, // postId is now a string
   { rejectValue: string }
->("comments/addComment", async ({ id, body }, { rejectWithValue }) => {
+>("comments/addComment", async ({ postId, body }, { rejectWithValue }) => {
   try {
-    const newComment = await postCommentApi(id, body);
-    return { id, newComment };
+    const newComment = await postCommentApi(postId, body);
+    return { postId, newComment }; // Changed to use postId as string
   } catch (error: any) {
     return rejectWithValue(error.message);
   }
@@ -56,13 +55,13 @@ export const addComment = createAsyncThunk<
 
 // ✅ Thunk to add a reply to a specific comment
 export const addReply = createAsyncThunk<
-  { id: number; commentId: number; reply: Reply },
-  { id: number; commentId: number; reply: string },
+  { postId: string; commentId: number; reply: Reply }, // postId is now a string
+  { postId: string; commentId: number; reply: string }, // postId is now a string
   { rejectValue: string }
->("comments/addReply", async ({ id, commentId, reply }, { rejectWithValue }) => {
+>("comments/addReply", async ({ postId, commentId, reply }, { rejectWithValue }) => {
   try {
-    const newReply = await postReplyApi(id, commentId, reply);
-    return { id, commentId, reply: newReply };
+    const newReply = await postReplyApi(postId, commentId, reply);
+    return { postId, commentId, reply: newReply }; // Changed to use postId as string
   } catch (error: any) {
     return rejectWithValue(error.message);
   }
@@ -76,20 +75,20 @@ const commentsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // Fetch comments
-      .addCase(fetchComments.fulfilled, (state, action: PayloadAction<{ postId: number; comments: Comment[] }>) => {
+      .addCase(fetchComments.fulfilled, (state, action: PayloadAction<{ postId: string; comments: Comment[] }>) => {
         const { postId, comments } = action.payload;
-        state[postId] = comments;
+        state[postId] = comments; // postId is now a string
       })
       // Add a new comment
-      .addCase(addComment.fulfilled, (state, action: PayloadAction<{ id: number; newComment: Comment }>) => {
-        const { id, newComment } = action.payload;
-        if (!state[id]) state[id] = []; // Ensure the post exists
-        state[id].push(newComment);
+      .addCase(addComment.fulfilled, (state, action: PayloadAction<{ postId: string; newComment: Comment }>) => {
+        const { postId, newComment } = action.payload;
+        if (!state[postId]) state[postId] = []; // Ensure the post exists
+        state[postId].push(newComment); // postId is now a string
       })
       // Add a reply to a comment
-      .addCase(addReply.fulfilled, (state, action: PayloadAction<{ id: number; commentId: number; reply: Reply }>) => {
-        const { id, commentId, reply } = action.payload;
-        const comment = state[id]?.find((c) => c.id === commentId);
+      .addCase(addReply.fulfilled, (state, action: PayloadAction<{ postId: string; commentId: number; reply: Reply }>) => {
+        const { postId, commentId, reply } = action.payload;
+        const comment = state[postId]?.find((c) => c.id === commentId); // postId is now a string
         if (comment) {
           comment.replies.push(reply);
         }

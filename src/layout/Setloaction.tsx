@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
-import LocationMapbox from "@/components/MapBox/LocationMapbox";
+import UserLocationSetMap from "@/components/MapBox/UserLocationSetMap";
 
 export function LocationDialog({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,9 +18,26 @@ export function LocationDialog({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+   useEffect(() => {
+      if (typeof window !== "undefined") {
+        const location = localStorage.getItem("location");
+        const cityname = localStorage.getItem("city");
+        const countryName = localStorage.getItem("country");
+        setSelectedAddress(location);
+        // setCity(cityname);
+        // setCountry(countryName);
+  
+        if (!cityname || !countryName) {
+          setIsOpen(true);
+         
+        }
+      }
+    }, [selectedAddress]);
+
   const handleSave = (address: string) => {
     localStorage.setItem("location", address);
     setSelectedAddress(address);
+    window.location.reload();
     // setIsOpen(false);
     window.dispatchEvent(new Event("storage")); // 🔥 Notify other components
   };
@@ -35,10 +52,10 @@ export function LocationDialog({ children }: { children: React.ReactNode }) {
             <p className="mt-2 text-gray-600">
               Specifying your location enables more accurate search results, seamless order tracking, and personalized recommendations.
             </p>
-            <LocationMapbox setNewAddress={handleSave} />
+            <UserLocationSetMap setNewAddress={setSelectedAddress} setChoosefield={()=>console.log("setChoosefield")} />
             <DialogFooter className="my-4 mx-4">
               <DialogClose>
-                <Button onClick={() => handleSave(selectedAddress || "")}>Save</Button>
+                <Button onClick={() => handleSave(selectedAddress || "")} disabled={!selectedAddress}>Save</Button>
               </DialogClose>
             </DialogFooter>
           </div>

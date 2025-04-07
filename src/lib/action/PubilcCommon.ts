@@ -30,8 +30,8 @@ export const getMetadata = async() =>{
 
 export const getBusinessList = async() => {
     try{
-            const res = await fetch(`https://moretrek.com/api/business/all/types/`)
-      // const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}business/all/types/`)
+            // const res = await fetch(`https://moretrek.com/api/business/all/types/`)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}business/types/list/`)
       const data = await res.json()
       
       return data.data as BusinessListType[]
@@ -128,6 +128,32 @@ export const fetchBlogs = async (
       page: pageParam,
     },
   });
+
+  return {
+    data: response.data.data,
+    meta: {
+      links: { next: null , previous: null },
+      count: 10,
+      page_number: pageParam,
+      total_pages: pageParam
+    }, // ✅ Return pagination metadata
+  };
+};
+
+
+export const fetchRecommendationBlogs = async (
+  pageParam: number = 1,
+  title?: string,
+): Promise<BlogResponse> => {
+  const endpoint = `${process.env.NEXT_PUBLIC_BASE_URL}blogs/similar/blog/`;
+
+  const response = await axios.get(endpoint, {
+    params: {
+      slug: title,
+      page: pageParam,
+    },
+  });
+  console.log("response", response.data);
 
   return {
     data: response.data.data,

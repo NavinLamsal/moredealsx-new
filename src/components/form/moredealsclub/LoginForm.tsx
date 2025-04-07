@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { clearPackages } from "@/lib/redux/slice/moreclub/Pricing";
 import { fetchPackages } from "@/lib/action/moreClub/pricing";
 import { AppDispatch } from "@/lib/redux/store";
+import PasswordField from "@/components/ui/customInputs/PasswordInput";
 
 
 // const CheckUserName = async (username: string) => {
@@ -87,7 +88,7 @@ const validateEmail = async (email: string) => {
 
 const validatePhoneNumber = async (phone: string, prefix?: string) => {
   if (!phone.match(/^[0-9]+$/)) return "";
-  return await CheckUserName(phone , prefix);
+  return await CheckUserName(phone, prefix);
 };
 
 
@@ -126,6 +127,10 @@ const LoginForm: React.FC = () => {
     setFormData({ ...formData, [name]: value });
     setErrors({ ...errors, [name]: "" });
   };
+  const handlePassword = (name: string, value: string) => {
+    setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: "" });
+  }
 
   const handlePhoneNumberChange = (data: any) => {
     setFormData({
@@ -160,23 +165,23 @@ const LoginForm: React.FC = () => {
       if (response?.success) {
         showToast("Login successful!", "success");
         const session = await getSession();
-        if(session?.user?.userDetails?.is_pin_set === false){
+        if (session?.user?.userDetails?.is_pin_set === false) {
           localStorage.setItem("pinset", "false");
         }
         dispatch(clearPackages())
 
-        if(session?.user?.userDetails?.user_type ==="BUSINESS"){
-          if(session.user.userDetails?.exists_business_profile === false){
+        if (session?.user?.userDetails?.user_type === "BUSINESS") {
+          if (session.user.userDetails?.exists_business_profile === false) {
             localStorage.setItem("business_setup", "false");
           }
           dispatch(fetchPackages({ type: "BUSINESS", cycle: "monthly" }));
           dispatch(fetchPackages({ type: "BUSINESS", cycle: "yearly" }));
-        }else{
+        } else {
           dispatch(fetchPackages({ type: "NORMAL", cycle: "monthly" }));
           dispatch(fetchPackages({ type: "NORMAL", cycle: "yearly" }));
         }
-        
-        
+
+
         const callbackUrl = searchParams.get("callbackUrl");
         window.location.href = callbackUrl ?? "/dashboard";
       } else {
@@ -227,29 +232,16 @@ const LoginForm: React.FC = () => {
       )}
 
       <div>
-        {/* <label className="block font-medium mb-1">Password</label> */}
         <div className="flex items-center">
           <label htmlFor="password">Password</label>
         </div>
-        <div className="relative">
-          <Input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Enter your password"
-            className={`p-2 border rounded w-full ${errors.password ? "border-red-500" : ""}`}
-          />
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            className="absolute right-2 top-2"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? "Hide" : "Show"}
-          </Button>
-        </div>
+        <PasswordField
+          name="password"
+          value={formData.password}
+          onChange={(val) => handlePassword("password", val)}
+          placeholder="Enter your password"
+          error={errors.password}
+        />
         {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
       </div>
 

@@ -9,6 +9,16 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
+export function maskEmail(email: string): string {
+  const [user, domain] = email.split("@");
+  if (!user || !domain) return "";
+
+  const visiblePart = user.charAt(0);
+  const maskedPart = "*".repeat(Math.max(user.length - 1, 1));
+
+  return `${visiblePart}${maskedPart}@${domain}`;
+}
+
 export const removePrefix = (phoneNumber: string, prefix: string) =>{
   return  phoneNumber.startsWith(prefix) ? phoneNumber.slice(prefix.length) : phoneNumber;
 }

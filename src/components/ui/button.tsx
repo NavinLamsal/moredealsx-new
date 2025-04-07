@@ -20,7 +20,7 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         morefoodPrimary:
-          "bg-morefoodPrimary text-morefoodPrimary-foreground shadow hover:bg-purple-800",
+          "bg-morefoodPrimary text-morefoodPrimary-foreground shadow hover:bg-red-400",
         morefoodOutline:
           "border border-morefoodPrimary bg-transparent text-morefoodPrimary shadow-sm hover:bg-morefoodPrimary hover:text-morefoodPrimary-foreground",
       },

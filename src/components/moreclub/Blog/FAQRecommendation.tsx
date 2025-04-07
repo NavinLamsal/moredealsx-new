@@ -1,16 +1,17 @@
 import BlogCard from '@/components/cards/BlogCard';
 import SupportCard from '@/components/cards/SupportCard';
-import { fetchBlogs } from '@/lib/action/PubilcCommon';
+import { fetchBlogs, fetchRecommendationBlogs } from '@/lib/action/PubilcCommon';
 import { Blog } from '@/lib/type/CommonType';
 import React from 'react';
 
 interface FAQRecommendationProps {
   includeSupport?: boolean;
+  title?: string
 }
 
-export default async function FAQRecommendation({ includeSupport = false }: FAQRecommendationProps) {
+export default async function FAQRecommendation({ includeSupport = false , title}: FAQRecommendationProps ) {
   try {
-    const bloglist = await fetchBlogs(1);
+    const bloglist = await fetchRecommendationBlogs(1, title );
 
     // ✅ Ensure bloglist.data is an array before mapping
     if (!bloglist?.data || !Array.isArray(bloglist.data)) {

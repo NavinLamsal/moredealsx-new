@@ -1,3 +1,4 @@
+import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 import { createServerPlatformAxiosInstance } from "@/lib/axios/platformBasedAxios";
 import axios from "axios";
 
@@ -5,7 +6,7 @@ import axios from "axios";
 // commentsApi.js
 
 // Fetch comments for a specific post
-export const fetchCommentsApi = async (postId: number) => {
+export const fetchCommentsApi = async (postId: string) => {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_BASE_URL}blogs/${postId}/comments/list/`
@@ -17,9 +18,9 @@ export const fetchCommentsApi = async (postId: number) => {
 };
 
 // Post a new comment to a specific post
-export const postCommentApi = async (postId:number, body:string) => {
+export const postCommentApi = async (postId:string, body:string) => {
   try {
-    const response = await createServerPlatformAxiosInstance("moredealsclub",false).post(
+    const response = await MoreClubApiClient.post(
       `${process.env.NEXT_PUBLIC_BASE_URL}blogs/${postId}/comments/list/`,
       { body: body }
     );
@@ -31,9 +32,9 @@ export const postCommentApi = async (postId:number, body:string) => {
 };
 
 // Post a reply to a specific comment
-export const postReplyApi = async (postId:number, commentId:number, reply:string) => {
+export const postReplyApi = async (postId:string, commentId:number, reply:string) => {
   try {
-    const response = await createServerPlatformAxiosInstance("moredealsclub",false).post(
+    const response = await MoreClubApiClient.post(
       `${process.env.NEXT_PUBLIC_BASE_URL}blogs/${postId}/comments/list/`,
       {
         body: reply,

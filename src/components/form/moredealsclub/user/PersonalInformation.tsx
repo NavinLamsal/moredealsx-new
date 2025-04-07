@@ -202,8 +202,7 @@ const PersonalInformation = ({ userdata }: { userdata: any }) => {
         const cleanedData = removeEmptyStrings(data)
 
             const res = await axios.patch(`${process.env.NEXT_PUBLIC_BASE_URL}users/details/me/` ,cleanedData,
-            )
-            console.log("res", res)
+            )            
             showToast("Your changes are updated", "success");
           }catch(err:any){  
             showToast("error uploading your changes", "error")

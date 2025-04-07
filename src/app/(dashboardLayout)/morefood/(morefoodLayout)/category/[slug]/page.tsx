@@ -1,6 +1,6 @@
 
 import React from "react";
-import Heading from "@/components/ui/heading";
+import Heading, { HeadingChild } from "@/components/ui/heading";
 import RestaurantList from "@/components/morefood/RestaurantList";
 import CategoriesTopList from "@/components/morefood/Category/categoryListing";
 import OfferList from "@/components/morefood/OfferList";
@@ -103,6 +103,7 @@ export default async function Page({
   const { slug } = await params;
   const searchparams = await searchParams;
   const title = searchparams.title as string
+  const category = searchparams.category as string
 
 
   if (!slug) {
@@ -111,29 +112,8 @@ export default async function Page({
 
   const normalizedSlug = slug.toLowerCase();
   const isComboToday = normalizedSlug.includes("combos") || normalizedSlug.includes("today-offer");
-
+ 
   return (
-    // <>
-    //   <CategoriesTopList activepath={slug}/>
-    //   {title === "category" ? 
-    //   <div className="mt-4">
-    //   <Heading title={`Find your restaurant for ${slug.replace(/-/g, " ").toLowerCase()}`} />
-    //   <RestaurantList
-    //     type={`global-menu/${slug}/lists`}
-    //     searchParams={searchparams}
-    //   />
-    //   </div>
-    //   :
-    //   <>
-    //   <Heading title={title as string} />
-
-    //   <RestaurantList
-    //     type={slug as string}
-    //     searchParams={searchparams}
-    //   />
-    //   </>
-    //   }
-    // </>
     <>
       <CategoriesTopList activepath={slug} />
       
@@ -144,7 +124,9 @@ export default async function Page({
         </>
       ) : title === "category" ? (
         <div className="mt-4">
-          <Heading title={`Find your restaurant for ${slug.replace(/-/g, " ").toLowerCase()}`} />
+          <HeadingChild>
+            <h2 className="text-xl  font-semibold text-gray-800 dark:text-gray-100">{`Find your restaurant for `}<span className="text-morefoodPrimary">{category}</span> </h2>
+          </HeadingChild>
           <RestaurantList
             type={`global-menu/${slug}/lists`}
             searchParams={searchparams}

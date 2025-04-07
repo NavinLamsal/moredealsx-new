@@ -23,6 +23,7 @@ export default async function  LandingLayout({
          <Navbar dark_logo={MetaDatas.white_logo} light_logo={MetaDatas.white_logo}/> 
         {children}
         <Footer data={MetaDatas}/>
+        
         </React.Fragment>
   );
 }

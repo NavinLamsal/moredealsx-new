@@ -17,6 +17,8 @@ const BalanceCartView = () => {
 
       {/* Address Section */}
       <Location/>
+
+      
       <DeliveryOptions deliveryOptions={["delivery", "dine-here", "pickup"]} showicon={false}/>
 
       {/* Order Menu */}

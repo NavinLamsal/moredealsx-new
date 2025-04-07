@@ -1,5 +1,6 @@
 "use client"
 import { Button } from '@/components/ui/button';
+import PasswordField from '@/components/ui/customInputs/PasswordInput';
 import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { nextStep, prevStep, updateField } from '@/lib/redux/slice/RegistrationSlice';
@@ -24,7 +25,7 @@ const PasswordForm = () => {
     const validate = async (fieldValues: Partial<{
         password: string;
         confirmPassword: string;
-        
+
         userType: string;
 
     }> = { userType, password, confirmPassword }) => {
@@ -124,51 +125,24 @@ const PasswordForm = () => {
             </div>
             <div>
                 <label>Password</label>
-                <div className="relative">
-                    <Input
-                        // type={showPassword ? "text" : "password"}
-                        type={password}
-                        name="password"
-                        value={password}
-                        onChange={(e) => handleChange("password", e.target.value)}
-                        placeholder="Enter your password"
-                        className={`p-2 border rounded w-full ${errors.password ? "border-red-500" : ""}`}
-                    />
-                    <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        className="absolute right-2 top-2"
-                    // onClick={() => setShowPassword(!showPassword)}
-                    >
-                        {/* {showPassword ? "Hide" : "Show"} */}
-                    </Button>
-                </div>
+                <PasswordField
+                    name="password"
+                    value={password}
+                    onChange={(val) => handleChange("password", val)}
+                    placeholder="Enter your password"
+                    error={errors.password}
+                />
                 {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
             </div>
             <div >
                 <label>Confirm Password</label>
-                <div className="relative">
-                    <Input
-                        // type={showPassword ? "text" : "password"}
-                        type={password}
-                        name="confirmPassword"
-                        disabled={password === ""}
-                        value={confirmPassword}
-                        onChange={(e) => handleChange("confirmPassword", e.target.value)}
-                        placeholder="Confirm password"
-                        className={`p-2 border rounded w-full ${errors.confirmPassword ? "border-red-500" : ""}`}
-                    />
-                    <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        className="absolute right-2 top-2"
-                    // onClick={() => setShowPassword(!showPassword)}
-                    >
-                        {/* {showPassword ? "Hide" : "Show"} */}
-                    </Button>
-                </div>
+                <PasswordField
+                    name="confirmPassword"
+                    value={confirmPassword}
+                    onChange={(val) => handleChange("confirmPassword", val)}
+                    placeholder="Confirm your password"
+                    error={errors.confirmPassword}
+                />
                 {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
             </div>
             <div className='grid grid-cols-2 gap-2'>

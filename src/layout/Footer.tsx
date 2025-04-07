@@ -17,8 +17,8 @@ const Footer = ({data}:{data:CompanyMeta}) => {
               <img src={data?.white_logo} alt="More Deals Logo" className="w-32 hidden dark:block" />
               <img src={data?.black_logo} alt="More Deals Logo" className="w-32 block dark:hidden" />
             </div>
-            <p className="text-gray-400 mb-2">{data?.description}</p>
-            <p className="text-gray-400">Email: {data?.email}</p>
+            <p className="text-muted-foreground mb-2">{data?.description}</p>
+            <p className="text-muted-foreground">Email: {data?.email}</p>
           </div>
 
           {/* Join Community */}
@@ -34,45 +34,45 @@ const Footer = ({data}:{data:CompanyMeta}) => {
           {/* Links */}
           <div className="space-y-2">
             <h3 className="text-lg font-semibold">Explore</h3>
-            <ul className="space-y-1 text-gray-400">
-              <li><Link href="#" className="hover:text-white">About Us</Link></li>
-              <li><Link href="#" className="hover:text-white">Events</Link></li>
-              <li><Link href="#" className="hover:text-white">Our Products</Link></li>
-              <li><Link href="#" className="hover:text-white">Our Partners</Link></li>
+            <ul className="space-y-1 text-muted-foreground">
+              <li><Link href="#" className="hover:text-purple-500 ">About Us</Link></li>
+              <li><Link href="#" className="hover:text-purple-500 ">Events</Link></li>
+              <li><Link href="#" className="hover:text-purple-500 ">Our Products</Link></li>
+              <li><Link href="#" className="hover:text-purple-500 ">Our Partners</Link></li>
             </ul>
           </div>
 
           <div className="space-y-2">
             <h3 className="text-lg font-semibold">Marketplace</h3>
-            <ul className="space-y-1 text-gray-400">
-              <li><a href="#" className="hover:text-white">Art</a></li>
-              <li><a href="#" className="hover:text-white">Cards</a></li>
-              <li><a href="#" className="hover:text-white">Collectibles</a></li>
-              <li><a href="#" className="hover:text-white">Domain</a></li>
-              <li><a href="#" className="hover:text-white">Photos</a></li>
-              <li><a href="#" className="hover:text-white">Sports</a></li>
-              <li><a href="#" className="hover:text-white">Videos</a></li>
+            <ul className="space-y-1 text-muted-foreground">
+              <li><a href="#" className="hover:text-purple-500 ">Art</a></li>
+              <li><a href="#" className="hover:text-purple-500 ">Cards</a></li>
+              <li><a href="#" className="hover:text-purple-500 ">Collectibles</a></li>
+              <li><a href="#" className="hover:text-purple-500 ">Domain</a></li>
+              <li><a href="#" className="hover:text-purple-500 ">Photos</a></li>
+              <li><a href="#" className="hover:text-purple-500 ">Sports</a></li>
+              <li><a href="#" className="hover:text-purple-500 ">Videos</a></li>
             </ul>
           </div>
 
           <div className="space-y-2">
             <h3 className="text-lg font-semibold">Company</h3>
-            <ul className="space-y-1 text-gray-400">
-              <li><Link href="/license" className="hover:text-white">License</Link></li>
-              <li><Link href="/faq" className="hover:text-white">FAQ's</Link></li>
-              <li><Link href="/support" className="hover:text-white">Support</Link></li>
-              <li><Link href="/terms-and-condition" className="hover:text-white">Conditions</Link></li>
-              <li><Link href="/privacy-policy" className="hover:text-white">Privacy</Link></li>
+            <ul className="space-y-1 text-muted-foreground">
+              <li><Link href="/license" className="hover:text-purple-500 ">License</Link></li>
+              <li><Link href="/faq" className="hover:text-purple-500 ">FAQ's</Link></li>
+              <li><Link href="/support" className="hover:text-purple-500 ">Support</Link></li>
+              <li><Link href="/terms-and-condition" className="hover:text-purple-500 ">Conditions</Link></li>
+              <li><Link href="/privacy-policy" className="hover:text-purple-500 ">Privacy</Link></li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-center mt-8 text-sm text-gray-400">
+        <div className="flex flex-col sm:flex-row justify-between items-center mt-8 text-sm text-muted-foreground">
           <p>2024 © All rights reserved by MoreTech Global</p>
           <div className="flex space-x-4 mt-4 sm:mt-0">
-            <Link href="#" className="hover:text-white">Privacy Policy</Link>
-            <Link href="#" className="hover:text-white">Terms & Conditions</Link>
+            <Link href="#" className="hover:text-purple-500 ">Privacy Policy</Link>
+            <Link href="#" className="hover:text-purple-500 ">Terms & Conditions</Link>
           </div>
         </div>
       </div>

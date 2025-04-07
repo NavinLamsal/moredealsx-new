@@ -50,7 +50,7 @@ export const WalletDetail = ({ onlyBalance }: { onlyBalance?: boolean }) => {
         </h2>
         <p className='col-span-2 font-extrabold'>
         {balance?.currency.symbol ? (
-              balance.currency.symbol
+              balance.currency.code
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +128,7 @@ export function QuickLinks() {
   return (
     <Card className=" p-4 rounded-lg shadow-lg">
       <p className='text-muted-foreground text-sm my-4'>QUICK LINKS</p>
-      <div className="grid grid-cols-4 gap-4 text-center text-primary">
+      <div className="grid grid-cols-4 gap-4 text-center text-primary dark:text-primary-foreground">
         {quickLinks.map((link, index) => (
           <Link href={link.link} key={index} className="flex flex-col items-center">
             <Avatar>

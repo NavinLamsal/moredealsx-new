@@ -72,7 +72,6 @@ const GeneralInformationForm = ({ userdata }: { userdata: any }) => {
           }
         }
         )
-        console.log("res", res)
         showToast("Profile Picture Updated Successfully", "success");
       }catch(err:any){  
         showToast("error uploading profile picture", "error")

@@ -92,7 +92,7 @@ async function BlogDetail({ slug }: { slug: string }) {
                     <div className="border-t mt-8 pt-4">
                         <p className="font-semibold text-gray-700 dark:text-gray-300">{blogs.author}</p>
                     </div>
-                    <CommentSection id={blogs.id} />
+                    <CommentSection slug={blogs.slug} />
                 </div>
             </div>
         );
@@ -128,7 +128,7 @@ const Page = async ( { params }: Props) => {
                 <div className="col-span-12 lg:col-span-4">
                     {/* Support & Recent Posts */}
                     <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 mt-10">
-                            <FAQRecommendation />
+                            <FAQRecommendation  title={slug}/>
                     </div>
                 </div>
             </div>
