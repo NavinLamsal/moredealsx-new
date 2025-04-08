@@ -192,7 +192,7 @@ const Addressupdate = ({ userdata }: { userdata?: KYCProps }) => {
                 {/* //address  */}
                 <div className='my-8'>
                     <h2 className="text-2xl font-bold mb-2 flex items-center"><PinIcon className="mr-2" /> Address Information</h2>
-                    <p className='text-muted-foreground '>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat voluptatibus nobis est laborum sed.</p>
+                    <p className='text-muted-foreground '>Your address helps us provide location-based services and ensure accurate delivery or support when needed. Please keep this information current</p>
 
                     <div className='my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 space-y-4'>
 

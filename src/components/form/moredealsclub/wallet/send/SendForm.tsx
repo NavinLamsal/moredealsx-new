@@ -98,8 +98,9 @@ const TransferForm: React.FC = () => {
                     "balance": formData.transferAmount,
                     "username": formData.recipient,
                 }
-
+                
                 try {
+                    setIsLoading(true);
                     const res = await MoreClubApiClient.post(`${process.env.NEXT_PUBLIC_BASE_URL}wallets/validate/user/wallet/`, data);
                     setSendingInformation(res.data.data);
                     setStep(nextStep);
@@ -115,6 +116,8 @@ const TransferForm: React.FC = () => {
                     }
                     
                     setServerError(err?.response?.data?.errors.non_field_errors[0] || err?.response?.data?.message || "Something went wrong, please try again");
+                }finally{
+                    setIsLoading(false);
                 }
             }
         }
@@ -131,6 +134,7 @@ const TransferForm: React.FC = () => {
                 }
 
                 try {
+                    setIsLoading(true);
                     const res = await MoreClubApiClient.post(`${process.env.NEXT_PUBLIC_BASE_URL}wallets/send/balance/`, data)
                     showToast("Transfer successful!", "success") ;
                     setSendingInformation(res.data.data);
@@ -149,6 +153,8 @@ const TransferForm: React.FC = () => {
                     
                     setServerError(err?.response?.data?.errors.non_field_errors[0] || err?.response?.data?.message || "Something went wrong, please try again");
                     showToast(err?.response?.data?.errors.non_field_errors[0] || err?.response?.data?.message || "Something went wrong, please try again", "error") ;
+                }finally{
+                    setIsLoading(false);
                 }
             }
         }

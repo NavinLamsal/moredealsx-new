@@ -85,7 +85,7 @@ const SuportPageContent = () => {
 
   if (isError) {
     return (
-      <p>OOps something went wrong</p>
+      <p>Oop`s something went wrong</p>
       // <UniversalErrorbox
       //   message="Something went wrong while fetching the data"
       //   retry={["blog list", searchQuery]}

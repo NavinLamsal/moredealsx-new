@@ -65,6 +65,14 @@ const CheckoutButton = () => {
       tempErrors.arrivalTime = errorMessage;
       if (errorMessage) dispatch(setFieldError({ field: "arrivalTime", message: errorMessage }));
     }
+    if("no_of_people" in fieldValues){
+      let errorMessage = "";
+      if (deliverytype === "dine-here") {
+        errorMessage = validateRequired(fieldValues.arrivalTime || "", "No of people");
+      }
+      tempErrors.no_of_people = errorMessage;
+      if (errorMessage) dispatch(setFieldError({ field: "no_of_people", message: errorMessage }));
+    }
 
     if ("location" in fieldValues) {
       const errorMessage = validateLocationDetails("Location", fieldValues.location || "", `${lat}` || "", `${lon}` || "");

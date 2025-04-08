@@ -8,6 +8,52 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+type DeviceType = 'Mobile' | 'Tablet' | 'Desktop' | 'Unknown';
+type BrowserType = 'Chrome' | 'Firefox' | 'Safari' | 'Edge' | 'Dart' | 'Unknown';
+
+export const parseUserAgent = (userAgent: string): { deviceType: DeviceType, browser: BrowserType } => {
+  const mobileRegex = /mobile/i;
+  const tabletRegex = /tablet/i;
+  const androidRegex = /android/i;
+  const iosRegex = /iphone|ipod|ipad/i;
+  const chromeRegex = /chrome/i;
+  const firefoxRegex = /firefox/i;
+  const safariRegex = /safari/i;
+  const edgeRegex = /edge/i;
+  const dartRegex = /dart/i;  // Regex for detecting Dart applications
+
+  let deviceType: DeviceType = 'Desktop'; // Default to desktop
+
+  // If Dart is detected, classify it as mobile
+  if (dartRegex.test(userAgent)) {
+    return { deviceType: 'Mobile', browser: 'Dart' }; // Dart is now classified as mobile
+  }
+
+  // Check for mobile and tablet devices
+  if (mobileRegex.test(userAgent)) {
+    deviceType = 'Mobile';
+  } else if (tabletRegex.test(userAgent)) {
+    deviceType = 'Tablet';
+  }
+
+  // Browser detection
+  let browser: BrowserType = 'Unknown';
+
+  if (chromeRegex.test(userAgent)) {
+    browser = 'Chrome';
+  } else if (firefoxRegex.test(userAgent)) {
+    browser = 'Firefox';
+  } else if (safariRegex.test(userAgent)) {
+    browser = 'Safari';
+  } else if (edgeRegex.test(userAgent)) {
+    browser = 'Edge';
+  }
+
+  return { deviceType, browser };
+};
+
+
+
 
 export function maskEmail(email: string): string {
   const [user, domain] = email.split("@");

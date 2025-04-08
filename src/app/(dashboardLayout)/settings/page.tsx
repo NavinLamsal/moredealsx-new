@@ -59,9 +59,9 @@ const SettingsLayout: React.FC = () => {
             ) : (
               <div className={`grid grid-cols-1 ${section.horizontal ? "md:grid-cols-3" : ""} gap-4`}>
                 {section.items.map((item, idx) => (
-                  <>
+                  <React.Fragment key={idx}>
                   {section.horizontal ? verticalCard({item}): horizontalCard({item})}
-                  </>
+                  </React.Fragment>
                 ))}
               </div>
             )}

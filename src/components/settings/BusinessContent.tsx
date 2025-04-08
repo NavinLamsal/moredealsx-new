@@ -9,7 +9,7 @@ import BusinessQuickLinks from './BusinessQuickLinks';
 
 const BusinessContent = () => {
     const dispatch = useDispatch<AppDispatch>();
-const business = useAppSelector((state: RootState) => state.business);
+    const business = useAppSelector((state: RootState) => state.business);
      useEffect(() => {
             dispatch(fetchBusinessData({ fetchForce: false }));
         }, [dispatch]);

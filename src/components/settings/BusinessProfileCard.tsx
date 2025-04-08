@@ -8,10 +8,19 @@ import Image from "next/image";
 import BusinessQrGenerate from "./BusinessQrGenerate";
 import { RootState } from "@/lib/redux/store";
 import { useAppSelector } from "@/lib/redux/hooks";
+import { getMetadata } from "@/lib/action/PubilcCommon";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "../ui/skeleton";
 
 export default function BusinessProfileCard() {
     const business = useAppSelector((state: RootState) => state.business);
    
+    const { data: metadatas, isLoading:metaloading, isError:metaerror } = useQuery({
+        queryKey: ["Meta data "],
+        queryFn: async () => await getMetadata(),
+        staleTime: 360000,
+    
+      });
 
     return (
         <div className="flex flex-col flex-wrap gap-4 w-full max-w-xl">
@@ -59,19 +68,42 @@ export default function BusinessProfileCard() {
                         }
                         <p className="text-xs font-medium text-yellow-500 whitespace-nowrap">Referal QR code</p>
                     </div>
+                    {metaloading &&
                     <div className="col-span-6 lg:space-y-4 2xl:space-y-6 flex flex-col items-end">
+                        <Skeleton className="w-24 h-24 bg-gray-200" />
+                        <Skeleton className=" w-36 h-2 bg-gray-200" />
+                        <Skeleton className=" w-36 h-2 bg-gray-200" />
+                        <Skeleton className=" w-36 h-2 bg-gray-200" />
+                    </div>
+                    }
+                    {metadatas && 
+                    <div className="col-span-6 lg:space-y-2 2xl:space-y-2 flex flex-col items-end">
+                        {metadatas?.white_logo ?
                         <Image
-                            src="/images/png/MembersClubWhite.png"
+                            src={metadatas?.white_logo}
                             alt="Discount QR"
-                            className="w-auto h-14 mb-2  object-cover"
+                            className="w-auto h-24   object-cover"
                             width={250}
                             height={250}
                             quality={100}
                         />
-                        <p className="text-right whitespace-nowrap text-sm md:text-base lg:text-lg font-bold">More Deals Club</p>
-                        <p className="text-right whitespace-nowrap text-xs md:text-sm lg:text-base">+46 76 327 76 40</p>
-                        <p className="text-right whitespace-nowrap text-xs  md:text-sm lg:text-base">info@moredealsclub.com</p>
+                        
+                        :
+                        <Image
+                            src="/images/png/MembersClubWhite.png"
+                            alt="Discount QR"
+                            className="w-auto h-24  object-cover"
+                            width={250}
+                            height={250}
+                            quality={100}
+                        />
+                        
+                        }
+                        <p className="text-right whitespace-nowrap text-sm md:text-base lg:text-lg font-bold">{metadatas?.name ?? "More Deals Club"}</p>
+                        <p className="text-right whitespace-nowrap text-xs md:text-sm lg:text-base">{metadatas?.phone}</p>
+                        <p className="text-right whitespace-nowrap text-xs  md:text-sm lg:text-base">{metadatas?.email}</p>
                     </div>
+                    }
                 </CardContent>
                 <CardFooter className="text-center flex flex-col">
 

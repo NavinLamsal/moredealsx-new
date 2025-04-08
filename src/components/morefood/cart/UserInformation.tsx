@@ -7,6 +7,7 @@ import CheckoutButton from '../Checkout/CheckoutButton'
 import ArrivalTime from '../Checkout/Arriavaltime'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
+import DineIn from '../Checkout/DineInPeople'
 
 const UserInformation = () => {
   return (
@@ -29,6 +30,7 @@ const UserInformation = () => {
     <RecieverInformation/>
 
     <ArrivalTime/>
+    <DineIn/>
       
     {/* Payment */}
     <div className="mt-4">

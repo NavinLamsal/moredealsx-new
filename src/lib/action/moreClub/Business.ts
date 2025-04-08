@@ -6,41 +6,8 @@ import {
   setError,
   setLoading,
 } from "@/lib/redux/slice/moreclub/BusinessSlice";
-import { RootState } from "@/lib/redux/store";
-import { createAsyncThunk, Dispatch } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
-// export const fetchBusinessTypes = async (dispatch: Dispatch, getState: () => RootState, fetchForce = false) => {
-//   const state = getState(); 
-//   const lastFetchedAt = state.business.lastFetchedBusinessTypeAt;
-
-//   if (!fetchForce && lastFetchedAt && Date.now() - lastFetchedAt < 5 * 60 * 1000) {
-//     return;
-//   }
-
-//   dispatch(setLoading(true));
-
-//   try {
-//     const response = await MoreClubApiClient.get(`business/all/types/`);
-//     dispatch(businessTypeSuccess(response.data.data));
-
-//     // Update the last fetched timestamp
-//     dispatch({
-//       type: "business/updateLastFetchedBusinessTypeAt",
-//       payload: Date.now(),
-//     });
-
-//     dispatch(setError(null));
-//   } catch (err: any) {
-//     dispatch(setError(err.response?.data?.message || "Failed to fetch business types"));
-//   } finally {
-//     dispatch(setLoading(false));
-//   }
-// };
-
-
-
-
-// Function to Fetch Business Profile with Tracking & Force Fetch Option
 
 export const fetchBusinessTypes = createAsyncThunk(
     "business/fetchBusinessTypes",

@@ -1,13 +1,13 @@
-import { auth } from '@/auth'
+"use client"
 import BasicInfoForm from '@/components/form/moredealsclub/user/BasicInfoForm'
 import React from 'react'
 
 const UpdateProfilePage = async() => {
-    const session = await auth();
+    // const session = await auth();
 
   return (
     <div className='px-2 sm:px-4 md:px-6'>
-      <BasicInfoForm userdata={session?.user.userDetails}/>
+      <BasicInfoForm />
     </div>
   )
 }

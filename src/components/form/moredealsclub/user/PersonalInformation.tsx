@@ -4,13 +4,17 @@ import CustomDatePicker from '@/components/ui/customInputs/DatePicker';
 import PhoneNumberInput from '@/components/ui/customInputs/PhoneNumberInput';
 import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { fetchUserProfile } from '@/lib/action/moreClub/User';
+import MoreClubApiClient from '@/lib/axios/moreclub/MoreClubApiClient';
 import useMoredealsClient from '@/lib/axios/moredealsClient';
 import { createServerPlatformAxiosInstance } from '@/lib/axios/platformBasedAxios';
+import { AppDispatch } from '@/lib/redux/store';
 import { showToast } from '@/lib/utilities/toastService';
 import { removeEmptyStrings } from '@/lib/utils';
 import { validateRequired } from '@/lib/validation/common';
 import { Loader2Icon, Mail, Phone } from 'lucide-react';
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 
 
 
@@ -68,7 +72,7 @@ const validateEmailAddress = async (email: string): Promise<string> => {
 };
 
 const PersonalInformation = ({ userdata }: { userdata: any }) => {
-  const axios = useMoredealsClient();
+  const dispatch = useDispatch<AppDispatch>();
   const initialFormData = {
     firstName: userdata.first_name ?? "",
     lastName: userdata.last_name ?? "",
@@ -201,8 +205,9 @@ const PersonalInformation = ({ userdata }: { userdata: any }) => {
         }
         const cleanedData = removeEmptyStrings(data)
 
-            const res = await axios.patch(`${process.env.NEXT_PUBLIC_BASE_URL}users/details/me/` ,cleanedData,
-            )            
+            const res = await MoreClubApiClient.patch(`${process.env.NEXT_PUBLIC_BASE_URL}users/details/me/` ,cleanedData,
+            )  
+            dispatch(fetchUserProfile({ fetchForce: true }));          
             showToast("Your changes are updated", "success");
           }catch(err:any){  
             showToast("error uploading your changes", "error")
@@ -218,7 +223,7 @@ const PersonalInformation = ({ userdata }: { userdata: any }) => {
 
       <form onSubmit={handleSubmit} className='flex flex-col gap-4 px-2 pb-2 max-w-lg lg:max-w-2xl xl:max-w-3xl'>
       <h2 className="text-2xl font-bold mb-2">Personal Information</h2>
-      <p className='text-muted-foreground'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat voluptatibus nobis est laborum sed.</p>
+      <p className='text-muted-foreground'>Your personal details help us tailor your experience and ensure smooth communication. Make sure everything here is accurate and up to date.</p>
 
         <div className='grid grid-cols-2 gap-1'>
           <div>

@@ -55,7 +55,7 @@ export default function AddressInfoForm({ userData }: { userData?: any }) {
     return (
         <div className="px-2 pb-2 max-w-lg lg:max-w-2xl xl:max-w-3xl">
             <h1 className="text-2xl font-bold mb-4">Address Information</h1>
-            <p className='text-muted-foreground'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat voluptatibus nobis est laborum sed.</p>
+            <p className='text-muted-foreground'>Your address helps us provide location-based services and ensure accurate delivery or support when needed. Please keep this information current</p>
             <AddressForm
                 address={address}
                 setAddress={setAddress}

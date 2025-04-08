@@ -10,7 +10,6 @@ const SupportPage = () => {
     <>
     <Suspense fallback={<div>Loading...</div>}>
     <SuportPageContent/>
-
     </Suspense>
     </>
   );

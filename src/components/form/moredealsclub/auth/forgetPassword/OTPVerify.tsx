@@ -31,7 +31,8 @@ const OTPVerifyForm: React.FC = () => {
     if (typeof window !== "undefined") {
       const storedUsername = localStorage.getItem("forget_username");
       if (storedUsername) {
-        setFormData((prev) => ({ ...prev, ...JSON.parse(storedUsername) }));
+        const parsedstoredUsername = JSON.parse(storedUsername);
+        setFormData((prev) => ({ ...prev, email: parsedstoredUsername.email, phone: parsedstoredUsername.phone_number, via: parsedstoredUsername.via, prefix: parsedstoredUsername.phone_prefix }));
       }
     }
 
@@ -70,7 +71,6 @@ const OTPVerifyForm: React.FC = () => {
               phone_prefix: formData.prefix,
             }),
       };
-
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}auth/forget/password/verify/otp/`,
         {
@@ -84,22 +84,6 @@ const OTPVerifyForm: React.FC = () => {
         showToast("OTP Verified Successfully!", "success");
         localStorage.setItem("forget_code", formData.otp)
         window.location.href = "/auth/forgot-password/change-password"
-        // try {
-        // //   const formData = new FormData();
-        // //   formData.append("token", data?.data?.access_token);
-        // //   formData.append("refresh", data?.data?.refresh_token);
-
-        // //   const loginResponse = await doOTPVerifyLogin(formData);
-
-        // //   if (loginResponse?.success) {
-        // //     showToast("Login successful!", "success");
-        // //     window.location.href = "/dashboard";
-        // //   }
-        // // } catch {
-        // //   throw new Error(
-        // //     "Your account is verified, but login failed. Please try again."
-        // //   );
-        // }
       } else {
         throw new Error(data?.errors?.non_field_errors?.[0] || data?.message || "Invalid OTP");
       }

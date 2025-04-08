@@ -46,9 +46,9 @@ const NetworkList = () => {
         return (
             <>
                 <Suspense fallback={<div>Loading...</div>}>
-                <NetworkLeadFilter>
-                </NetworkLeadFilter>
-            </Suspense>
+                    <NetworkLeadFilter>
+                    </NetworkLeadFilter>
+                </Suspense>
                 <p>error</p>
             </>
         );
@@ -64,9 +64,9 @@ const NetworkList = () => {
             {data && data.data && data.data.length === 0 &&
                 <>
                     <Suspense fallback={<div>Loading...</div>}>
-                <NetworkLeadFilter>
-                </NetworkLeadFilter>
-            </Suspense>
+                        <NetworkLeadFilter>
+                        </NetworkLeadFilter>
+                    </Suspense>
                     <p className='text-center mb-10'>No Referals found</p>
                 </>
             }

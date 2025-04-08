@@ -63,7 +63,7 @@ const DetailComponent = ({
                 {/* Details Section */}
                 <div className="space-y-1">
                     <div className="flex flex-col items-center p-2">
-                        <h1 className="text-sm sm:text-base md:text-xl font-bold text-center">{item.name}</h1>s
+                        <h1 className="text-sm sm:text-base md:text-xl font-bold text-center">{item.name}</h1>
                     </div>
                     <div className="p-4 flex justify-between items-center ">
                         <Button variant={"morefoodOutline"} className="text-sm sm:text-base md:text-xl font-semibold  border-morefoodPrimary">{item.currency_symbol}&nbsp;{item.price}

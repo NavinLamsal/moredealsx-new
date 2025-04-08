@@ -8,7 +8,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/navigation";
 import moment from "moment";
 
-interface FilterProps {}
+interface FilterProps {
+  onClose?: () => void
+}
 
 interface FilterState {
   transaction_status: string;
@@ -34,7 +36,7 @@ const transactionTypeOptions = [
 
 const quickDateOptions = [7, 14, 30];
 
-const FilterComponent: React.FC<FilterProps> = () => {
+const FilterComponent: React.FC<FilterProps> = ({ onClose}) => {
   const router = useRouter();
 
   const [filters, setFilters] = useState<FilterState>({
@@ -79,6 +81,9 @@ const FilterComponent: React.FC<FilterProps> = () => {
     
     // Push the updated URL (without any search params)
     router.push(url.toString());
+    if (onClose) {
+      onClose();
+    }
   };
   
   const handleApply = () => {
@@ -90,7 +95,11 @@ const FilterComponent: React.FC<FilterProps> = () => {
     if (filters.end_date) query.set("end_date", new Date(filters.end_date).toISOString().split("T")[0]);
     if (filters.quickDate) query.set("quickDate", String(filters.quickDate));
 
+    
     router.push(`?${query.toString()}`);
+    if (onClose) {
+      onClose();
+    }
   };
 
   return (

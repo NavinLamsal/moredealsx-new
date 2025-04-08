@@ -8,6 +8,7 @@ import PhoneNumberInput from "@/components/ui/customInputs/PhoneNumberInput";
 import { createServerPlatformAxiosInstance } from "@/lib/axios/platformBasedAxios";
 import { showToast } from "@/lib/utilities/toastService";
 import { removePrefix } from "@/lib/utils";
+import axios from "axios";
 
 
 // const CheckUserName = async (username: string) => {
@@ -54,7 +55,7 @@ export const CheckUserName = async (username: string, prefix?: string) => {
     payload = { username };
   }
   try {
-    const res = await createServerPlatformAxiosInstance("moredealsclub", false).post(`auth/check/user/`, payload
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}auth/check/user/`, payload
 
     );
     if (res.status === 200) {

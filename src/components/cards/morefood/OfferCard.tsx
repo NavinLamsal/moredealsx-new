@@ -38,7 +38,7 @@ export default function OfferCard({ index, offer }: { index: number, offer: Offe
       <div className="flex items-center">
 
         <div className="flex-1 p-4 rounded-l-lg bg-green-500">
-          <h2 className="text-lg font-bold text-black line-clamp-2">{offer.name}</h2>
+          <h2 className="text-lg font-bold text-black line-clamp-2" >{offer.name}</h2>
           <h2 className="text-sm text-black mt-1 line-clamp-1">{offer.description}</h2>
           <p className="text-sm text-black mt-1">Ends: {moment(offer.end_date).format("ddd, MM/D,")}. Terms apply</p>
           <div className="flex flex-1 items-center gap-2 mt-3">

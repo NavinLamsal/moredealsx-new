@@ -1,4 +1,5 @@
 import ProfileCard from '@/components/settings/ProfileCard'
+import UserContent from '@/components/settings/UserContent'
 import { Button } from '@/components/ui/button'
 import { Edit2 } from 'lucide-react'
 import Link from 'next/link'
@@ -14,7 +15,7 @@ const Page = () => {
             <Button size={"icon"}><Edit2 className=''/></Button>
         </Link>
     </div>
-      <ProfileCard/>
+    <UserContent/>
     </div>
   )
 }

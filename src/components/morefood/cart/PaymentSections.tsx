@@ -99,6 +99,7 @@ const PaymentSections = ({ selectedPayment }: { selectedPayment: string }) => {
         address: delivery.location,
         lat: delivery.lat?.toString() ?? "",
         lng: delivery.lon?.toString() ?? "",
+        ...(delivery.deliverytype === "dine-here" && { no_of_people: parseInt(delivery.no_of_people) }), // Correct format for arrival_time
         ...(delivery.deliverytype !== "delivery" && { arrival_time: new Date(delivery.arrivalTime).toISOString() }), // Correct format for arrival_time
         ...(delivery.note !== "" && { note: delivery.note }),
       }

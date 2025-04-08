@@ -9,7 +9,12 @@ import { FilterIcon } from 'lucide-react'
 import React, { Suspense } from 'react'
 
 const Page = () => {
+  const [isOpen , setIsOpen] = React.useState(false)
    const isMobile = useIsMobile();
+
+  const  handleClose = async() => {
+    setIsOpen(false)
+   }
   return (
 
     <div className="h-full flex-1 flex-col space-y-8 flex">
@@ -22,13 +27,13 @@ const Page = () => {
           </p>
         </div>
         <div className='block 2xl:hidden'>
-          <Sheet>
+          <Sheet open={isOpen} onOpenChange={()=>setIsOpen(!isOpen)}>
             <SheetTrigger><Button size={"icon"}><FilterIcon fill='currentColor' /></Button></SheetTrigger>
             <SheetContent side={isMobile ? "bottom" :  "right" }>
               <SheetHeader>
                 <SheetTitle>Filter Transactions</SheetTitle>
                 <SheetDescription>
-                  <FilterComponent />
+                  <FilterComponent onClose={handleClose}/>
                 </SheetDescription>
               </SheetHeader>
             </SheetContent>

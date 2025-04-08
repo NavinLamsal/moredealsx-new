@@ -3,8 +3,11 @@
 import { useState } from "react";
 import AddressForm from "./AutomaticAddressInput";
 import { showToast } from "@/lib/utilities/toastService";
-import useMoredealsClient from "@/lib/axios/moredealsClient";
 import { removeEmptyStrings } from "@/lib/utils";
+import { AppDispatch } from "@/lib/redux/store";
+import { useDispatch } from "react-redux";
+import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
+import { fetchUserProfile } from "@/lib/action/moreClub/User";
 
 
 interface Address {
@@ -16,7 +19,7 @@ interface Address {
 }
 
 export default function AddressInfoForm({ userData }: { userData?: any }) {
-    const axios = useMoredealsClient();
+    const dispatch = useDispatch<AppDispatch>();
     // ✅ Set initial state for the address
     const [address, setAddress] = useState<Address>({
         address: userData?.user_profile?.address ?? "",
@@ -42,8 +45,9 @@ export default function AddressInfoForm({ userData }: { userData?: any }) {
             }
             const cleanedData = removeEmptyStrings(data)
 
-            const res = await axios.patch(`${process.env.NEXT_PUBLIC_BASE_URL}users/details/me/`, cleanedData,
+            const res = await MoreClubApiClient.patch(`${process.env.NEXT_PUBLIC_BASE_URL}users/details/me/`, cleanedData,
             )
+            dispatch(fetchUserProfile({ fetchForce: true }));
             showToast("Your changes are updated", "success");
             return res
         } catch (err: any) {
@@ -55,7 +59,7 @@ export default function AddressInfoForm({ userData }: { userData?: any }) {
     return (
         <div className="px-2 pb-2 max-w-lg lg:max-w-2xl xl:max-w-3xl">
             <h1 className="text-2xl font-bold mb-4">Address Information</h1>
-            <p className='text-muted-foreground'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat voluptatibus nobis est laborum sed.</p>
+            <p className='text-muted-foreground'>Your address helps us provide location-based services and ensure accurate delivery or support when needed. Please keep this information current.</p>
             <AddressForm
                 address={address}
                 setAddress={setAddress}

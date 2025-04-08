@@ -45,8 +45,6 @@ async function refreshAccessToken(token: any) {
       );
     }
 
-  
-
     return {
       ...token,
       user: {
@@ -70,11 +68,10 @@ export const {
   auth,
   signIn,
   signOut,
-  
 } = NextAuth({
   session: {
     strategy: "jwt",
-    maxAge:  30 * 60, // 1 Day
+    maxAge: 30 * 60, // 1 Day
   },
   pages: {
     signIn: "/auth/login",
@@ -84,20 +81,18 @@ export const {
     CredentialsProvider({
       credentials: {
         email: {},
-        phone_number:{},
-        phone_prefix:{},
+        phone_number: {},
+        phone_prefix: {},
         password: {},
-        via:{},
+        via: {},
         token: {},
-        refresh:{},
+        refresh: {},
         success: {},
         redirectToken: {},
-        updateDetail:{},
+        updateDetail: {},
       },
       async authorize(credentials) {
         try {
-
-
           // ✅ If user already has a token, fetch details
           if (credentials.token) {
             const user = await fetchUserDetails(credentials.token as string);
@@ -108,18 +103,19 @@ export const {
               email: "",
             };
           }
-      
+
           // ✅ Sanitize credentials (remove null and "null" values)
           const sanitizedCredentials: Record<string, any> = Object.fromEntries(
             Object.entries(credentials).filter(
-              ([_, value]) => value !== "null" && value !== null && value !== undefined
+              ([_, value]) =>
+                value !== "null" && value !== null && value !== undefined
             )
           );
-      
+
           // ✅ Perform login request
           const loginResponse = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_URL}auth/login/`,
-            
+
             {
               method: "POST",
               body: JSON.stringify({
@@ -132,20 +128,20 @@ export const {
               headers: { "Content-Type": "application/json" },
             }
           );
-      
+
           const loginData = await loginResponse.json();
 
-      
           // ✅ Check if login was unsuccessful
-          if (loginData.success === 'False') {
+          if (loginData.success === "False") {
             throw new Error(
-              loginData?.errors?.non_field_errors?.[0] || "Invalid login credentials"
+              loginData?.errors?.non_field_errors?.[0] ||
+                "Invalid login credentials"
             );
           }
-        
+
           // ✅ Fetch user details after login
           const user = await fetchUserDetails(loginData.data.access_token);
-      
+
           // ✅ Return login details
           return {
             accessToken: loginData.data.access_token,
@@ -180,19 +176,14 @@ export const {
       account,
       user,
       trigger,
-      session
-      
+      session,
     }: {
       token: any;
       account: any;
       user: any;
-      trigger?: any
-      session?: any
+      trigger?: any;
+      session?: any;
     }) => {
-
-        
-      
-
       if (account && user) {
         return {
           ...token,
@@ -229,18 +220,12 @@ export const {
 
       if (Date.now() > (token.accessTokenExpires as number)) {
         return refreshAccessToken(token);
-      }else{
-        return token
-      } 
-
-      
-
-  
-
+      } else {
+        return token;
+      }
     },
 
-    session: async ({ session, trigger, token , newSession }) => {
-      
+    session: async ({ session, trigger, token, newSession }) => {
       if (token) {
         const tokenAsToken = token as any;
         session.accessToken = tokenAsToken.user.accessToken as string;
@@ -251,8 +236,6 @@ export const {
     },
   },
 });
-
-
 
 export async function fetchUserDetails(token: string) {
   try {
@@ -269,10 +252,27 @@ export async function fetchUserDetails(token: string) {
 
     if (!userResponse.ok) throw new Error("Failed to fetch user details");
     const userData = await userResponse.json();
-    const userDetails = userData?.data;
+    const userDetails = {
+      id: userData?.data.id,
+      email: userData?.data?.email,
+      first_name: userData?.data?.first_name, // Dynamic or default fallback
+      last_name: userData?.data?.last_name, // Dynamic or default fallback
+      phone_prefix: userData?.data?.phone_prefix ?? null,
+      phone_number: userData?.data?.phone_number ?? null,
+      status: userData?.data?.status, // Dynamic or default fallback
+      user_type: userData?.data?.user_type, // Dynamic or default fallback
+      display_picture: userData?.data?.display_picture ?? null,
+      is_verified_user: userData?.data?.is_verified_user, // Dynamic or default fallback
+      is_otp_email_verified: userData?.data?.is_otp_email_verified, // Dynamic or default fallback
+      is_otp_phone_verified: userData?.data?.is_otp_phone_verified, // Dynamic or default fallback
+      exists_business_profile: userData?.data?.exists_business_profile, // Dynamic or default fallback
+      is_pin_set: userData?.data?.is_pin_set, // Dynamic or default fallback
+      country: userData?.data?.country, // Dynamic or default fallback
+      currency: userData?.data?.currency,
+    };
+
     // let businessDetails = null;
     // let permissions = null;
-   
 
     // If the user is a business, fetch business details
     // if (userDetails.exists_business_profile === true && userDetails?.user_type === "BUSINESS") {

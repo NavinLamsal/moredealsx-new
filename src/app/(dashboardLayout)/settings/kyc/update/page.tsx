@@ -1,30 +1,32 @@
 "use client";
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useFetchUserDetails } from "@/lib/action/moreClub/Users";
 import { useQuery } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 import { KYCProps } from "@/lib/type/moreclub/User";
 import KycPageContent from "@/components/moreclub/profile/KycPageContent";
+import { useAppSelector } from "@/lib/redux/hooks";
+import { AppDispatch, RootState } from "@/lib/redux/store";
+import { fetchUserProfile } from "@/lib/action/moreClub/User";
+import { useDispatch } from "react-redux";
 
 export default function UpdatePage() {
-
-  
-  const {data:session}= useSession();
-  
-
-
+  const dispatch = useDispatch<AppDispatch>();
+  const user = useAppSelector((state: RootState) => state.user);
 
   const {fetchKYCDetail} = useFetchUserDetails();
+  
+  useEffect(() => {
+      dispatch(fetchUserProfile({ fetchForce: false }));
+    }, []);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["kyc Detail"],
     queryFn: async() => await fetchKYCDetail(),
     staleTime: 360000,
-
 });
 
 
-if(isLoading){
+if(isLoading || user.isLoading){
   return <div>Loading...</div>
 
 }
@@ -37,16 +39,16 @@ if(isError){
 
 const KycProps :KYCProps = {
 
-  first_name: session?.user.userDetails?.first_name ?? "",
-  last_name: session?.user.userDetails?.last_name ?? "",
-  email: session?.user.userDetails?.email?? "",
-  phone_number: session?.user.userDetails?.phone_number ?? "",
-  phone_prefix: session?.user.userDetails?.phone_prefix ?? "",
-  gender: session?.user.userDetails?.gender?? "",
-  display_picture: session?.user.userDetails?.display_picture?? "",
-  date_joined: session?.user.userDetails?.date_joined?? "",
+  first_name:  user.profile?.first_name ?? "",
+  last_name:  user.profile?.last_name ?? "",
+  email:  user.profile?.email?? "",
+  phone_number:  user.profile?.phone_number ?? "",
+  phone_prefix:  user.profile?.phone_prefix ?? "",
+  gender:  user.profile?.gender?? "",
+  display_picture:  user.profile?.display_picture?? "",
+  date_joined:  user.profile?.date_joined?? "",
   date_of_birth: data?.data?.kyc_profile?.date_of_birth?? "",
-  user_type: session?.user.userDetails?.user_type?? "",
+  user_type:  user.profile?.user_type?? "",
   
   secondary_email: data?.data?.kyc_profile.secondary_email?? "",
   secondary_phone_number: data?.data?.kyc_profile.secondary_phone_number?? "",

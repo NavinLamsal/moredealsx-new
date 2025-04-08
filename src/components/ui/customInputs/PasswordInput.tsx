@@ -10,6 +10,7 @@ interface PasswordFieldProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  disabled?: boolean;
   error?: string;
 }
 
@@ -18,6 +19,7 @@ export default function PasswordField({
   value,
   onChange,
   placeholder = "Enter password",
+  disabled = false,
   error,
 }: PasswordFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,6 +32,7 @@ export default function PasswordField({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
+        disabled={disabled}
         className={`p-2 pr-10 ${error ? "border-red-500" : ""}`}
       />
       <Button

@@ -16,9 +16,9 @@ interface NetworkCardProps {
 const NetworkCard: React.FC<NetworkCardProps> = ({ user, permissions }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const selectedRows = useSelector((state: RootState) => state.network.emailList);
+  const selectedRows = useSelector((state: RootState) => state.network);
 
-  const isSelected = selectedRows.includes(user.email);
+  const isSelected = selectedRows.emailList.includes(user.email) || selectedRows.phoneList.includes(user.phone_number);
 
   const toggleSelection = (user: NetworkUser) => {
     dispatch(toggleUserSelection(user));
@@ -48,7 +48,7 @@ const NetworkCard: React.FC<NetworkCardProps> = ({ user, permissions }) => {
   </div>
 
   {permissions?.send_sms_refer && (
-    <button className="ml-auto bg-blue-500 text-white px-3 py-1 rounded-lg text-sm disabled:bg-gray-400" disabled={selectedRows.length > 1 || !isSelected}>
+    <button className="ml-auto bg-blue-500 text-white px-3 py-1 rounded-lg text-sm disabled:bg-gray-400" disabled={selectedRows.emailList.length > 1 || selectedRows.phoneList.length > 1 || !isSelected}>
       📩 Send Message
     </button>
   )}

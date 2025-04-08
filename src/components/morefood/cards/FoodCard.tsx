@@ -79,7 +79,7 @@ export default function FoodCard({ item }: { item: FoodtypeswithMenu }) {
 
       <div
         id={`#${name}-${item.id}`}
-        className="relative flex flex-row items-center justify-between w-full h-auto p-2 md:h-36 rounded-md bg-card shadow-md hover:bg-red-200 cursor-pointer"
+        className="group relative flex flex-row items-center justify-between w-full h-auto p-2 md:h-36 rounded-md bg-card shadow-md hover:bg-morefoodPrimary cursor-pointer"
         // onClick={handleViewDetails}
       >
         {/* Left Section */}
@@ -94,7 +94,7 @@ export default function FoodCard({ item }: { item: FoodtypeswithMenu }) {
           )}
           <p className="font-bold text-sm md:text-xl truncate">{item.name}</p>
           <p className="text-xs md:text-sm line-clamp-2 h-8 md:h-9">{item.description}</p>
-          <p className="text-morefoodPrimary text-xs md:text-lg">
+          <p className="text-morefoodPrimary text-xs md:text-lg group-hover:text-white">
             {item.has_variation ? "from": "At"}&nbsp;
             {item.currency_symbol}
             &nbsp;{item.dis_price}&nbsp;

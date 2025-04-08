@@ -3,20 +3,18 @@ import { Button } from '@/components/ui/button';
 import ImageUploadDropBox from '@/components/ui/customInputs/ImageUploads';
 import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { fetchUserProfile } from '@/lib/action/moreClub/User';
 import MoreClubApiClient from '@/lib/axios/moreclub/MoreClubApiClient';
-import useMoredealsClient from '@/lib/axios/moredealsClient';
 import { nextStep, updateField } from '@/lib/redux/slice/RegistrationSlice';
+import { AppDispatch } from '@/lib/redux/store';
 import { showToast } from '@/lib/utilities/toastService';
 import { validateRequired } from '@/lib/validation/common';
 import { Bike, Building2Icon, Loader2Icon, User2Icon } from 'lucide-react';
-import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 const GeneralInformationForm = ({ userdata }: { userdata: any }) => {
-  const dispatch = useDispatch();
-  const axios = useMoredealsClient();
-  const { data: session } = useSession();
+  const dispatch = useDispatch<AppDispatch>();
   const [formData, setFormData] = useState({
     username: userdata?.username || "",
     userType: userdata?.user_type || "",
@@ -72,6 +70,7 @@ const GeneralInformationForm = ({ userdata }: { userdata: any }) => {
           }
         }
         )
+        dispatch(fetchUserProfile({ fetchForce: true }));
         showToast("Profile Picture Updated Successfully", "success");
       }catch(err:any){  
         showToast("error uploading profile picture", "error")
@@ -85,7 +84,7 @@ const GeneralInformationForm = ({ userdata }: { userdata: any }) => {
     <>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-2 pb-2 max-w-lg lg:max-w-2xl xl:max-w-3xl">
         <h2 className="text-2xl font-bold mb-2">General Information</h2>
-        <p className='text-muted-foreground'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat voluptatibus nobis est laborum sed.</p>
+        <p className='text-muted-foreground'>Keep your profile up to date so others can recognize you easily and reach out when needed. Your general information helps personalize your experience on the platform.</p>
         <div >
           <label className="block font-medium mb-1 ">Profile Picture</label>
           <ImageUploadDropBox

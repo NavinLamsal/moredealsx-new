@@ -268,7 +268,7 @@ const Generalupdate = ({ userdata }: { userdata?: KYCProps }) => {
 
             <form onSubmit={handleSubmit} className='flex flex-col gap-4 px-2 pb-2 max-w-xl lg:max-w-3xl xl:max-w-4xl'>
                 <h2 className="text-2xl font-bold mb-2 flex items-center"><User className='mr-2' fill='currentColor' /> Personal Information</h2>
-                <p className='text-muted-foreground'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat voluptatibus nobis est laborum sed.</p>
+                <p className='text-muted-foreground'>Your personal details help us tailor your experience and ensure smooth communication. Make sure everything here is accurate and up to date</p>
 
                 <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3'>
                     <div>

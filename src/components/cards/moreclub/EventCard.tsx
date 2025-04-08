@@ -49,7 +49,7 @@ interface EventCardProps {
                     </div>
                 </div>
                 <div className="px-1 py-3">
-                    <h3 className="text-sm lg:text-lg font-bold  mt-2 h-14">
+                    <h3 className="text-sm lg:text-lg font-bold  mt-2 h-14 line-clamp-2">
                         {event.name}
                     </h3>
                     <p className="text-muted-foreground text-xs lg:text-sm truncate flex items-center line-clamp-1">

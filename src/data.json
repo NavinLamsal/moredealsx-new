@@ -32,18 +32,18 @@
         "title": "Security",
         "horizontal": false,
         "items": [
-          { "url": "/dashboard/change-password", "icon": "/images/png/reset-password.png", "title": "Change password", "description": "Learn how to manage and control your privacy across Meta products." },
-          { "url": "/dashboard/change-pin", "icon": "/images/png/pin.png", "title": "Change PIN", "description": "Learn more about our updated settings experience on Facebook." }
+          { "url": "/change-password", "icon": "/images/png/reset-password.png", "title": "Change password", "description": "Learn how to manage and control your privacy across Meta products." },
+          { "url": "/change-pin", "icon": "/images/png/pin.png", "title": "Change PIN", "description": "Learn more about our updated settings experience on Moredeals Club." }
         ]
       },
       {
         "title": "Privacy and safety",
         "horizontal": false,
         "items": [
-          { "url": "/faq", "icon": "/images/png/faq.png", "title": "FAQ", "description": "Learn more about our updated settings experience on Facebook." },
-          { "url": "/support", "icon": "/images/png/supports.png", "title": "Support", "description": "Learn more about our updated settings experience on Facebook." },
+          { "url": "/faq", "icon": "/images/png/faq.png", "title": "FAQ", "description": "Learn more about our updated settings experience on Moredeals Club." },
+          { "url": "/support", "icon": "/images/png/supports.png", "title": "Support", "description": "Learn more about our updated settings experience on Moredeals Club." },
           { "url": "/privacy-policy", "icon": "/images/png/privacy.png", "title": "Privacy policy", "description": "Learn how to manage and control your privacy across Meta products." },
-          { "url": "/terms-and-condition", "icon": "/images/png/TAC.png", "title": "Terms and conditions", "description": "Learn more about our updated settings experience on Facebook." }
+          { "url": "/terms-and-condition", "icon": "/images/png/TAC.png", "title": "Terms and conditions", "description": "Learn more about our updated settings experience on Moredeals Club." }
         ]
       }
     ]

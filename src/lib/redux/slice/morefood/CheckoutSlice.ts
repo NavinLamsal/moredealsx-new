@@ -31,6 +31,7 @@ const loadInitialState = (): CheckoutFormTypesWithError => ({
   receiverEmail: getSessionStorageItem("receiverEmail", ""),
   note: getSessionStorageItem("note", ""),
   arrivalTime: getSessionStorageItem("arrivalTime", ""),
+  no_of_people: getSessionStorageItem("no_of_people", ""),
   location: getSessionStorageItem("location", ""),
   lat: getSessionStorageItem("lat", 0),
   lon: getSessionStorageItem("lon", 0),

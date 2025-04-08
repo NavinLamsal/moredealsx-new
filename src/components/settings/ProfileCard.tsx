@@ -1,19 +1,30 @@
 
 
+"use client";
 import React from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
-import { auth } from "@/auth";
 import Image from "next/image";
 import moment from "moment";
+import { useAppSelector } from "@/lib/redux/hooks";
+import { RootState } from "@/lib/redux/store";
+import { getMetadata } from "@/lib/action/PubilcCommon";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "../ui/skeleton";
 
-export default async function ProfileCard() {
-    const session = await auth();
+export default function ProfileCard() {
+     const user = useAppSelector((state: RootState) => state.user.profile);
+
+     const { data: metadatas, isLoading:metaloading, isError:metaerror } = useQuery({
+        queryKey: ["Meta data "],
+        queryFn: async () => await getMetadata(),
+        staleTime: 360000,
+    
+      });
+
     return (
-
-
-        <div className="flex flex-row flex-wrap  gap-4 w-full ">
+        <div className="flex flex-col flex-wrap  gap-4 w-full ">
             {/* -- Membership Card -- */}
             <Card className="max-w-lg flex-1 gradient-background text-white p-2 md:p-4 print:bg-white print:text-black">
                 <CardHeader className="pb-2">
@@ -24,22 +35,22 @@ export default async function ProfileCard() {
 
                 <CardContent className="flex justify-between items-center space-y-2 mt-2">
                     <div>
-                        <p className="mb-3 whitespace-nowrap text-sm md:text-base">Refer code:{session?.user.userDetails?.reffer_code.referral_code}</p>
+                        <p className="mb-3 whitespace-nowrap text-sm md:text-base">Refer code:{user?.reffer_code.referral_code}</p>
                         <Avatar className="w-12 h-12 md:w-16 md:h-16 bg-white mx-auto mb-4">
-                            <AvatarImage src={session?.user.userDetails?.display_picture} className="w-12 h-12 md:w-16 md:h-16" />
+                            <AvatarImage src={user?.display_picture??""} className="w-12 h-12 md:w-16 md:h-16" />
                             <AvatarFallback className="w-12 h-12 md:w-16 md:h-16 text-black font-bold bg-inherit">NL</AvatarFallback>
                         </Avatar>
-                        <p className="text-sm font-semibold truncate uppercase w-[11rem] ">{session?.user?.userDetails?.last_name}, {session?.user?.userDetails?.first_name}</p>
+                        <p className="text-sm font-semibold truncate uppercase w-[11rem] ">{user?.last_name}, {user?.first_name}</p>
                     </div>
                     <div className="space-y-2 text-sm md:text-base">
-                        <p className="text-right whitespace-nowrap ">{session?.user?.userDetails?.membership.membership_code}&nbsp;<strong>Membership Code</strong></p>
-                        <p className="text-right whitespace-nowrap ">{session?.user?.userDetails?.email === '' ?
-                            session?.user?.userDetails?.phone_prefix + ' ' + session?.user?.userDetails?.phone_number :
-                            session?.user?.userDetails?.email
+                        <p className="text-right whitespace-nowrap ">{user?.membership.membership_code}&nbsp;<strong>Membership Code</strong></p>
+                        <p className="text-right whitespace-nowrap ">{user?.email === '' ?
+                            user?.phone_prefix + ' ' + user?.phone_number :
+                            user?.email
                         } <strong>EMAIL</strong></p>
                         <p className="text-right whitespace-nowrap ">
-                            {session?.user?.userDetails?.user_profile?.street}, {session?.user?.userDetails?.user_profile?.city} <strong>ADDRESS</strong></p>
-                        <p className="text-right whitespace-nowrap "> {moment(session?.user?.userDetails?.date_joined).format("MMM DD,YYYY")}  <strong>ISSUE</strong></p>
+                            {user?.user_profile?.street}, {user?.user_profile?.city} <strong>ADDRESS</strong></p>
+                        <p className="text-right whitespace-nowrap "> {moment(user?.date_joined).format("MMM DD,YYYY")}  <strong>ISSUE</strong></p>
                     </div>
                 </CardContent>
             </Card>
@@ -50,7 +61,7 @@ export default async function ProfileCard() {
                     {/* Replace the src with your actual QR code image path */}
                     {/* <div className="flex flex-col items-center ">
                         <Image
-                            src={session?.user?.userDetails?.qr_code}
+                            src={user?.qr_code}
                             alt="Discount QR"
                             className="w-24 h-24 object-cover"
                             width={250}
@@ -75,7 +86,7 @@ export default async function ProfileCard() {
                     </div> */}
                     <div className="col-span-6  flex flex-col items-start space-y-2 lg:space-y-4 2xl:space-y-6">
                     <Image
-                            src={session?.user?.userDetails?.qr_code}
+                            src={user?.qr_code?? ""}
                             alt="Discount QR"
                             className="w-24 h-24 object-cover"
                             width={250}
@@ -84,19 +95,43 @@ export default async function ProfileCard() {
                         />
                         <p className="text-xs font-medium text-yellow-500 whitespace-nowrap">Discount QR code</p>
                     </div>
+                    {metaloading &&
                     <div className="col-span-6 lg:space-y-4 2xl:space-y-6 flex flex-col items-end">
+                        <Skeleton className="w-24 h-24 bg-gray-200" />
+                        <Skeleton className=" w-36 h-2 bg-gray-200" />
+                        <Skeleton className=" w-36 h-2 bg-gray-200" />
+                        <Skeleton className=" w-36 h-2 bg-gray-200" />
+                    </div>
+                    }
+                    {metadatas && 
+                    <div className="col-span-6 lg:space-y-2 2xl:space-y-2 flex flex-col items-end">
+                        {metadatas?.white_logo ?
                         <Image
-                            src="/images/png/MembersClubWhite.png"
+                            src={metadatas?.white_logo}
                             alt="Discount QR"
-                            className="w-auto h-14 mb-2  object-cover"
+                            className="w-auto h-24   object-cover"
                             width={250}
                             height={250}
                             quality={100}
                         />
-                        <p className="text-right whitespace-nowrap text-sm md:text-base lg:text-lg font-bold">More Deals Club</p>
-                        <p className="text-right whitespace-nowrap text-xs md:text-sm lg:text-base">+46 76 327 76 40</p>
-                        <p className="text-right whitespace-nowrap text-xs  md:text-sm lg:text-base">info@moredealsclub.com</p>
+                        
+                        :
+                        <Image
+                            src="/images/png/MembersClubWhite.png"
+                            alt="Discount QR"
+                            className="w-auto h-24  object-cover"
+                            width={250}
+                            height={250}
+                            quality={100}
+                        />
+                        
+                        }
+                        <p className="text-right whitespace-nowrap text-sm md:text-base lg:text-lg font-bold">{metadatas?.name ?? "More Deals Club"}</p>
+                        <p className="text-right whitespace-nowrap text-xs md:text-sm lg:text-base">{metadatas?.phone}</p>
+                        <p className="text-right whitespace-nowrap text-xs  md:text-sm lg:text-base">{metadatas?.email}</p>
                     </div>
+                    }
+                    
                 </CardContent>
                 <CardFooter className="text-center flex flex-col">
 

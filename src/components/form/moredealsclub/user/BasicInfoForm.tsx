@@ -1,21 +1,35 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import AddressForm from "./AddressInformation";
 import GeneralInformationForm from "./GeneralInfromation";
 import PersonalInformationForm from "./PersonalInformation";
 import { buttonVariants } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
+import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "@/lib/redux/store";
+import { useAppSelector } from "@/lib/redux/hooks";
+import { fetchUserProfile } from "@/lib/action/moreClub/User";
 
-export default function SettingsPage({ userdata }: { userdata: any }) {
+export default function SettingsPage() {
+
+  const dispatch = useDispatch<AppDispatch>();
+  const user = useAppSelector((state: RootState) => state.user);
+
+    useEffect(() => {
+      dispatch(fetchUserProfile({ fetchForce: false }));
+    }, []);
+
   const sidebarNavItems = [
-    { title: "General", component: <GeneralInformationForm userdata={userdata} /> },
-    { title: "Personal", component: <PersonalInformationForm userdata={userdata} /> },
-    { title: "Address", component: <AddressForm userData={userdata} /> },
+    { title: "General", component: <GeneralInformationForm userdata={user.profile} /> },
+    { title: "Personal", component: <PersonalInformationForm userdata={user.profile} /> },
+    { title: "Address", component: <AddressForm userData={user.profile} /> },
   ];
 
   // ✅ State to track the active section
   const [activeTab, setActiveTab] = useState(sidebarNavItems[0].title);
+
+  if (user.isLoading) return <p>Loading...</p>;
 
   return (
     <div>

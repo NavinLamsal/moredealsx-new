@@ -17,15 +17,14 @@ interface Step1Props {
     isLoading: boolean;
 }
 
-const Step1Form: React.FC<Step1Props> = ({ data, errors, setData, onNext, serverError, isLoading  }) => {
-    const [convertedRate, setConvertedRate] = useState<number>(0);
-    const [error, setError] = useState<string>("");
+const Step1Form: React.FC<Step1Props> = ({ data, errors, setData, onNext, serverError, isLoading }) => {
+
 
     return (
         <div className="space-y-4">
             {serverError && <p className="flex items-center justify-center w-full text-center text-sm text-red-600 p-2 mb-2 bg-red-200 md:col-span-2 lg:col-span-3">
-            <AlertOctagonIcon className="mr-2 h-4 w-4" />&nbsp;{serverError}&nbsp;<AlertOctagonIcon className="ml-2 h-4 w-4 " />
-          </p>}
+                <AlertOctagonIcon className="mr-2 h-4 w-4" />&nbsp;{serverError}&nbsp;<AlertOctagonIcon className="ml-2 h-4 w-4 " />
+            </p>}
             <div>
                 <label className="block text-sm font-medium  mb-1">Recipient</label>
                 <UsernameInput
@@ -44,14 +43,14 @@ const Step1Form: React.FC<Step1Props> = ({ data, errors, setData, onNext, server
                     error={error}
                     setError={setError}
                 /> */}
-                 <Input
-                                    type="text"
-                                    name="transferAmount"
-                                    value={data.transferAmount}
-                                    onChange={(e) => setData("transferAmount", e.target.value)}
-                                    placeholder="1000"
-                                    className={`p-2 border rounded w-full ${errors.transferAmount ? "border-red-500" : ""}`}
-                                />
+                <Input
+                    type="text"
+                    name="transferAmount"
+                    value={data.transferAmount}
+                    onChange={(e) => setData("transferAmount", e.target.value)}
+                    placeholder="1000"
+                    className={`p-2 border rounded w-full ${errors.transferAmount ? "border-red-500" : ""}`}
+                />
                 {errors.transferAmount && <p className="text-red-500">{errors.transferAmount}</p>}
             </div>
 
@@ -80,19 +79,19 @@ const Step1Form: React.FC<Step1Props> = ({ data, errors, setData, onNext, server
 
             </div>
             {data.purpose === "Others" && (
-            <div>
-                <label className="block text-sm font-medium  mb-1">Remark</label>
-                <Input
-                    type="text"
-                    value={data.remarks}
-                    onChange={(e) => setData("remarks", e.target.value)}
-                    className="w-full p-2  border border-gray-300 rounded-md"
-                    placeholder="Enter your remark"
-                />
-                {errors.remarks && <p className="text-red-500">{errors.remarks}</p>}
+                <div>
+                    <label className="block text-sm font-medium  mb-1">Remark</label>
+                    <Input
+                        type="text"
+                        value={data.remarks}
+                        onChange={(e) => setData("remarks", e.target.value)}
+                        className="w-full p-2  border border-gray-300 rounded-md"
+                        placeholder="Enter your remark"
+                    />
+                    {errors.remarks && <p className="text-red-500">{errors.remarks}</p>}
 
 
-            </div>
+                </div>
             )}
 
 
@@ -100,7 +99,6 @@ const Step1Form: React.FC<Step1Props> = ({ data, errors, setData, onNext, server
                 type="button"
                 onClick={onNext}
                 className="w-full"
-
                 disabled={isLoading}
             >
                 {isLoading ? "Processing..." : "Next"}

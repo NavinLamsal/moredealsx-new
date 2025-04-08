@@ -19,16 +19,6 @@ interface BusinessQRInfo {
 }
 
 interface BusinessProfile {
-  // id?: number;
-  // name?: string;
-  // registration_number?: string;
-  // email?: string;
-  // phone?: string;
-  // address?: string;
-  // lat?: number;
-  // lng?: number;
-
-
   id: string // 265294155914468256035831662212092080783,
   business_logo: string // "https://res.cloudinary.com/dmginqfq4/image/upload/v1/media/business/logo/1000000048_rz8re4",
   business_name: string // "Kusal",

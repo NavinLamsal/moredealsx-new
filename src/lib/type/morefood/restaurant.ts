@@ -170,6 +170,7 @@ export interface CheckoutFormTypes {
   receiverName: string;
   mobileNumber: string;
   receiverEmail: string;
+  no_of_people: string;
   note: string;
   arrivalTime: string;
   location: string;
