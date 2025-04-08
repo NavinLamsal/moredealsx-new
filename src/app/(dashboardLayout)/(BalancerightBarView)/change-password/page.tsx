@@ -21,7 +21,7 @@ const Page = () => {
       
       
       
-      <Card className="max-w-lg">
+      <Card className="max-w-lg mx-auto lg:mx-0">
         <CardContent className='p-2'>
          
           <ChangePasswordInsideForm/>

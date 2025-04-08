@@ -10,11 +10,13 @@ import { AppDispatch } from '@/lib/redux/store';
 import { showToast } from '@/lib/utilities/toastService';
 import { validateRequired } from '@/lib/validation/common';
 import { Bike, Building2Icon, Loader2Icon, User2Icon } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 const GeneralInformationForm = ({ userdata }: { userdata: any }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const {data:session, update} = useSession();
   const [formData, setFormData] = useState({
     username: userdata?.username || "",
     userType: userdata?.user_type || "",
@@ -71,6 +73,7 @@ const GeneralInformationForm = ({ userdata }: { userdata: any }) => {
         }
         )
         dispatch(fetchUserProfile({ fetchForce: true }));
+        update({userDetails: res.data.data }) 
         showToast("Profile Picture Updated Successfully", "success");
       }catch(err:any){  
         showToast("error uploading profile picture", "error")

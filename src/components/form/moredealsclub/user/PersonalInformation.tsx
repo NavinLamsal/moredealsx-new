@@ -13,6 +13,7 @@ import { showToast } from '@/lib/utilities/toastService';
 import { removeEmptyStrings } from '@/lib/utils';
 import { validateRequired } from '@/lib/validation/common';
 import { Loader2Icon, Mail, Phone } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 
@@ -73,6 +74,7 @@ const validateEmailAddress = async (email: string): Promise<string> => {
 
 const PersonalInformation = ({ userdata }: { userdata: any }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const {data:session, update} = useSession();
   const initialFormData = {
     firstName: userdata.first_name ?? "",
     lastName: userdata.last_name ?? "",
@@ -207,7 +209,8 @@ const PersonalInformation = ({ userdata }: { userdata: any }) => {
 
             const res = await MoreClubApiClient.patch(`${process.env.NEXT_PUBLIC_BASE_URL}users/details/me/` ,cleanedData,
             )  
-            dispatch(fetchUserProfile({ fetchForce: true }));          
+            dispatch(fetchUserProfile({ fetchForce: true }));   
+            update({userDetails: res.data.data }) 
             showToast("Your changes are updated", "success");
           }catch(err:any){  
             showToast("error uploading your changes", "error")

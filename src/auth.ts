@@ -208,12 +208,25 @@ export const {
           token.accessTokenExpires = undefined;
         }
       }
+
       if (trigger === "update" && session) {
+        // console.log("updated" , trigger , session)
+        // console.log({
+        //   ...token,
+        //   user: {
+        //     ...token.user,
+        //     user: {
+        //       userDetails:{ ...session.userDetails}
+        //     },
+        //   },
+        // })
         return {
           ...token,
           user: {
             ...token.user,
-            user: session.user,
+            user: {
+              userDetails:{ ...session.userDetails}
+            },
           },
         };
       }

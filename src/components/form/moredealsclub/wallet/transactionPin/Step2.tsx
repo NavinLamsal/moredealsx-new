@@ -127,7 +127,7 @@ const Step2Form: React.FC<Step2Props> = ({
                 <Button type="button" variant={"outline"} onClick={onBack}>
                     Back
                 </Button>
-                <Button type="submit" disabled={isLoading}>
+                <Button type="submit" disabled={isLoading} onClick={onNext}>
                     {isLoading ? "Processing..." : "Confirm"}
                 </Button>
             </div>

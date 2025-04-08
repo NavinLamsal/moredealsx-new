@@ -22,7 +22,7 @@ const Page = () => {
       
       
       
-      <Card className="max-w-md">
+      <Card className="max-w-md mx-auto lg:mx-0">
         <CardContent className='p-2 flex flex-col justify-center'>
          
           <TransactionPinChangeForm/>
