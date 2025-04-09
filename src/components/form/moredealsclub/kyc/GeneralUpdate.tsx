@@ -56,17 +56,17 @@ const Generalupdate = ({ userdata }: { userdata?: KYCProps }) => {
 
 
 
-       
+
     };
 
     const [formData, setFormData] = useState(initialFormData);
-   
+
 
     const [hasChanged, setHasChanged] = useState(false)
     const [errors, setErrors] = useState<{ fatherName?: string, spousename?: string, gender?: string, secondaryEmail?: string; secondaryPhone?: string; dob?: string; maritialStatus?: string, occupation?: string }>({});
     const [loading, setLoading] = useState<boolean>(false);
 
-  
+
 
     const handleChange = (field: string, value: string) => {
 
@@ -82,10 +82,10 @@ const Generalupdate = ({ userdata }: { userdata?: KYCProps }) => {
         handleChange("secondaryPhone", data.fullNumber)
     };
 
-   
+
 
     const validate = async (fieldValues = formData) => {
-       
+
         // Explicitly define tempErrors as a dynamic object
         const tempErrors: Record<string, string> = { ...errors };
 
@@ -113,16 +113,16 @@ const Generalupdate = ({ userdata }: { userdata?: KYCProps }) => {
             tempErrors.maritialStatus = validateRequired(fieldValues.maritialStatus || "", "Maritial status");
         }
         if ("dob" in fieldValues) {
-                    tempErrors.dob = validateRequired(fieldValues.dob || "", "Date of Birth");
-                }
+            tempErrors.dob = validateRequired(fieldValues.dob || "", "Date of Birth");
+        }
         if ("secondaryEmail" in fieldValues) {
             if (fieldValues.secondaryEmail !== "") {
                 tempErrors.secondaryEmail = await validateEmailAddress(fieldValues.secondaryEmail || "");
-             } else {
+            } else {
                 tempErrors.secondaryEmail = "";
             }
         }
-         if ("secondaryPhone" in fieldValues) {
+        if ("secondaryPhone" in fieldValues) {
             if (fieldValues.secondaryPhone !== "") {
                 tempErrors.secondaryPhone = await validatePhoneNumber(fieldValues.secondaryPhone || "");
             } else {
@@ -130,11 +130,11 @@ const Generalupdate = ({ userdata }: { userdata?: KYCProps }) => {
             }
         }
 
-        
-        
+
+
 
         setErrors(tempErrors);
-       
+
         return Object.values(tempErrors).every((error) => !error);
     };
 
@@ -154,7 +154,7 @@ const Generalupdate = ({ userdata }: { userdata?: KYCProps }) => {
             case "dob":
                 return validateRequired(value, "Date of Birth");
             case "mothername":
-                return "";           
+                return "";
             case "secondaryEmail":
                 if (value !== "") {
                     return await validateEmailAddress(value);
@@ -237,20 +237,21 @@ const Generalupdate = ({ userdata }: { userdata?: KYCProps }) => {
                     secondary_email: formData.secondaryEmail,
                     secondary_phone_number: formData.secondaryPhone,
                     date_of_birth: formData.dob,
-                    
+
                 },
                 marital_status: formData.maritialStatus,
                 occupation: formData.occupation
             }
-            
-           
+
+
             const cleanedData = removeEmptyStrings(data)
 
             const res = await axios.patch(`${process.env.NEXT_PUBLIC_BASE_URL}kyc/details/`, cleanedData,
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
-                }}
+                    }
+                }
             )
 
             showToast("Your changes are updated", "success");
@@ -312,7 +313,11 @@ const Generalupdate = ({ userdata }: { userdata?: KYCProps }) => {
                         {errors.occupation && <p className="text-red-500 text-sm">{errors.occupation}</p>}
                     </div>
                     <div>
-                        <label className="block font-medium mb-1">Father Name</label>
+                        <label className="flex items-center gap-1 font-medium mb-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 48 48">
+                                <path fill="currentColor" d="M28 8a4 4 0 1 1-8 0a4 4 0 0 1 8 0M18 18.82c-.217.513-.41 1.19-.564 1.995C17.03 22.931 17 25.273 17 26a2 2 0 1 1-4 0c0-.773.026-3.431.508-5.94c.238-1.236.616-2.607 1.265-3.717c.651-1.115 1.822-2.343 3.671-2.343h11.112c1.849 0 3.02 1.228 3.671 2.343c.649 1.11 1.027 2.48 1.265 3.717c.482 2.509.508 5.167.508 5.94a2 2 0 1 1-4 0c0-.727-.03-3.069-.436-5.185c-.155-.805-.347-1.482-.564-1.994V42a2 2 0 0 1-3.994.153l-1-13A2 2 0 0 1 25 29h-2q0 .076-.006.153l-1 13A2 2 0 0 1 18 42z"></path>
+                            </svg>
+                            Father Name</label>
                         <Input
                             type="text"
                             name="fatherName"
@@ -326,7 +331,11 @@ const Generalupdate = ({ userdata }: { userdata?: KYCProps }) => {
                         {errors.fatherName && <p className="text-red-500 text-sm">{errors.fatherName}</p>}
                     </div>
                     <div>
-                        <label className="block font-medium mb-1">Mother Name (Optional)</label>
+                        <label className="flex items-center gap-1 font-medium mb-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 14 14">
+                                <path fill="currentColor" fillRule="evenodd" d="M9.066 2.066a2.066 2.066 0 1 1-4.132 0a2.066 2.066 0 0 1 4.132 0M8.498 13.6l.39-1.944h1.522c.246 0 .448-.2.47-.456a.3.3 0 0 0-.007-.09a36 36 0 0 1-.206-1.076C10.242 7.686 9.75 4.975 7 4.975s-3.242 2.711-3.667 5.058c-.067.372-.133.735-.206 1.076a.3.3 0 0 0-.007.09a.484.484 0 0 0 .47.456h1.521l.391 1.944a.5.5 0 0 0 .49.401h2.016a.5.5 0 0 0 .49-.401Z" clipRule="evenodd"></path>
+                            </svg>
+                            Mother Name (Optional)</label>
                         <Input
                             type="text"
                             name="mothername"
@@ -340,28 +349,32 @@ const Generalupdate = ({ userdata }: { userdata?: KYCProps }) => {
 
                     </div>
                     {formData.maritialStatus === "married" &&
-                    <div>
-                        <label className="block font-medium mb-1">Spouse Name {formData.maritialStatus !== "married" && "(Optional)"}</label>
-                        <Input
-                            type="text"
-                            name="spousename"
-                            value={formData.spousename}
-                            onChange={(e) => handleChange("spousename", e.target.value)}
-                            placeholder="Doe"
-                            
-                            className={`p-2 border rounded w-full 
+                        <div>
+                            <label className="flex items-center gap-1 font-medium mb-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M7.5 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2M6 7h3a2 2 0 0 1 2 2v5.5H9.5V22h-4v-7.5H4V9a2 2 0 0 1 2-2m10.5-5a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2M15 7h3a2 2 0 0 1 2 2v5.5h-1.5V22h-4v-7.5H13V9a2 2 0 0 1 2-2"></path>
+                                </svg>
+                                Spouse Name {formData.maritialStatus !== "married" && "(Optional)"}</label>
+                            <Input
+                                type="text"
+                                name="spousename"
+                                value={formData.spousename}
+                                onChange={(e) => handleChange("spousename", e.target.value)}
+                                placeholder="Doe"
+
+                                className={`p-2 border rounded w-full 
                 `}
-                        />
-                        {errors.spousename && <p className="text-red-500 text-sm">{errors.spousename}</p>}
-                    </div>
+                            />
+                            {errors.spousename && <p className="text-red-500 text-sm">{errors.spousename}</p>}
+                        </div>
                     }
                     <div>
-                        <label className="block text-sm"><CalendarIcon size={16} className='text-xs mr-1' /> Date of Birth</label>
+                        <label className="flex items-center gap-2 font-medium mb-1"><CalendarIcon size={16} className='text-xs mr-1' />Date of Birth</label>
                         <CustomDatePicker name="dob" value={formData.dob} onChange={handleChange} placeHolder={"Date of Birth"} disabled={userdata?.is_verified} />
                         {errors.dob && <p className="text-red-500 text-sm">{errors.dob}</p>}
                     </div>
                     <div>
-                        <label className="block font-medium mb-1"><MailIcon size={16} className='text-xs mr-1' /> Secondary Email</label>
+                        <label className="flex items-center gap-2 font-medium mb-1"><MailIcon size={16} className='text-xs mr-1' /> Secondary Email</label>
                         <Input
                             type="email"
                             name="secondaryEmail"
@@ -377,7 +390,7 @@ const Generalupdate = ({ userdata }: { userdata?: KYCProps }) => {
 
 
                     <div>
-                        <label className="block font-medium mb-1"> <PhoneIcon size={16} className='text-xs mr-1' /> Secondary Phone Number</label>
+                        <label className="flex items-center gap-2 font-medium mb-1"> <PhoneIcon size={16} className='text-xs mr-1' /> Secondary Phone Number</label>
                         <PhoneNumberInput
                             onChange={handlePhoneNumberChange}
                             initialValue={formData.secondaryPhone}
@@ -389,9 +402,9 @@ const Generalupdate = ({ userdata }: { userdata?: KYCProps }) => {
                 </div>
 
 
-                
 
-               
+
+
                 {hasChanged &&
                     <Button type='submit' className='w-full' disabled={loading}>
                         {loading && <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />}

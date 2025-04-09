@@ -138,9 +138,9 @@ const NetworkLeadFilter: React.FC<NetworkLeadFilterProps> = ({
       </div>
       
       <div className="flex gap-4">
-        <Button onClick={onMessage} disabled={!downloadCondition} className="bg-blue-500 text-white px-3 py-1 rounded-md text-sm">
+        {/* <Button onClick={onMessage} disabled={!downloadCondition} className="bg-blue-500 text-white px-3 py-1 rounded-md text-sm">
           <Mail className="w-4 h-4" />
-        </Button>
+        </Button> */}
         <Button onClick={onDownload} disabled={!downloadCondition} className="bg-green-500 text-white px-3 py-1 rounded-md text-sm">
           <Download className="w-4 h-4" />
         </Button>

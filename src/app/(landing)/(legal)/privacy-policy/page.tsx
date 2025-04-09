@@ -25,8 +25,6 @@ export default async function PrivacyPage() {
                   className="prose max-w-full prose-headings:text-card-foreground text-card-foreground prose-strong:text-card-foreground text-justify "
                   dangerouslySetInnerHTML={{ __html: priv.description }}
                 />
-        
-             
             </div>
           ))}
             </>

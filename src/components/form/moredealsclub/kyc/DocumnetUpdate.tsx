@@ -139,7 +139,7 @@ const DocumentForm = ({ userdata }: { userdata?: KYCProps }) => {
                     <p className='text-muted-foreground'>This Documnets will be used to verify your details. Make sure everything here is accurate and up to date.</p>
                     <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3'>
                         <div>
-                            <label className="flex items-center gap-2  font-medium mb-1">
+                            <label className="flex items-center gap-2 font-medium mb-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <path fill="currentColor" fill-rule="evenodd" d="M14.25 2.5a.25.25 0 0 0-.25-.25H7A2.75 2.75 0 0 0 4.25 5v14A2.75 2.75 0 0 0 7 21.75h10A2.75 2.75 0 0 0 19.75 19V9.147a.25.25 0 0 0-.25-.25H15a.75.75 0 0 1-.75-.75zm.75 9.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1 0-1.5zm0 4a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1 0-1.5z" clip-rule="evenodd" />
                                     <path fill="currentColor" d="M15.75 2.824c0-.184.193-.301.336-.186q.182.147.323.342l3.013 4.197c.068.096-.006.22-.124.22H16a.25.25 0 0 1-.25-.25z" />
@@ -184,7 +184,7 @@ const DocumentForm = ({ userdata }: { userdata?: KYCProps }) => {
                             {errors.documentNumber && <p className="text-red-500 text-sm">{errors.documentNumber}</p>}
                         </div>
                         <div>
-                            <label className="flex items-center gap-2 mb-2 text-sm"> <CalendarIcon size={16} className='text-xs mr-1' />   {formData.documentType === " "
+                            <label className="flex items-center gap-2 font-medium mb-1"> <CalendarIcon size={16} className='text-xs mr-1' />   {formData.documentType === " "
                                     ? ""
                                     : formData.documentType.replace("_", " ").charAt(0).toUpperCase() + formData.documentType.replace("_", " ").slice(1)
                                 } Issue Date</label>
@@ -194,7 +194,7 @@ const DocumentForm = ({ userdata }: { userdata?: KYCProps }) => {
                     </div>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-3' >
                         <div>
-                            <label className="block text-sm">Front side {formData.documentType === " "
+                            <label className="flex items-center gap-2 font-medium mb-1">Front side {formData.documentType === " "
                                     ? ""
                                     : "of " + formData.documentType.replace("_", " ").charAt(0).toUpperCase() + formData.documentType.replace("_", " ").slice(1)
                                 }</label>
@@ -205,7 +205,7 @@ const DocumentForm = ({ userdata }: { userdata?: KYCProps }) => {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm">Back Side {formData.documentType === " "
+                            <label className="flex items-center gap-2 font-medium mb-1">Back Side {formData.documentType === " "
                                     ? ""
                                     : "of " + formData.documentType.replace("_", " ").charAt(0).toUpperCase() + formData.documentType.replace("_", " ").slice(1)
                                 }</label>

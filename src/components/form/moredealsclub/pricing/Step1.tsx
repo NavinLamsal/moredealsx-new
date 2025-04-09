@@ -47,7 +47,7 @@ const Step1Form: React.FC<Step1Props> = ({ data, errors, setData, onNext, server
             </div>
             
             <div>
-                    <label className="block font-medium mb-1">Gender</label>
+                    <label className="block font-medium mb-1">Plan Time</label>
                     <RadioGroup defaultValue={data.plan_time} className="grid grid-cols-2 gap-4" onValueChange={(value) => setData("plan_time", value)}>
                         <div>
                             <RadioGroupItem value="yearly" id="yearly" className="peer sr-only" />

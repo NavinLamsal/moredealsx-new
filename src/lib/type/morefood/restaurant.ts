@@ -4,12 +4,13 @@ export interface ResturantListType {
   id: string;
   name: string;
   slug: string;
-  is_open: boolean;
+  is_open: string;
   offers: string;
   banner: string;
   address: string;
   review_count: number;
   restaurant_rating: number;
+  menu_count?: number;
 }
 
 export interface CategoryListType {

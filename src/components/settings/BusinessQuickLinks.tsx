@@ -55,10 +55,11 @@ const BusinessQuickLinks = () => {
                 </Link>
                 <Link href={"/business/profile/update"} >
                     <Button variant={"ghost"} className=' justify-start text-lg w-full text-left hover:bg-primary hover:text-primary-foreground '>
-                        <Button size={"icon"}>
-                        <Edit2 fill="currentColor" />       
-                        </Button>
-                      
+                    <Avatar className="flex items-center h-7 w-7">
+                        <AvatarImage src={"/images/png/update.png"} className="h-7 w-7 block dark:hidden" />
+                        <AvatarImage src={"/images/png/update.png"} className="h-7 w-7 hidden dark:block" />
+                        <AvatarFallback >{"U"}</AvatarFallback>
+                    </Avatar>
                         Update Business Profile</Button>
                 </Link>
                 <Link href={"/business/transaction"} className='pt-1'>

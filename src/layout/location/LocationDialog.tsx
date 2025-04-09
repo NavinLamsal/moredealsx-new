@@ -35,6 +35,7 @@ export function LocationDialog({dashboard}:{dashboard?:boolean}) {
   const handleCityChange = (city: string , country: string) => {
         setCountry(country);
         setCity(city); 
+
   };
     
 
@@ -90,7 +91,7 @@ export function LocationDialog({dashboard}:{dashboard?:boolean}) {
             {!manualField &&
             <DialogFooter className="my-4 mx-4">
               {!chooseField ? (
-                <Button onClick={() => setIsOpen(false)}>Save</Button>
+                <Button onClick={() => {setIsOpen(false); window.location.reload();}}>Save</Button>
               ) : (
                 <div className="flex gap-4">
                   {manualField &&

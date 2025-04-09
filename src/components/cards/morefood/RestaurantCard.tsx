@@ -1,12 +1,12 @@
 import { ResturantListType } from "@/lib/type/morefood/restaurant";
-import { Crown } from "lucide-react";
+import { Book, BookOpen, Crown, MoonIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { forwardRef } from "react";
 
 type RestaurantCardProps = ResturantListType
 
-const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner, address, id, slug, is_open, name, restaurant_rating, review_count, offers, }, ref) => {
+const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner, address, id, slug, is_open, name, restaurant_rating, review_count, offers,  menu_count}, ref) => {
   return (
     <Link href={`/morefood/restaurant/${slug}`}>
       <div
@@ -22,11 +22,21 @@ const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner
             objectFit="cover"
             className="rounded-lg"
           />
+          {(is_open !== "Closed") ? null :
+          <div className="absolute inset-0 bg-black/50 text-xs flex flex-col items-center justify-center text-white font-semibold px-2 py-1 rounded-md">
+          <MoonIcon/> Closed
+          </div>
+          }
           {offers && (
             <span className="absolute top-2 left-2 bg-green-600 text-white text-xs font-semibold px-2 py-1 rounded-md">
               {offers}
             </span>
           )}
+          {menu_count && (
+            <span className="absolute bottom-0 left-0 right-0 bg-morefoodPrimary text-white text-xs font-semibold px-2 py-1 rounded-b-md flex items-center gap-2">
+             <BookOpen/> Menus: {menu_count}
+            </span>
+         )}
         </div>
         <div className="p-4">
           <h3 className="text-base font-semibold  truncate">{name}</h3>

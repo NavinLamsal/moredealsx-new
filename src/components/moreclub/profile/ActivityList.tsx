@@ -150,7 +150,7 @@ const ActivityList = () => {
 
   return (
     <div className="px-4 py-6">
-      <h3 className="text-2xl font-bold mb-6 text-foreground">Activity</h3>
+      <h3 className="text-2xl font-bold mb-6 text-foreground">Activity Logs</h3>
 
       {activityGroups.length === 0 ? (
         <p className="text-center text-foreground">No activity found</p>
@@ -181,7 +181,7 @@ const ActivityList = () => {
                       </div>
                       <p className="text-sm text-muted-foreground">{activity.description}</p>
                       <p className="text-sm text-muted-foreground ml-3">IP Address: {activity.ip_address}</p>
-                      <p className="text-sm text-muted-foreground ml-3">IP Address: {activity.ip_address}</p>
+                      
                       <p className="text-sm text-muted-foreground ml-3">User Agent: {deviceType} {browser}</p>
                     </div>
                   </div>

@@ -12,18 +12,18 @@ const NotificationDropDown = ({header}:{header?:boolean}) => {
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size={"icon"} className={header? 'text-white' : 'text-black dark:text-white'} ><Bell /></Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-[350px] bg-background" side={"bottom"}
+      <DropdownMenuContent className="w-[350px] bg-background z-50  h-[400px]" side={"bottom"}
             align="end" >
-      <Card className="w-[350px] bg-background">
+      <Card className="w-[350px]   bg-background ">
       <CardHeader>
-        <CardTitle className='flex justify-between items-center'>
+        <CardTitle className='flex justify-between items-center '>
           <h2 className='flex justify-between'>Notification</h2><Link href={'/dashboard/notification'}>
           <Button  variant={"link"}>View All</Button>
           </Link></CardTitle>
         
         <CardDescription></CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className='h-[400px] overflow-y-auto hide-scroll-bar'>
       <NotificationList/>
       </CardContent>
 

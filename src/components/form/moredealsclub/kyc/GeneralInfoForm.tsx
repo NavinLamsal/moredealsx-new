@@ -74,7 +74,7 @@ const GeneralInformation = ({ userdata }: { userdata?: any }) => {
 
 
     const [hasChanged, setHasChanged] = useState(false)
-    const [errors, setErrors] = useState<{ fatherName?: string, spousename?: string, gender?: string,   dob?: string; maritialStatus?: string, secondaryEmail?: string, secondaryPhone?: string, occupation?: string, documentType?: string, documentNumber?: string, documentIssueDate?: string, documentFront?: string, documentBack?: string, address?: string, city?: string, house_no?: string, street?: string, zip_code?: string }>({});
+    const [errors, setErrors] = useState<{ fatherName?: string, spousename?: string, gender?: string, dob?: string; maritialStatus?: string, secondaryEmail?: string, secondaryPhone?: string, occupation?: string, documentType?: string, documentNumber?: string, documentIssueDate?: string, documentFront?: string, documentBack?: string, address?: string, city?: string, house_no?: string, street?: string, zip_code?: string }>({});
     const [loading, setLoading] = useState<boolean>(false);
 
     const handleFileChange = (field: string, file: File | null) => {
@@ -96,8 +96,8 @@ const GeneralInformation = ({ userdata }: { userdata?: any }) => {
         handleChange("secondaryPhone", data.fullNumber)
     };
 
-    const validate = async (fieldValues = formData) => { 
-       // Explicitly define tempErrors as a dynamic object
+    const validate = async (fieldValues = formData) => {
+        // Explicitly define tempErrors as a dynamic object
         const tempErrors: Record<string, string> = { ...errors };
 
         if ("fatherName" in fieldValues) {
@@ -375,7 +375,11 @@ const GeneralInformation = ({ userdata }: { userdata?: any }) => {
                         {errors.occupation && <p className="text-red-500 text-sm">{errors.occupation}</p>}
                     </div>
                     <div>
-                        <label className="block font-medium mb-1">Father Name</label>
+                        <label className="flex items-center gap-1 font-medium mb-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 48 48">
+                                <path fill="currentColor" d="M28 8a4 4 0 1 1-8 0a4 4 0 0 1 8 0M18 18.82c-.217.513-.41 1.19-.564 1.995C17.03 22.931 17 25.273 17 26a2 2 0 1 1-4 0c0-.773.026-3.431.508-5.94c.238-1.236.616-2.607 1.265-3.717c.651-1.115 1.822-2.343 3.671-2.343h11.112c1.849 0 3.02 1.228 3.671 2.343c.649 1.11 1.027 2.48 1.265 3.717c.482 2.509.508 5.167.508 5.94a2 2 0 1 1-4 0c0-.727-.03-3.069-.436-5.185c-.155-.805-.347-1.482-.564-1.994V42a2 2 0 0 1-3.994.153l-1-13A2 2 0 0 1 25 29h-2q0 .076-.006.153l-1 13A2 2 0 0 1 18 42z"></path>
+                            </svg>
+                            Father Name</label>
                         <Input
                             type="text"
                             name="fatherName"
@@ -388,7 +392,11 @@ const GeneralInformation = ({ userdata }: { userdata?: any }) => {
                         {errors.fatherName && <p className="text-red-500 text-sm">{errors.fatherName}</p>}
                     </div>
                     <div>
-                        <label className="block font-medium mb-1">Mother Name (Optional)</label>
+                        <label className="flex items-center gap-1 font-medium mb-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 14 14">
+                                <path fill="currentColor" fillRule="evenodd" d="M9.066 2.066a2.066 2.066 0 1 1-4.132 0a2.066 2.066 0 0 1 4.132 0M8.498 13.6l.39-1.944h1.522c.246 0 .448-.2.47-.456a.3.3 0 0 0-.007-.09a36 36 0 0 1-.206-1.076C10.242 7.686 9.75 4.975 7 4.975s-3.242 2.711-3.667 5.058c-.067.372-.133.735-.206 1.076a.3.3 0 0 0-.007.09a.484.484 0 0 0 .47.456h1.521l.391 1.944a.5.5 0 0 0 .49.401h2.016a.5.5 0 0 0 .49-.401Z" clipRule="evenodd"></path>
+                            </svg>
+                            Mother Name (Optional)</label>
                         <Input
                             type="text"
                             name="mothername"
@@ -401,19 +409,23 @@ const GeneralInformation = ({ userdata }: { userdata?: any }) => {
 
                     </div>
                     {formData.maritialStatus === "married" &&
-                    <div>
-                        <label className="block font-medium mb-1">Spouse Name {formData.maritialStatus !== "married" && "(Optional)"}</label>
-                        <Input
-                            type="text"
-                            name="spousename"
-                            value={formData.spousename}
-                            onChange={(e) => handleChange("spousename", e.target.value)}
-                            placeholder="Doe"
-                            className={`p-2 border rounded w-full 
+                        <div>
+                            <label className="flex items-center gap-1 font-medium mb-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M7.5 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2M6 7h3a2 2 0 0 1 2 2v5.5H9.5V22h-4v-7.5H4V9a2 2 0 0 1 2-2m10.5-5a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2M15 7h3a2 2 0 0 1 2 2v5.5h-1.5V22h-4v-7.5H13V9a2 2 0 0 1 2-2"></path>
+                                </svg>
+                                Spouse Name {formData.maritialStatus !== "married" && "(Optional)"}</label>
+                            <Input
+                                type="text"
+                                name="spousename"
+                                value={formData.spousename}
+                                onChange={(e) => handleChange("spousename", e.target.value)}
+                                placeholder="Doe"
+                                className={`p-2 border rounded w-full 
                 `}
-                        />
-                        {errors.spousename && <p className="text-red-500 text-sm">{errors.spousename}</p>}
-                    </div>
+                            />
+                            {errors.spousename && <p className="text-red-500 text-sm">{errors.spousename}</p>}
+                        </div>
                     }
                     <div>
                         <label className="flex items-center gap-2 font-medium mb-1"><CalendarIcon size={16} className='text-xs mr-1' />Date of Birth</label>
@@ -463,7 +475,7 @@ const GeneralInformation = ({ userdata }: { userdata?: any }) => {
                                         <path d="M25 8.5C25 6.019 22.981 4 20.5 4S16 6.019 16 8.5s2.019 4.5 4.5 4.5S25 10.981 25 8.5M20.5 12c-1.93 0-3.5-1.57-3.5-3.5S18.57 5 20.5 5S24 6.57 24 8.5S22.43 12 20.5 12" />
                                     </g>
                                 </svg>
-                                
+
                                 Address</label>
                             <AutoCompleteInput
                                 setAddress={handleAddressChange}
@@ -518,7 +530,7 @@ const GeneralInformation = ({ userdata }: { userdata?: any }) => {
 
                 <div className='space-y-4'>
                     <h2 className="text-2xl font-bold mb-2 flex"><Paperclip className='mr-2' /> Supporting Document</h2>
-                    <p className='text-muted-foreground'>This Documnets will be used to verify your details. Make sure everything here is accurate and up to date.</p>
+                    <p className='text-muted-foreground'>This Documents will be used to verify your details. Make sure everything here is accurate and up to date.</p>
                     <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3'>
                         <div>
                             <label className="flex items-center gap-2  font-medium mb-1">
@@ -564,9 +576,9 @@ const GeneralInformation = ({ userdata }: { userdata?: any }) => {
                         </div>
                         <div>
                             <label className="flex items-center gap-2 font-medium mb-1"> <CalendarIcon size={16} className='text-xs mr-1' />   {formData.documentType === " "
-                                    ? ""
-                                    : formData.documentType.replace("_", " ").charAt(0).toUpperCase() + formData.documentType.replace("_", " ").slice(1)
-                                } Issue Date</label>
+                                ? ""
+                                : formData.documentType.replace("_", " ").charAt(0).toUpperCase() + formData.documentType.replace("_", " ").slice(1)
+                            } Issue Date</label>
                             <CustomDatePicker name="documentIssueDate" value={formData.documentIssueDate} onChange={handleChange} placeHolder={"Issue Date"} />
                             {errors.dob && <p className="text-red-500 text-sm">{errors.documentIssueDate}</p>}
                         </div>
@@ -574,9 +586,9 @@ const GeneralInformation = ({ userdata }: { userdata?: any }) => {
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-3' >
                         <div>
                             <label className="block text-sm">Front side {formData.documentType === " "
-                                    ? ""
-                                    : "of " + formData.documentType.replace("_", " ").charAt(0).toUpperCase() + formData.documentType.replace("_", " ").slice(1)
-                                }</label>
+                                ? ""
+                                : "of " + formData.documentType.replace("_", " ").charAt(0).toUpperCase() + formData.documentType.replace("_", " ").slice(1)
+                            }</label>
                             <ImageUploadDropBox
                                 onChange={(file: File | null) => handleFileChange("documentFront", file)}
                                 initialImage={typeof formData.documentFront === "string" && formData.documentFront !== "" ? formData.documentFront : undefined}
@@ -584,9 +596,9 @@ const GeneralInformation = ({ userdata }: { userdata?: any }) => {
                         </div>
                         <div>
                             <label className="block text-sm">Back Side {formData.documentType === " "
-                                    ? ""
-                                    : "of " + formData.documentType.replace("_", " ").charAt(0).toUpperCase() + formData.documentType.replace("_", " ").slice(1)
-                                }</label>
+                                ? ""
+                                : "of " + formData.documentType.replace("_", " ").charAt(0).toUpperCase() + formData.documentType.replace("_", " ").slice(1)
+                            }</label>
                             <ImageUploadDropBox
                                 onChange={(file: File | null) => handleFileChange("documentBack", file)}
                                 initialImage={typeof formData.documentBack === "string" && formData.documentBack !== "" ? formData.documentBack : undefined}
