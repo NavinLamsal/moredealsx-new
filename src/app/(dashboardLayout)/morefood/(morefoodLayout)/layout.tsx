@@ -2,10 +2,14 @@ import CartButton from "@/components/morefood/cart/CartButton";
 import BalanceCartView from "@/layout/morefood/balanceCartView";
 import { getMetadata } from "@/lib/action/PubilcCommon";
 import { CompanyMeta } from "@/lib/type/CommonType";
+import { Metadata } from "next";
 import React from "react";
 
 
-
+export const metadata: Metadata = {
+  title: "MoreFood |MOREDEALSX ",
+  description: "Luxury redefined. Exclusive club. Personalized service, bespoke experiences, unmatched amenities. Elevate your lifestyle. Join today",
+};
 
 
 export default async function DashboardLayout({
