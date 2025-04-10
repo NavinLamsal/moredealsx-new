@@ -18,22 +18,6 @@ import { AppDispatch } from "@/lib/redux/store";
 import PasswordField from "@/components/ui/customInputs/PasswordInput";
 
 
-// const CheckUserName = async (username: string) => {
-//   try {
-//     const res = await createServerPlatformAxiosInstance("moredealsclub",false).post(`auth/check/user/`, {
-//       username: `${username}`,
-//     });
-//     if (res.status === 200) {
-//       return "Username not found";
-//     }
-//   } catch (error:any) {
-//     if (error.response.data?.errors?.username[0] === "Already Exists") {
-//       return ""; 
-//     } else {
-//       return error.response.data?.errors?.username[0];
-//     }
-//   }
-// }
 
 export const CheckUserName = async (username: string, prefix?: string) => {
   const isEmail = (username: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username);

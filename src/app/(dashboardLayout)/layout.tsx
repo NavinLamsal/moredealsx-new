@@ -1,5 +1,3 @@
-import { auth } from "@/auth";
-import { Header } from "@/components/Home/Hero";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/layout/app-sidebar";
 import Footer from "@/layout/Footer";

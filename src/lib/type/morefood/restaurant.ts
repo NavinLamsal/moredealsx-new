@@ -4,7 +4,7 @@ export interface ResturantListType {
   id: string;
   name: string;
   slug: string;
-  is_open: string;
+  open_hrs: string;
   offers: string;
   banner: string;
   address: string;

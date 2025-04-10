@@ -1,12 +1,13 @@
 import { ResturantListType } from "@/lib/type/morefood/restaurant";
-import { Book, BookOpen, Crown, MoonIcon } from "lucide-react";
+import { BookOpen, Crown, MoonIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { forwardRef } from "react";
 
 type RestaurantCardProps = ResturantListType
 
-const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner, address, id, slug, is_open, name, restaurant_rating, review_count, offers,  menu_count}, ref) => {
+const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner, address, id, slug, open_hrs, name, restaurant_rating, review_count, offers,  menu_count}, ref) => {
+
   return (
     <Link href={`/morefood/restaurant/${slug}`}>
       <div
@@ -22,7 +23,7 @@ const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner
             objectFit="cover"
             className="rounded-lg"
           />
-          {(is_open !== "Closed") ? null :
+          {(open_hrs !== "Closed") ? null :
           <div className="absolute inset-0 bg-black/50 text-xs flex flex-col items-center justify-center text-white font-semibold px-2 py-1 rounded-md">
           <MoonIcon/> Closed
           </div>
