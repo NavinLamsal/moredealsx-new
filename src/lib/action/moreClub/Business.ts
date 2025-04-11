@@ -35,13 +35,14 @@ export const fetchBusinessTypes = createAsyncThunk(
   );
 
 
+
+
   export const fetchBusinessData = createAsyncThunk(
     "business/fetchBusinessTypes",
     async ({ fetchForce }: { fetchForce?: boolean }, { dispatch, getState }) => {
   const state = getState() as any;
   const lastFetchedAt = state.business.lastFetchedProfileAt;
 
-    console.log("lastFetchedAt", lastFetchedAt);
   if (!fetchForce && lastFetchedAt && Date.now() - lastFetchedAt < 5 * 60 * 1000) {
     return;
   } 

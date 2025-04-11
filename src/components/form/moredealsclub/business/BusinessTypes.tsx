@@ -8,18 +8,20 @@ import { AppDispatch, RootState } from '@/lib/redux/store';
 import { fetchBusinessTypes } from '@/lib/action/moreClub/Business';
 import MoreClubApiClient from '@/lib/axios/moreclub/MoreClubApiClient';
 import { businessQrinfoUpdate } from '@/lib/redux/slice/moreclub/BusinessSlice';
+import { Loader2 } from 'lucide-react';
+import { showToast } from '@/lib/utilities/toastService';
 
 const BusinessTypes: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const businessTypes = useSelector((state: RootState) => state.business.businessTypeList);
-    const isLoading = useSelector((state: RootState) => state.business.isLoading);
-    const error = useSelector((state: RootState) => state.business.error);
+    
     const businessQRInfo = useSelector((state: RootState) => state.business.businessQRInfo);
+    const [isAdding, setIsAdding] = useState(false);
 
     const [businessData, setBusinessData] = useState(
         businessQRInfo.length > 0
-            ? businessQRInfo.map(({ business_type, discount }) => ({ business_type, discount }))
-            : [{ business_type: "", discount: "" }]
+            ? businessQRInfo.map(({ business_type_id, discount }) => ({ business_type_id : business_type_id, discount }))
+            : [{ business_type_id: "", discount: "" }]
     );
 
     // Fetch Business Types on Mount
@@ -32,7 +34,7 @@ const BusinessTypes: React.FC = () => {
         const selected = businessTypes.find(b => b.id === value);
         if (selected) {
             const updatedBusinessData = [...businessData];
-            updatedBusinessData[index] = { business_type: selected.id, discount: "" };
+            updatedBusinessData[index] = { business_type_id: selected.id, discount: "" };
             setBusinessData(updatedBusinessData);
         }
     };
@@ -44,42 +46,32 @@ const BusinessTypes: React.FC = () => {
     };
 
     const addMoreBusiness = () => {
-        setBusinessData([...businessData, { business_type: "", discount: "" }]);
+        setBusinessData([...businessData, { business_type_id: "", discount: "" }]);
     };
-
-    // const handleSubmit = async (index: number) => {
-    //     const businessEntry = businessData[index];
-    //     // console.log("Submitting Form:", businessData);
-    //     try {
-    //         const res = await MoreClubApiClient.post("business/types/add/discount/",
-    //             businessEntry
-    //         )
-    //         console.log("res", res)
-    //         dispatch(businessQrinfoUpdate(res.data.data));
-    //     } catch (err: any) {
-    //         console.log("error", err)
-    //     }
-    // };
 
 
     const handleSubmit = async (index: number) => {
         const businessEntry = businessData[index];
-        const isExisting = businessQRInfo.some((qr) => qr.business_type === businessEntry.business_type);
+        const isExisting = businessQRInfo.some((qr) => qr.business_type_id === businessEntry.business_type_id);
 
         try {
             let response;
+            setIsAdding(true);
             if (isExisting) {
                 // ✅ PATCH request to update existing business type
-                response = await MoreClubApiClient.patch(`business/types/update/${businessEntry.business_type}/`, businessEntry);
+                response = await MoreClubApiClient.patch(`business/types/discount/update/`, businessEntry);
+                showToast("Business discount updated successfully", "success");
             } else {
                 // ✅ POST request to create a new business type
-                response = await MoreClubApiClient.post("business/types/add/discount/", businessEntry);
+                response = await MoreClubApiClient.post("business/types/discount/", businessEntry);
+                showToast("Business discount added successfully", "success");
             }
-
-            console.log("Success:", response.data);
-            dispatch(businessQrinfoUpdate(businessEntry)); // ✅ Update Redux Store
+            dispatch(businessQrinfoUpdate(response.data.data)); 
         } catch (err: any) {
-            console.log("Error:", err);
+            const errorMessage = err.response?.data?.errors?.non_field_errors[0] || err.response?.data?.message || "Something Went Wrong";
+            showToast(errorMessage, "error");
+        }finally {
+            setIsAdding(false);
         }
     };
 
@@ -92,52 +84,22 @@ const BusinessTypes: React.FC = () => {
                 </p>
             </div>
 
-            {/* <form onSubmit={handleSubmit} className='flex flex-col gap-4 p-2'>
-                {businessData.map((business, index) => (
-                    <div key={index} className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
-                        <div>
-                            <label className="block font-medium mb-1">Business Types</label>
-                            <Select value={business.business_type} onValueChange={(value) => handleBusinessTypeChange(index, value)}>
-                                <SelectTrigger>
-                                    <SelectValue placeholder={isLoading ? "Loading..." : "Select business type"} />
-                                </SelectTrigger>
-                                <SelectContent>
-                                   
-                                    {businessTypes
-                                        .filter((type) => !businessData.some((data, idx) => data.business_type === type.id && idx !== index)) // ✅ Omit already selected
-                                        .map((type) => (
-                                            <SelectItem key={type.id} value={type.id}>{type.name}</SelectItem>
-                                        ))}
-                                </SelectContent>
-                            </Select>
-                            {error && <p className="text-red-500">{error}</p>}
-                        </div>
-                        <div>
-                            <label className="block font-medium mb-1">Business Discount (%)</label>
-                            <Input type="text" value={business.discount} className="p-2 border rounded w-full" onChange={(e) => handleDiscountChange(index, e.target.value)} />
-                        </div>
-                    </div>
-                ))}
-
-                <Button type='submit' className='w-full'>Save Changes</Button>
-            </form> */}
-
             <form className='flex flex-col gap-4 p-2'>
                 {businessData.map((business, index) => {
-                    const isExisting = businessQRInfo.some((qr) => qr.business_type === business.business_type);
+                    const isExisting = businessQRInfo.some((qr) => qr.business_type_id === business.business_type_id);
 
                     return (
                         <div key={index} className='grid grid-cols-1 sm:grid-cols-2 gap-2 items-center'>
                             {/* Business Type Selection */}
                             <div>
                                 <label className="block font-medium mb-1">Business Types</label>
-                                <Select value={business.business_type} onValueChange={(value) => handleBusinessTypeChange(index, value)}>
+                                <Select value={business.business_type_id} onValueChange={(value) => handleBusinessTypeChange(index, value)}>
                                     <SelectTrigger>
                                         <SelectValue placeholder="Select business type" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {businessTypes
-                                            .filter((type) => !businessData.some((data, idx) => data.business_type === type.id && idx !== index))
+                                            .filter((type) => !businessData.some((data, idx) => data.business_type_id === type.id && idx !== index))
                                             .map((type) => (
                                                 <SelectItem key={type.id} value={type.id}>{type.name}</SelectItem>
                                             ))}
@@ -185,7 +147,7 @@ const BusinessTypes: React.FC = () => {
                     variant={"destructive"}
                     onClick={(e) => { e.preventDefault(); addMoreBusiness() }}
                 >
-                    Add New
+                   {isAdding && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Add New
                 </Button>
                 }
             </form>

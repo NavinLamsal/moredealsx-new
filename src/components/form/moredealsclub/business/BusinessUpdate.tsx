@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/redux/store";
 import { fetchBusinessData, fetchBusinessQRInfo } from "@/lib/action/moreClub/Business";
 import { useAppSelector } from "@/lib/redux/hooks";
+import BusinessTypes from "./BusinessTypes";
 
 export default function BusinessPage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -28,6 +29,7 @@ export default function BusinessPage() {
     () => [
       { title: "General Information", component: <BasicInfoForm businessData={business.businessProfile} /> },
       { title: "Documents", component: <BusinessDocumentsUploadForm businessData={business.businessProfile} /> },
+      { title: "Discounts", component: <BusinessTypes /> },
     ],
     [business.businessProfile]
   );
@@ -42,7 +44,7 @@ export default function BusinessPage() {
   return (
     <div>
       <div className="space-y-0.5 mb-4">
-        <Heading title="Profile" />
+        <Heading title="Business Profile" />
         <p className="text-sm text-muted-foreground">
           This is how others will see your Business on the site.
         </p>

@@ -86,6 +86,7 @@ const BasicInfoForm = () => {
             </CardHeader>
 
             <CardContent><form onSubmit={handleSubmit} className='flex flex-col gap-4 p-2'>
+                
                 <div>
                     <label className="block font-medium mb-1">Business Name</label>
                     <Input

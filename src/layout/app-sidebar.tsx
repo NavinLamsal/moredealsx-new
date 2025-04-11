@@ -26,6 +26,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useSession } from "next-auth/react"
 import { CompanyMeta } from "@/lib/type/CommonType"
+import { NavCRM } from "./crm-main"
 
 // This is sample data.
 
@@ -37,6 +38,7 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
  
   const pathname = usePathname()
   const session = useSession();
+ 
   const data = {
     user: {
       name: `${session.data?.user?.userDetails?.first_name} ${session.data?.user?.userDetails?.last_name}`,
@@ -130,44 +132,59 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
       //   lightImage:"/images/svg/Home.svg"
       // },
       {
-        title: "Business Transactions",
-        url: "/business/transaction/business",
+        title: "Manage CRMs",
+        url: "/business/crm/manage",
         icon: SquareTerminal,
         darkImage:"/images/svg/Home.svg",
         lightImage:"/images/svg/Home.svg"
       },
     ],
 
+    
+
     projects: [
       {
         name: "MOREFOOD",
-        url: "/morefood",
+        url: "#",
+        // url: `${session.data?.user?.userDetails?.crm_link[0] as string}`,
         icon: Frame,
         darkImage:"/images/svg/morefood.svg",
         lightImage:"/images/svg/morefood.svg"
       },
-      {
-        name: "MORESALONS",
-        url: "#",
-        icon: PieChart,
-        darkImage:"/images/svg/moresaloonwhite.svg",
-        lightImage:"/images/svg/moresaloonblack.svg"
-      },
-      {
-        name: "STATION",
-        url: "#",
-        icon: Map,
-        darkImage:"/images/svg/Home.svg",
-        lightImage:"/images/svg/Home.svg"
-      },
-      {
-        name: "MARKETPLACE",
-        url: "#",
-        icon: Map,
-        darkImage:"/images/svg/Home.svg",
-        lightImage:"/images/svg/Home.svg"
-      },
+      // {
+      //   name: "MORESALONS",
+      //   url: "#",
+      //   icon: PieChart,
+      //   darkImage:"/images/svg/moresaloonwhite.svg",
+      //   lightImage:"/images/svg/moresaloonblack.svg"
+      // },
+      // {
+      //   name: "STATION",
+      //   url: "#",
+      //   icon: Map,
+      //   darkImage:"/images/svg/Home.svg",
+      //   lightImage:"/images/svg/Home.svg"
+      // },
+      // {
+      //   name: "MARKETPLACE",
+      //   url: "#",
+      //   icon: Map,
+      //   darkImage:"/images/svg/Home.svg",
+      //   lightImage:"/images/svg/Home.svg"
+      // },
     ],
+    crm: [
+      ...(session?.data?.user?.userDetails?.crm_link?.restro_link
+        ? [{
+            name: "MOREFOOD CRM",
+            url: session?.data?.user?.userDetails?.crm_link?.restro_link ?? "#",
+            icon: Frame,
+            darkImage: "/images/svg/morefood.svg",
+            lightImage: "/images/svg/morefood.svg"
+          }]
+        : [])
+    ],
+    
   }
 
 
@@ -183,6 +200,9 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
         <NavMain items={data.navbusiness} title="Business" />
         )}
         <NavProjects projects={data.projects} />
+        {session.data?.user?.userDetails?.user_type === "BUSINESS" && session?.data?.user?.userDetails?.crm_link && (
+        <NavCRM projects={data.crm}  />
+        )}
       </SidebarContent>
       <SidebarFooter className="py-4">
         <SidebarMenuButton asChild isActive={pathname === "/settings"} tooltip={"Setting"} className="">

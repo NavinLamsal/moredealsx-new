@@ -1,35 +1,27 @@
-import Addressupdate from '@/components/form/moredealsclub/kyc/AddressUpdate';
-import DocumentForm from '@/components/form/moredealsclub/kyc/DocumnetUpdate';
-import Generalupdate from '@/components/form/moredealsclub/kyc/GeneralUpdate';
+"use client"
 import { buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import Heading from '@/components/ui/heading';
-import { KYCProps } from '@/lib/type/moreclub/User';
 import { cn } from '@/lib/utils';
-import { useSearchParams } from 'next/navigation';
 import React, { useState } from 'react'
+import CRMList from './CRMList';
+import { useSearchParams } from 'next/navigation';
+import { BusinessQRInfo } from '@/lib/redux/slice/moreclub/BusinessSlice';
 
-const KycPageContent = ({kycProps}:{kycProps:KYCProps}) => {
+const CRMTabContent =async ({categories}:{categories:BusinessQRInfo[]}) => {
     const searchParams = useSearchParams();
     const tab =searchParams.get("tab");
+  
 
-    const sidebarNavItems = [
-        { title: "General", component: <Generalupdate userdata={kycProps} /> },
-        { title: "Address", component: <Addressupdate userdata={kycProps} /> },
-        { title: "Documents", component: <DocumentForm userdata={kycProps} /> },
-      ];
+    const sidebarNavItems = categories.map((category: BusinessQRInfo) => ({
+        title: category.business_type_name as string,
+        component: <CRMList name={category.business_type_name as string} />
+      }));
       
       // ✅ State to track the active section
       const [activeTab, setActiveTab] = useState(tab ?? sidebarNavItems[0].title);
       
       return (
           <div>
-            <div className="space-y-0.5 mb-4">
-              <Heading title="KYC Details" />
-              <p className="text-sm text-muted-foreground">
-                This is how others will see you on the site.
-              </p>
-            </div>
       
             <div className="flex flex-col space-y-8 ">
               {/* Sidebar Navigation */}
@@ -66,15 +58,15 @@ const KycPageContent = ({kycProps}:{kycProps:KYCProps}) => {
                   activeTab === item.title
                     ? "bg-primary text-primary-foreground dark:bg-purple-800"
                     : "bg-slate-50 bg-card  hover:bg-primary hover:underline hover:text-primary-foreground",
-                  "justify-start w-full text-center  px-4 py-2 "
+                  "justify-start text-center  px-4 py-2 "
                 )}
               >
-                {item.title} Information
+                {item.title}
               </button>
             ))}
           </nav>
         );
       }
 
-export default KycPageContent
+export default CRMTabContent
 

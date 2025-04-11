@@ -220,6 +220,7 @@ export const {
         //     },
         //   },
         // })
+
         return {
           ...token,
           user: {
@@ -266,8 +267,9 @@ export async function fetchUserDetails(token: string) {
     if (!userResponse.ok) throw new Error("Failed to fetch user details");
     const userData = await userResponse.json();
     const userDetails = {
+      username: userData?.data?.username,
       id: userData?.data.id,
-      email: userData?.data?.email,
+      email: userData?.data?.email ?? null,
       first_name: userData?.data?.first_name, // Dynamic or default fallback
       last_name: userData?.data?.last_name, // Dynamic or default fallback
       phone_prefix: userData?.data?.phone_prefix ?? null,
@@ -282,6 +284,7 @@ export async function fetchUserDetails(token: string) {
       is_pin_set: userData?.data?.is_pin_set, // Dynamic or default fallback
       country: userData?.data?.country, // Dynamic or default fallback
       currency: userData?.data?.currency,
+      crm_link: userData?.data?.crm_link,
     };
 
     // let businessDetails = null;

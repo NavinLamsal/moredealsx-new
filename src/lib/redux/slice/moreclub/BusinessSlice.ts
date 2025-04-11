@@ -10,10 +10,12 @@ interface BusinessType {
 
 
 
-interface BusinessQRInfo {
-  business_type: string;
+export interface BusinessQRInfo {
+   
+  business_type_id: string;
   discount: string;
   business_type_name?: string;
+  // Add other properties as needed
   business_type_icon?: string;
   qr_code?: string;
 }
@@ -49,6 +51,7 @@ interface BusinessState {
   // Track API Fetch Timestamps
   lastFetchedProfileAt: number | null;
   lastFetchedQRInfoAt: number | null;
+
   lastFetchedBusinessTypeAt: number | null;
 }
 
@@ -57,6 +60,7 @@ const initialState: BusinessState = {
   isLoading: false,
   error: null,
   businessTypeList: [],
+
   businessProfile: null,
   businessQRInfo: [],
 
@@ -96,6 +100,7 @@ export const businessSlice = createSlice({
       state.isLoading = false;
     },
 
+
     // Fetch Business QR Info
     businessQRInfoSuccess: (state, action: PayloadAction<BusinessQRInfo[]>) => {
       state.businessQRInfo = action.payload;
@@ -106,7 +111,7 @@ export const businessSlice = createSlice({
     // Update Business QR Info & Refetch
     businessQrinfoUpdate: (state, action: PayloadAction<BusinessQRInfo>) => {
       const existingIndex = state.businessQRInfo.findIndex(
-        (item) => item.business_type_name === action.payload.business_type_name
+        (item) => item.business_type_id === action.payload.business_type_id
       );
 
       if (existingIndex !== -1) {
@@ -115,8 +120,6 @@ export const businessSlice = createSlice({
         state.businessQRInfo.push(action.payload);
       }
 
-      // Trigger refetch after update
-      state.lastFetchedQRInfoAt = null;
     },
   },
 });

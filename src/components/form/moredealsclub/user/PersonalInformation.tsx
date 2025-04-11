@@ -268,9 +268,6 @@ const PersonalInformation = ({ userdata }: { userdata: any }) => {
           />
           {errors.secondaryEmail && <p className="text-red-500 text-sm">{errors.secondaryEmail}</p>}
         </div>
-
-
-
         <div>
           <label className="block font-medium mb-1">Phone Number</label>
           <PhoneNumberInput
