@@ -202,6 +202,33 @@ html {
   );
 }
 
+.custom-ribbon {
+  background: linear-gradient(to bottom, #ff2c00, #c70000);
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  border-left: 2px dotted #ffb3a7;
+  border-right: 2px dotted #ffb3a7;
+}
+
+.brush-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #facc15; /* Tailwind yellow-400 */
+  transform: rotate(-2deg) scale(1.1);
+  border-radius: 4px;
+  z-index: -1;
+  clip-path: polygon(
+    5% 15%, 15% 10%, 25% 13%, 35% 8%,
+    50% 12%, 65% 8%, 75% 14%, 85% 10%,
+    95% 15%, 90% 85%, 75% 90%, 60% 88%,
+    45% 92%, 30% 89%, 15% 85%, 8% 80%
+  );
+  filter: blur(1px);
+}
+
+
+
 }
 
 

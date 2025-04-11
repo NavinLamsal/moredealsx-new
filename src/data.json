@@ -1,51 +1,184 @@
 {
-    "menuData": [
-      {
-        "title": "Club",
-        "horizontal": true,
-        "items": [
-          { "title": "Profile", "description": "Manage your profile and settings.", "icon": "/images/png/user.png", "url": "/dashboard/profile" },
-          { "title": "Kyc", "description": "Update and manage your Kyc Details", "icon": "/images/png/kyc.png", "url": "/settings/kyc" },
-          { "title": "Activity Log", "description": "See Your Activity across the platform", "icon": "/images/png/activity.png", "url": "/dashboard/profile/activity" },
-          { "url": "/business/profile", "icon": "/images/png/businessProfile.png", "title": "Business Profile", "description": "Manage your Business profile and update your profile information." },
-          { "url": "#", "icon": "/images/png/cardinformation.png", "title": "Card Information", "description": "Update your KYC information to help us verify your identity." },
-          { "url": "/event/booked", "icon": "/images/svg/events.svg", "title": "Event Bookings", "description": "See and manage  your Event Bookings" }
-        ]
-      },
-      {
-        "title": "MoreFood",
-        "horizontal": true,
-        "items": [
-          { "title": "Order", "description": "See your Order History.", "icon": "/images/png/order.png", "url": "/morefood/order" },
-          { "title": "Reviews", "description": "Manage and View your Reviews at the restaurant", "icon": "/images/png/reviews.png", "url": "/morefood/reviews" }
-        ]
-      },
-      {
-        "title": "Subscription and Referals",
-        "horizontal": false,
-        "items": [
-          { "url": "/settings/upgrade", "icon": "/images/png/leads.png", "title": "Subscription", "description": "manage and upgrade your subscription plan." },
-          { "url": "/networks", "icon": "/images/png/referals.png", "title": "Refreals and invites", "description": "Invite our friends and earn rewards." }
-        ]
-      },
-      {
-        "title": "Security",
-        "horizontal": false,
-        "items": [
-          { "url": "/change-password", "icon": "/images/png/reset-password.png", "title": "Change password", "description": "Learn how to manage and control your privacy across Meta products." },
-          { "url": "/change-pin", "icon": "/images/png/pin.png", "title": "Change PIN", "description": "Learn more about our updated settings experience on Moredeals Club." }
-        ]
-      },
-      {
-        "title": "Privacy and safety",
-        "horizontal": false,
-        "items": [
-          { "url": "/faq", "icon": "/images/png/faq.png", "title": "FAQ", "description": "Learn more about our updated settings experience on Moredeals Club." },
-          { "url": "/support", "icon": "/images/png/supports.png", "title": "Support", "description": "Learn more about our updated settings experience on Moredeals Club." },
-          { "url": "/privacy-policy", "icon": "/images/png/privacy.png", "title": "Privacy policy", "description": "Learn how to manage and control your privacy across Meta products." },
-          { "url": "/terms-and-condition", "icon": "/images/png/TAC.png", "title": "Terms and conditions", "description": "Learn more about our updated settings experience on Moredeals Club." }
-        ]
-      }
-    ]
-  }
-  
+  "menuData": [
+    {
+      "title": "Club",
+      "horizontal": true,
+      "items": [
+        {
+          "title": "Profile",
+          "description": "Manage your profile and settings.",
+          "icon": "/images/png/user.png",
+          "url": "/dashboard/profile"
+        },
+        {
+          "title": "Kyc",
+          "description": "Update and manage your Kyc Details",
+          "icon": "/images/png/kyc.png",
+          "url": "/settings/kyc"
+        },
+        {
+          "title": "Activity Log",
+          "description": "See Your Activity across the platform",
+          "icon": "/images/png/activity.png",
+          "url": "/dashboard/profile/activity"
+        },
+        {
+          "url": "/business/profile",
+          "icon": "/images/png/businessProfile.png",
+          "title": "Business Profile",
+          "description": "Manage your Business profile and update your profile information."
+        },
+        {
+          "url": "#",
+          "icon": "/images/png/cardinformation.png",
+          "title": "Card Information",
+          "description": "Update your KYC information to help us verify your identity."
+        },
+        {
+          "url": "/event/booked",
+          "icon": "/images/svg/events.svg",
+          "title": "Event Bookings",
+          "description": "See and manage  your Event Bookings"
+        }
+      ]
+    },
+    {
+      "title": "MoreFood",
+      "horizontal": true,
+      "items": [
+        {
+          "title": "Order",
+          "description": "See your Order History.",
+          "icon": "/images/png/order.png",
+          "url": "/morefood/order"
+        },
+        {
+          "title": "Reviews",
+          "description": "Manage and View your Reviews at the restaurant",
+          "icon": "/images/png/reviews.png",
+          "url": "/morefood/reviews"
+        }
+      ]
+    },
+    {
+      "title": "Subscription and Referals",
+      "horizontal": false,
+      "items": [
+        {
+          "url": "/settings/upgrade",
+          "icon": "/images/png/leads.png",
+          "title": "Subscription",
+          "description": "manage and upgrade your subscription plan."
+        },
+        {
+          "url": "/networks",
+          "icon": "/images/png/referals.png",
+          "title": "Refreals and invites",
+          "description": "Invite our friends and earn rewards."
+        }
+      ]
+    },
+    {
+      "title": "Security",
+      "horizontal": false,
+      "items": [
+        {
+          "url": "/change-password",
+          "icon": "/images/png/reset-password.png",
+          "title": "Change password",
+          "description": "Learn how to manage and control your privacy across Meta products."
+        },
+        {
+          "url": "/change-pin",
+          "icon": "/images/png/pin.png",
+          "title": "Change PIN",
+          "description": "Learn more about our updated settings experience on Moredeals Club."
+        }
+      ]
+    },
+    {
+      "title": "Privacy and safety",
+      "horizontal": false,
+      "items": [
+        {
+          "url": "/faq",
+          "icon": "/images/png/faq.png",
+          "title": "FAQ",
+          "description": "Learn more about our updated settings experience on Moredeals Club."
+        },
+        {
+          "url": "/support",
+          "icon": "/images/png/supports.png",
+          "title": "Support",
+          "description": "Learn more about our updated settings experience on Moredeals Club."
+        },
+        {
+          "url": "/privacy-policy",
+          "icon": "/images/png/privacy.png",
+          "title": "Privacy policy",
+          "description": "Learn how to manage and control your privacy across Meta products."
+        },
+        {
+          "url": "/terms-and-condition",
+          "icon": "/images/png/TAC.png",
+          "title": "Terms and conditions",
+          "description": "Learn more about our updated settings experience on Moredeals Club."
+        }
+      ]
+    }
+  ],
+
+  "Offers": [
+    {
+      "id": 101,
+      "banner": "/images/png/moredealsoff.png",
+      "title": "Get 20% OFF via MOREDEALS CLUB",
+      "slug": "wallet-weekend-bonanza",
+      "short_description": "Get 20% OFF on food & salon bookings when you pay via MoreWallet!",
+      "discount_amount": "0",
+      "discount_percentage": "0",
+      "is_banner_only": false,
+      "price": 0,
+      "url": "https://www.moredealsclub.com/offers/wallet-weekend-bonanza",
+      "from_date": "2025-04-12",
+      "to_date": "2025-04-14",
+      "is_active": "true",
+      "currency_symbol": "NPR",
+      "is_all_time": true
+    },
+    {
+      "id": 103,
+      "banner": "/images/png/morefoodbanner.png",
+      "title": "Foodie Fiesta Friday",
+      "slug": "foodie-fiesta-friday",
+      "short_description": "Flat NPR 150 OFF on orders above NPR 500 every Friday!",
+      "discount_amount": "NPR 150",
+      "discount_percentage": "30",
+      "is_banner_only": true,
+      "price": 500,
+      "url": "https://www.moredealsclub.com/foodie-fiesta-friday",
+      "from_date": "2025-04-11",
+      "to_date": "2025-05-11",
+      "is_active": "true",
+      "currency_symbol": "NPR",
+      "is_all_time": true
+    },
+    {
+      "id": 105,
+      "banner": "/images/png/referandearn.png",
+      "title": "Refer & Reward",
+      "slug": "refer-and-reward",
+      "short_description": "Invite friends and earn rewards on every wallet payment!",
+      "discount_amount": "0",
+      "discount_percentage": "0",
+      "is_banner_only": true,
+      "price": 0,
+      "url": "https://www.moredealsclub.com/refer",
+      "from_date": "2025-04-01",
+      "to_date": "2025-05-01",
+      "is_active": "true",
+      "currency_symbol": "NPR",
+      "is_all_time": true
+    }
+  ]
+}

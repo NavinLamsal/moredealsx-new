@@ -1,13 +1,21 @@
 import MoreClubApiClient from "../axios/moreclub/MoreClubApiClient";
 
 export interface Offer {
-    banner: string //"https://res.cloudinary.com/dmginqfq4/image/upload/v1/media/offers/Red_And_Blue_Simple_New_Year_Sale_A4_Landscape_glj64n"
-    discount_amount: string //"0.00"
-    discount_percentage: string //"50.00"
+    banner: string
+    discount_amount: string 
+    discount_percentage: string 
+    is_banner_only: boolean 
     id:number
     price: number 
-    slug:string// "new-year-offer1"
-    title: string //"New Year Offer"
+    slug:string
+    title: string 
+    short_description: string 
+    url: string | null 
+    from_date: string
+    to_date: string;
+    is_active:string;
+    currency_symbol: string;
+    is_all_time: boolean
 }
 
 export const fetchOfferList = async (

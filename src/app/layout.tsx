@@ -34,6 +34,9 @@ export default async function  RootLayout({
 
   return (
     <html lang="en">
+      <head>
+      <meta name="apple-mobile-web-app-title" content="Moredeals Club" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
