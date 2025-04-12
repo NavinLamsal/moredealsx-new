@@ -14,7 +14,6 @@ payload}:{
     }}) {
   
   const handlePayment = async () => {
-    console.log(payload);
     const url = `${process.env.NEXT_PUBLIC_BASE_URL}orders/create`;
     const data = payload;
 

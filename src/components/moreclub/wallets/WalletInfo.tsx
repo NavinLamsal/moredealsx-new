@@ -109,7 +109,7 @@ const quickLinks = [
   { name: "Profile", icon: '/images/png/user.png', link:"/dashboard/profile" },
   { name: "Kyc", icon: '/images/png/kyc.png', link:"/settings/kyc" },
   { name: "Events", icon: '/images/svg/events.svg' ,link:"/event" },
-  { name: "Offers", icon: '/images/png/offers.png' ,link:"#"},
+  { name: "Offers", icon: '/images/png/offers.png' ,link:"/offers" },
 ];
 const Morefood = [
   { name: "Restaurants", icon: '/images/png/restaurant.png' , link:"/morefood/category/lists?title=All Restaurants" },

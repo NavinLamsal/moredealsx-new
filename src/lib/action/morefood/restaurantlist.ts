@@ -31,7 +31,6 @@ export const useFetchRestaurant = () => {
     try {
       const pages = page ?? 1;
       const response = await MoreFoodApiClient.get(`restaurants/popular/?city_name=${city}`);
-      console.log("response", response.data);
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
       console.error("Error in fetching popular Restaurants", error);
@@ -49,7 +48,7 @@ export const useFetchRestaurant = () => {
     try {
       const pages = page ?? 1;
       const response = await MoreFoodApiClient.get(`restaurants/featured-restaurants/?city_name=${city}`);
-      console.log("response", response.data);
+      
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
       console.error("Error in fetching popular Restaurants", error);

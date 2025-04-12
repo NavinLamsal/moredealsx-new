@@ -43,7 +43,6 @@ const SuccessPageContent = () => {
 
         try {
            const res = await MoreClubApiClient.get(`${process.env.NEXT_PUBLIC_BASE_URL}payments/verify/khalti/${token}/khalti/?pidx=${pidx}&transaction_id=${transaction_id}&tidx=${tidx}&amount=${amount}&total_amount=${totalAmount}&mobile=${mobile}&status=${status}&purchase_order_id=${purchase_order_id}&purchase_order_name=${purchase_order_name}`);
-            console.log("Payment completed successfully" , res);
         } catch (err:any) {
             setIsError(err.response.data.message);
             console.error("Error:", err);

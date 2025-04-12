@@ -4,6 +4,16 @@ import {
   BadgeCheck,
   Bell,
 
+  BookDashed,
+
+  Home,
+
+  Menu,
+
+  Settings,
+
+  Settings2,
+
   Sparkles,
 } from "lucide-react"
 
@@ -91,6 +101,16 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
+                <Link href="/dashboard" className="w-full flex flex-1 gap-2">
+                <Home />
+                Dashboard               
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
                 <Link href="/settings/upgrade" className="w-full flex flex-1 gap-2">
                 <Sparkles />
                 Upgrade                
@@ -103,6 +123,15 @@ export function NavUser({
                 <Link href="/dashboard/profile" className="w-full flex flex-1 gap-2">
                 <BadgeCheck />
                 Profile
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
+                <Link href="/settings" className="w-full flex flex-1 gap-2">
+                <Settings />
+                Settings
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>

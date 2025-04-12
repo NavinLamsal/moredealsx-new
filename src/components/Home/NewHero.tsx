@@ -4,6 +4,7 @@ import React from "react";
 import {ChevronDown } from "lucide-react";
 import Offers from "../Dashboard/Offers";
 import Navbar from "@/layout/navbar";
+import SmallOffers from "../Dashboard/VerticalOfferCarousel";
 
 const ESewaLayout = () => {
   return (
@@ -19,15 +20,23 @@ const ESewaLayout = () => {
         <span className="cursor-pointer hover:underline">Marketplace</span>
         </div>
       </div>
-    <div className="max-w-[1400px] mx-auto">
+    <div className="max-w-8xl mx-auto">
       {/* Top Navigation Bar */}
 
       {/* Green Secondary Navbar */}
 
       <div className="grid grid-cols-12">
         {/* Sidebar Menu */}
-        <div className="bg-white w-60 p-4 shadow-md col-span-2 hidden xl:block">
-          <ul className="space-y-3 text-gray-700">
+        
+
+        {/* Main Content */}
+        <div className="flex col-span-12 min-[960px]:col-span-8 ">
+        <div className="w-full p-6">
+         <Offers/>
+        </div>
+        </div>
+        <div className="col-span-4 hidden min-[960px]:block ">
+          {/* <ul className="space-y-3 text-gray-700">
             <li className="flex justify-between items-center cursor-pointer divide-y-2  hover:text-green-500">
               Topup & Recharge <ChevronDown className="-rotate-90" size={16} />
             </li>
@@ -52,14 +61,10 @@ const ESewaLayout = () => {
             <li className="flex justify-between items-center cursor-pointer hover:text-green-500">
               Movies & Entertainment <ChevronDown className="-rotate-90" size={16} />
             </li>
-          </ul>
-        </div>
-
-        {/* Main Content */}
-        <div className="flex col-span-12 lg:col-span-10 ">
-        <div className="w-full p-6">
-         <Offers/>
-        </div>
+          </ul> */}
+          <div className="w-full p-6">
+          <SmallOffers/>
+          </div>
         </div>
 
       

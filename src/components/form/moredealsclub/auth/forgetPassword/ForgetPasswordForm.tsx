@@ -141,7 +141,6 @@ const ForgetPasswordForm: React.FC = () => {
                     phone_prefix: formData.prefix,
                   }),
     }
-    console.log("payload", payload)
 
     try {
 

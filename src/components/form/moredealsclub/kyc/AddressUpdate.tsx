@@ -101,7 +101,6 @@ const Addressupdate = ({ userdata }: { userdata?: KYCProps }) => {
 
     const handleAddressChange = (newAddress: Address) => {
 
-        console.log("newAddress", newAddress)
         // Update only address fields in formData
         setFormData((prev) => {
             const updatedData = {

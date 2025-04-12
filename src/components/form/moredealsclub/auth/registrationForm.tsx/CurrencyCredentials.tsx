@@ -138,7 +138,6 @@ const CurrencyForm = () => {
             if (ureferalcode) urlObj.searchParams.append("referral", ureferalcode);
 
             const url = urlObj.toString();
-            console.log("url", url)
             const response = await fetch(url, {
                 method: "POST",
                 body: JSON.stringify(combinedFormData),

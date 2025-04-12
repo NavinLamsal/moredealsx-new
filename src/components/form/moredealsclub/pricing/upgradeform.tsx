@@ -70,7 +70,6 @@ const UpgradeForm = ({userType}:{userType: "BUSINESS" | "NORMAL"}) => {
 
     useEffect(() => {
         if (packages && packages[formData.plan_type][formData.plan_time].length > 0) {
-            console.log("packages id", packages[formData.plan_type][formData.plan_time][0].id)
             setFormData((prev) => ({
                 ...prev,
                 package: packages[formData.plan_type][formData.plan_time][0].id,

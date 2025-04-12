@@ -30,8 +30,6 @@ export async function decryptSessionCookie(cookieValue: string): Promise<Session
 export async function getAccessToken(req: NextRequest): Promise<string | null> {
   const sessionCookie = req.cookies.get("authjs.session-token.0")?.value; // Adjust the cookie name if necessary
   const sessionCookie2 = req.cookies.get("authjs.session-token.1")?.value; // Adjust the cookie name if necessary
-    console.log("sessionCookie", sessionCookie)
-    console.log("sessionCookie2", sessionCookie2)
   if (sessionCookie) {
     const sessionData = await decryptSessionCookie(sessionCookie);
     return sessionData?.accessToken || null; // Return the access token or null if not found

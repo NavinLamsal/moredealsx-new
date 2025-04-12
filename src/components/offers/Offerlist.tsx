@@ -75,7 +75,7 @@
 //   }
 //   return (
 //     <div className="max-w-6xl mx-auto px-4 py-8">
-  
+
 //       {/* Blog Listing */}
 //       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
 //         {data?.pages.map((page: any) =>
@@ -111,16 +111,18 @@ import React, { useCallback, useRef } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import AnimatedSection from "../ui/animations/FadeUpView";
 import { useSearchParams } from "next/navigation";
-import { fetchBlogs } from "@/lib/action/PubilcCommon";
 import BlogCard from "../cards/BlogCard";
+import { fetchOffer, fetchOfferList, Offer } from "@/lib/action/PublicCommonClient";
+import OfferCard from "../cards/OfferCard";
 
 
 
 const AllOffersList = () => {
+    const country = typeof window !== "undefined" ? localStorage.getItem("country") : null;
     const searchParams = useSearchParams();
-  const searchQuery = searchParams.get("search") || "";
+    const searchQuery = searchParams.get("search") || "";
 
-     const observerRef = useRef<IntersectionObserver | null>(null);
+    const observerRef = useRef<IntersectionObserver | null>(null);
     const {
         data,
         fetchNextPage,
@@ -130,8 +132,8 @@ const AllOffersList = () => {
         isFetchingNextPage,
         refetch,
     } = useInfiniteQuery({
-        queryKey: ["Offers List", "list", searchQuery],
-        queryFn: ({ pageParam = 1 }) => fetchBlogs(pageParam, searchQuery),
+        queryKey: ["Offers List", "list", country, searchQuery],
+        queryFn: ({ pageParam = 1 }) => fetchOffer(country, pageParam, searchQuery),
         getNextPageParam: (lastPage) => {
             const nextPage = lastPage.meta.page_number + 1;
             return nextPage <= lastPage.meta.total_pages ? nextPage : null;
@@ -141,24 +143,24 @@ const AllOffersList = () => {
         enabled: true,
     });
 
-     // Infinite Scroll Observer
-        const lastRestaurantRef = useCallback(
-            (node: HTMLDivElement | null) => {
-                if (!hasNextPage || isFetchingNextPage) return;
-    
-                if (observerRef.current) observerRef.current.disconnect();
-                observerRef.current = new IntersectionObserver((entries) => {
-                    if (entries[0].isIntersecting) {
-                        fetchNextPage();
-                    }
-                });
-    
-                if (node) observerRef.current.observe(node);
-            },
-            [fetchNextPage, hasNextPage, isFetchingNextPage]
-        );
+    // Infinite Scroll Observer
+    const lastRestaurantRef = useCallback(
+        (node: HTMLDivElement | null) => {
+            if (!hasNextPage || isFetchingNextPage) return;
 
-  
+            if (observerRef.current) observerRef.current.disconnect();
+            observerRef.current = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    fetchNextPage();
+                }
+            });
+
+            if (node) observerRef.current.observe(node);
+        },
+        [fetchNextPage, hasNextPage, isFetchingNextPage]
+    );
+
+
 
     if (isLoading) {
         return (
@@ -173,29 +175,28 @@ const AllOffersList = () => {
     }
 
     return (
-        <div className="">
+        <div className="max-w-6xl mx-auto px-4 py-8">
             {/* No Transactions Found */}
             {data?.pages[0].data.length === 0 && <p className="text-center">No Offers Found</p>}
 
-            {/* Transaction List */}
-            <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3">
-                {data?.pages.map((page, pageIndex) =>
-                    page.data.map((offer, index) => (
-                        <div key={`${pageIndex}-${index}`}>
-                            <div className="flex-shrink-0 sm:w-48 lg:w-60 xl:w-48" key={offer.id}>
-                                <AnimatedSection key={offer.id} index={index}>
-                                    <BlogCard
-                                        key={index}
-                                        blog={offer}
-                                        ref={index === page.data.length - 1 ? lastRestaurantRef : null}
-                                    />
-                                </AnimatedSection>
-                            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+                {data?.pages.map((page: any) =>
+                    page?.data.map((offer: Offer, index: number) => (
+                        <div
+                            key={offer.id}
+                            className="animate-fadeIn"
+                        >
+                            <OfferCard
+                                key={index}
+                                offer={offer}
+                                ref={index === page.data.length - 1 ? lastRestaurantRef : null}
+                            />
                         </div>
-                    )))}
+                    ))
+                )}
             </div>
 
-
+            
             {/* {(hasNextPage || isFetchingNextPage) && (
                 <div className="text-center mt-6">
                     <Button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
@@ -203,7 +204,7 @@ const AllOffersList = () => {
                     </Button>
                 </div>
             )} */}
-            
+
             {/* Loading More Transactions */}
             {isFetchingNextPage && <p className="text-center mt-4 text-gray-600">Loading more offers...</p>}
         </div>
@@ -211,3 +212,37 @@ const AllOffersList = () => {
 };
 
 export default AllOffersList;
+
+
+const testOffers = [
+    {
+        title: "Upcoming Offer",
+        from_date: "2025-04-15T00:00:00Z",
+        to_date: "2025-04-22T00:00:00Z"
+    },
+    {
+        title: "Active Offer",
+        from_date: "2025-04-09T00:00:00Z", // currently active
+        to_date: "2025-04-17T00:00:00Z"
+    },
+    {
+        title: "Expired Offer",
+        from_date: "2025-03-25T00:00:00Z", // already ended
+        to_date: "2025-04-05T00:00:00Z"
+    },
+    {
+        title: "Starts Today",
+        from_date: "2025-04-12T00:00:00Z", // today
+        to_date: "2025-04-20T00:00:00Z"
+    },
+    {
+        title: "Ends Today",
+        from_date: "2025-04-05T00:00:00Z",
+        to_date: "2025-04-12T00:00:00Z" // today
+    },
+    {
+        title: "Same Day Offer",
+        from_date: "2025-04-12T00:00:00Z", // starts and ends today
+        to_date: "2025-04-12T23:59:59Z"
+    }
+];

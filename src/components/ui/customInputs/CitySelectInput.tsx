@@ -81,7 +81,6 @@ export default function CitySelect({ onChange, initialValue = "", country }: Cit
         const fetchCities = async () => {
             setLoading(true); // Ensure UI updates when loading new cities
             try {
-                console.log("Fetching cities for country:", country); // Debugging
                 const cities: CityListType[] = await getCityList(country);
                 const formattedCity: CityOption[] = cities.map((city) => ({
                     value: city.name,

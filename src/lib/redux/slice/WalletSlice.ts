@@ -109,7 +109,6 @@ const walletSlice = createSlice({
       })
       .addCase(fetchTransactions.fulfilled, (state, action) => {
         const { timeFrame, transactions, fetchedAt } = action.payload;
-        console.log(timeFrame, transactions, fetchedAt )
         state.transactions[timeFrame] = transactions;
         state.lastFetched[timeFrame] = fetchedAt ?? Date.now(); // ✅ Ensure it's never undefined
         state.loading = false;

@@ -1,6 +1,7 @@
 import axios from "axios"
 import { Blog, BusinessListType, CityListType, CompanyMeta, CountryListType, CurrencyListType, MetaData, PagesDataType, StatData } from "../type/CommonType"
 import { EventDetails } from "../type/moreclub/Event"
+import { Offer, OfferDetails, OfferResponse } from "./PublicCommonClient"
 
 export const getMetadata = async() =>{
     try{
@@ -153,7 +154,6 @@ export const fetchRecommendationBlogs = async (
       page: pageParam,
     },
   });
-  console.log("response", response.data);
 
   return {
     data: response.data.data,
@@ -178,6 +178,44 @@ export const getBlogDetails = async(slug:string) => {
     return {} as Blog;
   }
 }
+
+
+export const getOfferDetails = async(slug:string) => {
+  try{
+   
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}offers/${slug}/details/`, { next: { tags: [`Offer Detail for ${slug}`] ,revalidate: 300 }})
+    const data = await res.json()
+    return data.data as OfferDetails
+  }catch(err){
+    const error = err as Error
+    return {} as OfferDetails;
+  }
+}
+
+export const fetchRecommendationOffers = async (
+  pageParam: number = 1,
+  title?: string,
+): Promise<OfferResponse> => {
+  const endpoint = `${process.env.NEXT_PUBLIC_BASE_URL}offers/list/`;
+
+  const response = await axios.get(endpoint, {
+    params: {
+      slug: title,
+      page: pageParam,
+    },
+  });
+ 
+
+  return {
+    data: response.data.data,
+    meta: {
+      links: { next: null , previous: null },
+      count: 10,
+      page_number: pageParam,
+      total_pages: pageParam
+    }, // ✅ Return pagination metadata
+  };
+};
 
 
 export const getEventDetails = async(slug:string) => {

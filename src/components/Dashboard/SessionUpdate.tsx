@@ -7,9 +7,7 @@ const SessionUpdate = () => {
 
 const {data: session,status, update } = useSession();
  async function updatingSession() {
-    console.log("called" , session ,status)
     if (!session) return;
-    console.log("existing session", session)
     const newUser = {
         ...session.user,
         userDetails: {

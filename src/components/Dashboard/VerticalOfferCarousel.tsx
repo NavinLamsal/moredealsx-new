@@ -3,9 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import OfferCarousel from "../carousel/offerCarousel"
 import { fetchOfferList } from "@/lib/action/PublicCommonClient";
 import { Offers as Offerlist } from "@/data.json";
+import VerticalOfferCarousel from "../carousel/HorizontalOfferCarousel";
 
 
-export default function Offers() {
+export default function SmallOffers() {
   const country = typeof window !== "undefined" ? localStorage.getItem("country") : null;
   const { data: offerlist, isLoading, isError } = useQuery({
     queryKey: ["offer list", country],
@@ -25,14 +26,13 @@ export default function Offers() {
 
 
 
-
   return (
 
     <>
       {(offerlist && offerlist?.length > 0) ?
-        <OfferCarousel offers={[...Offerlist, ...offerlist]} />
+        <VerticalOfferCarousel offers={[...Offerlist, ...offerlist]} />
         :
-        <OfferCarousel offers={Offerlist} />
+        <VerticalOfferCarousel offers={Offerlist} />
       }
 
     </>

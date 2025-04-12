@@ -17,7 +17,7 @@ const Locationretrive = () => {
           fetchLiveLocation();
         } else {
           // Cookie is valid, no need to fetch
-          console.log("Cookie is still valid, no need to fetch.");
+          console.log("");
         }
       
     

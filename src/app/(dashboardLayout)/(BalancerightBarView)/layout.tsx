@@ -1,4 +1,5 @@
 
+import SmallOffers from "@/components/Dashboard/VerticalOfferCarousel";
 import WalletInfo, { QuickLinks } from "@/components/moreclub/wallets/WalletInfo";
 import React from "react";
 
@@ -15,10 +16,15 @@ export default async function DashboardLayout({
       </div>
 
       {/* Right Side - Sidebar */}
-      <div className="hidden lg:block lg:col-span-4 2xl:col-span-3 h-screen sticky top-20 z-40">
-        <div className="sticky top-20 flex flex-col space-y-4 w-full">
+      <div className="hidden lg:block lg:col-span-4 2xl:col-span-3  sticky top-20 z-40">
+        <div className="sticky top-20 flex flex-col space-y-4 w-full ">
           <WalletInfo />
           <QuickLinks />
+          <div className="hidden 2xl:block">
+          <div className="w-full p-6">
+          <SmallOffers/>
+          </div>
+          </div>
         </div>
       </div>
     </div>

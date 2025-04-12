@@ -36,7 +36,8 @@ const Footer = ({data}:{data:CompanyMeta}) => {
             <h3 className="text-lg font-semibold">Explore</h3>
             <ul className="space-y-1 text-muted-foreground">
               <li><Link href="#" className="hover:text-purple-500 ">About Us</Link></li>
-              <li><Link href="#" className="hover:text-purple-500 ">Events</Link></li>
+              <li><Link href="/event" className="hover:text-purple-500 ">Events</Link></li>
+              <li><Link href="/offers" className="hover:text-purple-500 ">Offers</Link></li>
               <li><Link href="#" className="hover:text-purple-500 ">Our Products</Link></li>
               <li><Link href="#" className="hover:text-purple-500 ">Our Partners</Link></li>
             </ul>

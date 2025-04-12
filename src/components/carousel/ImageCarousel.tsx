@@ -20,7 +20,6 @@ interface ImageCarouselProps {
 const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, title, description }) => {
   const swiperRef = useRef<any>(null);
 
-  console.log("images", images)
 
   const nextSlide = () => swiperRef.current?.slideNext();
   const prevSlide = () => swiperRef.current?.slidePrev();

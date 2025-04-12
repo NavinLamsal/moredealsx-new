@@ -69,7 +69,6 @@ export default function AutoCompleteInput({ handleManualInputChange, setAddress,
         let street = "";
         let zip_code = "";
         let house_no = "";
-        console.log("suggestion", suggestion)
         // ✅ Determine city or street based on `place_type`
         switch (true) {
             case suggestion.place_type.includes("locality"):

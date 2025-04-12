@@ -69,7 +69,6 @@ const BasicInfoForm = () => {
             //   showToast("Please fix the errors in the form.", "error");
             return;
         }
-        console.log(BusinessName, BusinessRegistration, BusinessEmail, BusinessPhone);
         dispatch(nextStep());
 
 

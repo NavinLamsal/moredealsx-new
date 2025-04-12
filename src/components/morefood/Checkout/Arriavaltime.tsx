@@ -127,7 +127,6 @@ const isDateSelectable = (date: Date) => {
      ) => {
          if (date !== null) {   
            setStartDate(date);
-           console.log(date);
             const updatedFormData = { ...formData, arrivalTime: date.toISOString() };
             dispatch(updateFormData(updatedFormData));
          }

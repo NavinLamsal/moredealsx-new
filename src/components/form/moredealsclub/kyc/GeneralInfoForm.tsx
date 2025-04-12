@@ -229,7 +229,6 @@ const GeneralInformation = ({ userdata }: { userdata?: any }) => {
 
     const handleAddressChange = (newAddress: Address) => {
 
-        console.log("newAddress", newAddress)
         // Update only address fields in formData
         setFormData((prev) => {
             const updatedData = {

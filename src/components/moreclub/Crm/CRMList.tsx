@@ -47,7 +47,6 @@ if(!session){
 const userDetails = session.user?.userDetails;
   const crmLink = userDetails?.crm_links?.[crmData.urlkey] as keyof typeof userDetails;
 
- console.log("crmLink",crmLink , crmData)
 
 if(!session?.user?.userDetails?.crm_link){
   return (

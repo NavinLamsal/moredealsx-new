@@ -150,6 +150,44 @@ export const removeEmptyStrings = (obj: any): any => {
 };
 
 
+import moment from "moment";
+
+export function getOfferStatus(from_date: string, to_date: string) {
+    const now = moment();
+    const startDate = moment(from_date);
+    const endDate = moment(to_date);
+
+    let statusText = "";
+    let badgeColor = "bg-secondary text-secondary-foreground";
+    let periodText = "";
+
+    if (now.isBefore(startDate)) {
+        const duration = moment.duration(startDate.diff(now));
+        const days = Math.floor(duration.asDays());
+        const hours = duration.hours();
+        const minutes = duration.minutes();
+
+        statusText = `Starts in ${days > 0 ? `${days}d ` : ""}${hours > 0 ? `${hours}h ` : ""}${minutes > 0 ? `${minutes}m` : ""}`.trim();
+        badgeColor = "bg-primary text-primary-foreground";
+        periodText = `🕒 ${startDate.format("MMM D")} → ${endDate.format("MMM D")}`;
+    } else if (now.isBetween(startDate, endDate)) {
+        const duration = moment.duration(endDate.diff(now));
+        const days = Math.floor(duration.asDays());
+        const hours = duration.hours();
+        const minutes = duration.minutes();
+
+        statusText = `Ends in ${days > 0 ? `${days}d ` : ""}${hours > 0 ? `${hours}h ` : ""}${minutes > 0 ? `${minutes}m` : ""}`.trim();
+        badgeColor = "bg-green-500 text-white";
+        periodText = `🕒 Now → ${endDate.format("MMM D")}`;
+    } else {
+        statusText = "Expired";
+        badgeColor = "bg-destructive text-white";
+        periodText = `Ended on ${endDate.format("MMM D, YYYY")}`;
+    }
+
+    return { statusText, badgeColor, periodText };
+}
+
 
 export const fetchLiveLocation = async () => {
   try {
