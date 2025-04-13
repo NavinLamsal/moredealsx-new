@@ -1,6 +1,7 @@
-
 import SmallOffers from "@/components/Dashboard/VerticalOfferCarousel";
-import WalletInfo, { QuickLinks } from "@/components/moreclub/wallets/WalletInfo";
+import WalletInfo, {
+  QuickLinks,
+} from "@/components/moreclub/wallets/WalletInfo";
 import React from "react";
 
 export default async function DashboardLayout({
@@ -21,9 +22,9 @@ export default async function DashboardLayout({
           <WalletInfo />
           <QuickLinks />
           <div className="hidden 2xl:block">
-          <div className="w-full p-6">
-          <SmallOffers/>
-          </div>
+            <div className="w-full p-6">
+              <SmallOffers />
+            </div>
           </div>
         </div>
       </div>
