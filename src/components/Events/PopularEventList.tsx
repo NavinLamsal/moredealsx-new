@@ -10,12 +10,10 @@ interface Event {
   image: string;
 }
 
-export default function EventCarousel({list} :{list?: EventList[]}) {
+export default function EventCarousel({ list }: { list?: EventList[] }) {
   const { data: session, update } = useSession();
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const [isOverflowing, setIsOverflowing] = useState<boolean>(false);
-
-
 
   useEffect(() => {
     const checkOverflow = () => {
@@ -42,70 +40,75 @@ export default function EventCarousel({list} :{list?: EventList[]}) {
     }
   };
 
-
   const events: Event[] = [
     {
       title: "Ed Sheeran: India Tour 2025",
-      image: "https://res.cloudinary.com/generative-ai-demos/image/upload/c_auto,w_1000,ar_9:16,g_auto/v1709925707/samples/c_auto/woman_car_srgx4k.jpg",
+      image:
+        "https://res.cloudinary.com/generative-ai-demos/image/upload/c_auto,w_1000,ar_9:16,g_auto/v1709925707/samples/c_auto/woman_car_srgx4k.jpg",
     },
     {
       title: "Shreya Ghoshal: All Hearts Tour",
-      image: "https://res.cloudinary.com/generative-ai-demos/image/upload/c_auto,w_1000,ar_9:16,g_auto/v1709925707/samples/c_auto/woman_car_srgx4k.jpg",
+      image:
+        "https://res.cloudinary.com/generative-ai-demos/image/upload/c_auto,w_1000,ar_9:16,g_auto/v1709925707/samples/c_auto/woman_car_srgx4k.jpg",
     },
     {
       title: "HUMARE RAM: Live Theater",
-      image: "https://res.cloudinary.com/generative-ai-demos/image/upload/c_auto,w_1000,ar_9:16,g_auto/v1709925707/samples/c_auto/woman_car_srgx4k.jpg",
+      image:
+        "https://res.cloudinary.com/generative-ai-demos/image/upload/c_auto,w_1000,ar_9:16,g_auto/v1709925707/samples/c_auto/woman_car_srgx4k.jpg",
     },
     {
       title: "Valentine's Day: Armaan Malik",
-      image: "https://res.cloudinary.com/generative-ai-demos/image/upload/c_auto,w_1000,ar_9:16,g_auto/v1709925707/samples/c_auto/woman_car_srgx4k.jpg",
+      image:
+        "https://res.cloudinary.com/generative-ai-demos/image/upload/c_auto,w_1000,ar_9:16,g_auto/v1709925707/samples/c_auto/woman_car_srgx4k.jpg",
     },
     {
       title: "Arijit Singh: Live in Concert",
-      image: "https://res.cloudinary.com/generative-ai-demos/image/upload/c_auto,w_1000,ar_9:16,g_auto/v1709925707/samples/c_auto/woman_car_srgx4k.jpg",
+      image:
+        "https://res.cloudinary.com/generative-ai-demos/image/upload/c_auto,w_1000,ar_9:16,g_auto/v1709925707/samples/c_auto/woman_car_srgx4k.jpg",
     },
     {
-        title: "Arijit Singh: Live in Concert",
-        image: "https://res.cloudinary.com/generative-ai-demos/image/upload/c_auto,w_1000,ar_9:16,g_auto/v1709925707/samples/c_auto/woman_car_srgx4k.jpg",
-      },
-      {
-        title: "Arijit Singh: Live in Concert",
-        image: "https://res.cloudinary.com/generative-ai-demos/image/upload/c_auto,w_1000,ar_9:16,g_auto/v1709925707/samples/c_auto/woman_car_srgx4k.jpg",
-      },
+      title: "Arijit Singh: Live in Concert",
+      image:
+        "https://res.cloudinary.com/generative-ai-demos/image/upload/c_auto,w_1000,ar_9:16,g_auto/v1709925707/samples/c_auto/woman_car_srgx4k.jpg",
+    },
+    {
+      title: "Arijit Singh: Live in Concert",
+      image:
+        "https://res.cloudinary.com/generative-ai-demos/image/upload/c_auto,w_1000,ar_9:16,g_auto/v1709925707/samples/c_auto/woman_car_srgx4k.jpg",
+    },
   ];
 
   return (
     <div className="relative w-full overflow-hidden">
-        <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between">
+        <h2 className="text-lg font-bold mb-4">Trending Upcoming Events</h2>
 
-      <h2 className="text-lg font-bold mb-4">Trending Upcoming Events</h2>
-      
-      <div className="flex items-center gap-2">
-      <Link href={"/event"} className="text-blue-600 hover:underline">View All</Link>
-      {isOverflowing && (
-        <>
-            <Button
-            size={"icon"}
-              onClick={scrollLeft}
-              className=" text-2xl font-bold   rounded-full shadow-md"
-            >
-              &larr;
-            </Button>
-            <Button
-            size={"icon"}
-              onClick={scrollRight}
-              className=" text-2xl font-bold    rounded-full shadow-md"
-            >
-              &rarr;
-            </Button>
+        <div className="flex items-center gap-2">
+          <Link href={"/event"} className="text-blue-600 hover:underline">
+            View All
+          </Link>
+          {isOverflowing && (
+            <>
+              <Button
+                size={"icon"}
+                onClick={scrollLeft}
+                className=" text-2xl font-bold   rounded-full shadow-md"
+              >
+                &larr;
+              </Button>
+              <Button
+                size={"icon"}
+                onClick={scrollRight}
+                className=" text-2xl font-bold    rounded-full shadow-md"
+              >
+                &rarr;
+              </Button>
             </>
-        )}
-       
+          )}
         </div>
-        </div>
+      </div>
       <div className="relative">
         {/* Scroll Buttons */}
-        
 
         <div
           ref={carouselRef}
@@ -127,7 +130,7 @@ export default function EventCarousel({list} :{list?: EventList[]}) {
             </div>
           ))}
 
-{/* {list.map((event, index) => (
+          {/* {list.map((event, index) => (
             <div
               key={index}
               className="flex-shrink-0 w-[45%] sm:w-[30%] md:w-[22%] lg:w-[18%] bg-white rounded-lg shadow-md"
