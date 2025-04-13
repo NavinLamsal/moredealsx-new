@@ -9,8 +9,13 @@ const Page = () => {
   return (
     <div>
       {/* <TrendingEvents title="Upcoming Events"/> */}
-
-      <BackButton />
+      <div className="flex items-center space-x-2">
+        <BackButton />
+        <h2 className="text-2xl font-bold tracking-tight">Events</h2>
+      </div>
+      <p className="text-muted-foreground ml-10 mb-4">
+        Here&apos;s a list of Events!
+      </p>
       <TrendingEvents title="Popular Events" />
 
       {/* <TrendingEvents title="Live Events"/> */}
