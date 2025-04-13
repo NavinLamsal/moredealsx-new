@@ -1,6 +1,7 @@
 "use client";
 import FilterComponent from "@/components/moreclub/Transaction/TransactionFilter";
 import TransactionList from "@/components/moreclub/Transaction/TransactionList";
+import BackButton from "@/components/ui/back_button";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -26,10 +27,19 @@ const Page = () => {
   return (
     <div className="h-full flex-1 flex-col space-y-8 flex">
       <div className="flex items-center justify-between space-y-2">
-        <div>
+        {/* <div>
           <h2 className="text-2xl font-bold tracking-tight">Transactions</h2>
 
           <p className="text-muted-foreground">
+            Here&apos;s a list of your Networks!
+          </p>
+        </div> */}
+        <div className=" items-center justify-between space-y-2">
+          <div className="flex items-center space-x-2">
+            <BackButton />
+            <h2 className="text-2xl font-bold tracking-tight">Transactions</h2>
+          </div>
+          <p className="text-muted-foreground ml-4">
             Here&apos;s a list of your Networks!
           </p>
         </div>
