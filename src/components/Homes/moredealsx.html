@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoreDealsX - Premium Savings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Gilroy:wght@500;800&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        :root {
+            --gold: #FFD700;
+            --black: #000000;
+            --red: #FF0000;
+            --white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Gilroy', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gold {
+            background-color: var(--gold);
+            color: var(--black);
+        }
+        
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+        
+        .btn-red {
+            background-color: var(--red);
+            color: var(--white);
+        }
+        
+        .btn-red:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--gold);
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--black);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--gold);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            position: relative;
+            margin-right: 15px;
+        }
+        
+        .logo-icon .x-line {
+            position: absolute;
+            width: 100%;
+            height: 8px;
+            background-color: var(--gold);
+            transform-origin: center;
+        }
+        
+        .logo-icon .x-line:nth-child(1) {
+            transform: rotate(45deg);
+        }
+        
+        .logo-icon .x-line:nth-child(2) {
+            transform: rotate(-45deg);
+        }
+        
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .logo-text span {
+            color: var(--gold);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--white);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        /* Offers Section */
+        .offers {
+            padding: 80px 0;
+        }
+        
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+        
+        .filter-tab {
+            padding: 10px 20px;
+            background-color: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--white);
+            font-family: 'Gilroy', sans-serif;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-tab:hover, .filter-tab.active {
+            color: var(--gold);
+            border-bottom: 3px solid var(--gold);
+        }
+        
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .offer-card {
+            background-color: #111;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .offer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+        }
+        
+        .offer-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--red);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        
+        .offer-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .offer-content {
+            padding: 20px;
+        }
+        
+        .offer-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+        
+        .offer-desc {
+            margin-bottom: 15px;
+            color: #aaa;
+        }
+        
+        .offer-price {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .offer-price .old {
+            text-decoration: line-through;
+            color: #777;
+            margin-right: 10px;
+        }
+        
+        .offer-price .new {
+            font-weight: 800;
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+        
+        .offer-button {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background-color: var(--red);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 800;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .offer-button:hover {
+            background-color: #cc0000;
+        }
+        
+        /* Treasure Section */
+        .treasure {
+            padding: 80px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                        url('https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+        
+        .treasure-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .treasure-chest {
+            width: 200px;
+            height: 200px;
+            margin: 30px auto;
+            background-color: var(--gold);
+            border: 5px solid #333;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .treasure-chest:hover {
+            transform: scale(1.05);
+        }
+        
+        .treasure-chest:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: all 0.6s ease;
+        }
+        
+        .treasure-chest:hover:before {
+            transform: translateX(100%);
+        }
+        
+        .treasure-chest .lock {
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .treasure-chest .lock:before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background-color: #333;
+            border-radius: 50%;
+        }
+        
+        /* Partners Section */
+        .partners {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 30px;
+            align-items: center;
+            margin-top: 40px;
+        }
+        
+        .partner-logo {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: grayscale(100%);
+            transition: all 0.3s ease;
+        }
+        
+        .partner-logo:hover {
+            filter: grayscale(0%);
+        }
+        
+        .partner-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        /* Category Sections */
+        .category {
+            padding: 60px 0;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .category-card {
+            background-color: #111;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+        }
+        
+        .category-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .category-content {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .category-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+        
+        .category-button {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: var(--gold);
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 800;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .category-button:hover {
+            background-color: #e6c200;
+        }
+        
+        /* Premium Section */
+        .premium {
+            padding: 80px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), 
+                        url('https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+        
+        .premium-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .premium-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .premium-feature {
+            background-color: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .premium-feature i {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        
+        .premium-feature h3 {
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #111;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--gold);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #222;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--gold);
+            color: var(--black);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .filter-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <div class="x-line"></div>
+                    <div class="x-line"></div>
+                </div>
+                <div class="logo-text">MORE<span>DEALS</span>X</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>DOMINATE YOUR SAVINGS</h1>
+            <p>Premium discounts. Zero compromises.</p>
+            <div class="hero-buttons">
+                <a href="#offers" class="btn btn-red">Explore Trending Offers</a>
+                <a href="#premium" class="btn btn-gold">Join Premium</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- All Offers Section -->
+    <section id="offers" class="offers">
+        <div class="container">
+            <h2 class="section-title">ALL OFFERS IN TOWN</h2>
+            
+            <div class="filter-tabs">
+                <button class="filter-tab active">All</button>
+                <button class="filter-tab">Restaurants</button>
+                <button class="filter-tab">Salons</button>
+                <button class="filter-tab">Hotels</button>
+                <button class="filter-tab">Marketplace</button>
+            </div>
+            
+            <div class="offers-grid">
+                <!-- Offer 1 -->
+                <div class="offer-card">
+                    <span class="offer-badge">Hot Deal</span>
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Restaurant" class="offer-img">
+                    <div class="offer-content">
+                        <h3 class="offer-title">Luxury Dining Experience</h3>
+                        <p class="offer-desc">5-course meal at the city's finest restaurant</p>
+                        <div class="offer-price">
+                            <span class="old">$120</span>
+                            <span class="new">$75</span>
+                        </div>
+                        <a href="#" class="offer-button">Grab Deal</a>
+                    </div>
+                </div>
+                
+                <!-- Offer 2 -->
+                <div class="offer-card">
+                    <span class="offer-badge">Limited</span>
+                    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Spa" class="offer-img">
+                    <div class="offer-content">
+                        <h3 class="offer-title">Premium Spa Package</h3>
+                        <p class="offer-desc">Full day relaxation with massage and treatments</p>
+                        <div class="offer-price">
+                            <span class="old">$200</span>
+                            <span class="new">$129</span>
+                        </div>
+                        <a href="#" class="offer-button">Grab Deal</a>
+                    </div>
+                </div>
+                
+                <!-- Offer 3 -->
+                <div class="offer-card">
+                    <span class="offer-badge">Exclusive</span>
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hotel" class="offer-img">
+                    <div class="offer-content">
+                        <h3 class="offer-title">Weekend Getaway</h3>
+                        <p class="offer-desc">2 nights in a 5-star hotel with breakfast</p>
+                        <div class="offer-price">
+                            <span class="old">$450</span>
+                            <span class="new">$299</span>
+                        </div>
+                        <a href="#" class="offer-button">Grab Deal</a>
+                    </div>
+                </div>
+                
+                <!-- Offer 4 -->
+                <div class="offer-card">
+                    <span class="offer-badge">New</span>
+                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Electronics" class="offer-img">
+                    <div class="offer-content">
+                        <h3 class="offer-title">Latest Smartphone</h3>
+                        <p class="offer-desc">Flagship model with premium accessories</p>
+                        <div class="offer-price">
+                            <span class="old">$999</span>
+                            <span class="new">$849</span>
+                        </div>
+                        <a href="#" class="offer-button">Grab Deal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Treasure Section -->
+    <section class="treasure">
+        <div class="container">
+            <div class="treasure-content">
+                <h2 class="section-title">DEALS TREASURE</h2>
+                <p>Dig for hidden gems – Limited-time steals!</p>
+                
+                <div class="treasure-chest">
+                    <div class="lock"></div>
+                </div>
+                
+                <a href="#" class="btn btn-gold">Open the Chest</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ticket Section -->
+    <section class="ticket">
+        <div class="container">
+            <h2 class="section-title">YOUR TICKET TO SAVINGS</h2>
+            <p style="text-align: center; margin-bottom: 30px;">Collect 5 stamps, get a free hotel stay</p>
+            
+            <div style="max-width: 600px; margin: 0 auto; background-color: #111; padding: 30px; border-radius: 8px; border: 1px solid var(--gold);">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                    <div style="width: 50px; height: 50px; background-color: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--black); font-weight: 800;">1</div>
+                    <div style="width: 50px; height: 50px; background-color: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--black); font-weight: 800;">2</div>
+                    <div style="width: 50px; height: 50px; background-color: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #777; font-weight: 800;">3</div>
+                    <div style="width: 50px; height: 50px; background-color: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #777; font-weight: 800;">4</div>
+                    <div style="width: 50px; height: 50px; background-color: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #777; font-weight: 800;">5</div>
+                </div>
+                
+                <div style="background-color: #222; padding: 20px; border-radius: 8px; text-align: center;">
+                    <p style="margin-bottom: 15px;">Your unique ticket code:</p>
+                    <div style="font-family: monospace; font-size: 1.5rem; letter-spacing: 3px; color: var(--gold); margin-bottom: 20px;">X7B9-42A6-R8Y3</div>
+                    <a href="#" class="btn btn-red" style="display: inline-block;">Redeem Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners">
+        <div class="container">
+            <h2 class="section-title">OUR PARTNERS</h2>
+            <p style="text-align: center; margin-bottom: 30px;">Trusted by the Elite</p>
+            
+            <div class="partners-grid">
+                <div class="partner-logo">
+                    <img src="https://via.placeholder.com/150x80?text=Partner+1" alt="Partner 1">
+                </div>
+                <div class="partner-logo">
+                    <img src="https://via.placeholder.com/150x80?text=Partner+2" alt="Partner 2">
+                </div>
+                <div class="partner-logo">
+                    <img src="https://via.placeholder.com/150x80?text=Partner+3" alt="Partner 3">
+                </div>
+                <div class="partner-logo">
+                    <img src="https://via.placeholder.com/150x80?text=Partner+4" alt="Partner 4">
+                </div>
+                <div class="partner-logo">
+                    <img src="https://via.placeholder.com/150x80?text=Partner+5" alt="Partner 5">
+                </div>
+                <div class="partner-logo">
+                    <img src="https://via.placeholder.com/150x80?text=Partner+6" alt="Partner 6">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Restaurants Section -->
+    <section class="category">
+        <div class="container">
+            <h2 class="section-title">RESTAURANTS</h2>
+            
+            <div class="category-grid">
+                <!-- Restaurant 1 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Restaurant 1" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Gourmet Bistro</h3>
+                        <p>40% OFF all meals</p>
+                        <a href="#" class="category-button">Book Now</a>
+                    </div>
+                </div>
+                
+                <!-- Restaurant 2 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Restaurant 2" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Steak House</h3>
+                        <p>Buy 1 Get 1 Free</p>
+                        <a href="#" class="category-button">Book Now</a>
+                    </div>
+                </div>
+                
+                <!-- Restaurant 3 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Restaurant 3" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Italian Cuisine</h3>
+                        <p>30% OFF pasta dishes</p>
+                        <a href="#" class="category-button">Book Now</a>
+                    </div>
+                </div>
+                
+                <!-- Restaurant 4 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Restaurant 4" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Sushi Bar</h3>
+                        <p>All-you-can-eat $25</p>
+                        <a href="#" class="category-button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Salons Section -->
+    <section class="category">
+        <div class="container">
+            <h2 class="section-title">SALONS & SPAS</h2>
+            
+            <div class="category-grid">
+                <!-- Salon 1 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Salon 1" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Luxury Spa</h3>
+                        <p>Full day package $99</p>
+                        <a href="#" class="category-button">Book Now</a>
+                    </div>
+                </div>
+                
+                <!-- Salon 2 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Salon 2" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Hair Studio</h3>
+                        <p>Cut + Color $120</p>
+                        <a href="#" class="category-button">Book Now</a>
+                    </div>
+                </div>
+                
+                <!-- Salon 3 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Salon 3" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Nail Bar</h3>
+                        <p>Manicure + Pedicure $45</p>
+                        <a href="#" class="category-button">Book Now</a>
+                    </div>
+                </div>
+                
+                <!-- Salon 4 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Salon 4" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Barber Shop</h3>
+                        <p>Premium shave $30</p>
+                        <a href="#" class="category-button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marketplace Section -->
+    <section class="category">
+        <div class="container">
+            <h2 class="section-title">MARKETPLACE</h2>
+            
+            <div class="category-grid">
+                <!-- Product 1 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Product 1" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Smartphone Pro</h3>
+                        <p>Save $150 today</p>
+                        <a href="#" class="category-button">Buy Now</a>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Product 2" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Wireless Headphones</h3>
+                        <p>50% OFF retail</p>
+                        <a href="#" class="category-button">Buy Now</a>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Product 3" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Luxury Watch</h3>
+                        <p>Limited edition</p>
+                        <a href="#" class="category-button">Buy Now</a>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Product 4" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Running Shoes</h3>
+                        <p>New collection</p>
+                        <a href="#" class="category-button">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hotels Section -->
+    <section class="category">
+        <div class="container">
+            <h2 class="section-title">HOTELS</h2>
+            
+            <div class="category-grid">
+                <!-- Hotel 1 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hotel 1" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Grand Resort</h3>
+                        <p>Weekend getaway $199</p>
+                        <a href="#" class="category-button">Book Now</a>
+                    </div>
+                </div>
+                
+                <!-- Hotel 2 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1535827841776-24afc1e255ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hotel 2" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Boutique Hotel</h3>
+                        <p>Romantic package</p>
+                        <a href="#" class="category-button">Book Now</a>
+                    </div>
+                </div>
+                
+                              <!-- Hotel 3 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hotel 3" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Beachfront Villa</h3>
+                        <p>All-inclusive deal</p>
+                        <a href="#" class="category-button">Book Now</a>
+                    </div>
+                </div>
+                
+                <!-- Hotel 4 -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hotel 4" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Mountain Retreat</h3>
+                        <p>Winter special</p>
+                        <a href="#" class="category-button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Products Section -->
+    <section id="premium" class="premium">
+        <div class="container">
+            <div class="premium-content">
+                <h2 class="section-title">PREMIUM PRODUCTS</h2>
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.2rem;">ELEVATE YOUR SAVINGS – MORE DEALSX PREMIUM</p>
+                
+                <div class="premium-features">
+                    <div class="premium-feature">
+                        <i>💎</i>
+                        <h3>Early Access</h3>
+                        <p>Be the first to grab deals before they sell out</p>
+                    </div>
+                    
+                    <div class="premium-feature">
+                        <i>🔥</i>
+                        <h3>Extra Discounts</h3>
+                        <p>Additional 10% off all partner offers</p>
+                    </div>
+                    
+                    <div class="premium-feature">
+                        <i>⭐</i>
+                        <h3>VIP Treatment</h3>
+                        <p>Exclusive perks at premium partners</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="#" class="btn btn-gold" style="font-size: 1.2rem; padding: 15px 40px;">Upgrade Now (Only $9.99/month)</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MoreDealsX</h3>
+                    <p style="color: #aaa; margin-top: 15px;">Premium savings platform for the elite.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">📱</a>
+                        <a href="#" class="social-icon">💻</a>
+                        <a href="#" class="social-icon">📧</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Offers</a></li>
+                        <li><a href="#">Premium</a></li>
+                        <li><a href="#">Partners</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#">Restaurants</a></li>
+                        <li><a href="#">Salons</a></li>
+                        <li><a href="#">Hotels</a></li>
+                        <li><a href="#">Marketplace</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 MoreDealsX. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add Font Awesome for icons if needed -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"93df0f8e0802988e","version":"2025.4.0-1-g37f21b1","r":1,"token":"499e684b7b1043878977050a0a606794","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
+</body>
+</html>

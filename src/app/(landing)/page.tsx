@@ -2,16 +2,27 @@ import TrendingEvents from "@/components/Events/TrendingEvent";
 import MobileAppShowcase from "@/components/Home/appPromotion";
 import CallToAction from "@/components/Home/CallToAction";
 import BentoGrids from "@/components/Home/DentoGrids";
-import Hero from "@/components/Home/Hero";
+// import Hero from "@/components/Home/Hero";
 import HowItWorksSection from "@/components/Home/Howitworks";
 import ESewaLayout from "@/components/Home/NewHero";
 import DealsSection from "@/components/Home/popularDeals";
 import Pricing from "@/components/Home/pricing";
 import TrackRecordSection from "@/components/Home/Stats";
+
+import Hero from "@/components/Homes/hero";
+import OfferSection from "@/components/Homes/offers";
+import PartnersSection from "@/components/Homes/partner";
+import PremiumSection from "@/components/Homes/pricing";
+import TicketSection from "@/components/Homes/ticketSection";
+import TreasureSection from "@/components/Homes/trasureSection";
 import PopularRestaurant from "@/components/morefood/PopularRestaurant";
 import PopularResturants from "@/components/morefood/PopularRestaurant";
+import FeaturedRestaurants from "@/components/morefood/Restaurantslist";
+import Hotels from "@/components/moreliving/Hotels";
 import PopularHotels from "@/components/moreliving/popularHotels";
+import Products from "@/components/moremarket/products";
 import PopularSalons from "@/components/moresalons/popularSalons";
+import Salons from "@/components/moresalons/Salons";
 import { getMetadata } from "@/lib/action/PubilcCommon";
 import { CompanyMeta } from "@/lib/type/CommonType";
 
@@ -84,10 +95,20 @@ export default async function Home() {
 
   return (
    <>
-   <ESewaLayout/>
+   <Hero/>
+   <OfferSection/>
+   <TreasureSection/>
+   <TicketSection/>
+   <PartnersSection/>
+   <FeaturedRestaurants/>
+   <Salons/>
+   <Products/>
+   <Hotels/>
+   <PremiumSection/>
+   {/* <ESewaLayout/> */}
    {/* <Hero data={MetaDatas} /> */}
-   <div className="max-w-8xl mx-auto flex flex-col">
-   <DealsSection/>
+   {/* <div className="max-w-8xl mx-auto flex flex-col"> */}
+   {/* <DealsSection/>
    <PopularRestaurant />
    <PopularSalons/>
    <PopularHotels/>
@@ -96,13 +117,13 @@ export default async function Home() {
 
    <CallToAction/>
    <MobileAppShowcase/>
-   <BentoGrids/>
+   <BentoGrids/> */}
    {/* <InfoContainer data={Infodata1}/> */}
-   <TrackRecordSection/>
-   <Pricing/>
+   {/* <TrackRecordSection/>
+   <Pricing/> */}
    {/* <InfoContainer data={Infodata1}/> */}
    
-   </div>
+   {/* </div> */}
    </>
   );
 }
