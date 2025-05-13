@@ -54,6 +54,17 @@ export const getCountryList = async() => {
   }
 }
 
+export const getCurrencyList = async(country: string) => {
+  try{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}currency/list/?country=${country}`, { next: { tags: [`country list for ${country}`] ,revalidate: 300 }})
+    const data = await res.json()
+    return data.data as CurrencyListType[]
+  }catch(err){
+    const error = err as Error
+    return [];
+  }
+}
+
 
 
 export const getCityList = async(country: string) => {

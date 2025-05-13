@@ -40,7 +40,7 @@
 // pages/login.tsx
 "use client";
 import LoginForm from "@/components/form/moredealsclub/LoginForm";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 type Particle = {
   id: number;
@@ -106,8 +106,9 @@ export default function LoginPage() {
 
         {/* Login Box */}
         <div className="max-w-md mx-auto  bg-white dark:bg-zinc-900 rounded-lg border border-yellow-400 shadow-xl p-8">
-
+          <Suspense>
           <LoginForm />
+          </Suspense>
           
         </div>
       </div>
