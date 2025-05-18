@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import PhoneNumberInput from '@/components/ui/customInputs/PhoneNumberInput';
 import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import MoreClubApiClient from '@/lib/axios/moreclub/MoreClubApiClient';
 import { createServerPlatformAxiosInstance } from '@/lib/axios/platformBasedAxios';
 import { nextStep, updateField } from '@/lib/redux/slice/RegistrationSlice';
 import { RootState } from '@/lib/redux/store';
@@ -40,7 +41,7 @@ export const CheckUserName = async (username: string, prefix?: string) => {
         payload = { username };
     }
     try {
-        const res = await createServerPlatformAxiosInstance("moredealsclub", false).post(`auth/check/user/`, payload
+        const res = await MoreClubApiClient.post(`http://192.168.1.155:8001/auth/check/user/`, payload
 
         );
         if (res.status === 200) {

@@ -69,15 +69,16 @@ export interface EventDetails{
         event_type: string[],
         event_highlights_title:string // "lcdkjinhb hcdclkjndbj mc dcnbdh c dc.lkjdnbj hcndcdhbhc dc;dnbjc ndc.ld;kjnbcj ndc",
         event_highlights_description:string // "vfjiov  dr iie hierge lgre ger su legrgr huer e hgrhu  gr  grhuer huf us u",
-        currency:{
-            id:number // 1,
-            name:string // "American Dollar",
-            symbol:string // "$",
-            code:string // "USD",
-            icon:string // "https://res.cloudinary.com/dmginqfq4/image/upload/v1/media/country/icon/united-states-of-america-logo-png-transparent_kslxks"
-        },
+        currency:string
+        // currency:{
+        //     id:number // 1,
+        //     name:string // "American Dollar",
+        //     symbol:string // "$",
+        //     code:string // "USD",
+        //     icon:string // "https://res.cloudinary.com/dmginqfq4/image/upload/v1/media/country/icon/united-states-of-america-logo-png-transparent_kslxks"
+        // },
         banner:string;
-        event_photo: [
+        images: [
             {
                 id:number // 1,
                 event:number // 1,

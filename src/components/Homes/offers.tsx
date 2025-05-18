@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 import SectionTitle from "./sectionTiltle";
+import { fetchOfferList } from "@/lib/action/PublicCommonClient";
 
 
 
@@ -54,23 +55,43 @@ const offers = [
 
 const categories = ["All", "Restaurants", "Salons", "Hotels", "Marketplace"];
 
-async function fetchOffers() {
-    try{
-        const { data } = await MoreClubApiClient.get("/api/offers"); // Replace with actual endpoint
-        return data;
-    }catch(error){
-        console.error("Error fetching offers:", error);
-        return [];
-    }
-  }
+// async function fetchOffers() {
+//     try{
+//         const { data } = await MoreClubApiClient.get("/api/offers"); // Replace with actual endpoint
+//         return data;
+//     }catch(error){
+//         console.error("Error fetching offers:", error);
+//         return [];
+//     }
+//   }
 
 export default function OfferSection() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
-
+  const country = typeof window !== "undefined" ? localStorage.getItem("country") : null;
+  
   const { data: offerrs = [], isLoading, isError } = useQuery({
-    queryKey: ["offers", activeCategory],
-    queryFn: fetchOffers,
+    queryKey: ["offer list", country],
+    queryFn: async () => await fetchOfferList(country),
+    staleTime: 360000,
+    enabled: !!country
   });
+
+  // if (isLoading) {
+  //   return <OfferCarousel offers={Offerlist} />
+  
+  // }
+
+  // if (isError) {
+  //   return <OfferCarousel offers={Offerlist} />
+  // }
+
+
+
+  // const { data: offerrs = [], isLoading, isError } = useQuery({
+    
+  //   queryKey: ["offers", activeCategory],
+  //   queryFn: fetchOffers,
+  // });
 
 //   const filteredOffers =
 //     activeCategory === "All"
@@ -79,8 +100,8 @@ export default function OfferSection() {
 
   const filteredOffers =
     activeCategory === "All"
-      ? offers
-      : offers.filter((offer: any) => offer.category === activeCategory);
+      ? offerrs
+      : offerrs.filter((offer: any) => offer.category === activeCategory);
 
   return (
     <section className=" py-20  w-11/12 mx-auto" id="offers">

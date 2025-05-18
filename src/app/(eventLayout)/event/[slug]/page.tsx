@@ -43,7 +43,7 @@ export async function generateMetadata(
         description: events.description,
         type: "article",
         images: [
-          ...(events?.event_photo ? Object.values(events.event_photo.map((item) => item.image)) : []),
+          ...(events?.images ? Object.values(events.images.map((item) => item.image)) : []),
           ...previousImages,
         ],
         // images: [...Object.values(events?.event_photo?.map((item) => item.image)), ...previousImages],
@@ -53,7 +53,7 @@ export async function generateMetadata(
         title: events.name,
         description: events.description,
         images: [
-          ...(events?.event_photo ? Object.values(events.event_photo.map((item) => item.image)) : []),
+          ...(events?.images ? Object.values(events.images.map((item) => item.image)) : []),
           ...previousImages,
         ],
         // images: [...Object.values(events?.event_photo?.map((item) => item.image)), ...previousImages],
@@ -74,12 +74,13 @@ async function EventDetailPage({ slug }: { slug: string }) {
   try {
     const events = await getEventDetails(slug);
 
+
     return (
       <div className="font-sans ">
         {/* Event Banner */}
 
         <Suspense>
-          <ImageCarousel images={[{ id: events.id, event: events.id, image: events.banner }, ...events.event_photo]} title={events.name} description={`${events.location} | ${moment(events.start_date).format("ddd, MMM D, YYYY")}`} />
+          <ImageCarousel images={[{ id: events.id, event: events.id, image: events.banner }, ...events.images]} title={events.name} description={`${events.location} | ${moment(events.start_date).format("ddd, MMM D, YYYY")}`} />
         </Suspense>
 
 
@@ -135,11 +136,16 @@ async function EventDetailPage({ slug }: { slug: string }) {
               <div className="bg-card rounded-lg shadow-md p-4">
                 <h3 className="text-lg font-bold mb-4">Pricing & Booking</h3>
                 <p className="text-sm text-muted-foreground ">
-                  Price: {events.currency.symbol}&nbsp;{events.price}
+                  Price: {events.currency}&nbsp;{events.price}
                 </p>
 
                 <Suspense>
-                  <EventBooking slug={slug} />
+                  <EventBooking slug={slug} bookingData={{
+                    id: events.id,
+                    name: events.name,
+                    price: events.price,
+                    currency: events.currency
+                  }}  />
                 </Suspense>
               </div>
               <div className="mt-6 bg-card rounded-lg shadow-md p-4">

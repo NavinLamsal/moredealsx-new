@@ -50,8 +50,8 @@ export const fetchOfferList = async (
   country: string | null
 ): Promise<Offer[]> => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-    const endpoint = `${baseUrl}offers/list/?country=${country}`;
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const endpoint = `${baseUrl}moreoffers/list/?country=${country}`;
     const response = await MoreClubApiClient.get(endpoint);
     return response.data.data || [];
   } catch (error: any) {

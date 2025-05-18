@@ -8,7 +8,12 @@ import { DialogTitle } from '@radix-ui/react-dialog';
 import { useQuery } from '@tanstack/react-query';
 import { useFetchEvents } from '@/lib/action/moreClub/Events';
 
-const EventBooking = ({ slug }: { slug: string }) => {
+const EventBooking = ({ slug , bookingData }: { slug: string, bookingData: {
+    id: number,
+    name: string,
+    price: string,
+    currency: string
+  } }) => {
     const [showSheet, setShowSheet] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
     const { fetchEventsSeatAndStatus } = useFetchEvents()
@@ -57,12 +62,13 @@ const EventBooking = ({ slug }: { slug: string }) => {
 
             <Sheet open={showSheet} onOpenChange={setShowSheet}>
                 <SheetTitle className='hidden'>Book Now</SheetTitle>
-                <SheetContent side="bottom" className="h-[55vh] overflow-y-scroll p-0">
+                <SheetContent side="bottom" className="h-[80vh] overflow-y-scroll p-0">
                     <BookingAction
                         slug={slug}
                         type='sheet'
                         setShowDialog={setShowDialog}
                         setShowSheet={setShowSheet}
+                        bookingData={bookingData}
                     />
                 </SheetContent>
             </Sheet>
@@ -76,6 +82,7 @@ const EventBooking = ({ slug }: { slug: string }) => {
                         type='dialog'
                         setShowDialog={setShowDialog}
                         setShowSheet={setShowSheet}
+                        bookingData={bookingData}
                     />
 
                 </DialogContent>

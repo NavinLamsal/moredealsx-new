@@ -45,7 +45,7 @@ export const getBusinessList = async() => {
 
 export const getCountryList = async() => {
   try{
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}country/list/`, { next: { tags: ['country list'] ,revalidate: 300 }})
+     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}country/list/`, { next: { tags: ['country list'] ,revalidate: 300 }})
     const data = await res.json()
     return data.data as CountryListType[]
   }catch(err){
@@ -56,7 +56,7 @@ export const getCountryList = async() => {
 
 export const getCurrencyList = async(country: string) => {
   try{
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}currency/list/?country=${country}`, { next: { tags: [`country list for ${country}`] ,revalidate: 300 }})
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}currency/list/?country=${country}`, { next: { tags: [`country list for ${country}`] ,revalidate: 300 }})
     const data = await res.json()
     return data.data as CurrencyListType[]
   }catch(err){
@@ -69,7 +69,7 @@ export const getCurrencyList = async(country: string) => {
 
 export const getCityList = async(country: string) => {
   try{
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}country/${country}/by-id/cities/list/`, { next: { tags: [`cities list for ${country}`] ,revalidate: 300 }})
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}country/${country}/by-id/cities/list/`, { next: { tags: [`cities list for ${country}`] ,revalidate: 300 }})
     const data = await res.json()
     return data.data as CityListType[]
   }catch(err){
@@ -81,8 +81,9 @@ export const getCityList = async(country: string) => {
 
 export const getlegalPages = async(pagetype:string) => {
   try{
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}helpcenter/${pagetype}/`, { next: { tags: [`${pagetype}`] ,revalidate: 300 }})
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}helpcenter/${pagetype}/`, { next: { tags: [`${pagetype}`] ,revalidate: 300 }})
     const data = await res.json()
+    console.log(data)
     return data.data as PagesDataType[]
   }catch(err){
     const error = err as Error
@@ -93,7 +94,7 @@ export const getlegalPages = async(pagetype:string) => {
 
 export const getStatdata = async() => {
   try{
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}helpcenter/home/data/`, { next: { tags: [`Stat Data`] ,revalidate: 300 }})
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}helpcenter/home/data/`, { next: { tags: [`Stat Data`] ,revalidate: 300 }})
     const data = await res.json()
     return data.data as StatData
   }catch(err){
@@ -122,8 +123,8 @@ export const fetchBlogs = async (
   searchQuery: string = ""
 ): Promise<BlogResponse> => {
   const endpoint = searchQuery
-    ? `${process.env.NEXT_PUBLIC_BASE_URL}blogs/search/`
-    : `${process.env.NEXT_PUBLIC_BASE_URL}blogs/list/`;
+    ? `${process.env.NEXT_PUBLIC_API_URL}blogs/search/`
+    : `${process.env.NEXT_PUBLIC_API_URL}blogs/list/`;
 
   const response = await axios.get(endpoint, {
     params: {
@@ -148,7 +149,7 @@ export const fetchRecommendationBlogs = async (
   pageParam: number = 1,
   title?: string,
 ): Promise<BlogResponse> => {
-  const endpoint = `${process.env.NEXT_PUBLIC_BASE_URL}blogs/similar/blog/`;
+  const endpoint = `${process.env.NEXT_PUBLIC_API_URL}blogs/similar/blog/`;
 
   const response = await axios.get(endpoint, {
     params: {
@@ -172,7 +173,7 @@ export const fetchRecommendationBlogs = async (
 export const getBlogDetails = async(slug:string) => {
   try{
    
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}blogs/${slug}/detail/`, { next: { tags: [`Blog Detail for ${slug}`] ,revalidate: 300 }})
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}blogs/${slug}/detail/`, { next: { tags: [`Blog Detail for ${slug}`] ,revalidate: 300 }})
     const data = await res.json()
     return data.data as Blog
   }catch(err){
@@ -221,8 +222,9 @@ export const fetchRecommendationOffers = async (
 
 
 export const getEventDetails = async(slug:string) => {
+
   try{
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}events/${slug}/details/`, { next: { tags: [`Events Detail of ${slug}`] ,revalidate: 200 }})
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}events/${slug}/details/`, { next: { tags: [`Events Detail of ${slug}`] ,revalidate: 200 }})
     const data = await res.json();
     return data.data as EventDetails
   }catch(err){

@@ -32,12 +32,14 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ onChange, initialVa
         (async () => {
             try {
                 const countries = await getCountryList();
+                console.log(countries);
                 setCountryList(countries);
             } catch (err) {
                 console.error('Failed to load countries:', err);
             }
         })();
     }, []);
+
 
     // Synchronize country and phone number
     useEffect(() => {

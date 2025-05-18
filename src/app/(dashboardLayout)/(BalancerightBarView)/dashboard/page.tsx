@@ -1,6 +1,12 @@
+import { Memberships } from "@/components/Dashboard/Memberships"
 import Offers from "@/components/Dashboard/Offers"
+import OfferSection from "@/components/Dashboard/OfferSection"
+import { Partners } from "@/components/Dashboard/Partners"
+import Stat from "@/components/Dashboard/Stat"
+import Treasurehunts from "@/components/Dashboard/treasurehunts"
 import TrendingEvents from "@/components/Events/TrendingEvent"
 import BusinessSetupModal from "@/components/form/moredealsclub/BusinessRegistration/BusinessRegisterForm"
+import PricingSection from "@/components/Home/PricingContent"
 import FeaturedRestaurants from "@/components/morefood/FeaturedRestaurant"
 import PopularRestaurant from "@/components/morefood/PopularRestaurant"
 import PopularHotels from "@/components/moreliving/popularHotels"
@@ -11,11 +17,17 @@ export default async function Page() {
   return (    
     <div className="flex-1 space-y-4  pt-6">
      <BusinessSetupModal />
-     <Offers />
+     <Stat />
+     <Memberships/>
+     <Partners/>
+     <OfferSection/>
+     <Treasurehunts/>
+     <TrendingEvents/>
+     {/* <Offers />
      <TrendingEvents/>
      <FeaturedRestaurants/>
      <PopularSalons/>
-     <PopularHotels/>
+     <PopularHotels/> */}
    
     <div>
 

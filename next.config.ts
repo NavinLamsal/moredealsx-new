@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: ["res.cloudinary.com"],
+    domains: ["res.cloudinary.com" , "images.unsplash.com"],
     remotePatterns: [
       {
         protocol: "https",
@@ -11,8 +11,15 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
+      },
     ]
   },
+  
 };
 
 export default nextConfig;

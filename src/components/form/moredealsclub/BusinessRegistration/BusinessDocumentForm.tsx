@@ -72,7 +72,7 @@ const DocumentsUploadForm = ({onFinish}:{onFinish: () => void}) => {
         };
         try {
             setLoading(true);
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}business/profile/`, combinedFormData, {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}business/profile/`, combinedFormData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

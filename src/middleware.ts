@@ -50,20 +50,20 @@ export async function middleware(request: any) {
 
   // console.log("session", isAuthenticated, session)
    // Allow login POST method to go through for login submissions
-   if (method === "POST" && nextUrl.pathname.startsWith(loginPagePath)) {
-    return NextResponse.next();
-  }
+  //  if (method === "POST" && nextUrl.pathname.startsWith(loginPagePath)) {
+  //   return NextResponse.next();
+  // }
 
   // Redirect authenticated users away from the login page on GET requests
-  if (isAuthenticated && nextUrl.pathname.startsWith(loginPagePath)) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
-  }
+  // if (isAuthenticated && nextUrl.pathname.startsWith(loginPagePath)) {
+  //   return NextResponse.redirect(new URL("/dashboard", request.url));
+  // }
 
   // Redirect unauthenticated users away from protected routes on GET requests
-  if (!isAuthenticated && !nextUrl.pathname.startsWith(loginPagePath)) {
-    console.log("unauthenticated path")
-    return NextResponse.redirect(new URL("/auth/login", request.url));
-  }
+  // if (!isAuthenticated && !nextUrl.pathname.startsWith(loginPagePath)) {
+  //   console.log("unauthenticated path")
+  //   return NextResponse.redirect(new URL("/auth/login", request.url));
+  // }
 
 //   if (isBusinessPath) {
 //     if (!isAuthenticated) {

@@ -76,7 +76,7 @@ const OTPVerifyForm: React.FC = () => {
       };
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}auth/register/verify/otp/`,
+        `${process.env.NEXT_PUBLIC_API_URL}auth/register/verify/otp/`,
         {
           method: "POST",
           body: JSON.stringify(payload),
@@ -96,7 +96,7 @@ const OTPVerifyForm: React.FC = () => {
           if (loginResponse?.success) {
             showToast("Login successful!", "success");
             
-            localStorage.setItem("pinset", "false");
+            localStorage.setItem("membership", "false");  
             if(userType === "BUSINESS"){
               localStorage.setItem("business_setup", "false");              
             }
@@ -148,7 +148,7 @@ const OTPVerifyForm: React.FC = () => {
       };
   
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}auth/register/resend/otp/`,
+        `${process.env.NEXT_PUBLIC_API_URL}auth/register/resend/otp/`,
         {
           method: "POST",
           body: JSON.stringify(payload),

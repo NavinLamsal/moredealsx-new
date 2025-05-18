@@ -92,14 +92,14 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
         }]),
     
       
-      {
-        title: "Wallet",
-        url: "/wallet",
-        icon: BookOpen,
-        darkImage:"/images/svg/load_amountWhite.svg",
-        lightImage:"/images/svg/load_amount.svg"
+      // {
+      //   title: "Wallet",
+      //   url: "/wallet",
+      //   icon: BookOpen,
+      //   darkImage:"/images/svg/load_amountWhite.svg",
+      //   lightImage:"/images/svg/load_amount.svg"
   
-      },
+      // },
       {
         title: "Events",
         url: "/event",
@@ -192,10 +192,9 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
     <Sidebar collapsible="icon" {...props} className="">
       <SidebarHeader className="px-0 pb-4">
         <TeamSwitcher teams={data.teams} />
-        {/* <NavUser user={data.user} /> */}
       </SidebarHeader>
       <SidebarContent className="hide-scroll-bar">
-        <NavMain items={data.navMain} title="User" />
+        <NavMain items={data.navMain} title="Dashboard" />
         {session.data?.user?.userDetails?.user_type === "BUSINESS" && (
         <NavMain items={data.navbusiness} title="Business" />
         )}

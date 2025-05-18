@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PhoneIcon, MailIcon, Section } from "lucide-react";
 import PhoneNumberInput from "@/components/ui/customInputs/PhoneNumberInput";
-import { doCredentialLogin } from "@/lib/action/authAction";
+import { doCredentialLogin, doSocialLogin } from "@/lib/action/authAction";
 import { createServerPlatformAxiosInstance } from "@/lib/axios/platformBasedAxios";
 import { showToast } from "@/lib/utilities/toastService";
 import { useSearchParams } from "next/navigation";
@@ -16,7 +16,8 @@ import { clearPackages } from "@/lib/redux/slice/moreclub/Pricing";
 import { fetchPackages } from "@/lib/action/moreClub/pricing";
 import { AppDispatch } from "@/lib/redux/store";
 import PasswordField from "@/components/ui/customInputs/PasswordInput";
-import SectionTitle from "@/components/Homes/sectionTiltle";
+import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
+// import SectionTitle from "@/components/Homes/sectionTiltle";
 
 
 
@@ -46,7 +47,7 @@ export const CheckUserName = async (username: string, prefix?: string) => {
     payload = { username };
   }
   try {
-    const res = await createServerPlatformAxiosInstance("moredealsclub", false).post(`auth/check/user/`, payload
+    const res = await MoreClubApiClient.post(`auth/check/user/`, payload
 
     );
     if (res.status === 200) {
@@ -128,6 +129,7 @@ const LoginForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(formData);
 
     if (!await validate()) {
       showToast("Please fix the errors in the form.", "error");
@@ -150,22 +152,24 @@ const LoginForm: React.FC = () => {
       if (response?.success) {
         showToast("Login successful!", "success");
         const session = await getSession();
-        if (session?.user?.userDetails?.is_pin_set === false) {
-          localStorage.setItem("pinset", "false");
+        if (session?.user?.userDetails?.membership === false) {
+          localStorage.setItem("membership", "false");
+        }else{
+          localStorage.removeItem("membership");
         }
         dispatch(clearPackages())
-
-        if (session?.user?.userDetails?.user_type === "BUSINESS") {
-          if (session.user.userDetails?.exists_business_profile === false) {
-            localStorage.setItem("business_setup", "false");
+        if(session){
+          if (session?.user?.userDetails?.user_type === "BUSINESS") {
+            if (session.user.userDetails?.exists_business_profile === false) {
+              localStorage.setItem("business_setup", "false");
+            }
+            dispatch(fetchPackages({ type: "BUSINESS", cycle: "monthly", country_code:session.user.userDetails.country.code }));
+            dispatch(fetchPackages({ type: "BUSINESS", cycle: "yearly",country_code:session.user.userDetails.country.code }));
+          } else {
+            dispatch(fetchPackages({ type: "NORMAL", cycle: "monthly",country_code:session.user.userDetails.country.code }));
+            dispatch(fetchPackages({ type: "NORMAL", cycle: "yearly",country_code:session.user.userDetails.country.code }));
           }
-          dispatch(fetchPackages({ type: "BUSINESS", cycle: "monthly" }));
-          dispatch(fetchPackages({ type: "BUSINESS", cycle: "yearly" }));
-        } else {
-          dispatch(fetchPackages({ type: "NORMAL", cycle: "monthly" }));
-          dispatch(fetchPackages({ type: "NORMAL", cycle: "yearly" }));
         }
-
 
         const callbackUrl = searchParams.get("callbackUrl");
         window.location.href = callbackUrl ?? "/dashboard";
@@ -179,6 +183,64 @@ const LoginForm: React.FC = () => {
       setIsLoading(false);
     }
   };
+
+
+  const handleSocialLogin = async (method: string) => {
+   
+    const formDatas = new FormData();
+    formDatas.append("action", method)
+    await doSocialLogin(formDatas);
+
+    // setIsLoading(true);
+    // try {
+    //   const formDatas = new FormData();
+    //   formDatas.append("password", formData.password);
+    //   formDatas.append("via", isEmailLogin ? "email" : "phone_number")
+    //   if (!isEmailLogin) {
+    //     formDatas.append("phone_prefix", formData.phone_prefix)
+    //     formDatas.append("phone_number", formData.phone)
+    //   } else {
+    //     formDatas.append("email", formData.email)
+    //   }
+    //   const response = await doCredentialLogin(formDatas);
+
+    //   if (response?.success) {
+    //     showToast("Login successful!", "success");
+    //     const session = await getSession();
+    //     if (session?.user?.userDetails?.is_pin_set === false) {
+    //       localStorage.setItem("pinset", "false");
+    //     }
+    //     dispatch(clearPackages())
+
+    //     if (session?.user?.userDetails?.user_type === "BUSINESS") {
+    //       if (session.user.userDetails?.exists_business_profile === false) {
+    //         localStorage.setItem("business_setup", "false");
+    //       }
+    //       dispatch(fetchPackages({ type: "BUSINESS", cycle: "monthly" }));
+    //       dispatch(fetchPackages({ type: "BUSINESS", cycle: "yearly" }));
+    //     } else {
+    //       dispatch(fetchPackages({ type: "NORMAL", cycle: "monthly" }));
+    //       dispatch(fetchPackages({ type: "NORMAL", cycle: "yearly" }));
+    //     }
+
+
+    //     const callbackUrl = searchParams.get("callbackUrl");
+    //     window.location.href = callbackUrl ?? "/dashboard";
+    //   } else {
+    //     throw new Error(response.error || "Invalid credentials");
+    //   }
+    // } catch (error) {
+    //   setServerErrors(error instanceof Error ? error.message : "Login failed");
+    //   showToast(error instanceof Error ? error.message : "Login failed", "error");
+    // } finally {
+    //   setIsLoading(false);
+    // }
+  };
+
+
+
+
+
 
   return (
     <form onSubmit={handleSubmit} className="p-4 space-y-4">
@@ -245,6 +307,7 @@ const LoginForm: React.FC = () => {
         {isLoading ? "Logging in..." : "Login to your account"}
       </Button>
 
+
       <div className="text-center text-sm my-4">
         <Button
           variant="outline"
@@ -256,10 +319,48 @@ const LoginForm: React.FC = () => {
         </Button>
       </div>
 
+      {/* <div className="my-8">
+                <p className="relative mb-4 text-muted-foreground before:absolute before:top-1/2 before:left-0 before:translate-y-[-50%] before:w-1/2 before:h-px after:absolute after:top-1/2 after:right-0 after:translate-y-[-50%] after:w-1/2 after:h-px">Or login with</p>
+                <div className="social-icons">
+                    <div className="social-icon">
+                        <i className="fab fa-google"></i>
+                    </div>
+                    <div className="social-icon">
+                        <i className="fab fa-facebook-f"></i>
+                    </div>
+                    <div className="social-icon">
+                        <i className="fab fa-apple"></i>
+                    </div>
+                </div>
+            </div> */}
+
+
+      <div className="my-8 text-center">
+        <p className="relative text-gray-400 mb-4 before:absolute before:top-1/2 before:left-0 before:w-1/3 before:h-px before:bg-gray-700 after:absolute after:top-1/2 after:right-0 after:w-1/3 after:h-px after:bg-gray-700">
+          or continue with
+        </p>
+        <div className="flex justify-center gap-4">
+          <button
+            type="button"
+            className="w-10 h-10 rounded-full bg-black text-yellow-400 border border-yellow-400 flex items-center justify-center text-lg cursor-pointer transition-all hover:bg-yellow-400 hover:text-black hover:-translate-y-1"
+            onClick={(e) => {e.preventDefault();handleSocialLogin("google")}}
+          >
+            G
+          </button>
+          <button
+            type="button"
+            className="w-10 h-10 rounded-full bg-black text-yellow-400 border border-yellow-400 flex items-center justify-center text-lg cursor-pointer transition-all hover:bg-yellow-400 hover:text-black hover:-translate-y-1"
+          >
+            F
+          </button>
+        </div>
+      </div>
+
+
       <div className="mt-8 p-6 bg-yellow-500/25 border-l-2 border-primary rounded-s-sm">
-                <h3 className="text-primary font-semibold mb-2">MOREDEALSX MEMBER BENEFITS</h3>
-                <p className="text-muted-foreground text-xs"> As a member, you get access to exclusive deals, premium discounts, and golden ticket offers across restaurants, salons, hotels and more.</p>
-            </div>
+        <h3 className="text-primary font-semibold mb-2">MOREDEALSX MEMBER BENEFITS</h3>
+        <p className="text-muted-foreground text-xs"> As a member, you get access to exclusive deals, premium discounts, and golden ticket offers across restaurants, salons, hotels and more.</p>
+      </div>
 
       <div className="text-center text-sm">
         Don't have an account?{" "}

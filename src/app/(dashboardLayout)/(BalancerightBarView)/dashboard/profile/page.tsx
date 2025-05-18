@@ -1,4 +1,3 @@
-import ProfileCard from '@/components/settings/ProfileCard'
 import UserContent from '@/components/settings/UserContent'
 import { Button } from '@/components/ui/button'
 import { Edit2 } from 'lucide-react'

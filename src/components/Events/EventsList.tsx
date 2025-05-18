@@ -73,11 +73,12 @@ const EventList = () => {
                 {data?.pages.map((page, pageIndex) =>
                     page.data.map((event, index) => (
                         <div key={`${pageIndex}-${index}`}>
-                            <div className="flex-shrink-0 w-40 lg:w-60" key={event.id}>
+                            <div className="flex-shrink-0 w-72" key={event.id}>
                                 <AnimatedSection key={event.id} index={index}>
+                                    
                                     <EventCard
                                         key={index}
-                                        event={event}
+                                        {...event}
                                         ref={index === page.data.length - 1 ? lastEventRef : null}
                                     />
                                 </AnimatedSection>

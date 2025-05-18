@@ -50,12 +50,12 @@ const CurrencyForm = () => {
         // Explicitly define tempErrors as a dynamic object
         const tempErrors: Record<string, string> = { ...errors };
         if ("country" in fieldValues) {
-            tempErrors.userType = validateRequired(fieldValues.country || "", "Country");
+            tempErrors.country = validateRequired(fieldValues.country || "", "Country");
         }
 
-        if ("currency" in fieldValues) {
-            tempErrors.userType = validateRequired(fieldValues.currency || "", "Currency");
-        }
+        // if ("currency" in fieldValues) {
+        //     tempErrors.userType = validateRequired(fieldValues.currency || "", "Currency");
+        // }
 
         if ("agreeToTerms" in fieldValues) {
             tempErrors.agreeToTerms = fieldValues.agreeToTerms ? "" : "You need to Agree our Terms and Conditions";
@@ -69,8 +69,8 @@ const CurrencyForm = () => {
         switch (name) {
             case "country":
                 return validateRequired(value as string, "Country")
-            case "currency":
-                return validateRequired(value as string, "Currency");
+            // case "currency":
+            //     return validateRequired(value as string, "Currency");
             case "agreeToTerms":
                 return value ? "" : "You need to Agree our Terms and Conditions";
             default:
@@ -108,7 +108,7 @@ const CurrencyForm = () => {
             gender: gender,
             country: country,
             // country_code: countryCode, (Commented out as per your original code)
-            currency: currency,
+            // currency: currency,
         };
 
 
@@ -121,11 +121,13 @@ const CurrencyForm = () => {
             // } else {
             //     return;
             // }
-            let baseUrl = "";
+      
+            let baseUrl =''
+            // process.env.NEXT_PUBLIC_BASE_URL}
             if (registerMethod === "EMAIL") {
-                baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}auth/register/by-email/`;
+                baseUrl = `${process.env.NEXT_PUBLIC_API_URL}auth/email-register/`;
             } else if (registerMethod === "PHONE") {
-                baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}auth/register/by-phonenumber/`;
+                baseUrl = `${process.env.NEXT_PUBLIC_API_URL}auth/phone-register/`;
             } else {
                 return;
             }
@@ -180,13 +182,13 @@ const CurrencyForm = () => {
                     {errors.country && <p className="text-red-500 text-sm">{errors.country}</p>}
                 </div>
 
-                <div>
+                {/* <div>
                     <label>Currency</label>
                     <div className="relative">
                         <CurrencySelect onChange={handleSelection} initialValue={currency} country={country} />
                     </div>
                     {errors.currency && <p className="text-red-500 text-sm">{errors.currency}</p>}
-                </div>
+                </div> */}
 
                 <div className="flex items-center gap-2">
                     <input

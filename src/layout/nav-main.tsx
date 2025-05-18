@@ -44,7 +44,9 @@ export function NavMain({
   }[]
 }) {
   const pathname = usePathname(); // Get the current pathname
-
+  const isAnySubItemActive = (items: { url: string }[] = [], pathname: string): boolean => {
+    return items.some((subItem) => subItem.url === pathname);
+  };
 
   return (
     <SidebarGroup>
@@ -56,13 +58,13 @@ export function NavMain({
               <Collapsible
                 key={item.title}
                 asChild
-                defaultOpen={item.isActive}
+                defaultOpen={isAnySubItemActive(item.items, pathname)}
                 className="group/collapsible"
               >
                 <SidebarMenuItem>
-                  <CollapsibleTrigger asChild>
+                  <CollapsibleTrigger asChild className="">
                     <SidebarMenuButton tooltip={item.title} size={"lg"}
-                      className="flex items-center"
+                     className={`flex items-center px-3 py-4 mb-2 h-14 rounded-md hover:bg-[#ffd7001a] hover:border-l-2 hover:border-primary hover:text-foreground ${isAnySubItemActive(item.items, pathname) ? "bg-[#ffd7001a] border-l-2 border-primary" : ""}`}
                     >
                       {/* {item.icon && <item.icon className="text-xl"/>} */}
                       <Avatar className="flex items-center h-7 w-7">
@@ -78,7 +80,7 @@ export function NavMain({
                     <SidebarMenuSub>
                       {item.items?.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.title}>
-                          <SidebarMenuSubButton asChild>
+                          <SidebarMenuSubButton asChild className={`hover:bg-[#ffd7001a] hover:border-l-2  hover:border-primary hover:text-foreground ${pathname === subItem.url ? "bg-[#ffd7001a] border-primary" : ""}`}>
                             <Link href={subItem.url}>
                               <span>{subItem.title}</span>
                             </Link>
@@ -91,7 +93,7 @@ export function NavMain({
               </Collapsible>
             ) : (
 
-              <SidebarMenuButton asChild isActive={pathname === item.url} tooltip={item.title} className="flex items-center" size={"lg"} key={item.title}>
+              <SidebarMenuButton asChild tooltip={item.title}  key={item.title } size={"lg"} className={`flex items-center px-3 py-4 mb-2 h-14  rounded-md hover:bg-[#ffd7001a] hover:border-l-2 hover:border-primary hover:text-foreground ${pathname === item.url ? "bg-[#ffd7001a] border-l-2 border-primary" : ""}`}>
                 <Link href={item.url} className="font-semibold flex items-center">
                   <Avatar className="flex items-center h-7 w-7">
                     <AvatarImage src={item.lightImage} className="h-7 w-7 block dark:hidden" />
