@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   BookOpen,
   Bot,
@@ -9,11 +9,11 @@ import {
   PieChart,
   Settings,
   SquareTerminal,
-} from "lucide-react"
+} from "lucide-react";
 
-import { NavMain } from "@/layout/nav-main"
-import { NavProjects } from "@/layout/nav-projects"
-import { TeamSwitcher } from "@/layout/team-switcher"
+import { NavMain } from "@/layout/nav-main";
+import { NavProjects } from "@/layout/nav-projects";
+import { TeamSwitcher } from "@/layout/team-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -21,12 +21,12 @@ import {
   SidebarHeader,
   SidebarMenuButton,
   SidebarRail,
-} from "@/components/ui/sidebar"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useSession } from "next-auth/react"
-import { CompanyMeta } from "@/lib/type/CommonType"
-import { NavCRM } from "./crm-main"
+} from "@/components/ui/sidebar";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { CompanyMeta } from "@/lib/type/CommonType";
+import { NavCRM } from "./crm-main";
 
 // This is sample data.
 
@@ -35,18 +35,21 @@ type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
 };
 
 export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
- 
-  const pathname = usePathname()
+  const pathname = usePathname();
   const session = useSession();
- 
+
   const data = {
     user: {
       name: `${session.data?.user?.userDetails?.first_name} ${session.data?.user?.userDetails?.last_name}`,
-      email: `${session.data?.user?.userDetails?.email === '' ? 
-       session.data?.user?.userDetails?.phone_prefix +' '+ session.data?.user?.userDetails?.phone_number:
-        session.data?.user?.userDetails?.email
+      email: `${
+        session.data?.user?.userDetails?.email === ""
+          ? session.data?.user?.userDetails?.phone_prefix +
+            " " +
+            session.data?.user?.userDetails?.phone_number
+          : session.data?.user?.userDetails?.email
       }`,
-      avatar: `${session.data?.user?.userDetails?.display_picture}`    },
+      avatar: `${session.data?.user?.userDetails?.display_picture}`,
+    },
     teams: [
       {
         name: "MOREDEALS CLUB",
@@ -60,19 +63,36 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
         title: "Dashboard",
         url: "/dashboard",
         icon: SquareTerminal,
-        darkImage:"/images/svg/Home.svg",
-        lightImage:"/images/svg/Home.svg"
+        darkImage: "/images/svg/Home.svg",
+        lightImage: "/images/svg/Home.svg",
       },
       ...(session.data?.user?.userDetails?.user_type === "BUSINESS"
-        ? [{
-          title: "Network",
-          url: "#",
-          icon: Bot,
-          darkImage:"/images/svg/NetworkWhite.svg",
-          lightImage:"/images/svg/NetworkYellow.svg",
-          items: [
+        ? [
             {
-              title: "Networks",
+              title: "Network",
+              url: "#",
+              icon: Bot,
+              darkImage: "/images/svg/NetworkWhite.svg",
+              lightImage: "/images/svg/NetworkYellow.svg",
+              items: [
+                {
+                  title: "Networks",
+                  url: "/networks",
+                  darkImage: "/images/svg/NetworkWhite..svg",
+                  lightImage: "/images/svg/NetworkYellow.svg",
+                },
+                {
+                  title: "Leads",
+                  url: "/dashboard/leads",
+                  darkImage: "/images/svg/leads.svg",
+                  lightImage: "/images/svg/leads.svg",
+                },
+              ],
+            },
+          ]
+        : [
+            {
+              title: "Network",
               url: "/networks",
               darkImage:"/images/svg/NetworkWhite..svg",
               lightImage:"/images/svg/NetworkYellow.svg",
@@ -81,48 +101,45 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
               darkImage:"/images/svg/leads.svg",
               lightImage:"/images/svg/leads.svg"
             }, ]
-            
-        },]
-        : [{
-          title: "Network",
-          url: "/networks",
-          icon: Bot, 
-          darkImage:"/images/svg/NetworkWhite.svg",
-          lightImage:"/images/svg/NetworkYellow.svg",
-        }]),
-    
-      
-      // {
-      //   title: "Wallet",
-      //   url: "/wallet",
-      //   icon: BookOpen,
-      //   darkImage:"/images/svg/load_amountWhite.svg",
-      //   lightImage:"/images/svg/load_amount.svg"
+      ),
+      {
+        title: "CRM",
+        url: "/crm",
+        icon: SquareTerminal,
+        darkImage: "/images/svg/CRM.svg",
+        lightImage: "/images/svg/CRM.svg",
+      },
+      {
+        title: "Leads",
+        url: "/dashboard/leads",
+        icon: BookOpen,
+        darkImage: "/images/svg/leads.svg",
+        lightImage: "/images/svg/leads.svg",
+      },
   
-      // },
       {
         title: "Events",
         url: "/event",
         icon: BookOpen,
-        darkImage:"/images/svg/events.svg",
-        lightImage:"/images/svg/events.svg"
+        darkImage: "/images/svg/events.svg",
+        lightImage: "/images/svg/events.svg",
       },
       {
         title: "Transaction",
         url: "/transaction/user",
         icon: BookOpen,
-        darkImage:"/images/svg/Transaction.svg",
-        lightImage:"/images/svg/Transaction.svg"
+        darkImage: "/images/svg/Transaction.svg",
+        lightImage: "/images/svg/Transaction.svg",
       },
     ],
-  
+
     navbusiness: [
       {
         title: "Business Profile",
         url: "/business/profile",
         icon: SquareTerminal,
-        darkImage:"/images/svg/businessProfile.svg",
-        lightImage:"/images/svg/businessProfile.svg"
+        darkImage: "/images/svg/businessProfile.svg",
+        lightImage: "/images/svg/businessProfile.svg",
       },
       // {
       //   title: "Manage Business Types",
@@ -135,21 +152,19 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
         title: "Manage CRMs",
         url: "/business/crm/manage",
         icon: SquareTerminal,
-        darkImage:"/images/svg/Home.svg",
-        lightImage:"/images/svg/Home.svg"
+        darkImage: "/images/svg/Home.svg",
+        lightImage: "/images/svg/Home.svg",
       },
     ],
-
-    
 
     projects: [
       {
         name: "MOREFOOD",
-        url: "#",
+        url: "/morefood",
         // url: `${session.data?.user?.userDetails?.crm_link[0] as string}`,
         icon: Frame,
-        darkImage:"/images/svg/morefood.svg",
-        lightImage:"/images/svg/morefood.svg"
+        darkImage: "/images/svg/morefood.svg",
+        lightImage: "/images/svg/morefood.svg",
       },
       // {
       //   name: "MORESALONS",
@@ -175,18 +190,19 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
     ],
     crm: [
       ...(session?.data?.user?.userDetails?.crm_link?.restro_link
-        ? [{
-            name: "MOREFOOD CRM",
-            url: session?.data?.user?.userDetails?.crm_link?.restro_link ?? "#",
-            icon: Frame,
-            darkImage: "/images/svg/morefood.svg",
-            lightImage: "/images/svg/morefood.svg"
-          }]
-        : [])
+        ? [
+            {
+              name: "MOREFOOD CRM",
+              url:
+                session?.data?.user?.userDetails?.crm_link?.restro_link ?? "#",
+              icon: Frame,
+              darkImage: "/images/svg/morefood.svg",
+              lightImage: "/images/svg/morefood.svg",
+            },
+          ]
+        : []),
     ],
-    
-  }
-
+  };
 
   return (
     <Sidebar collapsible="icon" {...props} className="">
@@ -196,20 +212,28 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
       <SidebarContent className="hide-scroll-bar">
         <NavMain items={data.navMain} title="Dashboard" />
         {session.data?.user?.userDetails?.user_type === "BUSINESS" && (
-        <NavMain items={data.navbusiness} title="Business" />
+          <NavMain items={data.navbusiness} title="Business" />
         )}
         <NavProjects projects={data.projects} />
-        {session.data?.user?.userDetails?.user_type === "BUSINESS" && session?.data?.user?.userDetails?.crm_link && (
-        <NavCRM projects={data.crm}  />
-        )}
+        {session.data?.user?.userDetails?.user_type === "BUSINESS" &&
+          session?.data?.user?.userDetails?.crm_link && (
+            <NavCRM projects={data.crm} />
+          )}
       </SidebarContent>
       <SidebarFooter className="py-4">
-        <SidebarMenuButton asChild isActive={pathname === "/settings"} tooltip={"Setting"} className="">
-          <Link href={'/settings'} className="font-semibold"><Settings />
-            <span>Settings</span></Link>
+        <SidebarMenuButton
+          asChild
+          isActive={pathname === "/settings"}
+          tooltip={"Setting"}
+          className=""
+        >
+          <Link href={"/settings"} className="font-semibold">
+            <Settings />
+            <span>Settings</span>
+          </Link>
         </SidebarMenuButton>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

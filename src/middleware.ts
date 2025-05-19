@@ -1,31 +1,42 @@
-
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 // import { getSession } from "next-auth/react";
 
 async function checkSession(): Promise<boolean> {
-    const session = await auth();
-    
-      
-    if (session && session?.expires) {
-          const expires = new Date(session?.expires); // Convert expiration time to a Date object
-          const now = new Date(); // Current time
-          if (expires > now) {
-              return true; // Session is valid
-          }
-      }
-      return false;
+  const session = await auth();
+
+  if (session && session?.expires) {
+    const expires = new Date(session?.expires); // Convert expiration time to a Date object
+    const now = new Date(); // Current time
+    if (expires > now) {
+      return true; // Session is valid
+    }
   }
+  return false;
+}
 
 export async function middleware(request: any) {
   const { nextUrl, method } = request;
   const loginPagePath = "/auth/";
 
-    const publicPaths = ["/", "/about", "/contact", "/public", "/terms-and-condition", "/events" , "/privacy-policy", "/faq", "/support" ,  ,"/offers" ]; // Add more public paths as needed
-    const wildcardPaths = ["/events", "/blog"];
-    const isPublicPath = publicPaths.includes( nextUrl.pathname) || wildcardPaths.some((path) => nextUrl.pathname.startsWith(`${path}/`));
+  const publicPaths = [
+    "/",
+    "/about",
+    "/contact",
+    "/public",
+    "/terms-and-condition",
+    "/events",
+    "/privacy-policy",
+    "/faq",
+    "/support",
+    "/offers",
+  ]; // Add more public paths as needed
+  const wildcardPaths = ["/events", "/blog", "/offers"];
+  const isPublicPath =
+    publicPaths.includes(nextUrl.pathname) ||
+    wildcardPaths.some((path) => nextUrl.pathname.startsWith(`${path}/`));
 
-    const isBusinessPath = nextUrl.pathname.startsWith("/business");
+  const isBusinessPath = nextUrl.pathname.startsWith("/business");
 
   // Exclude static and other irrelevant paths
   if (
@@ -41,16 +52,14 @@ export async function middleware(request: any) {
     return NextResponse.next();
   }
 
-
-
   const isAuthenticated = await checkSession();
   const session = await auth();
-  
+
   const userType = session?.user?.userDetails?.userType || "";
 
   // console.log("session", isAuthenticated, session)
-   // Allow login POST method to go through for login submissions
-   if (method === "POST" && nextUrl.pathname.startsWith(loginPagePath)) {
+  // Allow login POST method to go through for login submissions
+  if (method === "POST" && nextUrl.pathname.startsWith(loginPagePath)) {
     return NextResponse.next();
   }
 
@@ -61,25 +70,25 @@ export async function middleware(request: any) {
 
   // Redirect unauthenticated users away from protected routes on GET requests
   if (!isAuthenticated && !nextUrl.pathname.startsWith(loginPagePath)) {
-    console.log("unauthenticated path")
+    console.log("unauthenticated path");
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
-  if (isBusinessPath) {
-    if (!isAuthenticated) {
-        return NextResponse.redirect(new URL("/auth/login", request.url));
-    }
-    if (userType !== "BUSINESS") {
-        return NextResponse.redirect(new URL("/404", request.url));
-    }
-}
-
-
+  //   if (isBusinessPath) {
+  //     if (!isAuthenticated) {
+  //         return NextResponse.redirect(new URL("/auth/login", request.url));
+  //     }
+  //     if (userType !== "BUSINESS") {
+  //         return NextResponse.redirect(new URL("/404", request.url));
+  //     }
+  // }
 
   // Allow access to the login page or if already authenticated
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|public|audio|api/auth|api/public).*)"], // Adjusted matcher
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|public|audio|api/auth|api/public).*)",
+  ], // Adjusted matcher
 };
