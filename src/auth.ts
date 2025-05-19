@@ -151,6 +151,7 @@ export const {
             email: "",
           };
         } catch (error: any) {
+          console.log("error", error);
           // console.error("❌ Authorization Error:", error);
           throw new Error(error.message || "Authentication failed");
         }

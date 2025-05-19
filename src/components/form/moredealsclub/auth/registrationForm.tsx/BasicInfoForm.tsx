@@ -41,7 +41,7 @@ export const CheckUserName = async (username: string, prefix?: string) => {
         payload = { username };
     }
     try {
-        const res = await MoreClubApiClient.post(`http://192.168.1.155:8001/auth/check/user/`, payload
+        const res = await MoreClubApiClient.post(`auth/check/user/`, payload
 
         );
         if (res.status === 200) {
