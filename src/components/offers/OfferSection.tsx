@@ -19,7 +19,7 @@ const categories = [
   ];
   
 
-export default function OfferSection({ Dashboard }: { Dashboard?: boolean }) {
+export default function OfferSection({ Dashboard , title="ALL OFFERS IN TOWN" }: { Dashboard?: boolean, title?: string }) {
     const [activeCategory, setActiveCategory] = useState<string>("All");
 
 
@@ -43,12 +43,12 @@ export default function OfferSection({ Dashboard }: { Dashboard?: boolean }) {
         <section className={` py-20 ${Dashboard ? "w-full" : "w-11/12 mx-auto"} `} id="offers">
             {Dashboard ?
                 <DashboardSectionTitle
-                    title="ALL OFFERS IN TOWN"
+                    title={title}
                     viewAll="/offers"
                 />
                 :
                 <SectionTitle
-                    title="ALL OFFERS IN TOWN"
+                    title={title}
                 />
             }
             <Suspense fallback={<div>Loading...</div>}>
