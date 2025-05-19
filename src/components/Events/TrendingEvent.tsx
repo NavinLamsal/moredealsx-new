@@ -52,7 +52,7 @@ const TrendingEvents = ({title = "Trending Events"}: {title?: string}) => {
           
         </div>
      ))} */}
-     <HorizontalCarousel title={title} dashboard={true} center={true}>
+     <HorizontalCarousel title={title} dashboard={true} center={false} viewAll="/events">
       {data.data.map((event, index) => (
         <div className="flex-shrink-0 w-72" key={event.id}>
          <AnimatedSection key={event.name} index={index}>
