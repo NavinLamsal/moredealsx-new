@@ -11,7 +11,7 @@ if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
-const Stripe = ({ totalAmount , currency, metadata }: { totalAmount: number , currency:string, metadata: any }) => {
+const Stripe = ({ totalAmount , currency, metadata , onfinish ,confirmation_url }: { totalAmount: number , currency:string, metadata: any ,onfinish?: () => void  ,confirmation_url: string}) => {
    
 
   return (
@@ -26,7 +26,7 @@ const Stripe = ({ totalAmount , currency, metadata }: { totalAmount: number , cu
             currency: currency.toLowerCase(),
           }}
         >
-          <Checkout totalAmount={totalAmount} metadata={metadata} />
+          <Checkout totalAmount={totalAmount} metadata={metadata} onFinish={onfinish} confirmation_url={confirmation_url}/>
         </Elements>
       )}
     </div>

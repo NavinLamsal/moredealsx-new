@@ -5,23 +5,26 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export type PackageType = "BUSINESS" | "NORMAL";
 export type BillingCycle = "monthly" | "yearly";
 
-export interface Package {
-  id: string;
-  name: string;
-  price: number;
-  currency_symbol: string;
-  description: string;
-  icon: string;
-  morefood_business_discount: number;
-  referal_percentage: number;
-  salon_business_discount: number;
-  hotel_business_discount: number;
-  marketplace_business_discount: number;
-  project_access: string[];
-  max_networks_list: number;
-  max_networks_bulk_mail_month: number;
-  max_networks_bulk_sms_month: number;
-}
+
+  export interface Package {
+    id: string;
+    code: string;
+    name: string;
+    price: number;
+    yearly_price: number;
+    currency_symbol: string;
+    currency_code: string;
+    morefood_business_discount: number;
+    morefood_referral_precentage: number;
+    salon_business_discount: number;
+    salon_referral_precentage: number;
+    hotel_business_discount: number;
+    hotel_referral_precentage: number;
+    marketplace_business_discount: number;
+    marketplace_referral_precentage: number;
+  }
+  
+
 
 interface PackageState {
   packages: {

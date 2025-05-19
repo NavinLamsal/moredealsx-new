@@ -114,7 +114,7 @@ export const {
 
           // ✅ Perform login request
           const loginResponse = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}auth/login/`,
+            `${process.env.NEXT_PUBLIC_API_URL}auth/login/`,
 
             {
               method: "POST",
@@ -131,8 +131,9 @@ export const {
 
           const loginData = await loginResponse.json();
 
+          console.log("loginData", loginData);
           // ✅ Check if login was unsuccessful
-          if (loginData.success === "False") {
+          if (loginData.success === "False" || loginData.success === false) {
             throw new Error(
               loginData?.errors?.non_field_errors?.[0] ||
                 "Invalid login credentials"
@@ -150,6 +151,7 @@ export const {
             email: "",
           };
         } catch (error: any) {
+          console.log("error", error);
           // console.error("❌ Authorization Error:", error);
           throw new Error(error.message || "Authentication failed");
         }
@@ -165,12 +167,23 @@ export const {
           response_type: "code",
         },
       },
+      profile(profile) {
+        return {
+          id: profile.sub,
+          email: profile.email,
+          name: profile.name,
+          image: profile.picture,
+          isSocialLogin: true,
+          provider: "google",
+        };
+      },
     }),
   ],
   callbacks: {
     redirect: async ({ url, baseUrl }: { url: string; baseUrl: string }) => {
       return url;
     },
+
     jwt: async ({
       token,
       account,
@@ -185,6 +198,44 @@ export const {
       session?: any;
     }) => {
       if (account && user) {
+        if (account.provider === "google") {
+          const existingUserRes = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}users/check/?email=${user.email}`
+          );
+          const existingUser = await existingUserRes.json();
+
+          if (!existingUser.exists) {
+            // Store a flag for session
+            token.requiresRegistration = true;
+            token.user = user;
+            return token;
+          }
+
+          const loginRes = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}auth/social-login/`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email: user.email, provider: "google" }),
+            }
+          );
+
+          const loginData = await loginRes.json();
+
+          token.accessToken = loginData.data.access_token;
+          token.refreshToken = loginData.data.refresh_token;
+          token.user = await fetchUserDetails(loginData.data.access_token);
+
+          const decodedToken = jwtDecode(
+            loginData.data.access_token.toString()
+          );
+          const expiresAt = decodedToken?.exp;
+
+          if (expiresAt) {
+            token.accessTokenExpires = expiresAt * 1000 - 5 * 60 * 1000;
+          }
+        }
+
         return {
           ...token,
           accessToken: token?.accessToken,
@@ -226,7 +277,7 @@ export const {
           user: {
             ...token.user,
             user: {
-              userDetails:{ ...session.userDetails}
+              userDetails: { ...session.userDetails },
             },
           },
         };
@@ -252,10 +303,11 @@ export const {
 });
 
 export async function fetchUserDetails(token: string) {
+  console.log("token", token);
   try {
     // Fetch user details
     const userResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}users/details/me/`,
+      `${process.env.NEXT_PUBLIC_API_URL}users/details/me/`,
       {
         method: "GET",
         headers: {
@@ -281,11 +333,12 @@ export async function fetchUserDetails(token: string) {
       is_otp_email_verified: userData?.data?.is_otp_email_verified, // Dynamic or default fallback
       is_otp_phone_verified: userData?.data?.is_otp_phone_verified, // Dynamic or default fallback
       exists_business_profile: userData?.data?.exists_business_profile, // Dynamic or default fallback
-      is_pin_set: userData?.data?.is_pin_set, // Dynamic or default fallback
       country: userData?.data?.country, // Dynamic or default fallback
       currency: userData?.data?.currency,
       crm_link: userData?.data?.crm_link,
+      membership: userData?.data?.membership === null ? false : true,
     };
+    console.log("userDetails", userDetails);
 
     // let businessDetails = null;
     // let permissions = null;

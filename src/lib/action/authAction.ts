@@ -7,10 +7,11 @@ import { removePrefix } from "../utils";
 
 
 export async function doSocialLogin(formData: FormData) {
+
   const action = formData.get("action");
 
   if (typeof action === "string") {
-    await signIn(action, { redirectTo: "/profile" });
+    await signIn(action, { redirectTo: "/dashboard" });
   } else {
     console.error("Action is not a valid string");
   }

@@ -109,11 +109,10 @@
 
 import React, { useCallback, useRef } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import AnimatedSection from "../ui/animations/FadeUpView";
 import { useSearchParams } from "next/navigation";
-import BlogCard from "../cards/BlogCard";
 import { fetchOffer, fetchOfferList, Offer } from "@/lib/action/PublicCommonClient";
-import OfferCard from "../cards/OfferCard";
+import OfferCard from "../cards/moreclub/OfferCard";
+// import OfferCard from "../cards/OfferCard";
 
 
 
@@ -121,6 +120,7 @@ const AllOffersList = () => {
     const country = typeof window !== "undefined" ? localStorage.getItem("country") : null;
     const searchParams = useSearchParams();
     const searchQuery = searchParams.get("search") || "";
+    const category = searchParams.get("category") || "";
 
     const observerRef = useRef<IntersectionObserver | null>(null);
     const {
@@ -132,8 +132,8 @@ const AllOffersList = () => {
         isFetchingNextPage,
         refetch,
     } = useInfiniteQuery({
-        queryKey: ["Offers List", "list", country, searchQuery],
-        queryFn: ({ pageParam = 1 }) => fetchOffer(country, pageParam, searchQuery),
+        queryKey: ["Offers List", "list", country, category, searchQuery],
+        queryFn: ({ pageParam = 1 }) => fetchOffer(country, category, pageParam, searchQuery),
         getNextPageParam: (lastPage) => {
             const nextPage = lastPage.meta.page_number + 1;
             return nextPage <= lastPage.meta.total_pages ? nextPage : null;

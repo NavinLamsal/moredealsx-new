@@ -11,7 +11,7 @@ const BlogCard = forwardRef<HTMLDivElement, BlogCardProps>(({ blog }, ref) => {
         <div className="w-full px-4" ref={ref}>
             <div className="max-w-[370px] mx-auto mb-10">
                 <div className="rounded overflow-hidden mb-8">
-                    <Image
+                    <img
                         src={blog.image}
                         alt={blog.title}
                         width={370}

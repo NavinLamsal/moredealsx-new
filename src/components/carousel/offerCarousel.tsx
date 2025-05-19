@@ -89,7 +89,7 @@ const OfferBanner: React.FC<Offer> = ({ title, banner, short_description, to_dat
   </div>
 );}
 
-const OfferBannerWithTitle: React.FC<Offer> = ({ title, discount_percentage, discount_amount, currency_symbol, banner, short_description, to_date, from_date, is_active, price, is_all_time }) => {
+const OfferBannerWithTitle: React.FC<Offer> = ({ title, discount_percentage, discount_amount, currency_symbol, banner, short_description, to_date, from_date, is_active, is_all_time }) => {
 
   const { statusText, badgeColor } = getOfferStatus(from_date, to_date)
   return (
@@ -103,39 +103,10 @@ const OfferBannerWithTitle: React.FC<Offer> = ({ title, discount_percentage, dis
 
 
       {/* for price  */}
-      {(price !== null && price !== 0) &&
-        <div className='absolute bottom-24 right-24 z-30 hidden md:block'>
+      
+   
 
-          <div className="relative inline-block bg-red-600 text-white font-extrabold text-xl px-6 py-4 rounded-lg shadow-lg skew-x-[6deg]">
-            {/* Top arrows */}
-            <div className="absolute -top-3 left-4 flex space-x-1 -rotate-[10deg]">
-              <div className="w-2 h-2 bg-yellow-400 transform rotate-45"></div>
-              <div className="w-2 h-2 bg-yellow-400 transform rotate-45"></div>
-              <div className="w-2 h-2 bg-yellow-400 transform rotate-45"></div>
-            </div>
-
-            {/* Decorative corners */}
-            <div className="absolute -top-2 -left-2 w-4 h-4 border-t-4 border-l-4 border-yellow-400 rounded-sm"></div>
-            <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-4 border-r-4 border-yellow-400 rounded-sm"></div>
-
-            {/* Main Text */}
-            <div className="skew-x-[-6deg]">
-              Only At <br /> <span className="text-yellow-300">{currency_symbol}{price}!</span>
-            </div>
-
-            {/* Speech tail */}
-            <div className="absolute -bottom-3 left-6 w-4 h-4 bg-red-600 rotate-45"></div>
-          </div>
-
-        </div>
-      }
-
-      {(price !== null && price !== 0) &&
-        <div className="absolute bottom-14 right-6 bg-gradient-to-l from-red-600 to-red-500 text-white px-2 py-1 md:px-3 md:py-2 font-bold w-12 h-12 md:w-20 md:h-20 flex flex-col justify-center items-center shadow-md custom-clip z-30 rounded-tr-2xl md:rounded-tr-3xl rounded-bl-2xl md:rounded-bl-3xl  md:hidden">
-          <span className="text-[10px] md:text-xs">At</span>
-          <span className="text-xs md:text-base xl:text-xl leading-tight">{currency_symbol}{price}</span>
-        </div>
-      }
+      
 
       {(discount_percentage !== null && Number(discount_percentage) > 0) &&
         <div className="absolute top-0 right-6 custom-ribbon flex flex-col items-center justify-center text-white font-bold w-12 h-16 md:w-20 md:h-24 text-center z-30">

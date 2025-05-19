@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoreDealsX | Enterprise Savings Solutions</title>
+    <style>
+        :root {
+            --gold: #FFD700;
+            --gold-light: #fff4c2;
+            --black: #000000;
+            --black-light: #1a1a1a;
+            --neon-red: #FF0000;
+            --gray: #333333;
+            --gray-light: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: white;
+            color: var(--black);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Professional Header */
+        header {
+            background: var(--black);
+            padding: 2rem 0;
+            border-bottom: 4px solid var(--gold);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .logo-symbol {
+            color: var(--gold);
+            font-weight: 900;
+            font-size: 2.5rem;
+        }
+        
+        .logo-text {
+            color: white;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+        
+        .tagline {
+            color: var(--gold-light);
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Main Content */
+        .pricing-intro {
+            text-align: center;
+            padding: 3rem 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .pricing-intro h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+        
+        .pricing-intro p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+        
+        /* Pricing Grid - Professional Layout */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 3rem 0 5rem;
+        }
+        
+        .pricing-card {
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            padding: 1.5rem;
+            background: var(--black);
+            color: white;
+            border-bottom: 3px solid var(--gold);
+        }
+        
+        .card-header h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-header .price {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        
+        .card-header .price span {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+        
+        .popular-badge {
+            display: inline-block;
+            background: var(--neon-red);
+            color: white;
+            padding: 0.3rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 20px;
+            margin-top: 0.5rem;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.8rem;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            color: var(--gold);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .feature-list li.disabled {
+            color: #999;
+        }
+        
+        .feature-list li.disabled:before {
+            content: "✗";
+            color: #ccc;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: block;
+            padding: 0.8rem;
+            text-align: center;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: var(--gold);
+            color: var(--black);
+            border: 2px solid var(--gold);
+        }
+        
+        .btn-primary:hover {
+            background: var(--black);
+            color: var(--gold);
+            border-color: var(--black);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--black);
+            color: var(--black);
+        }
+        
+        .btn-outline:hover {
+            background: var(--black);
+            color: white;
+        }
+        
+        /* Comparison Table */
+        .comparison-section {
+            margin: 5rem 0;
+        }
+        
+        .comparison-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        th {
+            background: var(--black);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .highlight {
+            background-color: var(--gold-light);
+            font-weight: 600;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-symbol">X</div>
+                <div class="logo-text">MOREDEALSX</div>
+            </div>
+            <p class="tagline">Enterprise-Grade Savings Solutions</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="pricing-intro">
+            <h1>Choose Your Savings Plan</h1>
+            <p>Select the tier that matches your business needs and start maximizing your procurement savings today.</p>
+        </section>
+        
+        <div class="pricing-grid">
+            <!-- Free Tier -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h3>Explorer</h3>
+                    <div class="price">$0 <span>/month</span></div>
+                    <p>Basic access for small teams</p>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li>3-5 curated deals per week</li>
+                        <li>Public job listings</li>
+                        <li>Community forum access</li>
+                        <li class="disabled">Early deal access</li>
+                        <li class="disabled">Premium analytics</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline">Get Started</a>
+                </div>
+            </div>
+            
+            <!-- Premium Tier -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h3>Power Saver</h3>
+                    <div class="price">$9.99 <span>/month</span></div>
+                    <p>Most popular for growing businesses</p>
+                    <span class="popular-badge">RECOMMENDED</span>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li>Unlimited premium deals</li>
+                        <li>24-hour early access</li>
+                        <li>VIP job listings</li>
+                        <li>Advanced analytics</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Start 7-Day Trial</a>
+                    <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem;">or $79/year (save 34%)</p>
+                </div>
+            </div>
+            
+            <!-- Business Tier -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h3>Enterprise</h3>
+                    <div class="price">Custom</div>
+                    <p>For corporations & large teams</p>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li>Dedicated account manager</li>
+                        <li>48-hour early access</li>
+                        <li>API integration</li>
+                        <li>Custom reporting</li>
+                        <li>White-glove onboarding</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+        
+        <section class="comparison-section">
+            <h2>Plan Comparison</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Explorer</th>
+                        <th>Power Saver</th>
+                        <th>Enterprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Deals Per Week</td>
+                        <td>3-5</td>
+                        <td class="highlight">Unlimited</td>
+                        <td>Custom Volume</td>
+                    </tr>
+                    <tr>
+                        <td>Early Access</td>
+                        <td>✗</td>
+                        <td class="highlight">24 hours</td>
+                        <td>48 hours</td>
+                    </tr>
+                    <tr>
+                        <td>Support</td>
+                        <td>Email</td>
+                        <td class="highlight">Priority Chat</td>
+                        <td>Dedicated Manager</td>
+                    </tr>
+                    <tr>
+                        <td>Analytics</td>
+                        <td>Basic</td>
+                        <td class="highlight">Advanced</td>
+                        <td>Custom Reports</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"93f0a6e39f81d8b9","version":"2025.4.0-1-g37f21b1","r":1,"token":"499e684b7b1043878977050a0a606794","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
+</body>
+</html>

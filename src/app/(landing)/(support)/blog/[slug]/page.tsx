@@ -63,13 +63,13 @@ async function BlogDetail({ slug }: { slug: string }) {
                     {blogs.title}
                 </h1>
                 <div className="relative w-full mb-6">
-                    <Image
+                    <img
                         src={blogs.image}
                         className="w-full h-56 sm:h-64 md:h-72 lg:h-80 object-cover rounded-lg"
                         alt={blogs.title}
                         width={900}
                         height={500}
-                        priority
+                        // priority
                     />
                 </div>
 

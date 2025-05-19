@@ -35,6 +35,11 @@ import {
 import Link from "next/link"
 
 import Logout from "./Logout"
+import { useDispatch } from "react-redux"
+import { AppDispatch, RootState } from "@/lib/redux/store"
+import { useAppSelector } from "@/lib/redux/hooks"
+import { useEffect } from "react"
+import { fetchUserProfile } from "@/lib/action/moreClub/User"
 
 export function NavUser({
   user,
@@ -47,6 +52,12 @@ export function NavUser({
   }
   header?: boolean
 }) {
+  const dispatch = useDispatch<AppDispatch>();
+   const users = useAppSelector((state: RootState) => state.user);
+
+    useEffect(() => {
+        dispatch(fetchUserProfile({ fetchForce: false }));
+    })
 
 
   return (
@@ -54,36 +65,23 @@ export function NavUser({
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             
-              <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className={`${header? 'text-black bg-slate-200' : ''} rounded-lg uppercase`}>{user.name[0]}</AvatarFallback>
-              </Avatar>
-              {/* <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
-              </div> */}
-              {/* <ChevronsUpDown className="ml-auto size-4" /> */}
-            {/* </SidebarMenuButton> */}
-            {/* <>
-            <div className="flex flex-1 items-center gap-3">
-              <Avatar className="h-14 w-14 ">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="h-14 w-14 bg-slate-200 dark:bg-white text-black font-extrabold text-xl">{user.name[0]}</AvatarFallback>
-              </Avatar>
-              <span className="bg-header text-white shadow hover:bg-primary/90 rounded-md px-1 text-bold py-0.5">Business</span>
-            </div>
-            <div className="grid flex-1 text-left text-sm leading-tight pl-2 pt-3">
-                <span className="truncate font-semibold text-lg">{user.name}</span>
-                <span className="truncate text-sm">{user.email}</span>
-            </div>
-            
-            </> */}
+              <div className="flex items-center gap-2">
+                      <Avatar className='bg-primary text-primary-foreground'>
+                          <AvatarImage className='bg-primary text-primary-foreground' src={user.avatar} />
+                          <AvatarFallback className='bg-primary text-primary-foreground uppercase font-extrabold'>{user.name[0]}</AvatarFallback>
+                      </Avatar>
+                     
+                      <div>
+                          <div className="font-bold text-lg">{user.name}</div>
+                          <p className='text-primary text-sm '>{users.profile?.membership.membership_name} Member</p>
+                      </div>
+                  </div>
 
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
             side={"bottom"}
-            align="end"
+            align="start"
             sideOffset={4}
           >
             <DropdownMenuLabel className="p-0 font-normal">

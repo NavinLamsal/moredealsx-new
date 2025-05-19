@@ -12,7 +12,6 @@ export const metadata: Metadata = {
 export default async function TermsPage() {
 
     const data = await getlegalPages('terms_and_conditions')
-
     return (
             <>
             {data &&

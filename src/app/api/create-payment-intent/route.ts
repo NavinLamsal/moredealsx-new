@@ -8,9 +8,10 @@ export async function POST(request: NextRequest) {
     const { totalAmount, metadata } = await request.json();
 
     // const baseURL = getServerApiUrl(request.url);
+    console.log("metadata", metadata);
 
     const data = await fetch(
-      `https://moretrek.com/api/payments/stripe/create-payment-intent/`,
+      `${process.env.NEXT_PUBLIC_API_URL}payments/create-payment-intent/`,
       {
         method: "POST",
         headers: {
@@ -18,14 +19,11 @@ export async function POST(request: NextRequest) {
         
         },
         body: JSON.stringify({
-          items: [
-            {
-              metadata
-            },
-          ],
+          ...metadata
         }),
       }
     ).then(async (res) => {
+     
 
       return res.json();
     });
@@ -45,6 +43,9 @@ export async function POST(request: NextRequest) {
  
     const errorMessage =
       error instanceof Error ? error.message : "Internal Server Error";
+
+      
+
     return NextResponse.json(
       { error: `Internal Server Error: ${errorMessage}` },
       { status: 500 }

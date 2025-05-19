@@ -5,6 +5,7 @@ import {
   useElements,
   PaymentElement,
 } from "@stripe/react-stripe-js";
+import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 
 
 
@@ -12,11 +13,15 @@ import {
 const Checkout = ({
   buttonText = "Pay",
   totalAmount,
-  metadata
+  metadata,
+  confirmation_url,
+  onFinish
 }: {
 buttonText?:string
   totalAmount: number;
   metadata: any;
+  confirmation_url: string;
+  onFinish?: () => void;
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -40,7 +45,6 @@ buttonText?:string
                
              },
              body: JSON.stringify({
-               totalAmount,
                metadata
              }),
            });
@@ -56,11 +60,11 @@ buttonText?:string
      fetchCountryCodeAndPaymentIntent();
    }, [totalAmount]);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handlePaymentSubmit = async (event: React.FormEvent<HTMLElement>) => {
     event.preventDefault();
     setLoading(true);
-    
-    
+  
+
     if (!stripe || !elements) {
       setErrorMessage("Stripe or elements not loaded.");
       setLoading(false);
@@ -78,8 +82,23 @@ buttonText?:string
       elements,
     });
 
+   
+
     try {
         // api call 
+        const payload = {
+          payment_method_id: paymentMethod?.id,
+          payment_intent_id: paymentIntent,
+          ...metadata
+          // membership_type: metadata?.membership_type_id,
+          // plan_time: metadata?.package_time,
+        }
+        const res = await MoreClubApiClient.post(`${confirmation_url}`, {
+          ...payload         
+          
+        });
+       
+        onFinish?.();
 
     } catch (error: any) {
 
@@ -105,17 +124,20 @@ buttonText?:string
     );
   }
 
+ 
   return (
-    <form onSubmit={handleSubmit} className="bg-card p-4 rounded-md">
+    // <form onSubmit={handlePaymentSubmit} className="bg-card p-4 rounded-md">
+    <div>
       {clientSecret && <PaymentElement />}
       {errorMessage && <div className="text-red-500">{errorMessage}</div>}
       <button
         disabled={!stripe || loading}
+        onClick={handlePaymentSubmit}
         className="text-white w-full py-3 mt-4 bg-black rounded-md font-bold disabled:opacity-50"
       >
         {loading ? "Processing..." : `${buttonText}  ${totalAmount}`}
       </button>
-    </form>
+    </div>
   );
 };
 

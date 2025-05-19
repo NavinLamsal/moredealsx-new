@@ -9,7 +9,7 @@ import SectionTitle from "../Homes/sectionTiltle";
 
 
 
-const FeaturedRestaurants = () => {
+const FeaturedRestaurants = ({Dashboard}:{Dashboard?:boolean}) => {
     const city = typeof window !== "undefined" ? localStorage.getItem("city") : null;
 
     const { fetchRestaurantList } = useFetchRestaurant()
@@ -40,7 +40,7 @@ const FeaturedRestaurants = () => {
     return (
         <div className="p-1 lg:p-4 max-w-8xl mx-auto">
             <HorizontalCarousel
-                center={true} title="Restaurants" viewAll="/morefood/category/featured-restaurants?title=Featured Restaurants">
+                center={Dashboard ? false : true} title="Restaurants"  viewAll="/morefood/category/featured-restaurants?title=Featured Restaurants">
                 {data.data.map((restaurant, index) => (
                     <div className="flex-shrink-0 w-60" key={index}>
                         <AnimatedSection key={restaurant.id} index={index}>

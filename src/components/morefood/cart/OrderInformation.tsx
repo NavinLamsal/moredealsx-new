@@ -9,7 +9,11 @@ const OrderInformation = () => {
 
     const step = useSelector((state: RootState) => state.delivery.step);
     return (
-        <>{step === 1 ? <UserInformation /> : <Paymentinformation />}
+        <>{step === 1 ? <UserInformation /> : 
+        
+       " Paymentinfomration"
+        // <Paymentinformation />
+        }
 
         </>
     )

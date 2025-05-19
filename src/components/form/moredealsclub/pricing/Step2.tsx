@@ -1,6 +1,6 @@
 "use client";
+import PaymentInformation from "@/components/morefood/cart/Paymentinformation";
 import { Button } from "@/components/ui/button";
-import PINInput from "@/components/ui/customInputs/PinInput";
 import { AlertOctagonIcon } from "lucide-react";
 import React from "react";
 
@@ -17,9 +17,7 @@ interface Step2Props {
 
 const Step2Form: React.FC<Step2Props> = ({ data, setData, onNext, serverError, onBack, isLoading , purchasingInformation }) => {
 
-    const handleConfirmPinChange = (newPin: string) => {
-        setData("pin", newPin);
-    };
+
 
 
     return (
@@ -37,17 +35,23 @@ const Step2Form: React.FC<Step2Props> = ({ data, setData, onNext, serverError, o
             <AlertOctagonIcon className="mr-2 h-4 w-4" />&nbsp;{serverError}&nbsp;<AlertOctagonIcon className="ml-2 h-4 w-4 " />
           </p>}
 
-            <div className="">
+          <PaymentInformation amount={data.amount} currency={"USD"} metadata={{
+                "payment_type": "membership",
+                "membership_type_id": data.package,
+                "package_time": data.plan_time,
+                "currency_code": data.currency_code,
+                "payer_detail": `{\"user_id\": \"${data.user_id}\", \"email\": \"${data.email}\", \"phone_number\": \"${data.phone_number}\"}`,
+                "payment_method": "stripe"
+            }}
+            confirmation_url={`subscriptions/upgrade/`}
 
-            <PINInput length={4} labels="Confirm PIN" initialValue={data.pin} onChange={handleConfirmPinChange}  className="max-w-56 mx-auto"/>
-            </div>
+                onfinish={() => onNext()}
 
-            <div className="grid grid-cols-2 gap-2">
+            />
+
+            <div className="grid grid-cols-1 gap-2">
                 <Button type="button" variant={"outline"} onClick={onBack} >
                     Back
-                </Button>
-                <Button type="submit"  disabled={isLoading}>
-                    {isLoading ? "Processing..." : "Confirm"}
                 </Button>
             </div>
         </form>

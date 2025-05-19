@@ -1,15 +1,18 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import PhoneNumberInput from "@/components/ui/customInputs/PhoneNumberInput";
-import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { createServerPlatformAxiosInstance } from "@/lib/axios/platformBasedAxios";
-import { nextStep, updateField } from "@/lib/redux/slice/RegistrationSlice";
-import { RootState } from "@/lib/redux/store";
-import { validateRequired } from "@/lib/validation/common";
-import { Loader2Icon, Mail, Phone } from "lucide-react";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+"use client"
+import { Button } from '@/components/ui/button';
+import PhoneNumberInput from '@/components/ui/customInputs/PhoneNumberInput';
+import { Input } from '@/components/ui/input';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import MoreClubApiClient from '@/lib/axios/moreclub/MoreClubApiClient';
+import { createServerPlatformAxiosInstance } from '@/lib/axios/platformBasedAxios';
+import { nextStep, updateField } from '@/lib/redux/slice/RegistrationSlice';
+import { RootState } from '@/lib/redux/store';
+import { validateRequired } from '@/lib/validation/common';
+import { Loader2Icon, Mail, Phone } from 'lucide-react';
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+
+
 
 export const CheckUserName = async (username: string, prefix?: string) => {
   const isEmail = (username: string) =>
@@ -38,20 +41,20 @@ export const CheckUserName = async (username: string, prefix?: string) => {
     } else {
       return "Please enter a valid phone number";
     }
-  } else {
-    payload = { username };
-  }
-  try {
-    const res = await createServerPlatformAxiosInstance(
-      "moredealsclub",
-      false
-    ).post(`auth/check/user/`, payload);
-    if (res.status === 200) {
-      return "";
+    try {
+        const res = await MoreClubApiClient.post(`auth/check/user/`, payload
+
+        );
+        if (res.status === 200) {
+            return "";
+        }
+    } catch (error: any) {
+        return error.response.data?.errors?.non_field_errors[0]
+
+
     }
-  } catch (error: any) {
-    return error.response.data?.errors?.non_field_errors[0];
   }
+  
 };
 
 const validatePhoneNumber = async (phone: string): Promise<string> => {
