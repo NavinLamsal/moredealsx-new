@@ -75,10 +75,10 @@ export default function PricingSection({showComarison = true}) {
   const {status} = useSession();
   const [packageType, setPackageType] = useState<'BUSINESS' | 'NORMAL'>('BUSINESS');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
-
+  const { data: session } = useSession();
   const packages = useSelector((state: RootState) => state.pricing.packages[packageType][billingCycle]);
   useEffect(() => {
-    dispatch(fetchPackages({ type: packageType, cycle: billingCycle }));
+    dispatch(fetchPackages({ type: packageType, cycle: billingCycle , country_code:session?.user?.userDetails?.country?.code}));
   }, [packageType, billingCycle, dispatch]);
 
   return (

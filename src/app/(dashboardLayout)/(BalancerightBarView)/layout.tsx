@@ -1,6 +1,4 @@
 
-import SmallOffers from "@/components/Dashboard/VerticalOfferCarousel";
-import WalletInfo, { QuickLinks } from "@/components/moreclub/wallets/WalletInfo";
 import React from "react";
 
 export default async function DashboardLayout({

@@ -10,6 +10,7 @@ interface SectionTitleProps {
   className?: string;
   white?: boolean;
   viewAll?: string
+  
 }
 
 const SectionTitle: React.FC<SectionTitleProps> = ({ title, className , white, viewAll}) => {
@@ -17,7 +18,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, className , white, v
     <div className={cn("text-center mb-10", className)}>
       <h2
         className={cn(
-          `text-5xl font-extrabold text-foreground relative inline-block uppercase ${white ? "text-white" : ""}`,
+          `text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold text-foreground relative inline-block uppercase ${white ? "text-white" : ""}`,
           montserrat.className
         )}
       >

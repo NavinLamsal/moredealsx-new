@@ -17,7 +17,7 @@ const DashboardSectionTitle: React.FC<SectionTitleProps> = ({ title, className ,
     <div className={cn("text-start mb-10", className)}>
       <h2
         className={cn(
-          `text-2xl font-extrabold text-foreground relative inline-block uppercase ${white ? "text-white" : ""}`,
+          `text-lg md:text-xl  xl:text-2xl font-extrabold text-foreground relative inline-block uppercase ${white ? "text-white" : ""}`,
           montserrat.className
         )}
       >

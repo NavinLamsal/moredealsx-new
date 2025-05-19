@@ -9,50 +9,48 @@ import { useFetchSalon } from "@/lib/action/moreSalon/salonlist";
 import AnimatedSection from "../ui/animations/FadeUpView";
 import HorizontalCarousel from "../carousel/horizontalCarousel";
 
-const Salons = () => {
-  
-  const { fetchPopularSalonList} = useFetchSalon()
- 
+const Salons = ({ Dashboard }: { Dashboard?: boolean }) => {
 
-   const { data, error, isLoading } = useQuery({
-     queryKey: ["Popular Salon" , 1],
-     queryFn: () => fetchPopularSalonList(),
-     staleTime: 6000,
-   });
-
-   if (isLoading) {
-     return (
-       <div>
-         <CardSkeleton />
-       </div>
-     );
-   }
-
-   if (error) {
-     return <div>Error: {error?.message}</div>;
-   }
+  const { fetchPopularSalonList } = useFetchSalon()
 
 
-   if (!data || data.data.length === 0) {
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["Popular Salon", 1],
+    queryFn: () => fetchPopularSalonList(),
+    staleTime: 6000,
+  });
+
+  if (isLoading) {
+    return (
+      <div>
+        <CardSkeleton />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error?.message}</div>;
+  }
+
+
+  if (!data || data.data.length === 0) {
     return null;
   }
 
 
- return (
-   <div className="p-1 lg:p-4">
-     <HorizontalCarousel center={true} title="Salons & Spas" viewAll="/moresalon/category/featured-salons?title=Featured Salons">
-     {data.data.map((item: SaloonTypes , index: number) => (
-       <div className="flex-shrink-0 w-60" key={item.id}>
-        <AnimatedSection key={item.id} index={index}>
-        <SalonCard key={item.id} {...item} />
-         </AnimatedSection>
-         
-       </div>
-))}
-
-     </HorizontalCarousel>
-   </div>
- );
+  return (
+    <div className="p-1 lg:p-4">
+      <HorizontalCarousel center={Dashboard ? false : true} dashboard={Dashboard} title="Salons & Spas" viewAll="/moresalon/category/featured-salons?title=Featured Salons">
+        {data.data.map((item: SaloonTypes, index: number) => (
+          <div className="flex-shrink-0 w-60" key={item.id}>
+            <AnimatedSection key={item.id} index={index}>
+              <SalonCard key={item.id} {...item} />
+            </AnimatedSection>
+          </div>
+        ))}
+      </HorizontalCarousel>
+    </div>
+  );
 };
 
 

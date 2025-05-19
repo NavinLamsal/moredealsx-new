@@ -184,10 +184,13 @@ export const getBlogDetails = async(slug:string) => {
 
 
 export const getOfferDetails = async(slug:string) => {
+
   try{
    
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}offers/${slug}/details/`, { next: { tags: [`Offer Detail for ${slug}`] ,revalidate: 300 }})
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}moreoffers/${slug}/details/`, { next: { tags: [`Offer Detail for ${slug}`] ,revalidate: 300 }})
+    console.log(res)
     const data = await res.json()
+   
     return data.data as OfferDetails
   }catch(err){
     const error = err as Error
@@ -199,7 +202,7 @@ export const fetchRecommendationOffers = async (
   pageParam: number = 1,
   title?: string,
 ): Promise<OfferResponse> => {
-  const endpoint = `${process.env.NEXT_PUBLIC_BASE_URL}offers/list/`;
+  const endpoint = `${process.env.NEXT_PUBLIC_API_URL}moreoffers/list/`;
 
   const response = await axios.get(endpoint, {
     params: {

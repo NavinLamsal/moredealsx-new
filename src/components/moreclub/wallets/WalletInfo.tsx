@@ -8,15 +8,15 @@ export const WalletDetail = ({ onlyBalance }: { onlyBalance?: boolean }) => {
     (state: RootState) => state.balance
   );
 
-  const fetchBalance = useCallback(async () => {
-    await fetchUserBalance(dispatch);
-  }, [dispatch]);
+  // const fetchBalance = useCallback(async () => {
+  //   await fetchUserBalance(dispatch);
+  // }, [dispatch]);
 
-  useEffect(() => {
-    fetchBalance();
-    const interval = setInterval(fetchBalance, 60000);
-    return () => clearInterval(interval);
-  }, [fetchBalance]);
+  // useEffect(() => {
+  //   fetchBalance();
+  //   const interval = setInterval(fetchBalance, 60000);
+  //   return () => clearInterval(interval);
+  // }, [fetchBalance]);
 
   if (onlyBalance) {
     return (
@@ -96,7 +96,7 @@ export default WalletInfo
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/lib/redux/store';
-import { fetchUserBalance } from '@/lib/action/moreClub/wallet/balance';
+// import { fetchUserBalance } from '@/lib/action/moreClub/wallet/balance';
 import { Avatar } from '@radix-ui/react-avatar';
 import { AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';

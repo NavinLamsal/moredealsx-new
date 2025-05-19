@@ -32,10 +32,10 @@ const Navbar = ({ dark_logo, light_logo }: { dark_logo: string, light_logo: stri
         <LocationDialog />
       </div>
         <div className="flex items-center justify-center">
-            <div className="w-12 h-12 relative mr-4">
+            <div className="w-12 h-12 relative mr-2 md:mr-4">
                 <span className='absolute  font-extrabold  -translate-y-1/2 w-8 h-8 text-primary -rotate-45 text-7xl'>+</span>
             </div>
-            <div className={`${montserrat.className} uppercase text-5xl font-extrabold tracking-wide text-white `}>MORE<span className='text-primary'>DEALS</span>X</div>
+            <div className={`${montserrat.className} uppercase text-2xl md:text-3xl lg:text-5xl font-extrabold tracking-wide text-white `}>MORE<span className='text-primary'>DEALS</span>X</div>
         </div>
         <div>
         <AuthNavbarContent header={true} />

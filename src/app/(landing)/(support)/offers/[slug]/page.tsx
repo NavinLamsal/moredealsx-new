@@ -60,6 +60,7 @@ export async function generateMetadata(
 async function BlogDetail({ slug }: { slug: string }) {
     try {
         const blogs = await getOfferDetails(slug);
+       
         const { statusText, badgeColor } = getOfferStatus(blogs.from_date, blogs.to_date)
         return (
             <div className="max-w-5xl mx-auto">

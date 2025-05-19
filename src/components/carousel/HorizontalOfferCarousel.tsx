@@ -76,7 +76,7 @@ const OfferBanner: React.FC<Offer> = ({ title, banner, short_description, to_dat
   </div>
 );
 
-const OfferBannerWithTitle: React.FC<Offer> = ({ title, discount_percentage, discount_amount, currency_symbol, banner, short_description, to_date, from_date, is_active, price , is_all_time}) => {
+const OfferBannerWithTitle: React.FC<Offer> = ({ title, discount_percentage, discount_amount, currency_symbol, banner, short_description, to_date, from_date, is_active , is_all_time}) => {
   const { statusText, badgeColor } = getOfferStatus(from_date, to_date)
   return(
   <div
@@ -90,12 +90,6 @@ const OfferBannerWithTitle: React.FC<Offer> = ({ title, discount_percentage, dis
 
     
 
-{(price !== null && price !== 0) &&
-  <div className="absolute bottom-14 right-6 bg-gradient-to-l from-red-600 to-red-500 text-white px-2 py-1 md:px-3 md:py-2 font-bold w-14 h-14  flex flex-col justify-center items-center shadow-md custom-clip z-30 rounded-tr-2xl md:rounded-tr-3xl rounded-bl-2xl md:rounded-bl-3xl">
-    <span className="text-[10px] ">At</span>
-    <span className="text-[10px]  leading-tight">{currency_symbol}{price}</span>
-  </div>
-}
 
 
 {(discount_percentage !== null && Number(discount_percentage) > 0) &&
