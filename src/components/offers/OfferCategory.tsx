@@ -58,9 +58,9 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
         onClick={() => handleClick(category.value)}
         className={cn(
           "px-5 py-2 font-extrabold text-sm border-b-4 transition-all whitespace-nowrap",
-          selectedCategory === category
+          selectedCategory === category.value
             ? "text-yellow-400 border-yellow-400"
-            : "text-foreground border-transparent hover:text-yellow-400 hover:border-yellow-400"
+            :  "text-foreground border-transparent hover:text-yellow-400 hover:border-yellow-400"
         )}
       >
         {category.title}

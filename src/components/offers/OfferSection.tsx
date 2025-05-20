@@ -27,7 +27,7 @@ export default function OfferSection({ Dashboard , title="ALL OFFERS IN TOWN" }:
 
     const { data: offerrs = [], isLoading, isError } = useQuery({
         queryKey: ["offers", activeCategory, country],
-        queryFn: async () => await fetchOfferList(activeCategory,country),
+        queryFn: async () => await fetchOfferList(activeCategory, country),
         staleTime: 360000,
         enabled: !!country
     });

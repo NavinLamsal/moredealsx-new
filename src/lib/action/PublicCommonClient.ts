@@ -57,8 +57,8 @@ export const fetchOfferList = async (
     const endpoint = `${baseUrl}moreoffers/list/?country=${country}`;
     const response = await MoreClubApiClient.get(endpoint, {
       params: {
-        country: country,
-        platform_name: category,
+        country_code: country,
+        platform: category,
       },
     });
     return response.data.data || [];
@@ -86,8 +86,8 @@ export const fetchOffer = async (
     params: {
       title: searchQuery || undefined,
       page: pageParam,
-      country: country,
-      platform_name: category,
+      country_code: country,
+      platform: category,
     },
   });
 
