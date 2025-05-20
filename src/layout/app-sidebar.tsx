@@ -102,6 +102,13 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
               lightImage:"/images/svg/leads.svg"
             }, ]
       ),
+      {
+        title: "Offers",
+        url: "/offers",
+        icon: BookOpen,
+        darkImage: "/images/svg/events.svg",
+        lightImage: "/images/svg/events.svg",
+      },
      
       {
         title: "Events",

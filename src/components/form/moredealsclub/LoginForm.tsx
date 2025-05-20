@@ -129,7 +129,7 @@ const LoginForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+ 
 
     if (!await validate()) {
       showToast("Please fix the errors in the form.", "error");
@@ -157,6 +157,13 @@ const LoginForm: React.FC = () => {
         }else{
           localStorage.removeItem("membership");
         }
+
+        if(session?.user?.userDetails?.exists_business_profile === false){
+          localStorage.setItem("business_setup", "false");
+        }else{
+          localStorage.removeItem("business_setup");
+        }
+
         dispatch(clearPackages())
         if(session){
           if (session?.user?.userDetails?.user_type === "BUSINESS") {

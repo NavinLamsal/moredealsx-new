@@ -71,6 +71,7 @@ export const useFetchEvents = () => {
       seat_available: number,
       max_limit: number,
       event_booked: boolean
+      can_book_by_country: string[]
 
   }> => {
     try {
@@ -80,7 +81,8 @@ export const useFetchEvents = () => {
       const formatteddata = {
         seat_available: response.data.data.seat_available,
         max_limit: response.data.data.max_limit,
-        event_booked: response.data.data.event_booked
+        event_booked: response.data.data.event_booked,
+        can_book_by_country: response.data.data.can_book_by_country
       }
 
       return formatteddata ;
@@ -89,6 +91,7 @@ export const useFetchEvents = () => {
         seat_available: number,
         max_limit: number,
         event_booked: boolean
+        can_book_by_country: string[]
       };
     }
   };

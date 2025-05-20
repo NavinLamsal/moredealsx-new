@@ -8,19 +8,21 @@ import { Button } from "./button";
 interface BackButtonProps {
   //   label?: string;
   className?: string;
+  back?: boolean;
 }
 
-const BackButton: React.FC<BackButtonProps> = ({ className }) => {
+const BackButton: React.FC<BackButtonProps> = ({ className, back =false }) => {
   const router = useRouter();
 
   return (
     <Button
-      variant={"ghost"}
+      variant={"outline"}
+      size={back ? "sm":"icon"}
       onClick={() => router.back()}
       className={`inline-flex items-center gap-2 text-sm font-medium text-primary   ${className}`}
     >
-      <ArrowLeft className="h-4 w-4" />
-      {/* {label} */}
+      <ArrowLeft className="h-3 w-3" />
+     <p>{back && "Back"}</p> 
     </Button>
   );
 };

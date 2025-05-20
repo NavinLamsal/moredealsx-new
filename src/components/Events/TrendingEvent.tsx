@@ -38,7 +38,7 @@ const TrendingEvents = ({title = "Trending Events"}: {title?: string}) => {
 
 
   return (
-    <div className="p-1 lg:p-4">
+    <div className="">
       {/* <HorizontalCarousel title={title}>
       {data.data.map((event, index) => (
         <div className="flex-shrink-0 w-48 lg:w-60" key={event.id}>

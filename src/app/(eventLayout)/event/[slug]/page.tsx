@@ -102,7 +102,7 @@ async function EventDetailPage({ slug }: { slug: string }) {
         <div className="max-w-5xl mx-auto p-0 md:p-4">
           <div className="lg:flex items-center gap-3 hidden">
             {events.event_type.map((item, index) => (
-              <p key={index} className="inline-flex px-1 py-0.5 rounded text-sm bg-[hsla(264,68%,49%,0.2)] text-primary">{item}</p>
+              <p key={index} className="inline-flex px-1 py-0.5 rounded text-sm bg-primary text-primary-foreground">{item}</p>
             ))}
 
           </div>
@@ -156,11 +156,11 @@ async function EventDetailPage({ slug }: { slug: string }) {
                 <p>
 
                 </p>
-                <p className="text-xs md:text-sm text-muted-foreground mt-2 flex flex-1 gap-2 items-center">
-                  <Calendar size={14} className="text-primary text-xs md:text-sm" /><strong> Start From:</strong> {moment(events.start_date).format("ddd, MMM D, YYYY , h:mm A")}
+                <p className="text-xs md:text-sm text-muted-foreground mt-2 flex flex-1 gap-2 items-start">
+                  <Calendar size={14} className="text-primary text-xs md:text-sm" /><strong className="whitespace-nowrap"> Start From:</strong> {moment(events.start_date).format("ddd, MMM D, YYYY , h:mm A")}
                 </p>
-                <p className="text-xs md:text-sm text-muted-foreground mt-2 flex flex-1 gap-2 items-center">
-                  <Calendar size={14} className="text-red-500 text-xs md:text-sm" /><strong> Ends At:</strong>{moment(events.end_date).format("ddd, MMM D, YYYY , h:mm A")}
+                <p className="text-xs md:text-sm text-muted-foreground mt-2 flex flex-1 gap-2 items-start">
+                  <Calendar size={14} className="text-red-500 text-xs md:text-sm" /><strong className="whitespace-nowrap"> Ends At:</strong>{moment(events.end_date).format("ddd, MMM D, YYYY , h:mm A")}
                 </p>
 
               </div>

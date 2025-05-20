@@ -45,11 +45,11 @@ const AuthNavbarContent = ({header}:{header?:boolean}) => {
         return (
             <div className="flex items-center gap-2">
 
-                {<div className='hidden lg:flex gap-2 items-center'>
-                    <MenuDropdown header={header}/>
-                    <ModeToggle />
-                </div>}
                 <NotificationDropDown header={header}/>
+                {<div className='hidden lg:flex gap-2 items-center'>
+                    <ModeToggle />
+                    <MenuDropdown header={header}/>
+                </div>}
                
             </div>
         )
