@@ -52,7 +52,7 @@ const PaymentInformation = ({ amount, currency, metadata , onfinish , confirmati
         Payment Options
       </h3>
 
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-4 ">
         {paymentOptions.map((option) => (
           <div className="group" key={option.id}>
             <input

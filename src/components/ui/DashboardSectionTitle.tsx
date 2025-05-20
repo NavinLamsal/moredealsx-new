@@ -14,7 +14,7 @@ interface SectionTitleProps {
 
 const DashboardSectionTitle: React.FC<SectionTitleProps> = ({ title, className , white, viewAll}) => {
   return (
-    <div className={cn("text-start mb-10 relative", className)}>
+    <div className={cn("text-start mb-10 relative w-full", className)}>
       <h2
         className={cn(
           `text-lg md:text-xl  xl:text-2xl font-extrabold text-foreground relative inline-block uppercase ${white ? "text-white" : ""}`,
