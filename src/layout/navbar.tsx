@@ -29,7 +29,7 @@ const Navbar = ({ dark_logo, light_logo }: { dark_logo: string, light_logo: stri
     <div className='flex items-center justify-between'>
       <div>
 
-        <LocationDialog />
+        <LocationDialog dashboard={false} />
       </div>
         <div className="flex items-center justify-center">
             <div className="w-12 h-12 relative mr-2 md:mr-4">

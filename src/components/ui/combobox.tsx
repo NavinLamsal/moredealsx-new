@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ChevronsUpDown, Check } from "lucide-react";
 import { Button } from "./button";
 
@@ -25,6 +25,25 @@ export default function CustomCombobox({
   );
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  // useEffect(() => {
+  //   if (initialValue && options.length > 0) {
+  //     const found = options.find((opt) => opt.value === initialValue);
+  //     if (found) {
+  //       setSelectedOption(found);
+  //     }
+  //   }
+  // }, [initialValue, options]);
+  const memoizedInitialOption = useMemo(() => {
+    if (!initialValue || options.length === 0) return null;
+    return options.find((opt) => opt.value === initialValue) || null;
+  }, [initialValue, options]);
+  
+  useEffect(() => {
+    if (memoizedInitialOption) {
+      setSelectedOption(memoizedInitialOption);
+    }
+  }, [memoizedInitialOption]);
 
   const filteredOptions = options.filter((opt) =>
     opt.label.toLowerCase().includes(searchQuery.toLowerCase())

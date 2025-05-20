@@ -75,7 +75,7 @@ const HorizontalCarousel: React.FC<HorizontalCarouselProps> = ({ title, center, 
                 </div>
               )}
 
-              {viewAll && <Link href={viewAll} className="text-blue-600 hover:underline mt-2 ml-2">View All</Link>}
+              {viewAll && <Link href={viewAll} className="text-foreground dark:text-primary  hover:underline mt-2 ml-2">View All</Link>}
             </div>
 
           </div>
@@ -94,7 +94,7 @@ const HorizontalCarousel: React.FC<HorizontalCarouselProps> = ({ title, center, 
           <div></div>
           }
 
-            {viewAll && <Link href={viewAll} className="text-blue-600 hover:underline ">View All</Link>}
+            {viewAll && <Link href={viewAll} className="text-foreground dark:text-primary   hover:underline ">View All</Link>}
           </div>
         </>
       }

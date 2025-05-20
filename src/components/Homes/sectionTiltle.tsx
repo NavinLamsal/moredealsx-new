@@ -18,14 +18,14 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, className , white, v
     <div className={cn("text-center mb-10", className)}>
       <h2
         className={cn(
-          `text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold text-foreground relative inline-block uppercase ${white ? "text-white" : ""}`,
+          `text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-foreground relative inline-block uppercase ${white ? "text-white" : ""}`,
           montserrat.className
         )}
       >
         {title}
         <span className="block w-20 h-1 bg-yellow-400 mx-auto mt-2" />
       </h2>
-      {viewAll && <Link href={viewAll} className="text-blue-600 hover:underline absolute right-0 top-0">View All</Link>}
+      {viewAll && <Link href={viewAll} className="text-foreground dark:text-primary hover:underline absolute right-0 top-0">View All</Link>}
     </div>
   );
 };

@@ -34,7 +34,7 @@ const RegistrationMainForm = () => {
     const currentStep = stepDesc.find((s) => s.step === step);
     return (
 
-        <div className="w-full min-h-svh flex flex-col justify-center items-center  sm:p-6 relative">
+        <div className="w-full flex flex-col justify-center items-center  sm:p-6 relative">
             <Card className="w-full max-w-4xl sm:shadow-lg  rounded-xl bg-inherit shadow-none border-0 sm:border sm:bg-card">
                 {/* <div className='flex justify-center w-full items-center'><AuthHeaders /></div> */}
 

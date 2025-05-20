@@ -47,7 +47,7 @@ export function LocationDialog({dashboard}:{dashboard?:boolean}) {
           onClick={() => setIsOpen(true)}
         >
           <Button variant="ghost" size={"icon"}  className="hover:scale-105 ">
-            <MapPin size={20} />
+            <MapPin size={20} className={`${dashboard ? "text-black dark:text-white" : "text-white"}`}/>
           </Button>
           {(city || country)?
           <input

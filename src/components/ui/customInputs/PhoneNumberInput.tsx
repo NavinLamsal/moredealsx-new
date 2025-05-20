@@ -59,7 +59,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ onChange, initialVa
     // Validate the phone number
     const validatePhoneNumber = useCallback((phoneNumber: string): string | null => {
         const phoneRegex = /^[1-9]\d{9,14}$/;
-        if (!phoneNumber) return 'Phone number is required';
+        if (!phoneNumber) return '';
         if (!phoneRegex.test(phoneNumber)) return 'Invalid phone number';
         return null;
     }, []);

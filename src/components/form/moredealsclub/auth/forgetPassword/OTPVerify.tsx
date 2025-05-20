@@ -121,7 +121,7 @@ const OTPVerifyForm: React.FC = () => {
       };
   
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}auth/forget/password/resend/otp/`,
+        `${process.env.NEXT_PUBLIC_API_URL}auth/forget/password/resend/otp/`,
         {
           method: "POST",
           body: JSON.stringify(payload),

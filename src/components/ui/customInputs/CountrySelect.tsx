@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import CustomCombobox from "../combobox";
 import { getCountryList } from "@/lib/action/PubilcCommon";
 import { CountryListType } from "@/lib/type/CommonType";
@@ -16,33 +16,51 @@ interface CountrySelectProps {
     initialValue?: string;
 }
 
+// 🔁 Module-level cache to avoid refetching
+let cachedCountries: CountryOption[] | null = null;
+
 export default function CountrySelect({ onChange, initialValue = "", }: CountrySelectProps) {
+ 
     const [countryList, setCountryList] = useState<CountryOption[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-
+    const [loading, setLoading] = useState(true);
+  
+    // ✅ Memoized fetch function to prevent re-creation
+    const fetchCountries = useCallback(async () => {
+      if (cachedCountries) {
+        setCountryList(cachedCountries);
+        setLoading(false);
+        return;
+      }
+  
+      try {
+        const countries: CountryListType[] = await getCountryList();
+        const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL ?? "";
+  
+        const formatted: CountryOption[] = countries.map(({ id, name, icon }) => ({
+          value: id.toString(),
+          label: name,
+          icon: icon ? `${baseUrl}${icon}` : undefined,
+        }));
+  
+        cachedCountries = formatted;
+        setCountryList(formatted);
+      } catch (err) {
+        console.error("Failed to load countries:", err);
+      } finally {
+        setLoading(false);
+      }
+    }, []);
+  
     useEffect(() => {
-        const fetchCountries = async () => {
-            try {
-                const countries: CountryListType[] = await getCountryList();
-                const formattedcountries: CountryOption[] = countries.map((country) => ({
-                    value: country.id.toString(),
-                    label: `${country.name}`,
-                    icon: country.icon || undefined,
-                }));
-                setCountryList(formattedcountries);
-            } catch (err) {
-                console.error("Failed to load currencies:", err);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchCountries();
-    }, []); 
+      fetchCountries();
+    }, [fetchCountries]);
+  
+    // ✅ Memoize options to avoid recalculating during re-renders
+    const memoizedOptions = useMemo(() => countryList, [countryList]);
 
     return (
         <CustomCombobox
-            options={countryList}
+            options={memoizedOptions}
             onChange={onChange}
             initialValue={initialValue}
             placeholder={loading ? "Loading countries..." : "Select a country"}
