@@ -39,6 +39,14 @@ const EventBooking = ({ slug , bookingData }: { slug: string, bookingData: {
             <p className="text-sm text-muted-foreground mt-2 mb-4">
                 <strong>Available:</strong>{isLoading && "..." } {data?.seat_available}/{data?.max_limit} Seats
             </p>
+            <p className="text-sm text-muted-foreground mt-2 mb-4">
+                <strong>Only Available:</strong>{isLoading && "..." } {data?.can_book_by_country && 
+                data.can_book_by_country.map((item, index) => (
+                    <span key={index} className="inline-flex px-1 py-0.5 rounded text-sm bg-primary  text-primary-foreground">{item}</span>
+                ))
+                }
+            </p>
+
             <Button variant="destructive" className="w-full py-2 rounded-md font-semibold  transition block md:hidden"
                 onClick={(event) => {
                     event.preventDefault();

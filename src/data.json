@@ -5,6 +5,12 @@
       "horizontal": true,
       "items": [
         {
+          "title": "Dashboard",
+          "description": "See your Dashboard",
+          "icon": "/images/svg/Home.svg",
+          "url": "/dashboard"
+        },
+        {
           "title": "Profile",
           "description": "Manage your profile and settings.",
           "icon": "/images/png/user.png",

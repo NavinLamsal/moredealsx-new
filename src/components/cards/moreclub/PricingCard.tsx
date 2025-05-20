@@ -258,7 +258,7 @@ const PricingCard = ({
         <h3 className="text-sm mb-2">{tier.name}</h3>
         <div className="text-4xl font-bold">
           {tier.currency_symbol}
-          {tier.price}
+          {billingCycle === "yearly" ? tier.yearly_price : tier.price}
           <span className="text-base font-normal opacity-80 ml-2">
             /{billingCycle}
           </span>

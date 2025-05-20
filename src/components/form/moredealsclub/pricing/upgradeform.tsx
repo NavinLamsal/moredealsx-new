@@ -349,8 +349,6 @@ const UpgradeForm = ({ userType, membershiptype }: { userType: "BUSINESS" | "NOR
 
 
     const selectedPackage = useMemo(() => {
-
-
         if (!availablePackages || availablePackages.length === 0) {
             return null;
           }
@@ -361,7 +359,7 @@ const UpgradeForm = ({ userType, membershiptype }: { userType: "BUSINESS" | "NOR
             return availablePackages.find(p => p.name === membershiptype.membership_name);
         }
         return availablePackages[0] || null
-    }, [availablePackages, formData.package, membershiptype]);
+    }, [availablePackages, formData.package, membershiptype , formData.plan_time]);
 
     // Fetch packages on session or type change
     useEffect(() => {
@@ -397,11 +395,16 @@ const UpgradeForm = ({ userType, membershiptype }: { userType: "BUSINESS" | "NOR
     const setData = useCallback((key: keyof UpgradeFormDataType, value: any) => {
         setErrors(prev => ({ ...prev, [key]: "" }));
         if (key === "package") {
-            const pkg = availablePackages.find(p => p.id === value) || DEFAULT_PACKAGE;
-            setFormData(prev => ({ ...prev, package: value, amount: pkg.price.toString() }));
+            const pkg = availablePackages.find(p => p.id === value) ;
+
+            const price =  formData.plan_time === "monthly" ? pkg?.price : pkg?.yearly_price;
+
+            setFormData(prev => ({ ...prev, package: value, amount: price ? price.toString(): "" }));
         } else if (key === "plan_time") {
             const pkg = packages[formData.plan_type][value as "monthly" | "yearly"]?.find(p => p.id === formData.package);
-            setFormData(prev => ({ ...prev, plan_time: value, amount: pkg?.price?.toString() || "" }));
+            
+            const price =  value === "monthly" ? pkg?.price : pkg?.yearly_price;
+            setFormData(prev => ({ ...prev, plan_time: value, amount: price?.toString() || "" }));
         } else {
             setFormData(prev => ({ ...prev, [key]: value }));
         }
