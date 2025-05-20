@@ -20,6 +20,7 @@ interface Step1Props {
 }
 
 const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, serverError, isLoading }) => {
+  const lastpackage = useSelector((state: RootState) => state.pricing.lastFetched[data.plan_type][data.plan_time]);
   const packages = useSelector((state: RootState) => state.pricing.packages[data.plan_type][data.plan_time]);
 
   const handlePackageChange = (value: string) => {
@@ -62,8 +63,11 @@ const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, ser
 
       <div>
         <label className="block text-sm font-medium mb-2">Choose a Package</label>
+          {!lastpackage && <p className="text-sm text-muted-foreground">loading...</p>}
+
         <RadioGroup value={data.package} onValueChange={handlePackageChange} className="grid md:grid-cols-3 gap-4 ">
-          {packages.map((pack: Package) => (
+
+          {lastpackage && packages.map((pack: Package) => (
             <div key={pack.id}>
               <RadioGroupItem value={pack.id} id={pack.id} className="peer sr-only" />
               <label
@@ -71,11 +75,11 @@ const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, ser
                 className="
                 flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary peer-data-[state=checked]:bg-primary [&:has([data-state=checked])]:text-primary-foreground"
               >
-                <span className="text-md font-semibold">{pack.name}</span>
+                <span className="text-md font-semibold">{pack?.name}</span>
                 <span className="text-sm text-muted-foreground">
                   {pack.currency_symbol} {data.plan_time === "yearly" ? pack.yearly_price : pack.price}
                 </span>
-                {pack.name.includes("Power Saver") &&
+                {pack?.name.includes("Power Saver") &&
                   <div>
 
                     <span className='inline-flex px-3 py-1 text-xs font-semibold text-white  rounded-full bg-destructive'>RECOMMENDED</span>

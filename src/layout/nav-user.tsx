@@ -73,7 +73,7 @@ export function NavUser({
                      
                       <div>
                           <div className="font-bold text-lg">{user.name}</div>
-                          <p className='text-primary text-sm '>{users.profile?.membership.membership_name} Member</p>
+                          <p className='text-primary text-sm '>{users.profile?.membership?.membership_name ?? ""} Member</p>
                       </div>
                   </div>
 

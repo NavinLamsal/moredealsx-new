@@ -34,7 +34,6 @@ export default async function Home() {
    <>
    <Hero/>
    <Suspense fallback={<div>Loading...</div>}>
-
    <OfferSection/>
    </Suspense>
    <TreasureSection/>

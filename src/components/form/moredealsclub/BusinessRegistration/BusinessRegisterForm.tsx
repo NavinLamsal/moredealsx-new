@@ -79,8 +79,7 @@ const BusinessSetupModal = () => {
             <Card className="relative p-6 max-w-4xl max-h-[80vh] overflow-y-auto">
               <CardTitle className="my-2 text-lg">Choose your plan</CardTitle>
               <CardDescription className="text-xs">
-                This transaction PIN is required for secure transactions. Please
-                keep it safe and confidential. Do not share your PIN with anyone.
+                Choose the plan that best suits your needs.
               </CardDescription>
               {/* <TransactionPinForm onCancel={() => console.log("Cancel")} onFinish={handlePinSetupComplete} /> */}
               {status === "loading" && <div>Loading...</div>}

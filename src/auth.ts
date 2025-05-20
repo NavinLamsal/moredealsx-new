@@ -131,7 +131,6 @@ export const {
 
           const loginData = await loginResponse.json();
 
-          console.log("loginData", loginData);
           // ✅ Check if login was unsuccessful
           if (loginData.success === "False" || loginData.success === false) {
             throw new Error(
