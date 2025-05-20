@@ -23,18 +23,18 @@ const paymentOptions = [
     darkIcon: "/images/png/stripeWhite.png",
     isTextOnly: false,
   },
-  {
-    id: "MoreDeals",
-    label: "More Deals",
-    lightIcon: "/images/png/moredeals.png",
-    darkIcon: "/images/png/MembersClubWhite.png",
-    isTextOnly: false,
-  },
-  {
-    id: "COD",
-    label: "Cash on Delivery",
-    isTextOnly: true,
-  },
+  // {
+  //   id: "MoreDeals",
+  //   label: "More Deals",
+  //   lightIcon: "/images/png/moredeals.png",
+  //   darkIcon: "/images/png/MembersClubWhite.png",
+  //   isTextOnly: false,
+  // },
+  // {
+  //   id: "COD",
+  //   label: "Cash on Delivery",
+  //   isTextOnly: true,
+  // },
 ];
 
 const PaymentInformation = ({ amount, currency, metadata , onfinish , confirmation_url}: Props) => {

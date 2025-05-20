@@ -35,6 +35,7 @@ const Step2PopForm: React.FC<Step2Props> = ({ data, setData, onNext, serverError
             </p>}
 
             <PaymentInformation amount={data.amount} currency={"USD"} metadata={{
+                "payment_type": "membership",
                 "membership_type_id": data.package,
                 "package_time": data.plan_time,
                 "currency_code": data.currency_code,
