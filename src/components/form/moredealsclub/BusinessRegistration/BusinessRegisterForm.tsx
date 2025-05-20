@@ -76,7 +76,7 @@ const BusinessSetupModal = () => {
           {!setupPin ? (
             <BusinessForm onFinish={handleBusinessSetupComplete}/>
           ) : (
-            <Card className="relative p-6 max-w-4xl max-h-[80vh] overflow-y-auto">
+            <Card className="relative p-6 max-w-4xl max-h-[80vh] w-[90%] md:w-[70%] lg:w-[50%] overflow-y-auto">
               <CardTitle className="my-2 text-lg">Choose your plan</CardTitle>
               <CardDescription className="text-xs">
                 Choose the plan that best suits your needs.

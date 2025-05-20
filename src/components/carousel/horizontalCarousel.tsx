@@ -57,7 +57,7 @@ const HorizontalCarousel: React.FC<HorizontalCarouselProps> = ({ title, center, 
           <div className={`flex ${dashboard ? 'justify-start' : 'justify-center'}  items-center mb-2 relative`}>
 
             {dashboard ?
-              <DashboardSectionTitle title={title} viewAll={viewAll} />
+              <DashboardSectionTitle title={title}   />
               :
 
               <SectionTitle title={title} className="mb-2"/>
@@ -75,7 +75,7 @@ const HorizontalCarousel: React.FC<HorizontalCarouselProps> = ({ title, center, 
                 </div>
               )}
 
-              {!dashboard && viewAll && <Link href={viewAll} className="text-blue-600 hover:underline mt-2 ml-2">View All</Link>}
+              {viewAll && <Link href={viewAll} className="text-blue-600 hover:underline mt-2 ml-2">View All</Link>}
             </div>
 
           </div>
@@ -94,7 +94,7 @@ const HorizontalCarousel: React.FC<HorizontalCarouselProps> = ({ title, center, 
           <div></div>
           }
 
-            {viewAll && <Link href={viewAll} className="text-blue-600 hover:underline">View All</Link>}
+            {viewAll && <Link href={viewAll} className="text-blue-600 hover:underline ">View All</Link>}
           </div>
         </>
       }
