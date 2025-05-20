@@ -214,24 +214,29 @@ const ForgetPasswordForm: React.FC = () => {
       <Button type="submit" className="w-full" disabled={isLoading}>
         {isLoading ? "Searching..." : "Proceed"}
       </Button>
+      
+      
 
       <div className="text-center text-sm my-4">
+      <p className="relative text-gray-400 mb-4 before:absolute before:top-1/2 before:left-0 before:w-1/3 before:h-px before:bg-gray-700 after:absolute after:top-1/2 after:right-0 after:w-1/3 after:h-px after:bg-gray-700">
+          OR 
+        </p>
         <Button
-          variant="link"
+          variant="outline"
           onClick={() => setIsEmailForget(!isEmailForget)}
-          className="flex items-center gap-2 justify-center"
+          className="flex items-center gap-2 justify-center text-center w-full"
         >
           {isEmailForget ? <PhoneIcon size={18} /> : <MailIcon size={18} />}
           {isEmailForget ? "Change with Phone Number" : "Change with Email"}
         </Button>
       </div>
 
-      <div className="text-center text-sm">
+      {/* <div className="text-center text-sm">
         Don't have an account?{" "}
         <a href="/auth/registration" className="underline underline-offset-4">
           Sign up
         </a>
-      </div>
+      </div> */}
       <div className="text-center text-sm">
         Already have an account?{" "}
         <a href="/auth/login" className="underline underline-offset-4">

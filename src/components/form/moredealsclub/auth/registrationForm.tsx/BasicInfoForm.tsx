@@ -14,60 +14,37 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 
-export const CheckUserName = async (username: string, prefix?: string) => {
-  const isEmail = (username: string) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username);
-  const isPhoneNumber = (username: string) =>
-    /^\+?\d{1,4}?\d{9,14}$/.test(username); // Ensures 10-15 digit numbers
 
-  const removePrefix = (phone: string, prefix: string) => {
-    if (phone.startsWith(prefix)) {
-      return phone.slice(prefix.length); // Remove the prefix from the phone number
-    }
-    return phone; // Return original if prefix is not at the beginning
-  };
 
-  let payload;
-  if (isEmail(username)) {
-    payload = { email: username, via: "email" };
-  } else if (isPhoneNumber(username)) {
-    if (prefix) {
-      const phoneWithoutPrefix = removePrefix(username, prefix);
-      payload = {
-        phone_number: phoneWithoutPrefix,
-        phone_prefix: prefix,
-        via: "phone_number",
-      };
-    } else {
-      return "Please enter a valid phone number";
-    }
-    try {
-        const res = await MoreClubApiClient.post(`auth/check/user/`, payload
+export const CheckUserName = async (username: string, prefix?: string): Promise<string> => {
+  const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username);
+  const isPhone = /^\+?\d{1,4}?\d{9,14}$/.test(username);
 
-        );
-        if (res.status === 200) {
-            return "";
+  if (!isEmail && !isPhone) return "Please enter a valid email or phone number";
+
+  const payload = isEmail
+    ? { email: username, via: "email" }
+    : prefix
+      ? {
+          phone_number: username.startsWith(prefix)
+            ? username.slice(prefix.length)
+            : username,
+          phone_prefix: prefix,
+          via: "phone_number",
         }
-    } catch (error: any) {
-        return error.response.data?.errors?.non_field_errors[0]
+      : null;
 
+  if (!payload) return "Please enter a valid phone number";
 
-    }
+  try {
+    const res = await MoreClubApiClient.post(`auth/check/user/`, payload);
+    return res.status === 200 ? "" : "Something went wrong";
+  } catch (error: any) {
+    return error?.response?.data?.errors?.non_field_errors?.[0] || "An unknown error occurred";
   }
-  
 };
 
-const validatePhoneNumber = async (phone: string): Promise<string> => {
-  let error = "";
-  error = validateRequired(phone, "Phone Number");
-  return error;
-};
 
-const validateEmailAddress = async (email: string): Promise<string> => {
-  let error = "";
-  error = validateRequired(email, "Email");
-  return error;
-};
 
 const BasicInfoForm = () => {
   const dispatch = useDispatch();
@@ -145,8 +122,9 @@ const BasicInfoForm = () => {
     if ("email" in fieldValues) {
       if (registerMethod === "EMAIL") {
         let emailErrors = "";
-        emailErrors = await validateEmailAddress(fieldValues.email || "");
+        emailErrors =  validateRequired(fieldValues.email as string, "Email"); 
         if (emailErrors === "") {
+
           emailErrors = await CheckUserName(email);
         }
         tempErrors.email = emailErrors;
@@ -158,7 +136,8 @@ const BasicInfoForm = () => {
     if ("phone" in fieldValues) {
       if (registerMethod === "PHONE") {
         let errors = "";
-        errors = await validatePhoneNumber(fieldValues.phone || "");
+        errors = validateRequired(fieldValues.phone || "", "Phone Number"); 
+  
         if (errors === "") {
           errors = await CheckUserName(fieldValues.phone || "", prefix);
         }
@@ -181,9 +160,9 @@ const BasicInfoForm = () => {
       case "gender":
         return validateRequired(value, "Gender");
       case "email":
-        return await validateEmailAddress(value);
+        return validateRequired(value, "Email");
       case "phone":
-        return await validatePhoneNumber(value);
+        return validateRequired(value, "Phone");
       case "registerMethod":
         return value === "" ? "Choose any one Method" : "";
       default:
@@ -288,9 +267,9 @@ const BasicInfoForm = () => {
               value={email}
               onChange={(e) => handleChange("email", e.target.value)}
               placeholder="m@example.com"
-              className={`p-2 border rounded w-full ${
-                errors.email ? "border-red-500" : ""
-              }`}
+              className={`p-2 border rounded w-full 
+
+              `}
             />
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email}</p>

@@ -25,7 +25,7 @@ const DashboardSectionTitle: React.FC<SectionTitleProps> = ({ title, className ,
         <span className="block w-20 h-1 bg-yellow-400  mt-2" />
       </h2>
 
-      {viewAll &&  <Link href={viewAll} className="text-blue-600 hover:underline absolute right-0 top-0">View All</Link>}
+      {viewAll &&  <Link href={viewAll} className="text-foreground dark:text-primary hover:underline absolute right-0 top-0">View All</Link>}
     </div>
   );
 };
