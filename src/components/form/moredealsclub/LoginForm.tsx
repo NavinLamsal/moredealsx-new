@@ -1,6 +1,6 @@
 
 "use client";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PhoneIcon, MailIcon, Section } from "lucide-react";
@@ -297,8 +297,10 @@ const LoginForm: React.FC = () => {
         <p className="relative text-gray-400 mb-4 before:absolute before:top-1/2 before:left-0 before:w-1/3 before:h-px before:bg-gray-700 after:absolute after:top-1/2 after:right-0 after:w-1/3 after:h-px after:bg-gray-700">
           or continue with
         </p>
-        <div className="flex justify-center gap-4">         
+        <div className="flex justify-center gap-4">
+          <Suspense fallback={<div>Loading...</div>}>         
            <GoogleLoginComponent/>
+          </Suspense>
           <button
             type="button"
             className="w-10 h-10 rounded-full bg-black text-yellow-400 border border-yellow-400 flex items-center justify-center text-lg cursor-pointer transition-all hover:bg-yellow-400 hover:text-black hover:-translate-y-1"
