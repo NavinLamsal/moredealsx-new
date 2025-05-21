@@ -27,6 +27,9 @@ import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { CompanyMeta } from "@/lib/type/CommonType";
 import { NavCRM } from "./crm-main";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/lib/redux/store";
+import { fetchUserProfile } from "@/lib/action/moreClub/User";
 
 // This is sample data.
 
@@ -37,6 +40,13 @@ type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
 export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
   const pathname = usePathname();
   const session = useSession();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const user = useSelector((state: RootState) => state.user); 
+
+  React.useEffect(() => {
+    dispatch(fetchUserProfile({ fetchForce: false }));
+  }, [dispatch]);
 
   const data = {
     user: {
@@ -66,7 +76,7 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
         darkImage: "/images/svg/Home.svg",
         lightImage: "/images/svg/Home.svg",
       },
-      ...(session.data?.user?.userDetails?.user_type === "BUSINESS"
+      ...(user?.profile?.user_type === "BUSINESS"
         ? [
             {
               title: "Network",
@@ -204,11 +214,11 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
       </SidebarHeader>
       <SidebarContent className="hide-scroll-bar">
         <NavMain items={data.navMain} title="Dashboard" />
-        {session.data?.user?.userDetails?.user_type === "BUSINESS" && (
+        {user?.profile?.user_type === "BUSINESS" && (
           <NavMain items={data.navbusiness} title="Business" />
         )}
         <NavProjects projects={data.projects} />
-        {session.data?.user?.userDetails?.user_type === "BUSINESS" &&
+        {user?.profile?.user_type === "BUSINESS" &&
           session?.data?.user?.userDetails?.crm_link && (
             <NavCRM projects={data.crm} />
           )}

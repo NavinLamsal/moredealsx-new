@@ -156,27 +156,6 @@ export const {
         }
       },
     }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      authorization: {
-        params: {
-          prompt: "consent",
-          access_type: "offline",
-          response_type: "code",
-        },
-      },
-      profile(profile) {
-        return {
-          id: profile.sub,
-          email: profile.email,
-          name: profile.name,
-          image: profile.picture,
-          isSocialLogin: true,
-          provider: "google",
-        };
-      },
-    }),
   ],
   callbacks: {
     redirect: async ({ url, baseUrl }: { url: string; baseUrl: string }) => {
@@ -197,43 +176,6 @@ export const {
       session?: any;
     }) => {
       if (account && user) {
-        if (account.provider === "google") {
-          const existingUserRes = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}users/check/?email=${user.email}`
-          );
-          const existingUser = await existingUserRes.json();
-
-          if (!existingUser.exists) {
-            // Store a flag for session
-            token.requiresRegistration = true;
-            token.user = user;
-            return token;
-          }
-
-          const loginRes = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}auth/social-login/`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ email: user.email, provider: "google" }),
-            }
-          );
-
-          const loginData = await loginRes.json();
-
-          token.accessToken = loginData.data.access_token;
-          token.refreshToken = loginData.data.refresh_token;
-          token.user = await fetchUserDetails(loginData.data.access_token);
-
-          const decodedToken = jwtDecode(
-            loginData.data.access_token.toString()
-          );
-          const expiresAt = decodedToken?.exp;
-
-          if (expiresAt) {
-            token.accessTokenExpires = expiresAt * 1000 - 5 * 60 * 1000;
-          }
-        }
 
         return {
           ...token,
@@ -317,6 +259,7 @@ export async function fetchUserDetails(token: string) {
 
     if (!userResponse.ok) throw new Error("Failed to fetch user details");
     const userData = await userResponse.json();
+
     const userDetails = {
       username: userData?.data?.username,
       id: userData?.data.id,
@@ -337,7 +280,6 @@ export async function fetchUserDetails(token: string) {
       crm_link: userData?.data?.crm_link,
       membership: userData?.data?.membership === null ? false : true,
     };
-    console.log("userDetails", userDetails);
 
     // let businessDetails = null;
     // let permissions = null;

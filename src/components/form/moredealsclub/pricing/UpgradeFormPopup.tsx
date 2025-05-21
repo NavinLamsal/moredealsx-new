@@ -28,7 +28,8 @@ export interface UpgradeFormDataType {
 
 const UpgradeFormPopup = ({ userType , onFinish }: { userType: "BUSINESS" | "NORMAL", onFinish: () => void }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
+  const user = useSelector((state: RootState) => state.user);
 
   const packages = useSelector((state: RootState) => state.pricing.packages);
 
@@ -47,16 +48,16 @@ const UpgradeFormPopup = ({ userType , onFinish }: { userType: "BUSINESS" | "NOR
     transaction_date: new Date().toISOString(),
     currency_symbol: "",
     currency_code: "",
-    user_id: session?.user?.userDetails?.id ?? "",
-    email: session?.user?.userDetails?.email ?? "",
-    phone_number: `${session?.user?.userDetails?.phone_prefix ?? ""}${session?.user?.userDetails?.phone_number ?? ""}`,
+    user_id: user?.profile?.id ?? "",
+    email: user?.profile?.email ?? "",
+    phone_number: `${user?.profile?.phone_prefix ?? ""}${user?.profile?.phone_number ?? ""}`,
   });
 
   useEffect(() => {
-    if(session?.user?.userDetails?.country.code){
-      dispatch(fetchPackages({ type: formData.plan_type, cycle: formData.plan_time ,country_code:session?.user?.userDetails?.country.code }));
+    if(user?.profile?.country.code){
+      dispatch(fetchPackages({ type: formData.plan_type, cycle: formData.plan_time ,country_code:user?.profile?.country.code }));
     }
-  }, [formData.plan_type, formData.plan_time, dispatch ,session?.user?.userDetails?.country_code]);
+  }, [formData.plan_type, formData.plan_time, dispatch ,user?.profile?.country?.code ]);
 
   useEffect(() => {
     const current = packages[formData.plan_type]?.[formData.plan_time];

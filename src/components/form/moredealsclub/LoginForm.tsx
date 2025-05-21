@@ -17,6 +17,7 @@ import { fetchPackages } from "@/lib/action/moreClub/pricing";
 import { AppDispatch } from "@/lib/redux/store";
 import PasswordField from "@/components/ui/customInputs/PasswordInput";
 import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
+import GoogleLoginComponent from "@/components/auth/GoogleLoginComponent";
 // import SectionTitle from "@/components/Homes/sectionTiltle";
 
 
@@ -192,57 +193,7 @@ const LoginForm: React.FC = () => {
   };
 
 
-  const handleSocialLogin = async (method: string) => {
-   
-    const formDatas = new FormData();
-    formDatas.append("action", method)
-    await doSocialLogin(formDatas);
 
-    // setIsLoading(true);
-    // try {
-    //   const formDatas = new FormData();
-    //   formDatas.append("password", formData.password);
-    //   formDatas.append("via", isEmailLogin ? "email" : "phone_number")
-    //   if (!isEmailLogin) {
-    //     formDatas.append("phone_prefix", formData.phone_prefix)
-    //     formDatas.append("phone_number", formData.phone)
-    //   } else {
-    //     formDatas.append("email", formData.email)
-    //   }
-    //   const response = await doCredentialLogin(formDatas);
-
-    //   if (response?.success) {
-    //     showToast("Login successful!", "success");
-    //     const session = await getSession();
-    //     if (session?.user?.userDetails?.is_pin_set === false) {
-    //       localStorage.setItem("pinset", "false");
-    //     }
-    //     dispatch(clearPackages())
-
-    //     if (session?.user?.userDetails?.user_type === "BUSINESS") {
-    //       if (session.user.userDetails?.exists_business_profile === false) {
-    //         localStorage.setItem("business_setup", "false");
-    //       }
-    //       dispatch(fetchPackages({ type: "BUSINESS", cycle: "monthly" }));
-    //       dispatch(fetchPackages({ type: "BUSINESS", cycle: "yearly" }));
-    //     } else {
-    //       dispatch(fetchPackages({ type: "NORMAL", cycle: "monthly" }));
-    //       dispatch(fetchPackages({ type: "NORMAL", cycle: "yearly" }));
-    //     }
-
-
-    //     const callbackUrl = searchParams.get("callbackUrl");
-    //     window.location.href = callbackUrl ?? "/dashboard";
-    //   } else {
-    //     throw new Error(response.error || "Invalid credentials");
-    //   }
-    // } catch (error) {
-    //   setServerErrors(error instanceof Error ? error.message : "Login failed");
-    //   showToast(error instanceof Error ? error.message : "Login failed", "error");
-    // } finally {
-    //   setIsLoading(false);
-    // }
-  };
 
 
 
@@ -346,14 +297,8 @@ const LoginForm: React.FC = () => {
         <p className="relative text-gray-400 mb-4 before:absolute before:top-1/2 before:left-0 before:w-1/3 before:h-px before:bg-gray-700 after:absolute after:top-1/2 after:right-0 after:w-1/3 after:h-px after:bg-gray-700">
           or continue with
         </p>
-        <div className="flex justify-center gap-4">
-          <button
-            type="button"
-            className="w-10 h-10 rounded-full bg-black text-yellow-400 border border-yellow-400 flex items-center justify-center text-lg cursor-pointer transition-all hover:bg-yellow-400 hover:text-black hover:-translate-y-1"
-            onClick={(e) => {e.preventDefault();handleSocialLogin("google")}}
-          >
-            G
-          </button>
+        <div className="flex justify-center gap-4">         
+           <GoogleLoginComponent/>
           <button
             type="button"
             className="w-10 h-10 rounded-full bg-black text-yellow-400 border border-yellow-400 flex items-center justify-center text-lg cursor-pointer transition-all hover:bg-yellow-400 hover:text-black hover:-translate-y-1"

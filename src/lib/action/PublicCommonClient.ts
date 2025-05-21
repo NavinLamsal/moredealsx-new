@@ -54,11 +54,11 @@ export const fetchOfferList = async (
 ): Promise<Offer[]> => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-    const endpoint = `${baseUrl}moreoffers/list/?country=${country}`;
+    const endpoint = `${baseUrl}moreoffers/list/`;
     const response = await MoreClubApiClient.get(endpoint, {
       params: {
         country_code: country,
-        platform: category,
+        ...(category !== "All" && {platform: category}),
       },
     });
     return response.data.data || [];
@@ -87,7 +87,7 @@ export const fetchOffer = async (
       title: searchQuery || undefined,
       page: pageParam,
       country_code: country,
-      platform: category,
+      ...(category !== "All" && {platform: category}),
     },
   });
 
