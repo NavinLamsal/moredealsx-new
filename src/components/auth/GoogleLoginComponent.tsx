@@ -42,8 +42,6 @@ const GoogleLoginButton: React.FC = () => {
           formData.append("refresh", data?.refresh);
 
           const loginResponse = await doOTPVerifyLogin(formData);
-
-
           if (loginResponse?.success) {
             showToast("Login successful!", "success");
             const session = await getSession();
@@ -70,10 +68,11 @@ const GoogleLoginButton: React.FC = () => {
             "Your account is verified, but login failed. Please try again."
           );
         } 
-      } catch (error) {
-        console.error('Google login failed:', error);
-        showToast('Google login failed. Please try again.', 'error');
-        // alert('Google login failed.');
+      } catch (error:any) {
+        
+
+        showToast(error?.response?.data?.non_field_errors[0] || error.response?.data?.message || error?.message || 'Google login failed. Please try again.', 'error');
+      
       }finally{
         setIsLoading(false);
       }
