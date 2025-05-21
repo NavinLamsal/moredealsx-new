@@ -53,7 +53,7 @@ const ProductCard = forwardRef<HTMLDivElement, productCardProps>(({ image, store
           </div>
           <div className="flex items-center space-x-1 text-sm text-muted-foreground">
 
-          <Button  className=" mt-2 mx-auto">Book Now</Button>
+          <Button  className=" mt-2 mx-auto">Buy Now</Button>
           </div>
         </div>
       </div>

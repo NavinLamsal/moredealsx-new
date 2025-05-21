@@ -2,38 +2,36 @@
 
 import React, { useState, useEffect } from "react";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import TransactionPinForm from "../wallet/transactionPinSetup";
+import { useSession } from "next-auth/react";
+
 import BusinessForm from "./BusinessForm";
 
-import { useSession } from "next-auth/react";
 import UpgradeFormPopup from "../pricing/UpgradeFormPopup";
-import { Button } from "@/components/ui/button";
 import LogoutTrigger from "@/components/auth/logouts/logouttrigger";
+import ExtraInfoForm from "@/components/auth/ExtraForm";
+import { AppDispatch, RootState } from "@/lib/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserProfile } from "@/lib/action/moreClub/User";
 
 const BusinessSetupModal = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const [showForm, setShowForm] = useState(false);
   const [setupPin, setSetupPin] = useState(false);
+  const [showExtraInfo, setShowExtraInfo] = useState(false);
+
   const { data: session, status } = useSession();
-
-  // useEffect(() => {
-  //   const pinset = localStorage.getItem("membership") === "false";
-  //   const businessSetup = localStorage.getItem("business_setup") === "false";
-
-  //   if (pinset) {
-  //     setSetupPin(true);
-  //   }
-
-  //   if (businessSetup) {
-  //     setShowForm(true);
-  //   }
-  // }, []);
-
+  const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
+    const isNewUser = sessionStorage.getItem("newuser") === "true";
     const pinset = localStorage.getItem("membership") === "false";
     const businessSetup = localStorage.getItem("business_setup") === "false";
 
-    if (pinset) {
+    if (isNewUser) {
+      setShowExtraInfo(true);
+      setShowForm(true);
+    } else if (pinset) {
+      dispatch(fetchUserProfile({ fetchForce: false }));
       setSetupPin(true);
       setShowForm(true);
     } else if (businessSetup) {
@@ -41,8 +39,6 @@ const BusinessSetupModal = () => {
       setShowForm(true);
     }
   }, []);
-
-
 
   useEffect(() => {
     if (showForm) {
@@ -52,12 +48,30 @@ const BusinessSetupModal = () => {
     }
   }, [showForm]);
 
+  const handleExtraInfoComplete = () => {
+    sessionStorage.setItem("newuser", "false");
+    setShowExtraInfo(false);
+    const pinset = localStorage.getItem("membership") === "false";
+    const businessSetup = localStorage.getItem("business_setup") === "false";
+
+    if (pinset) {
+      setSetupPin(true);
+    } else if (businessSetup) {
+      setSetupPin(false);
+    } else {
+      setShowForm(false);
+    }
+  };
+
   const handlePinSetupComplete = () => {
     if (setupPin) {
       setSetupPin(false);
+      dispatch(fetchUserProfile({ fetchForce: true }));
+      localStorage.removeItem("membership");
     }
 
-    if (localStorage.getItem("business_setup") === "false") {
+    const businessSetup = localStorage.getItem("business_setup") === "false";
+    if (businessSetup) {
       setShowForm(true);
     } else {
       setShowForm(false);
@@ -65,20 +79,21 @@ const BusinessSetupModal = () => {
   };
 
   const handleBusinessSetupComplete = () => {
-    localStorage.setItem("business_setup", "true");
+    localStorage.removeItem("business_setup");
     setShowForm(false);
   };
 
   return (
     showForm && (
       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-90 z-50">
-        <
-          >
+        <>
           <div className="absolute top-4 right-4 z-[60]">
             <LogoutTrigger />
           </div>
 
-          {!setupPin ? (
+          {showExtraInfo ? (
+            <ExtraInfoForm onFinish={handleExtraInfoComplete} />
+          ) : !setupPin ? (
             <BusinessForm onFinish={handleBusinessSetupComplete} />
           ) : (
             <Card className="relative p-6 max-w-4xl max-h-[80vh] w-[90%] md:w-[70%] lg:w-[50%] overflow-y-auto">
@@ -86,14 +101,20 @@ const BusinessSetupModal = () => {
               <CardDescription className="text-xs">
                 Choose the plan that best suits your needs.
               </CardDescription>
-              {/* <TransactionPinForm onCancel={() => console.log("Cancel")} onFinish={handlePinSetupComplete} /> */}
+
               {status === "loading" && <div>Loading...</div>}
               {status === "unauthenticated" && <div>Unauthorized</div>}
-              {status === "authenticated" && <UpgradeFormPopup
-                userType={session?.user.userDetails?.user_type} onFinish={handlePinSetupComplete}
-              // userType={"BUSINESS"}
-              />}
-
+              {status === "authenticated" && (
+               <>
+               {!user.lastFetchedProfileAt && user.isLoading && <div>Loading...</div>}
+              
+              {user.lastFetchedProfileAt && !user.isLoading && user.profile && <UpgradeFormPopup
+                  userType={user.profile.user_type as 'BUSINESS' | 'NORMAL'}
+                  onFinish={handlePinSetupComplete}
+                />} 
+               </>
+               
+              )}
             </Card>
           )}
         </>
