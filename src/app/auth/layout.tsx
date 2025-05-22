@@ -52,7 +52,7 @@ export default function  AuthLayout({
     }, []);
   
     return (
-      <div className="relative min-h-screen overflow-hidden bg-black">
+      <div className="relative min-h-screen overflow-hidden bg-black ">
         {/* Particles */}
         {particles.map((p) => (
           <div

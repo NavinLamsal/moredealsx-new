@@ -83,7 +83,7 @@ export const getlegalPages = async(pagetype:string) => {
   try{
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}helpcenter/${pagetype}/`, { next: { tags: [`${pagetype}`] ,revalidate: 300 }})
     const data = await res.json()
-    console.log(data)
+ 
     return data.data as PagesDataType[]
   }catch(err){
     const error = err as Error

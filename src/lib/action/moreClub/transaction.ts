@@ -16,7 +16,7 @@ export const fetchTransactions = async (
 ): Promise<TransactionResponse> => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL; // Use Environment Variable
-    const endpoint = `${baseUrl}wallets/transaction/list/`;
+    const endpoint = `${baseUrl}transaction/list/`;
 
     const response = await MoreClubApiClient.get(endpoint, {
       params: {

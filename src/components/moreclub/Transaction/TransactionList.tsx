@@ -103,13 +103,12 @@ const TransactionList = () => {
                   id={row.transaction_id}
                   
                   type={row.transaction_type}
-                  is_Completed={row.is_completed}
+                  is_Completed={row.is_paid}
                   narration={`${row.is_refund ? `${row.narration} (Refund)` : row.narration}`}
-                  time={moment(row.timestamp).format("hh:mm A")}
-                  amount={row[getTransactionAmountKey(row.transaction_type)]}
-                  prevbalance={row.previous_balance}
-                  currency={row[getCurrencySymbolKey(row.transaction_type)]}
-                  default_currency={row[getCurrencySymbolKey(row.transaction_type)]}
+                  time={moment(row.date).format("hh:mm A")}
+                  amount={`${row.amount}`}
+                  currency={row.currency}
+                  
                   ref={index === page.data.length - 1 ? lastTransactionRef : null} // Attach observer to last element
                 />
               ))}

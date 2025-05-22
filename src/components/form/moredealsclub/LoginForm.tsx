@@ -159,7 +159,7 @@ const LoginForm: React.FC = () => {
           localStorage.removeItem("membership");
         }
 
-        if(session?.user?.userDetails?.exists_business_profile === false){
+        if(session?.user?.userDetails?.user_type === "BUSINESS" && session?.user?.userDetails?.exists_business_profile === false){
           localStorage.setItem("business_setup", "false");
         }else{
           localStorage.removeItem("business_setup");
@@ -191,12 +191,6 @@ const LoginForm: React.FC = () => {
       setIsLoading(false);
     }
   };
-
-
-
-
-
-
 
 
 
@@ -254,7 +248,7 @@ const LoginForm: React.FC = () => {
       <p className="w-full flex">
         <Link
           href="/auth/forgot-password"
-          className="ml-auto text-sm underline-offset-4 hover:underline text-right w-full"
+          className="ml-auto text-foreground text-sm underline-offset-4 hover:underline text-right w-full"
         >
           Forgot your password?
         </Link>
@@ -316,7 +310,7 @@ const LoginForm: React.FC = () => {
         <p className="text-muted-foreground text-xs"> As a member, you get access to exclusive deals, premium discounts, and golden ticket offers across restaurants, salons, hotels and more.</p>
       </div>
 
-      <div className="text-center text-sm">
+      <div className="text-center text-sm text-foreground">
         Don't have an account?{" "}
         <Link href="/auth/register" className="underline underline-offset-4 text-primary">
           Register here

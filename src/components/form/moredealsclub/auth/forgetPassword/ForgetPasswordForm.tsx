@@ -212,7 +212,7 @@ const ForgetPasswordForm: React.FC = () => {
       )}
 
       <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading ? "Searching..." : "Proceed"}
+        {isLoading ? "Sending OTP..." : "Proceed"}
       </Button>
       
       

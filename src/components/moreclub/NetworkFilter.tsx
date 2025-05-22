@@ -87,7 +87,7 @@ const NetworkLeadFilter: React.FC<NetworkLeadFilterProps> = ({
 
 
   return (
-    <div className="p-4 rounded-lg shadow-none lg:shadow-md space-y-4">
+    <div className="p-4 rounded-lg shadow-none lg:shadow-md space-y-4 bg-card">
       <div className={`${showFilters ? "flex" : "hidden xl:flex"} flex-wrap items-center justify-between space-y-4`}> 
         <div className="flex flex-col items-start">
           <label>Search</label>

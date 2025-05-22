@@ -19,7 +19,7 @@ const BackButton: React.FC<BackButtonProps> = ({ className, back =false }) => {
       variant={"outline"}
       size={back ? "sm":"icon"}
       onClick={() => router.back()}
-      className={`inline-flex items-center gap-2 text-sm font-medium text-primary   ${className}`}
+      className={`inline-flex items-center gap-2 text-sm font-medium text-primary-foreground   ${className}`}
     >
       <ArrowLeft className="h-3 w-3" />
      <p>{back && "Back"}</p> 
