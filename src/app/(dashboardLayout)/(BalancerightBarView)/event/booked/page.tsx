@@ -2,6 +2,7 @@
 import BoookedEventList from "@/components/Events/BookedEventsList";
 // import BoookedEventList from "@/components/Events/BookedEventsList";
 import BackButton from "@/components/ui/back_button";
+import PageHeadings from "@/components/ui/customTitles/PageHeadings";
 import Heading from "@/components/ui/heading";
 import { SidebarNav } from "@/layout/Tabnav";
 import React, { useState } from "react";
@@ -19,12 +20,11 @@ const Page = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-between space-y-2 mb-4">
-        <BackButton />
-        <Heading title="Your Booked Events" />
-      </div>
+      
+        <PageHeadings title="Events" description="Here's a list of your Booked Events!"/>
 
-      <div className="flex flex-col space-y-8 ">
+
+      <div className="flex flex-col space-y-8 mt-2 ">
         {/* Sidebar Navigation */}
 
         <aside className="pb-4 border-b-2 border-primary lg:max-w-2xl xl:max-w-4xl">

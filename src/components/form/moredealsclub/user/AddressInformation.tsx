@@ -45,7 +45,7 @@ export default function AddressInfoForm({ userData }: { userData?: any }) {
             }
             const cleanedData = removeEmptyStrings(data)
 
-            const res = await MoreClubApiClient.patch(`${process.env.NEXT_PUBLIC_BASE_URL}users/details/me/`, cleanedData,
+            const res = await MoreClubApiClient.patch(`users/details/me/`, cleanedData,
             )
             dispatch(fetchUserProfile({ fetchForce: true }));
             showToast("Your changes are updated", "success");

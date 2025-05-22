@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '../ui/button'
 import {Montserrat} from 'next/font/google'
+import Link from 'next/link'
 
 const montserrat = Montserrat({subsets: ['latin']})
 
@@ -15,8 +16,13 @@ const Hero = () => {
         <h1 className={`text-4xl md:text-5xl xl:text-6xl  font-extrabold mb-5 uppercase text-primary ${montserrat.className}`}>DOMINATE YOUR SAVINGS</h1>
         <p className='mb-7 text-white text-2xl font-medium'>Premium discounts. Zero compromises.</p>
         <div className="flex justify-center flex-wrap gap-5">
-            <Button variant={'destructive'} size={"lg"} className='font-bold text-xl '>Explore Trending Offers</Button>
+           <Link href="/#offers">
+           <Button variant={'destructive'} size={"lg"} className='font-bold text-xl '>Explore Trending Offers</Button>
+           </Link>
+           <Link href="/#premium">
+           
             <Button  variant={"default"} size={"lg"} className='font-bold text-xl'>Join Premium</Button>
+           </Link> 
         </div>
     </div>
 </section>

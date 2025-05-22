@@ -66,7 +66,7 @@ const GeneralInformationForm = ({ userdata }: { userdata: any }) => {
       }
 
       try{
-        const res = await MoreClubApiClient.patch(`${process.env.NEXT_PUBLIC_BASE_URL}users/details/me/` ,data,
+        const res = await MoreClubApiClient.patch(`users/details/me/` ,data,
           {headers:{
             "Content-Type":"multipart/form-data"
           }
@@ -126,45 +126,51 @@ const GeneralInformationForm = ({ userdata }: { userdata: any }) => {
         )}
         <div>
           <label className="block font-medium mb-1">Account Type</label>
-          <RadioGroup defaultValue={formData.userType} className="grid grid-cols-3 gap-4" onValueChange={(value) => handleChange("userType", value)}
-            disabled
-          >
-            <div>
-              <RadioGroupItem value="NORMAL" id="NORMAL" className="peer sr-only" />
-              <label
-                htmlFor="NORMAL"
-                className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-1.5 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-white [&:has([data-state=checked])]:text-white [&:has([data-state=checked])]:bg-primary"
-              >
-                <User2Icon fill='currentColor' />
-                USER
-              </label>
-            </div>
-            <div>
-              <RadioGroupItem
-                value="BUSINESS"
-                id="BUSINESS"
-                className="peer sr-only"
-              />
-              <label
-                htmlFor="BUSINESS"
-                className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-1.5 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-white [&:has([data-state=checked])]:text-white [&:has([data-state=checked])]:bg-primary"
-              >
-                <Building2Icon className='mx-2' />
-                Business
-              </label>
-            </div>
-            <div>
-              <RadioGroupItem value="DELIVERY" id="DELIVERY" className="peer sr-only" />
-              <label
-                htmlFor="DELIVERY"
-                className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-1.5 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-white [&:has([data-state=checked])]:text-white [&:has([data-state=checked])]:bg-primary"
-              >
-                <Bike fill='currentColor' />
+          <RadioGroup
+  defaultValue={formData.userType}
+  className="grid grid-cols-3 gap-4"
+  disabled
+>
+  {formData.userType === "NORMAL" && (
+    <div>
+      <RadioGroupItem value="NORMAL" id="NORMAL" className="peer sr-only" />
+      <label
+        htmlFor="NORMAL"
+        className="flex flex-col items-center justify-center rounded-md border-2 border-muted  p-1.5 text-white bg-primary"
+      >
+        <User2Icon fill="currentColor" />
+        USER
+      </label>
+    </div>
+  )}
 
-                Delivery
-              </label>
-            </div>
-          </RadioGroup>
+  {formData.userType === "BUSINESS" && (
+    <div>
+      <RadioGroupItem value="BUSINESS" id="BUSINESS" className="peer sr-only" />
+      <label
+        htmlFor="BUSINESS"
+        className="flex flex-col items-center justify-center rounded-md border-2 border-muted  p-1.5 text-white bg-primary"
+      >
+        <Building2Icon className="mx-2" />
+        Business
+      </label>
+    </div>
+  )}
+
+  {formData.userType === "DELIVERY" && (
+    <div>
+      <RadioGroupItem value="DELIVERY" id="DELIVERY" className="peer sr-only" />
+      <label
+        htmlFor="DELIVERY"
+        className="flex flex-col items-center justify-center rounded-md border-2 border-muted  p-1.5 text-white bg-primary"
+      >
+        <Bike fill="currentColor" />
+        Delivery
+      </label>
+    </div>
+  )}
+</RadioGroup>
+
 
           {errors.userType && <p className="text-red-500 text-sm">{errors.userType}</p>}
         </div>

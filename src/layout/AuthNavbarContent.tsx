@@ -1,10 +1,9 @@
 "use client"
-import BalanceViewer from '@/components/moreclub/wallets/BalanceViewer'
+
 import React from 'react'
 import MenuDropdown from './MenuDropdown'
 import { ModeToggle } from '@/components/ui/themeToggle'
 import NotificationDropDown from './notification-drop'
-import { NavUser } from './nav-user'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'

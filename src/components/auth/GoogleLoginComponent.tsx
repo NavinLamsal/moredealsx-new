@@ -51,7 +51,7 @@ const GoogleLoginButton: React.FC = () => {
               localStorage.removeItem("membership");
             }
 
-            if (session?.user?.userDetails?.exists_business_profile === false) {
+            if (session?.user?.userDetails?.user_type === "BUSINESS" &&  session?.user?.userDetails?.exists_business_profile === false) {
               localStorage.setItem("business_setup", "false");
             } else {
               localStorage.removeItem("business_setup");

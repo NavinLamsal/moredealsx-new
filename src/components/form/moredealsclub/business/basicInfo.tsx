@@ -5,6 +5,7 @@ import PhoneNumberInput from '@/components/ui/customInputs/PhoneNumberInput';
 import Heading from '@/components/ui/heading';
 import { Input } from '@/components/ui/input';
 import { fetchBusinessData } from '@/lib/action/moreClub/Business';
+import MoreClubApiClient from '@/lib/axios/moreclub/MoreClubApiClient';
 import useMoredealsClient from '@/lib/axios/moredealsClient';
 import { AppDispatch } from '@/lib/redux/store';
 import { showToast } from '@/lib/utilities/toastService';
@@ -154,7 +155,7 @@ const BasicInfoForm = ({ businessData }: { businessData: any }) => {
             };
 
             setLoading(true);
-            const response = await axios.patch(`${process.env.NEXT_PUBLIC_BASE_URL}business/profile/`, data
+            const response = await MoreClubApiClient.patch(`business/profile/`, data
             );
              dispatch(fetchBusinessData({ fetchForce: true }));
             

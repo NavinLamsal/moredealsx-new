@@ -42,7 +42,7 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
   const session = useSession();
   const dispatch = useDispatch<AppDispatch>();
 
-  const user = useSelector((state: RootState) => state.user); 
+  const user = useSelector((state: RootState) => state.user);
 
   React.useEffect(() => {
     dispatch(fetchUserProfile({ fetchForce: false }));
@@ -51,13 +51,12 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
   const data = {
     user: {
       name: `${session.data?.user?.userDetails?.first_name} ${session.data?.user?.userDetails?.last_name}`,
-      email: `${
-        session.data?.user?.userDetails?.email === ""
+      email: `${session.data?.user?.userDetails?.email === ""
           ? session.data?.user?.userDetails?.phone_prefix +
-            " " +
-            session.data?.user?.userDetails?.phone_number
+          " " +
+          session.data?.user?.userDetails?.phone_number
           : session.data?.user?.userDetails?.email
-      }`,
+        }`,
       avatar: `${session.data?.user?.userDetails?.display_picture}`,
     },
     teams: [
@@ -76,42 +75,48 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
         darkImage: "/images/svg/Home.svg",
         lightImage: "/images/svg/Home.svg",
       },
-      ...(user?.profile?.user_type === "BUSINESS"
-        ? [
-            {
-              title: "Network",
-              url: "#",
-              icon: Bot,
-              darkImage: "/images/svg/NetworkWhite.svg",
-              lightImage: "/images/svg/NetworkYellow.svg",
-              items: [
-                {
-                  title: "Networks",
-                  url: "/networks",
-                  darkImage: "/images/svg/NetworkWhite..svg",
-                  lightImage: "/images/svg/NetworkYellow.svg",
-                },
-                {
-                  title: "Leads",
-                  url: "/dashboard/leads",
-                  darkImage: "/images/svg/leads.svg",
-                  lightImage: "/images/svg/leads.svg",
-                },
-              ],
-            },
-          ]
-        : [
-            {
-              title: "Network",
-              url: "/networks",
-              darkImage:"/images/svg/NetworkWhite..svg",
-              lightImage:"/images/svg/NetworkYellow.svg",
-            },{
-              title: "Leads", url: "/dashboard/leads",
-              darkImage:"/images/svg/leads.svg",
-              lightImage:"/images/svg/leads.svg"
-            }, ]
-      ),
+      // ...(user?.profile?.user_type === "BUSINESS"
+      //   ? [
+      //       {
+      //         title: "Network",
+      //         url: "#",
+      //         icon: Bot,
+      //         darkImage: "/images/svg/NetworkWhite.svg",
+      //         lightImage: "/images/svg/NetworkYellow.svg",
+      //         items: [
+      //           {
+      //             title: "Networks",
+      //             url: "/networks",
+      //             darkImage: "/images/svg/NetworkWhite..svg",
+      //             lightImage: "/images/svg/NetworkYellow.svg",
+      //           },
+      //           {
+      //             title: "Leads",
+      //             url: "/dashboard/leads",
+      //             darkImage: "/images/svg/leads.svg",
+      //             lightImage: "/images/svg/leads.svg",
+      //           },
+      //         ],
+      //       },
+      //     ]
+      //   : [
+      //       {
+      //         title: "Network",
+      //         url: "/networks",
+      //         darkImage:"/images/svg/NetworkWhite..svg",
+      //         lightImage:"/images/svg/NetworkYellow.svg",
+      //       },{
+      //         title: "Leads", url: "/dashboard/leads",
+      //         darkImage:"/images/svg/leads.svg",
+      //         lightImage:"/images/svg/leads.svg"
+      //       }, ]
+      // ),
+      {
+        title: "Network",
+        url: "/networks",
+        darkImage: "/images/svg/NetworkWhite..svg",
+        lightImage: "/images/svg/NetworkYellow.svg",
+      },
       {
         title: "Offers",
         url: "/offers",
@@ -119,7 +124,7 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
         darkImage: "/images/svg/events.svg",
         lightImage: "/images/svg/events.svg",
       },
-     
+
       {
         title: "Events",
         url: "/event",
@@ -194,15 +199,15 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
     crm: [
       ...(session?.data?.user?.userDetails?.crm_link?.restro_link
         ? [
-            {
-              name: "MOREFOOD CRM",
-              url:
-                session?.data?.user?.userDetails?.crm_link?.restro_link ?? "#",
-              icon: Frame,
-              darkImage: "/images/svg/morefood.svg",
-              lightImage: "/images/svg/morefood.svg",
-            },
-          ]
+          {
+            name: "MOREFOOD CRM",
+            url:
+              session?.data?.user?.userDetails?.crm_link?.restro_link ?? "#",
+            icon: Frame,
+            darkImage: "/images/svg/morefood.svg",
+            lightImage: "/images/svg/morefood.svg",
+          },
+        ]
         : []),
     ],
   };

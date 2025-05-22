@@ -16,7 +16,7 @@ export default async function  LandingLayout({
 
   return (
         <React.Fragment>
-         <Navbar dark_logo={MetaDatas.white_logo} light_logo={MetaDatas.white_logo}/> 
+         <Navbar/> 
         {children}
         <Footer data={MetaDatas}/>
         

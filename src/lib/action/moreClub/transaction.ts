@@ -15,8 +15,8 @@ export const fetchTransactions = async (
   searchQuery: { [key: string]: any } = {}
 ): Promise<TransactionResponse> => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL; // Use Environment Variable
-    const endpoint = `${baseUrl}transaction/list/`;
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL; // Use Environment Variable
+    const endpoint = `${baseUrl}payments/transactions/lists/`;
 
     const response = await MoreClubApiClient.get(endpoint, {
       params: {
@@ -58,8 +58,8 @@ export const fetchRecentTransactions = async (
   searchQuery: string = ""
 ): Promise<TransactionResponse> => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-    const endpoint = `${baseUrl}wallets/transaction/list/`;
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const endpoint = `${baseUrl}payments/transactions/lists/`;
 
     let transactions: transactionList[] = [];
     let currentPage = 1;

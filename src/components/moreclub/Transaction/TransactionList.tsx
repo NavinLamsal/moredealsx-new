@@ -101,7 +101,6 @@ const TransactionList = () => {
                 <TransactionCard
                   key={`${row.transaction_id}-${transactionIndex}`}
                   id={row.transaction_id}
-                  
                   type={row.transaction_type}
                   is_Completed={row.is_paid}
                   narration={`${row.is_refund ? `${row.narration} (Refund)` : row.narration}`}

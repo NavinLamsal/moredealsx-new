@@ -6,13 +6,13 @@ import registrationReducer from "@/lib/redux/slice/RegistrationSlice";
 import businessRegistrationReducer from "@/lib/redux/slice/BusinessRegistrationSlice";
 import networkReducer from "./slice/NetworkSlice";
 import commentsReducer from "./slice/CommentSlice";
-import balanceReducer from "./slice/BalanceSlice";
+
 import businessReducer from "./slice/moreclub/BusinessSlice";
 import productReducer from "./slice/morefood/productCart";
 import deliveryReducer from "./slice/morefood/CheckoutSlice";
 import packageReducer from "./slice/moreclub/Pricing";
 import notificationsReducer from "./slice/notificationSlice";
-import walletReducer from "./slice/WalletSlice";
+
 import userReducer from "./slice/moreclub/UserSlice";
 
 
@@ -25,8 +25,7 @@ const rootReducer = combineReducers({
   registration: registrationReducer,
   businessRegistration: businessRegistrationReducer,
   network: networkReducer,
-  balance: balanceReducer,
-  wallet: walletReducer,
+
   business: businessReducer,
   user:userReducer,
   pricing: packageReducer, 

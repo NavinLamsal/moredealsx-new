@@ -1,6 +1,5 @@
 import BusinessContent from "@/components/settings/BusinessContent";
-import BusinessProfileCard from "@/components/settings/BusinessProfileCard";
-import BusinessQuickLinks from "@/components/settings/BusinessQuickLinks";
+
 import BackButton from "@/components/ui/back_button";
 
 import { Button } from "@/components/ui/button";

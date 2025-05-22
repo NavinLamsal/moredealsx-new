@@ -14,7 +14,7 @@ import ImageUploadDropBox from '@/components/ui/customInputs/ImageUploads';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AutoCompleteInput from '@/components/MapBox/AutoCompleteMapInput';
 import { KYCProps } from '@/lib/type/moreclub/User';
-import KycDetail from '@/components/moreclub/profile/kycDetail';
+
 
 
 interface Address {
