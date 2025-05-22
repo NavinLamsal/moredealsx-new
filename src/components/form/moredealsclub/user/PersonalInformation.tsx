@@ -207,7 +207,7 @@ const PersonalInformation = ({ userdata }: { userdata: any }) => {
         }
         const cleanedData = removeEmptyStrings(data)
 
-            const res = await MoreClubApiClient.patch(`${process.env.NEXT_PUBLIC_BASE_URL}users/details/me/` ,cleanedData,
+            const res = await MoreClubApiClient.patch(`users/details/me/` ,cleanedData,
             )  
             dispatch(fetchUserProfile({ fetchForce: true }));   
             update({userDetails: res.data.data }) 

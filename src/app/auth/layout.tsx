@@ -1,4 +1,5 @@
 "use client"
+import Logo, { SmallLogo } from "@/layout/Logo";
 // import Footer from "@/layout/Footer";
 // import { getMetadata } from "@/lib/action/PubilcCommon";
 // import { CompanyMeta } from "@/lib/type/CommonType";
@@ -70,7 +71,12 @@ export default function  AuthLayout({
   
         <div className="relative z-10 max-w-5xl mx-auto px-4 py-8">
           {/* Logo */}
-          <div className="flex items-center mb-8">
+
+          <div className="mb-10">
+          <Logo/>
+          <span className="block w-28 h-1 bg-yellow-400  mx-auto mt-2" />
+          </div>
+          {/* <div className="flex items-center mb-8">
             <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-200 transform rotate-45 shadow-lg relative mr-4">
               <div className="absolute inset-2 bg-black"></div>
               <div className="absolute inset-[20%] bg-gradient-to-br from-yellow-400 to-yellow-200"></div>
@@ -78,7 +84,7 @@ export default function  AuthLayout({
             <h1 className="text-2xl font-extrabold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent drop-shadow-md">
               MOREDEALSX
             </h1>
-          </div>
+          </div> */}
   
           {/* Login Box */}
           {children}

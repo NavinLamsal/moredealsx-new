@@ -8,6 +8,7 @@ import { Loader2 } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
 import { fetchBusinessData } from "@/lib/action/moreClub/Business";
+import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 
 const BusinessLogoUpload = ({ initialLogoUrl }: { initialLogoUrl?: string }) => {
   const axios = useMoredealsClient();
@@ -35,7 +36,7 @@ const BusinessLogoUpload = ({ initialLogoUrl }: { initialLogoUrl?: string }) => 
 
     try {
       setLoading(true);
-      const response = await axios.patch(`${process.env.NEXT_PUBLIC_BASE_URL}business/profile/`, formData, {
+      const response = await MoreClubApiClient.patch(`business/profile/`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setLogoUrl(response.data.logo_url); // Update with new uploaded image URL

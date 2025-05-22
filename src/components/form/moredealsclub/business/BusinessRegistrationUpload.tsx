@@ -8,6 +8,7 @@ import { Loader2 } from "lucide-react";
 import { fetchBusinessData } from "@/lib/action/moreClub/Business";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
+import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 
 const BusinessDocumentUpload = ({ initialDocumentUrl }: { initialDocumentUrl?: string }) => {
   const axios = useMoredealsClient();
@@ -35,7 +36,7 @@ const BusinessDocumentUpload = ({ initialDocumentUrl }: { initialDocumentUrl?: s
 
     try {
       setLoading(true);
-      const response = await axios.patch(`${process.env.NEXT_PUBLIC_BASE_URL}business/profile/`, formData, {
+      const response = await MoreClubApiClient.patch(`business/profile/`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setDocumentUrl(response.data.document_url);

@@ -1,14 +1,14 @@
 
 import React from 'react'
 import { LocationDialog } from './location/LocationDialog'
-import Image from 'next/image'
+
 import AuthNavbarContent from './AuthNavbarContent'
 import {Montserrat} from 'next/font/google'
 import { X } from 'lucide-react'
 
 const montserrat = Montserrat({subsets: ['latin']})
 
-const Navbar = ({ dark_logo, light_logo }: { dark_logo: string, light_logo: string }) => {
+const Navbar = () => {
   return (
     // <div className="bg-navbar text-white py-1 px-6 ">
     //   <div className='max-w-8xl mx-auto flex justify-between items-center'>

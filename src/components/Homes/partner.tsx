@@ -12,7 +12,7 @@ const partnerLogos = [
 
 const PartnersSection = () => {
   return (
-    <section className="py-20 text-cente">
+    <section id="partners"  className="py-20 text-cente">
       <div className="max-w-6xl mx-auto px-4">
         <SectionTitle title="OUR PARTNERS" />
         <p className="text-gray-600 text-center mb-10">Trusted by the Elite</p>

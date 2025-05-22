@@ -75,7 +75,7 @@
       ]
     },
     {
-      "title": "Security",
+      "title": "Privacy and safety",
       "horizontal": false,
       "items": [
         {
@@ -83,13 +83,7 @@
           "icon": "/images/png/reset-password.png",
           "title": "Change password",
           "description": "Learn how to manage and control your privacy across Meta products."
-        }
-      ]
-    },
-    {
-      "title": "Privacy and safety",
-      "horizontal": false,
-      "items": [
+        },
         {
           "url": "/faq",
           "icon": "/images/png/faq.png",

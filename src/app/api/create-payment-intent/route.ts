@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     const { totalAmount, metadata } = await request.json();
 
     // const baseURL = getServerApiUrl(request.url);
-    console.log("metadata", metadata);
+ 
 
     const data = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}payments/create-payment-intent/`,
@@ -33,6 +33,9 @@ export async function POST(request: NextRequest) {
       clientSecret: data.clientSecret,
       paymentIntent: data.payment_intent,
     };
+  
+  
+console.log("resdata", resdata)
     if (data.error !== undefined) {
       throw new Error(data.error);
     }

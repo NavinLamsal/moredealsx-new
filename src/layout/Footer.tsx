@@ -4,6 +4,7 @@
 // import React, { Suspense } from "react";
 
 import { CompanyMeta } from "@/lib/type/CommonType";
+import Link from "next/link";
 
 // const Footer = ({data}:{data:CompanyMeta}) => {
 //   return (
@@ -114,10 +115,10 @@ export default function Footer({data}:{data:CompanyMeta}) {
           <div>
             <h3 className="text-yellow-400 text-xl font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-yellow-400 transition">Home</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-yellow-400 transition">Offers</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-yellow-400 transition">Premium</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-yellow-400 transition">Partners</a></li>
+              <li><a href="/" className="text-gray-400 hover:text-yellow-400 transition">Home</a></li>
+              <li><a href="/offers" className="text-gray-400 hover:text-yellow-400 transition">Offers</a></li>
+              <li><a href="/events" className="text-gray-400 hover:text-yellow-400 transition">Events</a></li>
+              <li><a href="/#partners" className="text-gray-400 hover:text-yellow-400 transition">Partners</a></li>
             </ul>
           </div>
 
@@ -125,7 +126,7 @@ export default function Footer({data}:{data:CompanyMeta}) {
           <div>
             <h3 className="text-yellow-400 text-xl font-semibold mb-4">Categories</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-yellow-400 transition">Restaurants</a></li>
+              <li><a href="/morefood" className="text-gray-400 hover:text-yellow-400 transition">Restaurants</a></li>
               <li><a href="#" className="text-gray-400 hover:text-yellow-400 transition">Salons</a></li>
               <li><a href="#" className="text-gray-400 hover:text-yellow-400 transition">Hotels</a></li>
               <li><a href="#" className="text-gray-400 hover:text-yellow-400 transition">Marketplace</a></li>
@@ -136,10 +137,10 @@ export default function Footer({data}:{data:CompanyMeta}) {
           <div>
             <h3 className="text-yellow-400 text-xl font-semibold mb-4">Support</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-yellow-400 transition">FAQ</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-yellow-400 transition">Contact Us</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-yellow-400 transition">Terms</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-yellow-400 transition">Privacy</a></li>
+              <li><Link href="/faq" className="text-gray-400 hover:text-yellow-400 transition">FAQ</Link></li>
+              <li><Link href="/" className="text-gray-400 hover:text-yellow-400 transition">Contact Us</Link></li>
+              <li><Link href="/terms-and-condition" className="text-gray-400 hover:text-yellow-400 transition">Terms</Link></li>
+              <li><Link href="/privacy-policy" className="text-gray-400 hover:text-yellow-400 transition">Privacy</Link></li>
             </ul>
           </div>
         </div>

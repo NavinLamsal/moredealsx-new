@@ -44,15 +44,7 @@ const BusinessQuickLinks = () => {
                 <Heading title="Quick Links" />
             </CardTitle>
             <CardContent className='flex flex-col gap-2 divide-y-2  divide-primary-foreground '>
-                <Link href={"/dashboard/leads"} >
-                    <Button variant={"ghost"} className=' justify-start text-lg w-full text-left hover:bg-primary hover:text-primary-foreground '>
-                        <Avatar className="flex items-center h-7 w-7">
-                            <AvatarImage src={"/images/svg/leads.svg"} className="h-7 w-7 block dark:hidden" />
-                            <AvatarImage src={"/images/svg/leads.svg"} className="h-7 w-7 hidden dark:block" />
-                            <AvatarFallback >{"B"}</AvatarFallback>
-                        </Avatar>
-                        Leads</Button>
-                </Link>
+                
                 <Link href={"/business/profile/update"} >
                     <Button variant={"ghost"} className=' justify-start text-lg w-full text-left hover:bg-primary hover:text-primary-foreground '>
                     <Avatar className="flex items-center h-7 w-7">
@@ -71,13 +63,7 @@ const BusinessQuickLinks = () => {
                         </Avatar>
                         Business Transaction</Button>
                 </Link>
-                <Link href={"/business/transaction"} className='pt-1'>
-                    <Button variant={"ghost"} className=' justify-start text-lg w-full text-left hover:bg-primary hover:text-primary-foreground '><Avatar className="flex items-center h-7 w-7">
-                        <AvatarImage src={"/images/svg/events.svg"} className="h-7 w-7 block dark:hidden" />
-                        <AvatarImage src={"/images/svg/events.svg"} className="h-7 w-7 hidden dark:block" />
-                        <AvatarFallback >{"B"}</AvatarFallback>
-                    </Avatar>Business Events</Button>
-                </Link>
+                
                 <div className="text-base mt-2 mb-2 border-b pb-2 p-2">
 
                     <p className='my-2 text-lg'>Reffer</p>

@@ -16,12 +16,15 @@ interface Step1Props {
   serverError: string;
   setData: (key: string, value: any) => void;
   onNext: () => void;
+  onSkip: () => void;
   isLoading: boolean;
 }
 
-const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, serverError, isLoading }) => {
+const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, onSkip, serverError, isLoading }) => {
   const lastpackage = useSelector((state: RootState) => state.pricing.lastFetched[data.plan_type][data.plan_time]);
   const packages = useSelector((state: RootState) => state.pricing.packages[data.plan_type][data.plan_time]);
+
+  const user = useSelector((state: RootState) => state.user);
 
   const handlePackageChange = (value: string) => {
     const selectedPack = packages.find((p: Package) => p.id === value);
@@ -63,7 +66,7 @@ const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, ser
 
       <div>
         <label className="block text-sm font-medium mb-2">Choose a Package</label>
-          {!lastpackage && <p className="text-sm text-muted-foreground">loading...</p>}
+        {!lastpackage && <p className="text-sm text-muted-foreground">loading...</p>}
 
         <RadioGroup value={data.package} onValueChange={handlePackageChange} className="grid md:grid-cols-3 gap-4 ">
 
@@ -77,7 +80,8 @@ const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, ser
               >
                 <span className="text-md font-semibold">{pack?.name}</span>
                 <span className="text-sm text-muted-foreground">
-                  {pack.currency_symbol} {data.plan_time === "yearly" ? pack.yearly_price : pack.price}
+                  {pack.code === "free" ? "Try for Free" : `${pack.currency_symbol} ${data.plan_time === "yearly" ? pack.yearly_price : pack.price}`}
+                  
                 </span>
                 {pack?.name.includes("Power Saver") &&
                   <div>
@@ -91,10 +95,17 @@ const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, ser
         {errors.package && <p className="text-red-500">{errors.package}</p>}
       </div>
 
+      {(user.profile?.user_type === "NORMAL" && packages.find((p: Package) => p.id === data.package)?.code === "free") ? (
+        <Button type="button" onClick={onSkip} className="w-full" disabled={isLoading}>
+          Skip
+        </Button>
+      )
+        :
+        <Button type="button" onClick={onNext} className="w-full" disabled={isLoading}>
+          {isLoading ? "Processing..." : "Next"}
+        </Button>
+      }
 
-      <Button type="button" onClick={onNext} className="w-full" disabled={isLoading}>
-        {isLoading ? "Processing..." : "Next"}
-      </Button>
     </div>
   );
 };

@@ -73,7 +73,7 @@ export function SidebarNav({ items, activeTab, setActiveTab }: SidebarNavProps) 
           className={cn(
             buttonVariants({ variant: "ghost" }),
             activeTab === item.title
-              ? "bg-primary text-primary-foreground dark:bg-purple-800"
+              ? "bg-primary text-primary-foreground dark:bg-primary"
               : "bg-slate-50 bg-card lg:bg-inherit hover:bg-primary hover:underline hover:text-primary-foreground",
             "justify-start w-full text-center lg:text-left px-4 py-2 "
           )}

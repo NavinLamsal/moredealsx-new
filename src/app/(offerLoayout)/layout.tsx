@@ -1,14 +1,10 @@
-// import { getServerSession } from "next-auth";
-// import { authOptions } from "@/lib/auth";
-// import DashboardLayout from "@/components/layouts/DashboardLayout";
-// import LandingLayout from "@/components/layouts/LandingLayout";
-import { auth } from "@/auth";
-import { Header } from "@/components/Home/Hero";
 
+import { auth } from "@/auth";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/layout/app-sidebar";
 import Footer from "@/layout/Footer";
 import Headers from "@/layout/headers";
+import Navbar from "@/layout/navbar";
 import { getMetadata } from "@/lib/action/PubilcCommon";
 import { CompanyMeta } from "@/lib/type/CommonType";
 import type { Metadata } from "next";
@@ -16,10 +12,10 @@ import React, { Suspense } from "react";
 
 // 🔹 Global Metadata for All Event Pages
 export const metadata: Metadata = {
-    title: "Exclusive Events | MoreClub",
+    title: "Exclusive Offers | MoreDealsX",
     description: "Join our exclusive events with MoreClub. Book your spot now!",
     openGraph: {
-        title: "Exclusive Events",
+        title: "Exclusive Offers",
         description: "Discover amazing events and book your spot.",
         images: [
             {
@@ -32,7 +28,7 @@ export const metadata: Metadata = {
     },
 };
 
-export default async function EventLayout({ children }: { children: React.ReactNode }) {
+export default async function OfferLayout({ children }: { children: React.ReactNode }) {
     const MetaDatas: CompanyMeta = await getMetadata();
     const session = await auth();
     const isAuthenticated = !!session;
@@ -62,7 +58,8 @@ export default async function EventLayout({ children }: { children: React.ReactN
         </SidebarInset>
     </SidebarProvider> :
         <React.Fragment>
-            <Header logo={MetaDatas.white_logo} />
+            <Navbar/> 
+            
             {children}
             <Footer data={MetaDatas} />
         </React.Fragment>

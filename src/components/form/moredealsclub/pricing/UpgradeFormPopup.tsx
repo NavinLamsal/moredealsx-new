@@ -127,6 +127,7 @@ const UpgradeFormPopup = ({ userType , onFinish }: { userType: "BUSINESS" | "NOR
       if (step === 0) {
         if (!(await validate())) return;
         setServerError("");
+        setIsLoading(true);
         try {
           const { data } = await MoreClubApiClient.post(`${process.env.NEXT_PUBLIC_API_URL}subscriptions/check/`, {
             membership_type: formData.package,
@@ -136,33 +137,33 @@ const UpgradeFormPopup = ({ userType , onFinish }: { userType: "BUSINESS" | "NOR
           setStep(nextStep);
         } catch (err: any) {
           handleServerError(err);
+        }finally{
+          setIsLoading(false);
         }
       } else if (step === 1) {
         setServerError("");
         showToast("Subscribed successfully!", "success");
-        // setStep(nextStep);
         onFinish();
-        // try {
-        //   const { data } = await MoreClubApiClient.post(`${process.env.NEXT_PUBLIC_BASE_URL}subscriptions/upgrade/`, {
-        //     membership_type: formData.package,
-        //     plan_time: formData.plan_time,
-        //     pin: formData.pin,
-        //   });
-        //   showToast("Transfer successful!", "success");
-        //   setPurchasingInfo((prev) => ({ ...prev, ...data.data }));
-        //   setStep(nextStep);
-        // } catch (err: any) {
-        //   handleServerError(err);
-        // }
       }
     },
     [formData, step, validate,  handleServerError]
   );
 
+  const handleSkip = useCallback(async () => {
+    try {
+      if(!(await validate())) return;
+      setServerError("");
+      showToast("Subscribed successfully!", "success");
+      onFinish();
+    } catch (error) {
+      setServerError("Something went wrong while skipping.");
+    }
+  }, [onFinish]);
+
   const steps = [
     {
       component: Step1PopForm,
-      props: { data: formData, errors, serverError, setData, onNext: () => handleNext(1), setLoading, isLoading },
+      props: { data: formData, errors, serverError, setData,  onNext: () => handleNext(1), onSkip: () => handleSkip(), setLoading, isLoading },
     },
     {
       component: Step2PopForm,
