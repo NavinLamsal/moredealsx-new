@@ -19,7 +19,7 @@ const PageHeadings = ({title,white, description}:{title:string, white?:boolean, 
                         )}>
                             {title}
                         </h2>
-                        <span className="block w-20 h-1 bg-yellow-400  mt-2" />
+                        <span className="block w-20 h-1 dark:bg-yellow-400   mt-2" />
                 </div>
                 <BackButton back={true}/>
             </div>

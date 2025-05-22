@@ -65,7 +65,7 @@ const TransactionDetailView: React.FC<TransactionDetailProps> = ({ transactionId
           <div className="grid gap-3 text-sm">
             <div className="flex justify-between">
               <span>Amount:</span>
-              <span className="font-semibold">{transaction[getCurrencySymbolKey(transaction.transaction_type)]} {transaction[getTransactionAmountKey(transaction.transaction_type)]}</span>
+              <span className="font-semibold">{transaction.currency} {transaction.amount}</span>
             </div>
 
             <div className="flex justify-between">

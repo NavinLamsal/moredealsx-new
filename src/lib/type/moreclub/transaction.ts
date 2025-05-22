@@ -8,22 +8,18 @@ interface Userdetail {
 }
 
 interface transactionList {
-  currency_received_amount:string
-  currency_sent_amount:string
-  is_completed: Boolean
-  is_refund: Boolean
-  transaction_id: string;
   id: number;
-  user: Userdetail | null;
+  transaction_id: string;
+  currency: string;
   amount: number;
-  currency_sent_symbol: string; 
-  currency_received_symbol: string; 
-  transaction_type: string; 
-  previous_balance: string; 
+  transaction_type: string;
+  is_paid: boolean; 
+  is_refund: Boolean
+  date: string;
   narration: string; 
-  timestamp: string; 
-  action_user: Userdetail | null; 
-  remarks: string; 
+  payer_details: Userdetail | null;
+  remarks: string;
+
 }
 
 interface Transaction {
