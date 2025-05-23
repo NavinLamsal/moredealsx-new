@@ -11,12 +11,11 @@ import { validateRequired } from '@/lib/validation/common';
 import { Loader2 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { platform } from 'os';
 import React, { useState } from 'react';
 
 
 const platformOptions: Record<string, string> = {
-  restaurant: `${process.env.NEXT_PUBLIC_API_URL}crm/morefood/domain/`,
+  restaurant: `${process.env.NEXT_PUBLIC_API_URL}business/create/domain/`,
   hotel: `${process.env.NEXT_PUBLIC_API_URL}crm/moreliving/domain/`,
 };
 
@@ -107,7 +106,7 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
 
   const verifyDomain = async () => {
     try{
-      const res = await MoreClubApiClient.post(`${process.env.NEXT_PUBLIC_API_URL}crm/morefood/domain/verify/`,{domain_name: formData.domain});
+      const res = await MoreClubApiClient.post(`${process.env.NEXT_PUBLIC_API_URL}business/domain/verify/`,{domain_name: formData.domain});
       const data = res.data;
       setErrors({ ...errors, domain: "" });
       return true
