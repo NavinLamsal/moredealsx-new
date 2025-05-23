@@ -114,15 +114,15 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
       {
         title: "Network",
         url: "/networks",
-        darkImage: "/images/svg/NetworkWhite..svg",
+        darkImage: "/images/svg/NetworkWhite.svg",
         lightImage: "/images/svg/NetworkYellow.svg",
       },
       {
         title: "Offers",
         url: "/offers",
         icon: BookOpen,
-        darkImage: "/images/svg/events.svg",
-        lightImage: "/images/svg/events.svg",
+        darkImage: "/images/png/offer.png",
+        lightImage: "/images/png/offer.png",
       },
 
       {

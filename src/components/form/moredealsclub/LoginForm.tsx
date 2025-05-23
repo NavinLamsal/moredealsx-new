@@ -131,13 +131,14 @@ const LoginForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
  
-
+    setIsLoading(true);
     if (!await validate()) {
       showToast("Please fix the errors in the form.", "error");
+      setIsLoading(false);
       return;
     }
 
-    setIsLoading(true);
+  
     try {
       const formDatas = new FormData();
       formDatas.append("password", formData.password);

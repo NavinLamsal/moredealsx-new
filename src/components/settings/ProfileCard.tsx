@@ -2,59 +2,117 @@
 
 "use client";
 import React from "react";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
-import Image from "next/image";
+
 import moment from "moment";
 import { useAppSelector } from "@/lib/redux/hooks";
 import { RootState } from "@/lib/redux/store";
-import { getMetadata } from "@/lib/action/PubilcCommon";
-import { useQuery } from "@tanstack/react-query";
-import { Skeleton } from "../ui/skeleton";
+
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { Montserrat } from "next/font/google";
+
+
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function ProfileCard() {
     const user = useAppSelector((state: RootState) => state.user.profile);
 
-    const { data: metadatas, isLoading: metaloading, isError: metaerror } = useQuery({
-        queryKey: ["Meta data "],
-        queryFn: async () => await getMetadata(),
-        staleTime: 360000,
-    });
+    // const { data: metadatas, isLoading: metaloading, isError: metaerror } = useQuery({
+    //     queryKey: ["Meta data "],
+    //     queryFn: async () => await getMetadata(),
+    //     staleTime: 360000,
+    // });
 
     return (
         <div className="flex flex-col flex-wrap  gap-4 w-full mt-4 ">
-            {/* -- Membership Card -- */}
-            {/* gradient-background */}
-            <Card className="max-w-lg flex-1 bg-primary text-primary-foreground  p-2 md:p-4 print:bg-white print:text-black">
-                <CardHeader className="pb-2">
-                    <CardTitle className="text-base md:text-lg  text-center">Membership card</CardTitle>
-                    <CardDescription className="text-sm">
-                    </CardDescription>
-                </CardHeader>
+            <Card className="max-w-lg flex-1 gradient-background text-primary-foreground p-2 md:p-4 print:bg-white print:text-black ">
+                <CardContent className={`grid grid-cols-12 gap-2 items-center mt-2 ${montserrat.className}`}>
+                    {/* Left side: Avatar and Referral Code */}
+                    <div className="col-span-4 flex flex-col items-start">
+                        <div className="relative w-28 h-28">
+                            {/* Outer base ring */}
+                            <div className="absolute inset-0 rounded-full border-[3px] border-white z-0" />
 
-                <CardContent className="flex justify-between items-center space-y-2 mt-2">
-                    <div>
-                        <p className="mb-3 whitespace-nowrap text-sm md:text-base">Refer code:{user?.reffer_code.referral_code}</p>
-                        <Avatar className="w-12 h-12 md:w-16 md:h-16 bg-white mr-auto mb-4">
-                            <AvatarImage src={user?.display_picture ?? ""} className="w-12 h-12 md:w-16 md:h-16" />
-                            <AvatarFallback className="w-12 h-12 md:w-16 md:h-16 text-black font-bold bg-inherit">NL</AvatarFallback>
-                        </Avatar>
-                        <p className="text-sm font-semibold truncate uppercase w-[11rem] ">{user?.last_name}, {user?.first_name}</p>
+                            {/* Extended arc ring (top-right to bottom-left) */}
+                            <div className="absolute w-36 h-36 border-[3px] border-white rounded-full z-0"
+                                style={{
+                                    top: "-16px",
+                                    left: "-16px",
+                                    clipPath: "inset(0 0 40% 0)",
+                                    transform: "rotate(30deg)"
+                                }}
+                            />
+
+                            {/* Avatar */}
+                            <Avatar className="w-full h-full bg-white relative z-10">
+                                <AvatarImage
+                                    src={user?.display_picture ?? ""}
+                                    className="w-full h-full rounded-full object-cover"
+                                />
+                                <AvatarFallback className="w-full h-full text-black font-bold bg-inherit flex items-center justify-center">
+                                    {user?.first_name?.[0] ?? "N"}
+                                    {user?.last_name?.[0] ?? "L"}
+                                </AvatarFallback>
+                            </Avatar>
+                        </div>
+
                     </div>
-                    <div className="space-y-2 text-sm md:text-base">
-                        <p className="text-right whitespace-nowrap ">{user?.membership?.membership_code ?? "Free"}&nbsp;<strong>Membership Code</strong></p>
-                        <p className="text-right whitespace-nowrap ">{user?.email === '' ?
-                            user?.phone_prefix + ' ' + user?.phone_number :
-                            user?.email
-                        } <strong>EMAIL</strong></p>
 
-                        {(user?.user_profile?.street || user?.user_profile?.city) && (
-                            <p className="text-right whitespace-nowrap">
-                                {user?.user_profile?.street ?? ''} {user?.user_profile?.city ?? ''} <strong>ADDRESS</strong>
+                    {/* Right side: User Info */}
+                    <div className="col-span-8 space-y-1 text-sm md:text-base">
+                        <p className={`text-xl font-extrabold uppercase truncate `}>
+                            {user?.first_name} {user?.last_name}
+                        </p>
+
+
+                        <div className="flex items-center mb-4">
+                            <p className="relative pl-10 text-primary-foreground uppercase z-10">
+                                {user?.membership?.membership_code ?? "Free"}
+                                <span className="absolute left-0 top-1/2 w-8 border-t border-black -translate-y-1/2"></span>
                             </p>
-                        )}
-                        <p className="text-right whitespace-nowrap "> {moment(user?.date_joined).format("MMM DD,YYYY")}  <strong>ISSUE</strong></p>
+                        </div>
+
+                        <p className="my-3">
+                            <strong>Refer Code:</strong>{" "} {user?.reffer_code?.referral_code ?? "N/A"}
+                        </p>
+
+
+
+                        <p className="flex items-center">
+                            <Mail className="mr-2 w-4 h-4" />
+                            {user?.email && user?.email !== ""
+                                ? user.email
+                                : `${user?.user_profile.secondary_email ?? "................................."}`}
+                        </p>
+                        <p className="flex items-center">
+                            <Phone className="mr-2 w-4 h-4" />
+                            {user?.phone_number && user?.phone_number !== ""
+                                ? `${user?.phone_prefix ?? ""} ${user?.phone_number ?? ""}`
+                                : `${user?.user_profile.secondary_phone_number ?? "................................."}`}
+                        </p>
+                        <p className="flex items-center">
+                            <MapPin className="mr-2 w-4 h-4" />
+                            {[user?.user_profile?.street, user?.user_profile?.city]
+                                .filter(Boolean)
+                                .join(", ") || "................................."}
+                        </p>
+                        <p className="flex items-center">
+                            <Clock className="mr-2 w-4 h-4" />
+                            {moment(user?.date_joined).format("MMM DD, YYYY")}
+                        </p>
+
+                        {/* {(user?.user_profile?.street || user?.user_profile?.city) && (
+            <p className="flex items-center">
+              <MapPin className="mr-2 w-4 h-4" />
+              {[user?.user_profile?.street, user?.user_profile?.city]
+                .filter(Boolean)
+                .join(", ")}
+            </p>
+          )} */}
+
+
                     </div>
                 </CardContent>
             </Card>
@@ -63,3 +121,8 @@ export default function ProfileCard() {
 
     );
 }
+
+
+
+
+
