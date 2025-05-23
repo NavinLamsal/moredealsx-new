@@ -50,16 +50,19 @@ const userDetails = session.user?.userDetails;
 
 if(!session?.user?.userDetails?.crm_link){
   return (
-    <Link href={`/business/crm/create/`} className="max-w-sm mx-auto bg-blue-100 border border-blue-200 rounded-lg p-6 text-center hover:shadow-md transition-shadow duration-300">
+    <Link href={`/business/crm/create/`} > 
+
+    <div className="max-w-sm mx-auto bg-blue-100 border border-blue-200 rounded-lg p-6 text-center hover:shadow-md transition-shadow duration-300">
   <div className="flex justify-center mb-4">
-    <div className="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center text-xl">
+    <div className="bg-primary text-primary-foreground rounded-full w-10 h-10 flex items-center justify-center text-xl">
       +
     </div>
   </div>
-  <h3 className="text-lg font-semibold text-gray-800 mb-2">Add a CRM for your {name}</h3>
-  <p className="text-sm text-gray-600">
+  <h3 className="text-lg font-semibold text-primary mb-2">Add a CRM for your {name}</h3>
+  <p className="text-sm text-muted-foreground">
     Manage your own business. List your business on our platform and start earning!
   </p>
+</div>
 </Link>
 
   )

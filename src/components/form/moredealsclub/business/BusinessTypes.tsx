@@ -120,7 +120,7 @@ const BusinessTypes: React.FC = () => {
 
                             {/* Individual Submit Button */}
                             <div className="flex w-full gap-2 col-span-1 sm:col-span-2 justify-end">
-                                {isExisting &&
+                                {!isExisting &&
                                     <Button
                                         type="button"
                                         variant={"destructive"}
