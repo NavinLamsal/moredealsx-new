@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   useStripe,
   useElements,
@@ -32,33 +32,43 @@ buttonText?:string
   const [loading, setLoading] = useState<boolean>(false);
   // const dispatch = useDispatch();
  
+ 
 
+  const fetchCountryCodeAndPaymentIntent = useCallback(async () => {
+    console.log("metadata", metadata);
 
-   useEffect(() => {
-     const fetchCountryCodeAndPaymentIntent = async () => {
-       try {
-       
-           const response = await fetch("/api/create-payment-intent", {
-             method: "POST",
-             headers: {
-               "Content-Type": "application/json",
-               
-             },
-             body: JSON.stringify({
-               metadata
-             }),
-           });
+    try {
+      const response = await fetch("/api/create-payment-intent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ metadata }),
+      });
+  
+      const data = await response.json();
+      setClientSecret(data.data.clientSecret);
+      setPaymentIntent(data.data.paymentIntent);
+    } catch (error: any) {
+      setErrorMessage(`Error fetching client secret: ${error.message}`);
+    }
+  }, [metadata]); 
+  
 
-           const data = await response.json();
-           setClientSecret(data.data.clientSecret);
-           setPaymentIntent(data.data.paymentIntent);
-       } catch (error: any) {
-         setErrorMessage(`Error fetching client secret: ${error.message}`);
-       }
-     };
+  const hasFetchedRef = useRef(false);
 
-     fetchCountryCodeAndPaymentIntent();
-   }, [totalAmount]);
+  useEffect(() => {
+    if (!hasFetchedRef.current) {
+      hasFetchedRef.current = true;
+      fetchCountryCodeAndPaymentIntent();
+    }
+  }, [fetchCountryCodeAndPaymentIntent]);
+
+  // useEffect(() => {
+  //   fetchCountryCodeAndPaymentIntent();
+  // }, [fetchCountryCodeAndPaymentIntent]);
+
+  
 
   const handlePaymentSubmit = async (event: React.FormEvent<HTMLElement>) => {
     event.preventDefault();
@@ -133,7 +143,7 @@ buttonText?:string
       <button
         disabled={!stripe || loading}
         onClick={handlePaymentSubmit}
-        className="text-white w-full py-3 mt-4 bg-black rounded-md font-bold disabled:opacity-50"
+        className=" w-full py-3 mt-4 bg-primary text-primary-foreground rounded-md font-bold disabled:opacity-50"
       >
         {loading ? "Processing..." : `${buttonText}  ${totalAmount}`}
       </button>

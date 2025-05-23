@@ -75,11 +75,8 @@ const BookingAction = ({ slug, type, setShowDialog, setShowSheet , bookingData}:
     }
 
     return (
-        <div className="max-w-md mx-auto p-6  rounded-lg">
-            <h2 className="text-lg font-semibold mb-4 text-center">Enter your transaction pin to purchase event ticket!</h2>
-
-            <p className="text-justify text-xs">To enhance security and verify your identity, we require you to enter your transaction PIN before proceeding. Please provide your PIN to continue with the current process.</p>
-
+        <div className="max-w-xl mx-auto p-6  rounded-lg">
+            <h2 className="text-lg font-semibold mb-4 text-center">Book the Event</h2>
             <div  className="space-y-4 mt-4">
                 {serverError &&
                     <p className="text-center text-sm text-red-600 p-2 bg-red-200">

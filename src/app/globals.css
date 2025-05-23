@@ -191,7 +191,7 @@ html {
   display: none;  /* Safari and Chrome */
 }
 
-.gradient-background{
+/* .gradient-background{
   background-image: linear-gradient(
     to right top,
     #0c153b,
@@ -207,7 +207,30 @@ html {
     #0756c5,
     #0b5ed7
   );
+} */
+
+.gradient-background {
+  background-image: linear-gradient(
+    to top,
+    
+    
+    hsl(51, 100%, 50%),
+    hsl(51, 100%, 50%),
+    hsl(51, 100%, 55%),
+    hsl(51, 100%, 60%),
+    hsl(51, 100%, 63%),
+    hsl(51, 100%, 65%),
+    hsl(51, 100%, 70%)
+  );
 }
+
+
+
+
+
+
+
+
 
 .custom-ribbon {
   background: linear-gradient(to bottom, #ff2c00, #c70000);

@@ -39,7 +39,7 @@ export const useFetchActivity = () => {
         page: page.toString(),
       });
   
-        const response = await MoreClubApiClient.get(`activity/list/?${queryParams.toString()}`);
+        const response = await MoreClubApiClient.get(`logactivity/list/?${queryParams.toString()}`);
             
           return { data: response.data.data, meta: response.data.meta };
         

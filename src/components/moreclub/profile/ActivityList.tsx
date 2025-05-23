@@ -68,10 +68,10 @@ const ActivityList = () => {
                     </div>
                     <div className="block p-4 rounded-lg shadow bg-card ml-6 max-w-3xl w-full">
                       <div className="flex justify-between mb-1">
-                        <h5 className="font-medium text-primary dark:text-primary-foreground text-sm">
+                        <h5 className="font-medium text-primary dark:text-foreground text-sm">
                           {activity.action}
                         </h5>
-                        <span className="text-xs text-primary dark:text-primary-foreground">
+                        <span className="text-xs text-primary dark:text-foreground">
                           {moment.utc(activity.timestamp).local().format("HH:mm")}
                         </span>
                       </div>
