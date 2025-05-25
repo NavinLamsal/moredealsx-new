@@ -5,6 +5,7 @@ import { CardSkeleton } from "../Skeletons/CardSkeleton";
 import AnimatedSection from "../ui/animations/FadeUpView";
 import { useFetchEvents } from "@/lib/action/moreClub/Events";
 import EventCard from "../cards/moreclub/EventCard";
+import TrendingEventSkeleton from "../Skeletons/EventSkeleton";
 
 
 
@@ -23,7 +24,7 @@ const TrendingEvents = ({title = "Trending Events"}: {title?: string}) => {
    if (isLoading) {
      return (
        <div>
-         <CardSkeleton />
+        <TrendingEventSkeleton/>
        </div>
      );
    }

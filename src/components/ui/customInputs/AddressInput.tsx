@@ -184,6 +184,15 @@ const MapboxComponent: React.FC<MapboxComponentProps> = ({
           type="text"
           value={searchText}
           onChange={(e) =>  handleChange(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              if (suggestions.length > 0) {
+                selectSuggestion(suggestions[0]); // Select first suggestion
+              }
+            }
+          }}
+        
           placeholder="Search for places"
           className="my-2 p-1 w-[calc(100%)] relative"
         />
