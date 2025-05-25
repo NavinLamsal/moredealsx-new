@@ -5,6 +5,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useFetchEvents } from "@/lib/action/moreClub/Events";
 import AnimatedSection from "../ui/animations/FadeUpView";
 import EventCard from "../cards/moreclub/EventCard";
+import TrendingEventSkeleton from "../Skeletons/EventSkeleton";
 
 const EventList = () => {
   const { fetchEventsList } = useFetchEvents();
@@ -48,9 +49,7 @@ const EventList = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-40">
-        <p className="text-gray-600">Loading events...</p>
-      </div>
+      <TrendingEventSkeleton/>
     );
   }
 

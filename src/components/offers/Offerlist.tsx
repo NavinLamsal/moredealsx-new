@@ -113,6 +113,7 @@ import { useSearchParams } from "next/navigation";
 import { fetchOffer, fetchOfferList, Offer } from "@/lib/action/PublicCommonClient";
 import OfferCard from "../cards/moreclub/OfferCard";
 import { UniversalTextLoading } from "../loaders/UniversalTypingLoader";
+import OfferSkeleton from "../Skeletons/OfferSkeelton";
 // import OfferCard from "../cards/OfferCard";
 
 
@@ -166,7 +167,7 @@ const AllOffersList = () => {
     if (isLoading) {
         return (
             <div className="flex justify-center items-center h-40">
-                <p className="text-gray-600">Loading offers...</p>
+                <OfferSkeleton/>
             </div>
         );
     }
@@ -213,36 +214,3 @@ const AllOffersList = () => {
 
 export default AllOffersList;
 
-
-const testOffers = [
-    {
-        title: "Upcoming Offer",
-        from_date: "2025-04-15T00:00:00Z",
-        to_date: "2025-04-22T00:00:00Z"
-    },
-    {
-        title: "Active Offer",
-        from_date: "2025-04-09T00:00:00Z", // currently active
-        to_date: "2025-04-17T00:00:00Z"
-    },
-    {
-        title: "Expired Offer",
-        from_date: "2025-03-25T00:00:00Z", // already ended
-        to_date: "2025-04-05T00:00:00Z"
-    },
-    {
-        title: "Starts Today",
-        from_date: "2025-04-12T00:00:00Z", // today
-        to_date: "2025-04-20T00:00:00Z"
-    },
-    {
-        title: "Ends Today",
-        from_date: "2025-04-05T00:00:00Z",
-        to_date: "2025-04-12T00:00:00Z" // today
-    },
-    {
-        title: "Same Day Offer",
-        from_date: "2025-04-12T00:00:00Z", // starts and ends today
-        to_date: "2025-04-12T23:59:59Z"
-    }
-];
