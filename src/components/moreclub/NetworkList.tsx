@@ -63,7 +63,6 @@ const NetworkList = () => {
             <NetworkLeadFilter></NetworkLeadFilter>
           </Suspense>
           <p className="text-center mb-10">No Referals found</p>
-          <NetworkSkeleton />
         </>
       )}
     </>
