@@ -8,6 +8,7 @@ import { fetchOfferList, Offer } from "@/lib/action/PublicCommonClient";
 import SectionTitle from "../Homes/sectionTiltle";
 import OfferCard from "../cards/moreclub/OfferCard";
 import CategorySelector from "./OfferCategory";
+import OfferSkeleton from "../Skeletons/OfferSkeelton";
 
 
 const categories = [
@@ -65,7 +66,7 @@ export default function OfferSection({ Dashboard , title="ALL OFFERS IN TOWN" }:
 
 
             {isLoading ? (
-                <p className="text-center py-12 bg-card w-full">Loading offers...</p>
+                <OfferSkeleton />
             ) : isError ? (
                 <p className="text-center text-red-500 py-12 bg-card w-full ">Failed to load offers.</p>
             ) : (

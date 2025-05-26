@@ -308,10 +308,11 @@ const PricingCard = ({
       :
       <>
       <Button variant={tier.name.includes("Power Saver") ? "default" : "outline"} className='border-black dark:border-white w-full mt-4 py-5 h-12 font-bold'>
-        {tier.name.includes("Power Saver") ? "Start 7-day Trial" : tier.name.includes("custom") ? "Contact Sales" : "Get Started"}
+        {tier.name.includes("Power Saver") ? "Start 30-day Trial" : tier.name.includes("custom") ? "Contact Sales" : "Get Started"}
       </Button>
       {tier.name.includes("Power Saver") &&
-        <p className='text-center mt-4 text-sm '>or $79/year (save 34%)</p>}
+        <p className='text-center mt-4 text-sm '>or {tier.currency_symbol}
+          {billingCycle === "yearly" ? tier.yearly_price : tier.price}/{billingCycle} (save 34%)</p>}
       
       </>
     }
