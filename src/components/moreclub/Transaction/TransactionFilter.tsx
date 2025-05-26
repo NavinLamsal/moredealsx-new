@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from "react";
@@ -9,7 +8,7 @@ import { useRouter } from "next/navigation";
 import moment from "moment";
 
 interface FilterProps {
-  onClose?: () => void
+  onClose?: () => void;
 }
 
 interface FilterState {
@@ -36,7 +35,7 @@ const transactionTypeOptions = [
 
 const quickDateOptions = [7, 14, 30];
 
-const FilterComponent: React.FC<FilterProps> = ({ onClose}) => {
+const FilterComponent: React.FC<FilterProps> = ({ onClose }) => {
   const router = useRouter();
 
   const [filters, setFilters] = useState<FilterState>({
@@ -45,7 +44,6 @@ const FilterComponent: React.FC<FilterProps> = ({ onClose}) => {
     start_date: null,
     end_date: null,
     quickDate: null,
-   
   });
 
   const handleFilterChange = (key: keyof FilterState, value: any) => {
@@ -53,8 +51,8 @@ const FilterComponent: React.FC<FilterProps> = ({ onClose}) => {
   };
 
   const handleQuickDateChange = (days: number) => {
-    const today = new Date()
-    const pastDate = new Date()
+    const today = new Date();
+    const pastDate = new Date();
     pastDate.setDate(today.getDate() - days);
     setFilters((prev) => ({
       ...prev,
@@ -63,7 +61,6 @@ const FilterComponent: React.FC<FilterProps> = ({ onClose}) => {
       quickDate: days,
     }));
   };
-
 
   const handleReset = () => {
     // Reset the filters in state
@@ -74,28 +71,37 @@ const FilterComponent: React.FC<FilterProps> = ({ onClose}) => {
       end_date: null,
       quickDate: null,
     });
-  
+
     // Clear all the query parameters from the URL
     const url = new URL(window.location.href);
-    url.search = '';  // This removes all search params
-    
+    url.search = ""; // This removes all search params
+
     // Push the updated URL (without any search params)
     router.push(url.toString());
     if (onClose) {
       onClose();
     }
   };
-  
+
   const handleApply = () => {
     const query = new URLSearchParams();
 
-    if (filters.transaction_status) query.set("transaction_status", filters.transaction_status);
-    if (filters.transaction_type) query.set("transaction_type", filters.transaction_type);
-    if (filters.start_date) query.set("start_date", new Date(filters.start_date).toISOString().split("T")[0]);
-    if (filters.end_date) query.set("end_date", new Date(filters.end_date).toISOString().split("T")[0]);
+    if (filters.transaction_status)
+      query.set("transaction_status", filters.transaction_status);
+    if (filters.transaction_type)
+      query.set("transaction_type", filters.transaction_type);
+    if (filters.start_date)
+      query.set(
+        "start_date",
+        new Date(filters.start_date).toISOString().split("T")[0]
+      );
+    if (filters.end_date)
+      query.set(
+        "end_date",
+        new Date(filters.end_date).toISOString().split("T")[0]
+      );
     if (filters.quickDate) query.set("quickDate", String(filters.quickDate));
 
-    
     router.push(`?${query.toString()}`);
     if (onClose) {
       onClose();
@@ -104,7 +110,6 @@ const FilterComponent: React.FC<FilterProps> = ({ onClose}) => {
 
   return (
     <div className="p-6 rounded-lg">
-
       {/* Status Filter */}
       <div className="mb-4">
         <p className="text-sm font-medium">Status</p>
@@ -112,8 +117,14 @@ const FilterComponent: React.FC<FilterProps> = ({ onClose}) => {
           {statusOptions.map((option) => (
             <Button
               key={option.value}
-              variant={filters.transaction_status === option.value ? "default" : "outline"}
-              onClick={() => handleFilterChange("transaction_status", option.value)}
+              variant={
+                filters.transaction_status === option.value
+                  ? "default"
+                  : "outline"
+              }
+              onClick={() =>
+                handleFilterChange("transaction_status", option.value)
+              }
               className="px-3 py-1 text-sm"
             >
               {option.label}
@@ -123,7 +134,7 @@ const FilterComponent: React.FC<FilterProps> = ({ onClose}) => {
       </div>
 
       {/* Transaction Type Filter */}
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <p className="text-sm font-medium">Transaction Type</p>
         <div className="flex gap-2 mt-2 flex-wrap">
           {transactionTypeOptions.map((option) => (
@@ -137,7 +148,7 @@ const FilterComponent: React.FC<FilterProps> = ({ onClose}) => {
             </Button>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Date Picker */}
       <div className="mb-4">
@@ -145,7 +156,7 @@ const FilterComponent: React.FC<FilterProps> = ({ onClose}) => {
         <div className="flex gap-4 mt-2">
           <DatePicker
             selected={filters.start_date}
-            placeholderText={`${moment(new Date).format("YYYY-MM-DD")}`}
+            placeholderText={`${moment(new Date()).format("YYYY-MM-DD")}`}
             // onChange={(date) => handleFilterChange("dateFrom", date)}
             onChange={(date) => {
               const formatted = date && date.toISOString().split("T")[0]; // "yyyy-mm-dd"
@@ -159,7 +170,7 @@ const FilterComponent: React.FC<FilterProps> = ({ onClose}) => {
               const formatted = date && date.toISOString().split("T")[0]; // "yyyy-mm-dd"
               handleFilterChange("end_date", formatted);
             }}
-            placeholderText={`${moment(new Date).format("YYYY-MM-DD")}`}
+            placeholderText={`${moment(new Date()).format("YYYY-MM-DD")}`}
             className="border border-input bg-transparent px-3 py-1 text-base  p-2 rounded-md w-full"
           />
         </div>
@@ -179,15 +190,10 @@ const FilterComponent: React.FC<FilterProps> = ({ onClose}) => {
       </div>
 
       {/* Transaction Property */}
-      
 
       {/* Reset & Apply Buttons */}
       <div className="flex justify-between mt-4">
-        <Button
-          variant="outline"
-          className="w-1/3"
-          onClick={handleReset}
-        >
+        <Button variant="outline" className="w-1/3" onClick={handleReset}>
           RESET
         </Button>
         <Button variant="default" className="w-1/3" onClick={handleApply}>
