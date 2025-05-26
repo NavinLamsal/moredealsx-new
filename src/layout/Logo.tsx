@@ -1,12 +1,13 @@
 import React from "react";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
+import Link from "next/link";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const Logo = () => {
   return (
-    <div className="flex items-center justify-center">
+    <Link href={"/"} className="flex items-center justify-center">
       <div className="w-12 h-12 relative mr-2 md:mr-4">
         <span className="absolute  font-extrabold  -translate-y-1/2 w-8 h-8 text-primary -rotate-45 text-7xl">
           +
@@ -28,7 +29,7 @@ const Logo = () => {
           />
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
