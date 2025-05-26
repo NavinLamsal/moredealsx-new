@@ -41,6 +41,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import CrmSkeleton from "@/components/Skeletons/CrmSkeleton";
+import PageHeadings from "@/components/ui/customTitles/PageHeadings";
 // import CRMTabContent from './CRMTabContent';
 
 const CRMDetailList = () => {
@@ -56,13 +57,17 @@ const CRMDetailList = () => {
   }
 
   return (
-    <div>
-      <div className="space-y-0.5 mb-4">
+    <div className="px-4">
+      {/* <div className="space-y-0.5 mb-4">
         <Heading title="Manage your CRM" />
         <p className="text-sm text-muted-foreground">
           This is how others will see you on the site.
         </p>
-      </div>
+      </div> */}
+      <PageHeadings
+        title="Manage your CRM"
+        description="This is how others will see you on the site."
+      />
       {business.businessQRInfo && business.businessQRInfo.length > 0 && (
         <Suspense fallback={<div>Loading...</div>}>
           <CRMTabContent categories={business.businessQRInfo} />
@@ -89,7 +94,6 @@ const CRMDetailList = () => {
             </CardContent>
           </Card>
         )}
-      <CrmSkeleton />
     </div>
   );
 };
