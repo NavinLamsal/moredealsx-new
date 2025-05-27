@@ -7,6 +7,7 @@ import { fetchBusinessData } from "@/lib/action/moreClub/Business";
 import { useAppSelector } from "@/lib/redux/hooks";
 import CRMCreateForm from "../../form/moredealsclub/crm/crmCreateForm";
 import CrmCreateSkeleton from "@/components/Skeletons/CrmCreateSkeleton";
+import PageHeadings from "@/components/ui/customTitles/PageHeadings";
 
 export default function CRMDetail() {
   const dispatch = useDispatch<AppDispatch>();
@@ -20,7 +21,8 @@ export default function CRMDetail() {
 
   return (
     <div>
-      <Heading title="Create Your CRM" />
+      <PageHeadings title="Create Your CRM" />
+
       <p className="text-muted-foreground">
         Set up your CRM by providing essential information to personalize your
         experience and make communication seamless. Your domain, login email,
