@@ -28,7 +28,7 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
     business_email: businessData?.business_email || "",
     business_phone: businessData?.business_phone || "",
     domain: "",
-    platform:"restaurant",
+    platform: "restaurant",
     email: session?.user.userDetails?.email || "",
     phone: session?.user.userDetails?.phone_number
       ? `${session?.user.userDetails?.phone_prefix}${session?.user.userDetails?.phone_number}`
@@ -48,7 +48,7 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
     phone?: string;
     prefix?: string
     password?: string;
-    platform?:string
+    platform?: string
   }>({});
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -105,16 +105,16 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
 
 
   const verifyDomain = async () => {
-    try{
-      const res = await MoreClubApiClient.post(`${process.env.NEXT_PUBLIC_API_URL}business/domain/verify/`,{domain_name: formData.domain});
+    try {
+      const res = await MoreClubApiClient.post(`${process.env.NEXT_PUBLIC_API_URL}business/domain/verify/`, { domain_name: formData.domain });
       const data = res.data;
       setErrors({ ...errors, domain: "" });
       return true
-    }catch(err:any){
-      const errormessage= err?.response?.data?.errors?.non_field_errors?.[0] || err?.response?.data?.message || "Something went wrong, please try again";
+    } catch (err: any) {
+      const errormessage = err?.response?.data?.errors?.non_field_errors?.[0] || err?.response?.data?.message || "Something went wrong, please try again";
       setErrors({ ...errors, domain: errormessage });
       return false
-    } 
+    }
   };
 
 
@@ -133,7 +133,7 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
       return;
     }
 
-    
+
 
 
     const data = {
@@ -142,9 +142,9 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
       business_email: formData.business_email,
       business_phone: formData.business_phone,
       domain_name: formData.domain,
-      ...(session?.user.userDetails?.email ? { email: formData.email , phone_number: null, phone_prefix: null }
+      ...(session?.user.userDetails?.email ? { email: formData.email, phone_number: null, phone_prefix: null }
         : {
-          email:null,
+          email: null,
           phone_number: removePrefix(formData.phone, formData.prefix),
           phone_prefix: formData.prefix,
         }
@@ -152,7 +152,7 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
 
       password: formData.password
     }
-  const cleanedData = removeEmptyStrings(data)
+    const cleanedData = removeEmptyStrings(data)
     try {
       const url = platformOptions[formData.platform] as string
       const res = await MoreClubApiClient.post(url, cleanedData)
@@ -161,61 +161,61 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
       const updateData = {
         ...session?.user.userDetails,
         crm_link: {
-            restro_link: res.data.data.domain
-          }
+          restro_link: res.data.data.domain
+        }
       }
-      
-      update({userDetails: updateData }) 
+
+      update({ userDetails: updateData })
       router.push("/business/crm/manage")
 
     } catch (err: any) {
       showToast("Error creating CRM", "error")
     }
-  
 
-  setLoading(false);
-};
 
-return (
-  <>
+    setLoading(false);
+  };
 
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-2 pb-2">
+  return (
+    <>
 
-      <h3 className='my-4 font-bold text-lg'>Business Details</h3>
-      <div className='grid md:grid-cols-2 gap-2'>
-        <div>
-          <label className="block font-medium mb-1">Business Name</label>
-          <Input
-            type="text"
-            name="business_name"
-            value={formData.business_name}
-            onChange={(e) => handleChange("business_name", e.target.value)}
-            placeholder="m@example.com"
-            className={`p-2 border rounded w-full ${errors.business_name ? "border-red-500" : ""}`}
-          />
-          {errors.business_name && <p className="text-red-500 text-sm">{errors.business_name}</p>}
-        </div>
-        <div>
-          <label className="block font-medium mb-1">Business Email</label>
-          <Input
-            type="email"
-            name="business_email"
-            value={formData.business_email}
-            onChange={(e) => handleChange("business_email", e.target.value)}
-            placeholder="m@example.com"
-            className={`p-2 border rounded w-full ${errors.business_email ? "border-red-500" : ""}`}
-          />
-          {errors.business_email && <p className="text-red-500 text-sm">{errors.business_email}</p>}
-        </div>
-        <div>
-          <label className="block font-medium mb-1">Business Contact Number</label>
-          <PhoneNumberInput
-            onChange={handlePhoneNumberChange}
-            initialValue={formData.business_phone}
-          />
-          {errors.business_phone && <p className="text-red-500 text-sm">{errors.business_phone}</p>}
-        </div>
-        <div>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-2 pb-2">
+
+        <h3 className='my-4 font-bold text-lg'>Business Details</h3>
+        <div className='grid md:grid-cols-2 gap-2'>
+          <div>
+            <label className="block font-medium mb-1">Business Name</label>
+            <Input
+              type="text"
+              name="business_name"
+              value={formData.business_name}
+              onChange={(e) => handleChange("business_name", e.target.value)}
+              placeholder="m@example.com"
+              className={`p-2 border rounded w-full ${errors.business_name ? "border-red-500" : ""}`}
+            />
+            {errors.business_name && <p className="text-red-500 text-sm">{errors.business_name}</p>}
+          </div>
+          <div>
+            <label className="block font-medium mb-1">Business Email</label>
+            <Input
+              type="email"
+              name="business_email"
+              value={formData.business_email}
+              onChange={(e) => handleChange("business_email", e.target.value)}
+              placeholder="m@example.com"
+              className={`p-2 border rounded w-full ${errors.business_email ? "border-red-500" : ""}`}
+            />
+            {errors.business_email && <p className="text-red-500 text-sm">{errors.business_email}</p>}
+          </div>
+          <div>
+            <label className="block font-medium mb-1">Business Contact Number</label>
+            <PhoneNumberInput
+              onChange={handlePhoneNumberChange}
+              initialValue={formData.business_phone}
+            />
+            {errors.business_phone && <p className="text-red-500 text-sm">{errors.business_phone}</p>}
+          </div>
+          {/* <div>
           <label className="block font-medium mb-1">Domain</label>
           <Input
             type="text"
@@ -226,85 +226,113 @@ return (
             className={`p-2 border  rounded w-full ${errors.domain ? "border-red-500" : ""} `}
           />
           {errors.domain && <p className="text-red-500 text-sm">{errors.domain}</p>}
-        </div>
-        <div>
-                <label className="block text-sm font-medium  mb-1">Platform</label>
-                <Select name='occupation' onValueChange={(value) => handleChange("platform", value)} defaultValue={formData.platform}>
-
-                    <SelectTrigger>
-                        <SelectValue placeholder="Select Platform" />
-                    </SelectTrigger>
-
-                    <SelectContent>
-                        <SelectItem value="restaurant">Restaurant (MOREFOOD)</SelectItem>
-                        <SelectItem value="hotel">Hotel (MORELIVING)</SelectItem>
-                    </SelectContent>
-                </Select>
-                {errors.platform && <p className="text-red-500">{errors.platform}</p>}
-
-
-
-
-
-            </div>
-      </div>
-
-      <h3 className='my-4 font-bold text-lg'>CRM Login Credentials</h3>
-      <div className='grid md:grid-cols-2 gap-2'>
-        {formData.email !== "" && (
-          <div>
-            <label className="block font-medium mb-1">Login Email</label>
+        </div> */}
+            <div>
+            <label className="block font-medium mb-1">Domain</label>
+          <div className="relative">
+         
             <Input
-              type="email"
-              name="email"
-              disabled
-              value={formData.email}
-              placeholder="m@example.com"
-              className={`p-2 border  rounded w-full ${errors.email ? "border-red-500" : ""} `}
-              readOnly
+              type="text"
+              name="domain"
+              value={formData.domain}
+              onChange={(e) => {
+                const value = e.target.value.replace(/[^a-z0-9-]/gi, ""); // Remove invalid chars
+                handleChange("domain", value.toLowerCase()); // optional: force lowercase
+              }}
+              placeholder="Enter subdomain"
+              className={`p-2 pr-32 border rounded w-full ${errors.domain ? "border-red-500" : ""
+                }`}
             />
-            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+            <Button
+              type="button"
+              variant="ghost"
+              
+              className="absolute right-0 top-1/2 bg-primary hover:bg-primary text-primary-foreground rounded-s-none -translate-y-1/2 "
+            >
+              .moresafari.com
+            </Button>
           </div>
-        )}
-        {formData.phone !== "" && (
+          {errors.domain && <p className="text-red-500 text-sm">{errors.domain}</p>}
+            </div>
 
           <div>
-            <label className="block font-medium mb-1">Login Phone Number</label>
-            <PhoneNumberInput
-              onChange={handlePhoneNumberChange}
-              initialValue={formData.phone}
-              disabled={true}
-            />
-            {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+            <label className="block text-sm font-medium  mb-1">Platform</label>
+            <Select name='occupation' onValueChange={(value) => handleChange("platform", value)} defaultValue={formData.platform}>
+
+              <SelectTrigger>
+                <SelectValue placeholder="Select Platform" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectItem value="restaurant">Restaurant (MOREFOOD)</SelectItem>
+                <SelectItem value="hotel">Hotel (MORELIVING)</SelectItem>
+              </SelectContent>
+            </Select>
+            {errors.platform && <p className="text-red-500">{errors.platform}</p>}
+
+
+
+
+
           </div>
-        )}
-        <div>
-          <div className="flex items-center">
-            <label htmlFor="password">Password</label>
-          </div>
-          <PasswordField
-            name="password"
-            value={formData.password}
-            onChange={(val) => handlePassword("password", val)}
-            placeholder="Enter your password"
-            error={errors.password}
-          />
-          {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
         </div>
 
-      </div>
+        <h3 className='my-4 font-bold text-lg'>CRM Login Credentials</h3>
+        <div className='grid md:grid-cols-2 gap-2'>
+          {formData.email !== "" && (
+            <div>
+              <label className="block font-medium mb-1">Login Email</label>
+              <Input
+                type="email"
+                name="email"
+                disabled
+                value={formData.email}
+                placeholder="m@example.com"
+                className={`p-2 border  rounded w-full ${errors.email ? "border-red-500" : ""} `}
+                readOnly
+              />
+              {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+            </div>
+          )}
+          {formData.phone !== "" && (
 
-      <div className="grid w-full ">
-        <Button type="submit" disabled={loading} className='font-bold text-lg'>
-          {loading && <Loader2 className="animate-spin w-5 h-5 mr-2" />} Create CRM
-        </Button>
-      </div>
+            <div>
+              <label className="block font-medium mb-1">Login Phone Number</label>
+              <PhoneNumberInput
+                onChange={handlePhoneNumberChange}
+                initialValue={formData.phone}
+                disabled={true}
+              />
+              {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+            </div>
+          )}
+          <div>
+            <div className="flex items-center">
+              <label htmlFor="password">Password</label>
+            </div>
+            <PasswordField
+              name="password"
+              value={formData.password}
+              onChange={(val) => handlePassword("password", val)}
+              placeholder="Enter your password"
+              error={errors.password}
+            />
+            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+          </div>
+
+        </div>
+
+        <div className="grid w-full ">
+          <Button type="submit" disabled={loading} className='font-bold text-lg'>
+            {loading && <Loader2 className="animate-spin w-5 h-5 mr-2" />} Create CRM
+          </Button>
+        </div>
 
 
 
-    </form>
-  </>
-);
+      </form>
+    </>
+  );
 };
 
 export default CRMCreateForm;

@@ -244,7 +244,7 @@ export const {
 });
 
 export async function fetchUserDetails(token: string) {
-  console.log("token", token);
+ 
   try {
     // Fetch user details
     const userResponse = await fetch(
