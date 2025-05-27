@@ -19,7 +19,7 @@ const Logo = () => {
         MORE<span className="text-primary">DEALS</span>
       </div>
       <div className="relative place-self-start">
-        <div className="absolute font-extrabold -translate-x-1 translate-y-1 md:translate-y-0 lg:-translate-y-2 w-8 h-8 text-primary text-7xl">
+        <div className="absolute font-extrabold -translate-x-1 translate-y-1 md:translate-y-0 lg:-translate-y-2 lg:h-16 md:h-12 h-10 lg:w-16 md:w-12 w-10  text-primary text-7xl">
           <Image
             src={"/images/png/moredealsxnew.png"}
             alt="x logo"
