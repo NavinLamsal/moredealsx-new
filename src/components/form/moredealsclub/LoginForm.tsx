@@ -338,12 +338,12 @@ const LoginForm: React.FC = () => {
           <Suspense fallback={<div>Loading...</div>}>
             <GoogleLoginComponent />
           </Suspense>
-          <button
+          {/* <button
             type="button"
             className="w-10 h-10 rounded-full bg-black text-yellow-400 border border-yellow-400 flex items-center justify-center text-lg cursor-pointer transition-all hover:bg-yellow-400 hover:text-black hover:-translate-y-1"
           >
             F
-          </button>
+          </button> */}
         </div>
       </div>
 
