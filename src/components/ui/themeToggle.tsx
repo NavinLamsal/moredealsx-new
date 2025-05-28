@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Moon, Sun } from "lucide-react"
-import { useTheme } from "next-themes"
+import * as React from "react";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export function ModeToggle() {
-  const { theme, setTheme } = useTheme()
-  const isDarkMode = theme === "dark"
+  const { theme, setTheme } = useTheme();
+  const isDarkMode = theme === "dark";
 
   const handleToggle = (checked: boolean) => {
-    setTheme(checked ? "dark" : "light")
-  }
+    setTheme(checked ? "dark" : "light");
+  };
 
   return (
     <button
@@ -22,9 +22,8 @@ export function ModeToggle() {
       {/* Sun Icon (Left Side) */}
       <Sun
         className={`absolute right-2 h-4 w-4 transition-opacity text-black ${
-          isDarkMode ? "opacity-0" : "opacity-100" 
+          isDarkMode ? "opacity-0" : "opacity-100"
         }`}
-       
       />
 
       {/* Moon Icon (Right Side) */}
@@ -41,6 +40,5 @@ export function ModeToggle() {
         }`}
       ></span>
     </button>
-  )
+  );
 }
-
