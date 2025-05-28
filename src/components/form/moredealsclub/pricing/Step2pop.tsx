@@ -34,7 +34,7 @@ const Step2PopForm: React.FC<Step2Props> = ({ data, setData, onNext, serverError
                 <AlertOctagonIcon className="mr-2 h-4 w-4" />&nbsp;{serverError}&nbsp;<AlertOctagonIcon className="ml-2 h-4 w-4 " />
             </p>}
 
-            <PaymentInformation amount={data.amount} currency={"USD"} metadata={{
+            <PaymentInformation amount={data.amount} currency={data.currency_code.toUpperCase()} metadata={{
                 "payment_type": "membership",
                 "membership_type_id": data.package,
                 "package_time": data.plan_time,
