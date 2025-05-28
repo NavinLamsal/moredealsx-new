@@ -107,7 +107,10 @@ const GoogleLoginButton: React.FC = () => {
           className="w-5 h-5"
         />
       </div> */}
-      <div className="flex items-center justify-center ">
+      <div
+        onClick={() => login()}
+        className="flex items-center justify-center "
+      >
         <div className="flex items-center gap-2 rounded-full bg-black text-yellow-400 border border-yellow-400 text-lg cursor-pointer transition-all hover:bg-yellow-400 hover:text-black hover:-translate-y-1 p-2">
           <Image
             src={"/images/svg/google.svg"}
