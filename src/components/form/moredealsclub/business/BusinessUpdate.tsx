@@ -8,9 +8,13 @@ import BusinessDocumentsUploadForm from "./document";
 import { useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/redux/store";
-import { fetchBusinessData, fetchBusinessQRInfo } from "@/lib/action/moreClub/Business";
+import {
+  fetchBusinessData,
+  fetchBusinessQRInfo,
+} from "@/lib/action/moreClub/Business";
 import { useAppSelector } from "@/lib/redux/hooks";
 import BusinessTypes from "./BusinessTypes";
+import BusinessUpdateSkeleton from "@/components/Skeletons/BusinessUpdateSkeleton";
 
 export default function BusinessPage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,8 +31,18 @@ export default function BusinessPage() {
   // Memoized Sidebar Items
   const sidebarNavItems = useMemo(
     () => [
-      { title: "General Information", component: <BasicInfoForm businessData={business.businessProfile} /> },
-      { title: "Documents", component: <BusinessDocumentsUploadForm businessData={business.businessProfile} /> },
+      {
+        title: "General Information",
+        component: <BasicInfoForm businessData={business.businessProfile} />,
+      },
+      {
+        title: "Documents",
+        component: (
+          <BusinessDocumentsUploadForm
+            businessData={business.businessProfile}
+          />
+        ),
+      },
       { title: "Discounts", component: <BusinessTypes /> },
     ],
     [business.businessProfile]
@@ -39,7 +53,7 @@ export default function BusinessPage() {
 
   const handleTabChange = useCallback((tab: string) => setActiveTab(tab), []);
 
-  if (business.isLoading) return <p>Loading...</p>;
+  if (business.isLoading) return <BusinessUpdateSkeleton />;
 
   return (
     <div>
@@ -53,7 +67,11 @@ export default function BusinessPage() {
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-4 lg:space-y-0">
         {/* Sidebar Navigation */}
         <aside className="mx-4 lg:w-1/5 lg:bg-slate-50 dark:lg:bg-card p-4 border-b-2 border-primary lg:border-none">
-          <SidebarNav items={sidebarNavItems} activeTab={activeTab} setActiveTab={handleTabChange} />
+          <SidebarNav
+            items={sidebarNavItems}
+            activeTab={activeTab}
+            setActiveTab={handleTabChange}
+          />
         </aside>
 
         {/* Dynamic Content Based on Active Tab */}
@@ -72,7 +90,11 @@ interface SidebarNavProps {
   setActiveTab: (tab: string) => void;
 }
 
-export function SidebarNav({ items, activeTab, setActiveTab }: SidebarNavProps) {
+export function SidebarNav({
+  items,
+  activeTab,
+  setActiveTab,
+}: SidebarNavProps) {
   return (
     <nav className="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1">
       {items.map((item) => {
@@ -96,4 +118,3 @@ export function SidebarNav({ items, activeTab, setActiveTab }: SidebarNavProps) 
     </nav>
   );
 }
-

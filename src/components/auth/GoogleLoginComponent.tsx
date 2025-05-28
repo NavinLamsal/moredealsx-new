@@ -98,9 +98,7 @@ const GoogleLoginButton: React.FC = () => {
       >
         G
       </button> */}
-      <div className="w-10 h-10 rounded-full bg-black text-yellow-400 border border-yellow-400 flex items-center justify-center text-lg cursor-pointer transition-all hover:bg-yellow-400 hover:text-black hover:-translate-y-1"
-      onClick = {() => login()}
-      >
+      {/* <div className="w-10 h-10 rounded-full bg-black text-yellow-400 border border-yellow-400 flex items-center justify-center text-lg cursor-pointer transition-all hover:bg-yellow-400 hover:text-black hover:-translate-y-1">
         <Image
           src={"/images/svg/google.svg"}
           alt="google logo"
@@ -108,6 +106,21 @@ const GoogleLoginButton: React.FC = () => {
           height={100}
           className="w-5 h-5"
         />
+      </div> */}
+      <div
+        onClick={() => login()}
+        className="flex items-center justify-center "
+      >
+        <div className="flex items-center gap-2 rounded-full bg-black text-yellow-400 border border-yellow-400 text-lg cursor-pointer transition-all hover:bg-yellow-400 hover:text-black hover:-translate-y-1 p-2">
+          <Image
+            src={"/images/svg/google.svg"}
+            alt="google logo"
+            width={100}
+            height={100}
+            className="w-5 h-5"
+          />
+          <p className="text-sm">Sign in with Google</p>
+        </div>
       </div>
 
       {isLoading && (

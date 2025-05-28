@@ -1,34 +1,35 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
-import {Montserrat} from 'next/font/google'
-const montserrat = Montserrat({subsets: ['latin']})
+} from "@/components/ui/sidebar";
+import { Montserrat } from "next/font/google";
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export function TeamSwitcher({
   teams,
 }: {
   teams: {
-    name: string
-    light: string
-    dark: string
-    plan: string
-  }[]
+    name: string;
+    light: string;
+    dark: string;
+    plan: string;
+  }[];
 }) {
-  const { isMobile } = useSidebar()
-  const [activeTeam, setActiveTeam] = React.useState(teams[0])
-  
+  const { isMobile, state } = useSidebar();
+  const isCollapsed = state === "collapsed";
+
+  const [activeTeam, setActiveTeam] = React.useState(teams[0]);
 
   return (
     <SidebarMenu className="flex">
       <SidebarMenuItem className="bg-background text-foreground">
-            {/* <div className="flex items-center gap-2 ">
+        {/* <div className="flex items-center gap-2 ">
                       <div className="flex  items-center justify-center rounded-lg text-sidebar-primary-foreground">
                         <activeTeam.logo className="size-4" />
                         <Image src={activeTeam.dark} alt={activeTeam.name} width={200} height={200} className='h-[4.5rem] w-auto hidden dark:block' />
@@ -44,13 +45,27 @@ export function TeamSwitcher({
                       
                      
                     </div>          */}
+        {isCollapsed ? (
+          <div className="flex items-center justify-center my-5 ">
+            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary z-10">
+              <span className="text-xl font-extrabold text-black p-0">X</span>
+            </div>
+          </div>
+        ) : (
           <div className="flex items-center justify-center my-5 ">
             <div className="w-6 h-8 relative mr-1">
-                <span className='absolute  font-extrabold  -translate-y-1/2 w-4 h-4 text-primary -rotate-45 text-4xl'>+</span>
+              <span className="absolute  font-extrabold  -translate-y-1/2 w-4 h-4 text-primary -rotate-45 text-4xl">
+                +
+              </span>
             </div>
-            <div className={`${montserrat.className} uppercase text-2xl font-extrabold tracking-wide text-foreground `}>MORE<span className='text-primary'>DEALS</span>X</div>
-        </div>
-          </SidebarMenuItem>
+            <div
+              className={`${montserrat.className} uppercase text-2xl font-extrabold tracking-wide text-foreground `}
+            >
+              MORE<span className="text-primary">DEALS</span>X
+            </div>
+          </div>
+        )}
+      </SidebarMenuItem>
     </SidebarMenu>
-  )
+  );
 }
