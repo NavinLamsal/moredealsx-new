@@ -1,22 +1,22 @@
-"use client"
-import { Button } from '@/components/ui/button';
-import PhoneNumberInput from '@/components/ui/customInputs/PhoneNumberInput';
-import { Input } from '@/components/ui/input';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import MoreClubApiClient from '@/lib/axios/moreclub/MoreClubApiClient';
-import { createServerPlatformAxiosInstance } from '@/lib/axios/platformBasedAxios';
-import { nextStep, updateField } from '@/lib/redux/slice/RegistrationSlice';
-import { RootState } from '@/lib/redux/store';
-import { validateRequired } from '@/lib/validation/common';
-import { Loader2Icon, Mail, Phone } from 'lucide-react';
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+"use client";
+import { Button } from "@/components/ui/button";
+import PhoneNumberInput from "@/components/ui/customInputs/PhoneNumberInput";
+import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
+import { createServerPlatformAxiosInstance } from "@/lib/axios/platformBasedAxios";
+import { nextStep, updateField } from "@/lib/redux/slice/RegistrationSlice";
+import { RootState } from "@/lib/redux/store";
+import { validateRequired } from "@/lib/validation/common";
+import { Loader2Icon, Mail, Phone } from "lucide-react";
+import Link from "next/link";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-
-
-
-
-export const CheckUserName = async (username: string, prefix?: string): Promise<string> => {
+export const CheckUserName = async (
+  username: string,
+  prefix?: string
+): Promise<string> => {
   const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username);
   const isPhone = /^\+?\d{1,4}?\d{9,14}$/.test(username);
 
@@ -25,14 +25,14 @@ export const CheckUserName = async (username: string, prefix?: string): Promise<
   const payload = isEmail
     ? { email: username, via: "email" }
     : prefix
-      ? {
-          phone_number: username.startsWith(prefix)
-            ? username.slice(prefix.length)
-            : username,
-          phone_prefix: prefix,
-          via: "phone_number",
-        }
-      : null;
+    ? {
+        phone_number: username.startsWith(prefix)
+          ? username.slice(prefix.length)
+          : username,
+        phone_prefix: prefix,
+        via: "phone_number",
+      }
+    : null;
 
   if (!payload) return "Please enter a valid phone number";
 
@@ -40,11 +40,12 @@ export const CheckUserName = async (username: string, prefix?: string): Promise<
     const res = await MoreClubApiClient.post(`auth/check/user/`, payload);
     return res.status === 200 ? "" : "Something went wrong";
   } catch (error: any) {
-    return error?.response?.data?.errors?.non_field_errors?.[0] || "An unknown error occurred";
+    return (
+      error?.response?.data?.errors?.non_field_errors?.[0] ||
+      "An unknown error occurred"
+    );
   }
 };
-
-
 
 const BasicInfoForm = () => {
   const dispatch = useDispatch();
@@ -122,9 +123,8 @@ const BasicInfoForm = () => {
     if ("email" in fieldValues) {
       if (registerMethod === "EMAIL") {
         let emailErrors = "";
-        emailErrors =  validateRequired(fieldValues.email as string, "Email"); 
+        emailErrors = validateRequired(fieldValues.email as string, "Email");
         if (emailErrors === "") {
-
           emailErrors = await CheckUserName(email);
         }
         tempErrors.email = emailErrors;
@@ -136,8 +136,8 @@ const BasicInfoForm = () => {
     if ("phone" in fieldValues) {
       if (registerMethod === "PHONE") {
         let errors = "";
-        errors = validateRequired(fieldValues.phone || "", "Phone Number"); 
-  
+        errors = validateRequired(fieldValues.phone || "", "Phone Number");
+
         if (errors === "") {
           errors = await CheckUserName(fieldValues.phone || "", prefix);
         }
@@ -391,7 +391,7 @@ const BasicInfoForm = () => {
         </Button>
         <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
           Already have an account?{" "}
-          <a href="/login" className="text-primary" target="_blank">
+          <a href="/login" className="text-primary">
             Login
           </a>{" "}
         </div>
