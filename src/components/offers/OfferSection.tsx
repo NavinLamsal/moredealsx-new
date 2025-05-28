@@ -10,91 +10,88 @@ import OfferCard from "../cards/moreclub/OfferCard";
 import CategorySelector from "./OfferCategory";
 import OfferSkeleton from "../Skeletons/OfferSkeelton";
 
-
 const categories = [
-    { title: "All", value: "All" },
-    { title: "Restaurants", value: "morefood" },
-    { title: "Salons", value: "moresalons" },
-    { title: "Hotels", value: "moreliving" },
-    { title: "Marketplace", value: "marketplace" }
-  ];
-  
+  { title: "All", value: "All" },
+  { title: "Restaurants", value: "morefood" },
+  { title: "Salons", value: "moresalons" },
+  { title: "Hotels", value: "moreliving" },
+  { title: "Marketplace", value: "marketplace" },
+];
 
-export default function OfferSection({ Dashboard , title="ALL OFFERS IN TOWN" }: { Dashboard?: boolean, title?: string }) {
-    const [activeCategory, setActiveCategory] = useState<string>("All");
+export default function OfferSection({
+  Dashboard,
+  title = "ALL OFFERS IN TOWN",
+  classname = "",
+}: {
+  Dashboard?: boolean;
+  title?: string;
+  classname?: string;
+}) {
+  const [activeCategory, setActiveCategory] = useState<string>("All");
 
+  const country =
+    typeof window !== "undefined" ? localStorage.getItem("country") : null;
 
-    const country = typeof window !== "undefined" ? localStorage.getItem("country") : null;
+  const {
+    data: offerrs = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["offers", activeCategory, country],
+    queryFn: async () => await fetchOfferList(activeCategory, country),
+    staleTime: 360000,
+    enabled: !!country,
+  });
 
-    const { data: offerrs = [], isLoading, isError } = useQuery({
-        queryKey: ["offers", activeCategory, country],
-        queryFn: async () => await fetchOfferList(activeCategory, country),
-        staleTime: 360000,
-        enabled: !!country
-    });
+  // const filteredOffers =
+  //     activeCategory === "All"
+  //         ? offerrs
+  //         : offerrs.filter((offer: Offer) => offer.title === activeCategory);
 
+  return (
+    <section
+      className={` py-20 ${Dashboard ? "w-full" : "w-11/12 mx-auto"} `}
+      id="offers"
+    >
+      {Dashboard ? (
+        <DashboardSectionTitle title={title} viewAll="/offers" />
+      ) : (
+        <SectionTitle title={title} />
+      )}
+      <Suspense fallback={<div>Loading...</div>}>
+        <CategorySelector
+          categories={categories}
+          activeCategory={activeCategory}
+          onCategoryChange={setActiveCategory}
+          dashboardStyle={Dashboard ? true : false}
+          classname={classname}
+        />
+      </Suspense>
 
-
-    // const filteredOffers =
-    //     activeCategory === "All"
-    //         ? offerrs
-    //         : offerrs.filter((offer: Offer) => offer.title === activeCategory);
-
-    return (
-        <section className={` py-20 ${Dashboard ? "w-full" : "w-11/12 mx-auto"} `} id="offers">
-            {Dashboard ?
-                <DashboardSectionTitle
-                    title={title}
-                    viewAll="/offers"
-                />
-                :
-                <SectionTitle
-                    title={title}
-                />
-            }
-            <Suspense fallback={<div>Loading...</div>}>
-
-            <CategorySelector
-                categories={categories}
-                activeCategory={activeCategory}
-                onCategoryChange={setActiveCategory}
-                dashboardStyle={Dashboard ? true : false}
-            />
-            </Suspense>
-
-
-
-
-            {isLoading ? (
-                <OfferSkeleton />
-            ) : isError ? (
-                <p className="text-center text-red-500 py-12 bg-card w-full ">Failed to load offers.</p>
-            ) : (
-
-                <>
-                    {offerrs && offerrs.length === 0 && (
-                        <p className="py-12 bg-card w-full  text-center">Offers not available</p>
-                    )}
-                    <HorizontalCarouselWithOutTitle title="">
-                        {offerrs.map((offer: Offer, index) => (
-                            <div className="flex-shrink-0 w-72" key={offer.title}>
-                                <AnimatedSection key={offer.title} index={index}>
-                                    <OfferCard offer={offer} ref={null} />
-                                </AnimatedSection>
-                            </div>
-                        ))}
-
-                    </HorizontalCarouselWithOutTitle>
-                </>
-
-
-            )}
-
-
-        </section>
-
-
-    );
+      {isLoading ? (
+        <OfferSkeleton />
+      ) : isError ? (
+        <p className="text-center text-red-500 py-12 bg-card w-full ">
+          Failed to load offers.
+        </p>
+      ) : (
+        <>
+          {offerrs && offerrs.length === 0 && (
+            <p className="py-12 bg-card w-full  text-center">
+              Offers not available
+            </p>
+          )}
+          <HorizontalCarouselWithOutTitle title="">
+            {offerrs.map((offer: Offer, index) => (
+              <div className="flex-shrink-0 w-72" key={offer.title}>
+                <AnimatedSection key={offer.title} index={index}>
+                  <OfferCard offer={offer} ref={null} />
+                </AnimatedSection>
+              </div>
+            ))}
+          </HorizontalCarouselWithOutTitle>
+        </>
+      )}
+    </section>
+  );
 }
-
-

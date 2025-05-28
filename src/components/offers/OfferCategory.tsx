@@ -11,6 +11,7 @@ interface CategorySelectorProps {
   UseSearchParams?: boolean;
   searchParamKey?: string;
   dashboardStyle?: boolean;
+  classname?: string;
 }
 
 const CategorySelector: React.FC<CategorySelectorProps> = ({
@@ -20,6 +21,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
   UseSearchParams = false,
   searchParamKey = "category",
   dashboardStyle = false,
+  classname,
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -41,7 +43,8 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
   return (
     <div
       className={cn(
-        "w-full overflow-x-auto mb-10 min-[660px]:pl-0 min-[570px]:pl-20 min-[460px]:pl-40 pl-64",
+        "w-full overflow-x-auto mb-10 ",
+        classname,
         !dashboardStyle && "flex justify-center" // center scroll container if not dashboard
       )}
     >

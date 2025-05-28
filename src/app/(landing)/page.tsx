@@ -24,27 +24,21 @@ import Salons from "@/components/moresalons/Salons";
 import OfferSection from "@/components/offers/OfferSection";
 import { Suspense } from "react";
 
-
 export default async function Home() {
-
-
-   
-
   return (
-   <>
-   <Hero/>
-   <Suspense fallback={<div>Loading...</div>}>
-   <OfferSection/>
-   </Suspense>
-   <TreasureSection/>
-   <TicketSection/>
-   <PartnersSection/>
-   <FeaturedRestaurants/>
-   <Salons/>
-   <Products/>
-   <Hotels/>
-   <PremiumSection/>
-  
-   </>
+    <>
+      <Hero />
+      <Suspense fallback={<div>Loading...</div>}>
+        <OfferSection classname="min-[660px]:pl-0 min-[570px]:pl-20 min-[460px]:pl-40 pl-64" />
+      </Suspense>
+      <TreasureSection />
+      <TicketSection />
+      <PartnersSection />
+      <FeaturedRestaurants />
+      <Salons />
+      <Products />
+      <Hotels />
+      <PremiumSection />
+    </>
   );
 }
