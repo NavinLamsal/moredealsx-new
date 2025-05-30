@@ -8,6 +8,7 @@ export interface ResturantListType {
   offers: string;
   banner: string;
   address: string;
+  url?: string;
   review_count: number;
   restaurant_rating: number;
   menu_count?: number;
@@ -291,7 +292,7 @@ export type Order = {
   order_status: string;
   order_type: string;
   restaurant_name: string;
-  order_banner:string;
+  order_banner: string;
 };
 
 export type OrderItem = {
