@@ -19,8 +19,6 @@ import {
 export const useFetchRestaurant = () => {
   const axios = useAxiosClient("morefood", true);
 
-  
-
   const fetchPopularRestaurantsList = async (
     city: string,
     page?: number
@@ -30,7 +28,9 @@ export const useFetchRestaurant = () => {
   }> => {
     try {
       const pages = page ?? 1;
-      const response = await MoreFoodApiClient.get(`restaurants/popular/?city_name=${city}`);
+      const response = await MoreFoodApiClient.get(
+        `restaurants/popular/?city_name=${city}`
+      );
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
       console.error("Error in fetching popular Restaurants", error);
@@ -47,15 +47,16 @@ export const useFetchRestaurant = () => {
   }> => {
     try {
       const pages = page ?? 1;
-      const response = await MoreFoodApiClient.get(`restaurants/featured-restaurants/?city_name=${city}`);
-      
+      const response = await MoreFoodApiClient.get(
+        `restaurants/featured-restaurants/?city_name=${city}`
+      );
+
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
       console.error("Error in fetching popular Restaurants", error);
       return { data: [] as ResturantListType[], meta: {} as MetaData };
     }
   };
-
 
   const fetchOffersList = async (
     page?: number
@@ -73,8 +74,6 @@ export const useFetchRestaurant = () => {
     }
   };
 
-
-
   const fetchcomboList = async (
     page?: number
   ): Promise<{
@@ -91,7 +90,6 @@ export const useFetchRestaurant = () => {
     }
   };
 
-
   const fetchRestroOffersList = async (
     slug: string,
     page?: number
@@ -101,7 +99,9 @@ export const useFetchRestaurant = () => {
   }> => {
     try {
       const pages = page ?? 1;
-      const response = await MoreFoodApiClient.get(`offers/restaurant/${slug}/list/?page=${pages}`);
+      const response = await MoreFoodApiClient.get(
+        `offers/restaurant/${slug}/list/?page=${pages}`
+      );
       console.log("response", response.data);
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
@@ -110,19 +110,18 @@ export const useFetchRestaurant = () => {
     }
   };
 
-
-
-
-  const fetchCategoryList = async (time: string): Promise<CategoryListType[]> => {
+  const fetchCategoryList = async (
+    time: string
+  ): Promise<CategoryListType[]> => {
     try {
-      const response = await MoreFoodApiClient.get(`menus/global-menu/lists/?time_rule=${time}`);
+      const response = await MoreFoodApiClient.get(
+        `menus/global-menu/lists/?time_rule=${time}`
+      );
       return response.data.data;
     } catch (error) {
       return [] as CategoryListType[];
     }
   };
-
- 
 
   const fetchAllOfferList = async (
     type: string,
@@ -130,26 +129,25 @@ export const useFetchRestaurant = () => {
     page: number = 1
   ): Promise<{ data: OfferType[]; meta: MetaData }> => {
     try {
+      const limit = 10;
+      const offset = (page - 1) * limit;
 
-    const limit = 10;
-    const offset = (page - 1) * limit;
-
-    // Convert params object to query string
-    const queryParams = new URLSearchParams({
-      ...params,
-      offset: offset.toString(),
-      limit: limit.toString(),
-      page: page.toString(),
-    });
+      // Convert params object to query string
+      const queryParams = new URLSearchParams({
+        ...params,
+        offset: offset.toString(),
+        limit: limit.toString(),
+        page: page.toString(),
+      });
 
       // // Convert params object to query string
       // const queryParams = new URLSearchParams({ ...params, offset:"0", limit:"10", page: page.toString() });
-  
-      const response = await MoreFoodApiClient.get(`offers/${type}/?${queryParams.toString()}`);
+
+      const response = await MoreFoodApiClient.get(
+        `offers/${type}/?${queryParams.toString()}`
+      );
 
       return { data: response.data.data, meta: response.data.meta };
-      
-
     } catch (error) {
       console.error("Error fetching restaurants:", error);
       return { data: [] as OfferType[], meta: {} as MetaData };
@@ -162,62 +160,64 @@ export const useFetchRestaurant = () => {
     page: number = 1
   ): Promise<{ data: ResturantListType[]; meta: MetaData }> => {
     try {
+      const limit = 10;
+      const offset = (page - 1) * limit;
 
-    const limit = 10;
-    const offset = (page - 1) * limit;
-
-    // Convert params object to query string
-    const queryParams = new URLSearchParams({
-      ...params,
-      offset: offset.toString(),
-      limit: limit.toString(),
-      page: page.toString(),
-    });
+      // Convert params object to query string
+      const queryParams = new URLSearchParams({
+        ...params,
+        offset: offset.toString(),
+        limit: limit.toString(),
+        page: page.toString(),
+      });
 
       // // Convert params object to query string
       // const queryParams = new URLSearchParams({ ...params, offset:"0", limit:"10", page: page.toString() });
-  
-      const response = await MoreFoodApiClient.get(`restaurants/${type}/?${queryParams.toString()}`);
-    
-      if(type === "featured-restaurants"){
-        const extractedData = response.data.data.map((item: { restaurant: ResturantListType }) => item.restaurant);
+
+      const response = await MoreFoodApiClient.get(
+        `restaurants/${type}/?${queryParams.toString()}`
+      );
+
+      if (type === "featured-restaurants") {
+        const extractedData = response.data.data.map(
+          (item: { restaurant: ResturantListType }) => item.restaurant
+        );
         return { data: extractedData, meta: response.data.meta };
-      }else{
+      } else {
         return { data: response.data.data, meta: response.data.meta };
       }
-
     } catch (error) {
       console.error("Error fetching restaurants:", error);
       return { data: [] as ResturantListType[], meta: {} as MetaData };
     }
   };
 
-
   const fetchRestaurantOpeningHours = async (
-    slug: string,
+    slug: string
   ): Promise<OpeningHours[]> => {
     try {
-      const response = await MoreFoodApiClient.get(`restaurants/${slug}/working-hour/`);
-      return  response.data.data;
+      const response = await MoreFoodApiClient.get(
+        `restaurants/${slug}/working-hour/`
+      );
+      return response.data.data;
     } catch (error) {
       console.error("Error fetching restaurants:", error);
-      return  [] as OpeningHours[];
+      return [] as OpeningHours[];
     }
   };
 
-
   const fetchRestaurantsFooditems = async (
     slug: string,
-    searchParam:string
+    searchParam: string
   ): Promise<{
     data: FoodListType[];
     meta: MetaData;
   }> => {
-
-    const url = searchParam 
-    ? `menus/restaurant/${slug}/foods/?query=${encodeURIComponent(searchParam)}`
-    : `menus/restaurant/${slug}/foods/`;
-
+    const url = searchParam
+      ? `menus/restaurant/${slug}/foods/?query=${encodeURIComponent(
+          searchParam
+        )}`
+      : `menus/restaurant/${slug}/foods/`;
 
     try {
       const response = await MoreFoodApiClient.get(url);
@@ -228,8 +228,6 @@ export const useFetchRestaurant = () => {
       return { data: [] as FoodListType[], meta: {} as MetaData };
     }
   };
-
-
 
   const fetchRestaurantReview = async (
     slug: string,
@@ -249,7 +247,9 @@ export const useFetchRestaurant = () => {
       page: page.toString(),
     });
     try {
-      const response = await MoreFoodApiClient.get(`reviews/restaurant/${slug}/reviews/?${queryParams.toString()}`);
+      const response = await MoreFoodApiClient.get(
+        `reviews/restaurant/${slug}/reviews/?${queryParams.toString()}`
+      );
 
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
@@ -258,13 +258,11 @@ export const useFetchRestaurant = () => {
     }
   };
 
-  const fetchRestaurantUserReview = async (
-    slug: string,
-  ): Promise<Review
-   
-  > => {
+  const fetchRestaurantUserReview = async (slug: string): Promise<Review> => {
     try {
-      const response = await MoreFoodApiClient.get(`reviews/restaurant/${slug}/user-review/`);
+      const response = await MoreFoodApiClient.get(
+        `reviews/restaurant/${slug}/user-review/`
+      );
 
       return response.data.data;
     } catch (error) {
@@ -272,7 +270,6 @@ export const useFetchRestaurant = () => {
       return {} as Review;
     }
   };
-
 
   const fetchUserReview = async (
     page: number,
@@ -291,7 +288,9 @@ export const useFetchRestaurant = () => {
       page: page.toString(),
     });
     try {
-      const response = await MoreFoodApiClient.get(`reviews/user-reviews/?${queryParams.toString()}`);
+      const response = await MoreFoodApiClient.get(
+        `reviews/user-reviews/?${queryParams.toString()}`
+      );
 
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
@@ -318,14 +317,15 @@ export const useFetchRestaurant = () => {
       page: page.toString(),
     });
     try {
-      const response = await MoreFoodApiClient.get(`restaurants/${slug}/gallery/?${queryParams.toString()}`);
+      const response = await MoreFoodApiClient.get(
+        `restaurants/${slug}/gallery/?${queryParams.toString()}`
+      );
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
       console.error("Error in fetching popular Restaurants", error);
-      return { data: [] as ImagesList[], meta: {} as MetaData};
+      return { data: [] as ImagesList[], meta: {} as MetaData };
     }
   };
-
 
   const fetchRestaurantUserGallery = async (
     slug: string,
@@ -345,14 +345,15 @@ export const useFetchRestaurant = () => {
       page: page.toString(),
     });
     try {
-      const response = await MoreFoodApiClient.get(`restaurants/${slug}/user-upload-gallery/?${queryParams.toString()}`);
+      const response = await MoreFoodApiClient.get(
+        `restaurants/${slug}/user-upload-gallery/?${queryParams.toString()}`
+      );
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
       console.error("Error in fetching popular Restaurants", error);
-      return { data: [] as ImagesList[], meta: {} as MetaData};
+      return { data: [] as ImagesList[], meta: {} as MetaData };
     }
   };
-
 
   const fetchOrderList = async (
     type: string,
@@ -360,22 +361,21 @@ export const useFetchRestaurant = () => {
     page: number = 1
   ): Promise<{ data: Order[]; meta: MetaData }> => {
     try {
+      const limit = 10;
+      const offset = (page - 1) * limit;
 
-    const limit = 10;
-    const offset = (page - 1) * limit;
+      // Convert params object to query string
+      const queryParams = new URLSearchParams({
+        ...params,
+        offset: offset.toString(),
+        limit: limit.toString(),
+        page: page.toString(),
+      });
 
-    // Convert params object to query string
-    const queryParams = new URLSearchParams({
-      ...params,
-      offset: offset.toString(),
-      limit: limit.toString(),
-      page: page.toString(),
-    });
+      const response = await MoreFoodApiClient.get(
+        `orders/user/list/?${queryParams.toString()}`
+      );
 
-     
-  
-      const response = await MoreFoodApiClient.get(`orders/user/list/?${queryParams.toString()}`);
-  
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
       console.error("Error fetching restaurants:", error);
@@ -383,9 +383,7 @@ export const useFetchRestaurant = () => {
     }
   };
 
-  const fetchOrderDetails = async (
-   id: string
-  ): Promise<OrderDetail> => {
+  const fetchOrderDetails = async (id: string): Promise<OrderDetail> => {
     try {
       const response = await MoreFoodApiClient.get(`orders/${id}/details/`);
       return response.data.data;
@@ -395,25 +393,22 @@ export const useFetchRestaurant = () => {
     }
   };
 
+  const fetchResturantDetails = async (slug: string): Promise<Restaurant> => {
+    try {
+      const response = await MoreFoodApiClient.get(
+        `restaurants/${slug}/details/`
+      );
+      const data = response.data.data;
 
-
- const fetchResturantDetails = async (
-      slug: string
-    ): Promise<Restaurant> => {
-      try {
-        const response = await MoreFoodApiClient.get(`restaurants/${slug}/details/`) 
-        const data =response.data.data
-  
-        return data;
-      } catch (error: any) {
-        console.error(
-          `Error in fetching Resturant details for ${slug}`,
-          error.response
-        );
-        return {} as Restaurant;
-      }
-    };
-
+      return data;
+    } catch (error: any) {
+      console.error(
+        `Error in fetching Resturant details for ${slug}`,
+        error.response
+      );
+      return {} as Restaurant;
+    }
+  };
 
   return {
     fetchPopularRestaurantsList,
@@ -422,7 +417,6 @@ export const useFetchRestaurant = () => {
     fetchRestaurantOpeningHours,
     fetchRestaurantsFooditems,
     fetchResturantDetails,
-
 
     fetchOffersList,
     fetchcomboList,
@@ -437,7 +431,6 @@ export const useFetchRestaurant = () => {
     fetchRestaurantUserGallery,
 
     fetchOrderList,
-    fetchOrderDetails
-
+    fetchOrderDetails,
   };
 };
