@@ -25,6 +25,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          background: "hsl(var(--primary-background))",
         },
         morefoodPrimary: {
           DEFAULT: "hsl(var(--morefood-primary))",
@@ -68,7 +69,7 @@ export default {
           DEFAULT: "hsl(var(--header-background))",
           foreground: "hsl(var(--header-foreground))",
         },
-        navbar:{
+        navbar: {
           DEFAULT: "hsl(var(--navbar-background))",
           foreground: "hsl(var(--navbar-foreground))",
         },
@@ -83,7 +84,7 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
-	  screens: {
+      screens: {
         "2xl": "1536px",
         "3xl": "1792px",
         "4xl": "2048px",
@@ -97,7 +98,7 @@ export default {
           "4xl": "2048px",
         },
       },
-	  maxWidth: {
+      maxWidth: {
         "8xl": "1536px",
         "9xl": "1792px",
         "10xl": "2048px",

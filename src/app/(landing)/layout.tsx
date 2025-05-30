@@ -1,25 +1,23 @@
 import Footer from "@/layout/Footer";
 import Navbar from "@/layout/navbar";
+import NewNav from "@/layout/NewNav";
 import { getMetadata } from "@/lib/action/PubilcCommon";
 import { CompanyMeta } from "@/lib/type/CommonType";
 import type { Metadata } from "next";
 import React from "react";
 
-
-export default async function  LandingLayout({
+export default async function LandingLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  const MetaDatas : CompanyMeta = await getMetadata();
+  const MetaDatas: CompanyMeta = await getMetadata();
 
   return (
-        <React.Fragment>
-         <Navbar/> 
-        {children}
-        <Footer data={MetaDatas}/>
-        
-        </React.Fragment>
+    <React.Fragment>
+      <NewNav />
+      {children}
+      <Footer data={MetaDatas} />
+    </React.Fragment>
   );
 }
