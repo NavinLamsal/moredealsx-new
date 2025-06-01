@@ -1,6 +1,5 @@
 import Footer from "@/layout/Footer";
 import Navbar from "@/layout/navbar";
-import NewNav from "@/layout/NewNav";
 import { getMetadata } from "@/lib/action/PubilcCommon";
 import { CompanyMeta } from "@/lib/type/CommonType";
 import type { Metadata } from "next";
@@ -15,7 +14,7 @@ export default async function LandingLayout({
 
   return (
     <React.Fragment>
-      <NewNav />
+      <Navbar />
       {children}
       <Footer data={MetaDatas} />
     </React.Fragment>
