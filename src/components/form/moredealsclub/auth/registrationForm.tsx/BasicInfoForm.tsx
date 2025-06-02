@@ -70,12 +70,12 @@ const BasicInfoForm = () => {
   }>({});
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleChange = (field: string, value: string) => {
+  const handleChange = async(field: string, value: string) => {
     dispatch(updateField({ field, value }));
-    setErrors({ ...errors, [field]: validateField(field, value) });
+    setErrors({ ...errors, [field]: await validateField(field, value) });
   };
 
-  const handlePhoneNumberChange = (data: any) => {
+  const handlePhoneNumberChange = async (data: any) => {
     handleChange("phone", data.fullNumber);
     dispatch(updateField({ field: "phoneOnly", value: data.phone }));
     dispatch(updateField({ field: "country", value: data.country }));
