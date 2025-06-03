@@ -249,7 +249,7 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
               
               className="absolute right-0 top-1/2 bg-primary hover:bg-primary text-primary-foreground rounded-s-none -translate-y-1/2 "
             >
-              .moresafari.com
+              .merkoll.com
             </Button>
           </div>
           {errors.domain && <p className="text-red-500 text-sm">{errors.domain}</p>}
