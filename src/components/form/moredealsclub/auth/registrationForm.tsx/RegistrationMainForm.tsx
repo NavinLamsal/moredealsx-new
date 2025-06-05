@@ -25,8 +25,8 @@ const RegistrationMainForm = () => {
             forms: <PasswordForm />
         },
         {   step: 3,
-            title: "Your Wallet Setup",
-            description: "Choose an prefered currency for your wallet.All your transaction will be caried out in this currency. Please set up a valid currency for your account wallet.",
+            title: "Set Up Your Country",
+            description: "Please select your country. This will help us tailor your experience and suggest relevant currency and services.",
             forms: <CurrencyForm/>
         },
     ]
