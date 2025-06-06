@@ -35,7 +35,7 @@ export function NavCRM({
         {projects.map((item) => (
           <SidebarMenuItem key={item.name} >
             <SidebarMenuButton asChild size={"lg"} isActive={pathname.includes(item.url)}>
-              <a href={item.url} target="_blank">
+              <a href={`${item.url}login-crm`} target="_blank">
               <Avatar className="flex items-center h-7 w-7">
                     <AvatarImage src={item.lightImage} className="h-7 w-7 block dark:hidden" />
                     <AvatarImage src={item.darkImage} className="h-7 w-7 hidden dark:block" />
