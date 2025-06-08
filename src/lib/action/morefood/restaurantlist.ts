@@ -2,6 +2,7 @@
 
 import { useAxiosClient } from "@/lib/axios/axiosClient";
 import MoreFoodApiClient from "@/lib/axios/morefood/MoreFoodApiClient";
+import MorefoodApiClientWithoutAccess from "@/lib/axios/morefood/MorefoodApiClientWithoutAccess";
 import { MetaData } from "@/lib/type/CommonType";
 import {
   CategoryListType,
@@ -174,7 +175,7 @@ export const useFetchRestaurant = () => {
       // // Convert params object to query string
       // const queryParams = new URLSearchParams({ ...params, offset:"0", limit:"10", page: page.toString() });
 
-      const response = await MoreFoodApiClient.get(
+      const response = await MorefoodApiClientWithoutAccess.get(
         `restaurants/${type}/?${queryParams.toString()}`
       );
 
