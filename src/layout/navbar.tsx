@@ -4,6 +4,9 @@ import { LocationDialog } from "./location/LocationDialog";
 import AuthNavbarContent from "./AuthNavbarContent";
 import { Montserrat } from "next/font/google";
 import { X } from "lucide-react";
+import Logo from "./Logo";
+import Image from "next/image";
+import Link from "next/link";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -29,18 +32,24 @@ const Navbar = () => {
           <div>
             <LocationDialog dashboard={false} />
           </div>
-          <div className="flex items-center justify-center sm:-ml-0 -ml-5">
-            <div className="sm:w-12 sm:h-12 w-8 h-8 relative sm:mr-2 md:mr-4">
-              <span className="absolute  font-extrabold  -translate-y-1/2 sm:w-8 sm:h-8 w-6 h-6 text-primary -rotate-45 sm:text-7xl text-4xl">
-                +
-              </span>
-            </div>
+          <Link href={"/"} className="flex items-center justify-center sm:-ml-0 -ml-5">
             <div
-              className={`${montserrat.className} uppercase text-xl md:text-3xl lg:text-5xl font-extrabold tracking-wide text-white `}
+              className={`${montserrat.className} uppercase text-2xl py-1 sm:py-2 md:text-3xl lg:text-5xl font-extrabold tracking-wide text-white`}
             >
-              MORE<span className="text-primary">DEALS</span>X
+              MORE<span className="text-primary">DEALS</span>
             </div>
-          </div>
+            <div className="relative place-self-start">
+              <div className="absolute font-extrabold -translate-x-1 translate-y-1 md:translate-y-0 lg:-translate-y-2 lg:h-16 md:h-12 h-10 lg:w-16 md:w-12 w-10  text-primary text-7xl">
+                <Image
+                  src={"/images/png/moredealsxnew.png"}
+                  alt="x logo"
+                  width={100}
+                  height={100}
+                  className="w-auto lg:h-16 md:h-12 h-10"
+                />
+              </div>
+            </div>
+          </Link>
           <div>
             <AuthNavbarContent header={true} />
           </div>

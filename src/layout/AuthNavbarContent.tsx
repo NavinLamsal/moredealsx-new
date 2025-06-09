@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
+import MobileMenuDropdown from "./mobilemenudropdown";
 
 const AuthNavbarContent = ({ header }: { header?: boolean }) => {
   const { data: session } = useSession();
@@ -49,13 +50,19 @@ const AuthNavbarContent = ({ header }: { header?: boolean }) => {
 
     return (
       <div className="flex items-center gap-2">
-        <NotificationDropDown header={header} />
+       
+        
         {
           <div className="hidden lg:flex gap-2 items-center">
+            <NotificationDropDown header={header} />
             <ModeToggle />
             <MenuDropdown header={header} />
           </div>
         }
+        <div className="flex lg:hidden gap-2 items-center">
+          <MobileMenuDropdown header={header} />
+        </div>
+          
       </div>
     );
   }
