@@ -1,4 +1,4 @@
-import { getServerApiUrl } from "@/lib/utils";
+
 import { NextRequest, NextResponse } from "next/server";
 
 
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
     };
   
   
-console.log("resdata", resdata)
+
     if (data.error !== undefined) {
       throw new Error(data.error);
     }

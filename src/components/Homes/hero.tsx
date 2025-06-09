@@ -32,13 +32,13 @@ const Hero = () => {
               Explore Trending Offers
             </Button>
           </Link>
-          <Link href="/#premium">
+          <Link href="/login">
             <Button
               variant={"default"}
               size={"lg"}
               className="font-bold text-xl"
             >
-              Join Premium
+              Join Premium Free
             </Button>
           </Link>
         </div>

@@ -8,13 +8,13 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 const Logo = () => {
   return (
     <Link href={"/"} className="flex items-center justify-center">
-      <div className="w-12 h-12 relative mr-2 md:mr-4">
+      {/* <div className="w-12 h-12 relative mr-2 md:mr-4">
         <span className="absolute  font-extrabold  -translate-y-1/2 w-8 h-8 text-primary -rotate-45 text-7xl">
           +
         </span>
-      </div>
+      </div> */}
       <div
-        className={`${montserrat.className} uppercase text-2xl md:text-3xl lg:text-5xl font-extrabold tracking-wide text-white`}
+        className={`${montserrat.className} uppercase text-2xl py-1 sm:py-2 md:text-3xl lg:text-5xl font-extrabold tracking-wide text-white`}
       >
         MORE<span className="text-primary">DEALS</span>
       </div>
