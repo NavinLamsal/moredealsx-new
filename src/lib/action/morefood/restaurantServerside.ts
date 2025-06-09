@@ -4,6 +4,7 @@ export const fetchResturantsIdDetails = async (
   slug: string
 ): Promise<Restaurant> => {
   try {
+    console.log("Fetching restaurant details for slug:", slug);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL}restaurants/details/${slug}`
     );

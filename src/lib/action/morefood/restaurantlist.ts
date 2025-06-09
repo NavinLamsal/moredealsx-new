@@ -396,8 +396,8 @@ export const useFetchRestaurant = () => {
 
   const fetchResturantDetails = async (slug: string): Promise<Restaurant> => {
     try {
-      const response = await MoreFoodApiClient.get(
-        `restaurants/${slug}/details/`
+      const response = await MorefoodApiClientWithoutAccess.get(
+        `restaurants/details/${slug}`
       );
       const data = response.data.data;
 
