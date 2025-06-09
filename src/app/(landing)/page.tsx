@@ -13,14 +13,14 @@ import Hero from "@/components/Homes/hero";
 
 import PartnersSection from "@/components/Homes/partner";
 import PremiumSection from "@/components/Homes/pricing";
-import TicketSection from "@/components/Homes/ticketSection";
+// import TicketSection from "@/components/Homes/ticketSection";
 import TreasureSection from "@/components/Homes/trasureSection";
 
 import FeaturedRestaurants from "@/components/morefood/Restaurantslist";
-import Hotels from "@/components/moreliving/Hotels";
+// import Hotels from "@/components/moreliving/Hotels";
 
-import Products from "@/components/moremarket/products";
-import Salons from "@/components/moresalons/Salons";
+// import Products from "@/components/moremarket/products";
+// import Salons from "@/components/moresalons/Salons";
 import OfferSection from "@/components/offers/OfferSection";
 import { Suspense } from "react";
 
@@ -32,12 +32,12 @@ export default async function Home() {
         <OfferSection classname="min-[660px]:pl-0 min-[570px]:pl-20 min-[460px]:pl-40 pl-64" />
       </Suspense>
       <TreasureSection />
-      <TicketSection />
+      {/* <TicketSection /> */}
       <PartnersSection />
       <FeaturedRestaurants />
-      <Salons />
+      {/* <Salons />
       <Products />
-      <Hotels />
+      <Hotels /> */}
       <PremiumSection />
     </>
   );

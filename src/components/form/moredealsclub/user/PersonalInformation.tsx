@@ -90,14 +90,14 @@ const PersonalInformation = ({ userdata }: { userdata: any }) => {
   const [errors, setErrors] = useState<{ firstName?: string; lastName?: string, gender?: string, secondaryEmail?: string; secondaryPhone?: string;  dob?: string }>({});
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleChange = (field: string, value: string) => {
+  const handleChange =async (field: string, value: string) => {
 
     setFormData((prev) => {
       const updatedData = { ...prev, [field]: value };
       setHasChanged(JSON.stringify(updatedData) !== JSON.stringify(initialFormData));
       return updatedData;
     });
-    setErrors({ ...errors, [field]: validateField(field, value) });
+    setErrors({ ...errors, [field]: await validateField(field, value) });
   };
 
   const handlePhoneNumberChange = (data: any) => {

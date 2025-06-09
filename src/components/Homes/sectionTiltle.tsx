@@ -1,9 +1,9 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import { Montserrat } from "next/font/google";
+// import { Montserrat } from "next/font/google";
 import Link from "next/link";
 
-const montserrat = Montserrat({ subsets: ["latin"] });
+// const montserrat = Montserrat({ subsets: ["latin"] });
 
 interface SectionTitleProps {
   title: string;
@@ -19,7 +19,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, className , white, v
       <h2
         className={cn(
           `text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-foreground relative inline-block uppercase ${white ? "text-white" : ""}`,
-          montserrat.className
+          // montserrat.className
         )}
       >
         {title}

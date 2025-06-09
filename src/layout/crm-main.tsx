@@ -35,14 +35,14 @@ export function NavCRM({
         {projects.map((item) => (
           <SidebarMenuItem key={item.name} >
             <SidebarMenuButton asChild size={"lg"} isActive={pathname.includes(item.url)}>
-              <a href={`${item.url}login-crm`} target="_blank">
+              <div onClick={(e)=>{e.preventDefault(); window.open(`https://${item.url}/login-crm`, "_blank", "noopener,noreferrer")}} className="cursor-pointer " >
               <Avatar className="flex items-center h-7 w-7">
                     <AvatarImage src={item.lightImage} className="h-7 w-7 block dark:hidden" />
                     <AvatarImage src={item.darkImage} className="h-7 w-7 hidden dark:block" />
                     <AvatarFallback >{item.name[0]}</AvatarFallback>
                   </Avatar>
                 <span>{item.name}</span>
-              </a>
+              </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         ))}
