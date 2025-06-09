@@ -34,7 +34,7 @@ const TicketSection = () => {
 
           {/* Code Box */}
           <div className="bg-neutral-800 p-6 rounded-lg">
-            <p className="mb-4">Your unique ticket code:</p>
+            <p className="mb-4 text-white">Your unique ticket code:</p>
             <div className="font-mono text-xl tracking-widest text-yellow-400 mb-6">
               {ticketCode}
             </div>
