@@ -75,6 +75,7 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import menuData from "@/data.json"; 
 import { useSession } from "next-auth/react";
+import LogoutTrigger from "@/components/auth/logouts/logouttrigger";
 
 // Define types for menu data
 interface MenuItem {
@@ -145,6 +146,20 @@ export default function Menu() {
               </div>
             </div>
           ))}
+          <div className="space-y-2">
+               
+                  <div className="block">
+                    <div className="flex items-center space-x-2 p-2 rounded hover:bg-white dark:hover:bg-gray-800">
+                      {/* <img src={'/images/png/user.png'} alt={"Log Out"} className="w-6 h-6 rounded" />
+                      <div>
+                        <p className="text-sm font-semibold">Log Out</p>
+                        <p className="text-xs text-gray-400"></p>
+                      </div> */}
+                      <LogoutTrigger triggerType="dropdown" />
+                    </div>
+                  </div>
+               
+              </div>
         </div>
       ) : (
         <p className="text-gray-400 text-sm mt-4">No results found.</p>
