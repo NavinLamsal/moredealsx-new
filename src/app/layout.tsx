@@ -8,16 +8,22 @@ import Provider from "@/components/HOC/provider";
 import Locationretrive from "@/components/HOC/locationRetrive";
 import { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
+import { Montserrat } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
+
+
+
+
+const montserrat = Montserrat({ subsets: ["latin"],  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], variable: "--font-montserrat"});
 
 export const metadata: Metadata = {
   title: "MOREDEALSX | MOREDEALS CLUB",
@@ -38,7 +44,7 @@ export default async function  RootLayout({
       <meta name="apple-mobile-web-app-title" content="Moredeals Club" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${montserrat.variable} antialiased`}
       >
         <SessionProvider>
         <Provider>

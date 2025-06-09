@@ -92,11 +92,11 @@ if(session?.user?.userDetails?.crm_link){
             </div>
             <div className="p-4">
               <h3 className="text-base font-semibold  text-center">{crmData.name}</h3>
-              <a href={`${session.user.userDetails.crm_link?.restro_link}login-crm`} target="_blank">
+              <div onClick={(e)=>{e.preventDefault(); window.open(`https://${session.user.userDetails.crm_link?.restro_link}/login-crm`, "_blank", "noopener,noreferrer")}} className="cursor-pointer ">
               <Button className='flex mx-auto'>
                 Visit
               </Button>
-              </a>
+              </div>
             </div>
           </div>
     

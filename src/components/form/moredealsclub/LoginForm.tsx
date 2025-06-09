@@ -2,10 +2,10 @@
 import React, { Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { PhoneIcon, MailIcon, Section } from "lucide-react";
+import { PhoneIcon, MailIcon } from "lucide-react";
 import PhoneNumberInput from "@/components/ui/customInputs/PhoneNumberInput";
-import { doCredentialLogin, doSocialLogin } from "@/lib/action/authAction";
-import { createServerPlatformAxiosInstance } from "@/lib/axios/platformBasedAxios";
+import { doCredentialLogin } from "@/lib/action/authAction";
+
 import { showToast } from "@/lib/utilities/toastService";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
