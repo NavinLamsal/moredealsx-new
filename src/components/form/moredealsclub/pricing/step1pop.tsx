@@ -81,13 +81,19 @@ const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, onS
                 <span className="text-md font-semibold">{pack?.name}</span>
                 <span className="text-sm text-muted-foreground">
                   {pack.code === "free" ? "Try for Free" : `${pack.currency_symbol} ${data.plan_time === "yearly" ? pack.yearly_price : pack.price}`}
-                  
+
                 </span>
                 {pack?.name.includes("Power Saver") &&
                   <div>
 
                     <span className='inline-flex px-3 py-1 text-xs font-semibold text-white  rounded-full bg-destructive'>RECOMMENDED</span>
+
                   </div>}
+                {pack.free_trial?.is_free_trial && <div>
+
+                  <span className='inline-flex px-3 py-1 text-xs font-semibold   rounded-full '>Free Trial</span>
+
+                </div>}
               </label>
             </div>
           ))}
@@ -101,9 +107,17 @@ const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, onS
         </Button>
       )
         :
-        <Button type="button" onClick={onNext} className="w-full" disabled={isLoading}>
-          {isLoading ? "Processing..." : "Next"}
-        </Button>
+        <>
+          {(user.profile?.user_type === "BUSINESS" && packages.find((p: Package) => p.id === data.package)?.free_trial?.is_free_trial) ? (
+            <Button type="button" onClick={onSkip} className="w-full" disabled={isLoading}>
+              Continue with Free trial
+            </Button>
+          ) :
+            <Button type="button" onClick={onNext} className="w-full" disabled={isLoading}>
+              {isLoading ? "Processing..." : "Next"}
+            </Button>
+          }
+        </>
       }
 
     </div>
