@@ -370,3 +370,32 @@ export interface OrderDetail {
   items: OrderDetail_orderItem[];
   order_total_price: number;
 }
+
+export interface OfferDealType {
+  id: string;
+  banner: string;
+  start_date: string;
+  end_date: string;
+  currency_code: string;
+  food_item: FoodType[];
+  description: string;
+  is_hot_deal: boolean;
+  name: string;
+  price: number;
+  orginal_price: number;
+  repeat_sunday: boolean;
+  repeat_monday: boolean;
+  repeat_tuesday: boolean;
+  repeat_wednesday: boolean;
+  repeat_thursday: boolean;
+  repeat_friday: boolean;
+  repeat_saturday: boolean;
+}
+
+export interface FoodType {
+  id: string;
+  name: string;
+  image: string;
+  price: string;
+  discount_price: string;
+}
