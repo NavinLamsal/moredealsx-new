@@ -1,5 +1,5 @@
 import React from "react";
-import { CheckCircle, CheckCircle2Icon, Circle, CircleDot } from "lucide-react";
+import {  CheckCircle2Icon, Circle, CircleDot } from "lucide-react";
 
 interface Step {
   title: string;

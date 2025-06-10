@@ -34,7 +34,7 @@ const DocumentsUploadForm = ({onFinish}:{onFinish: () => void}) => {
         if (!file) {
             return field === 'BusinessDocument'
                 ? 'Business Document is required.'
-                : 'Tax Document is required.';
+                : '';
         }
         return "";
     };
@@ -43,7 +43,7 @@ const DocumentsUploadForm = ({onFinish}:{onFinish: () => void}) => {
     const validate = (): boolean => {
         const tempErrors: Record<string, string> = {};
         tempErrors.BusinessDocument = validateField('BusinessDocument', formData.BusinessDocument);
-        tempErrors.TaxDocument = validateField('TaxDocument', formData.TaxDocument);
+        tempErrors.TaxDocument = formData.TaxDocument ? validateField('TaxDocument', formData.TaxDocument): "";
         setErrors(tempErrors);
         return Object.values(tempErrors).every(error => error === "");
     };

@@ -12,7 +12,7 @@ import Link from "next/link";
 //       <div className="mx-auto max-w-7xl px-6 sm:px-10 md:px-12">
 //         {/* Top Section */}
 //         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 border-b border-gray-600 pb-10">
-          
+
 //           <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-1 md:col-span-3 sm:col-span-2 lg:col-span-2">
 //           {/* Company Info */}
 //           <div>
@@ -87,25 +87,36 @@ import Link from "next/link";
 // export default Footer;
 
 // components/Footer.tsx
-export default function Footer({data}:{data:CompanyMeta}) {
+export default function Footer({ data }: { data: CompanyMeta }) {
   return (
     <footer className="bg-black py-16 px-4 text-white">
       <div className="max-w-7xl mx-auto">
         <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
           {/* Brand Info */}
           <div>
-            <h3 className="text-yellow-400 text-xl font-semibold mb-4">MoreDealsX</h3>
+            <h3 className="text-yellow-400 text-xl font-semibold mb-4">
+              MoreDealsX
+            </h3>
             <p className="text-gray-400 mt-2">
               Premium savings platform for the elite.
             </p>
             <div className="flex gap-4 mt-5">
-              <a href="#" className="social-icon bg-neutral-900 text-yellow-400 hover:bg-yellow-400 hover:text-black transition w-10 h-10 rounded-full flex items-center justify-center text-xl">
+              <a
+                href="#"
+                className="social-icon bg-neutral-900 text-yellow-400 hover:bg-yellow-400 hover:text-black transition w-10 h-10 rounded-full flex items-center justify-center text-xl"
+              >
                 📱
               </a>
-              <a href="#" className="social-icon bg-neutral-900 text-yellow-400 hover:bg-yellow-400 hover:text-black transition w-10 h-10 rounded-full flex items-center justify-center text-xl">
+              <a
+                href="#"
+                className="social-icon bg-neutral-900 text-yellow-400 hover:bg-yellow-400 hover:text-black transition w-10 h-10 rounded-full flex items-center justify-center text-xl"
+              >
                 💻
               </a>
-              <a href="#" className="social-icon bg-neutral-900 text-yellow-400 hover:bg-yellow-400 hover:text-black transition w-10 h-10 rounded-full flex items-center justify-center text-xl">
+              <a
+                href="#"
+                className="social-icon bg-neutral-900 text-yellow-400 hover:bg-yellow-400 hover:text-black transition w-10 h-10 rounded-full flex items-center justify-center text-xl"
+              >
                 📧
               </a>
             </div>
@@ -113,44 +124,135 @@ export default function Footer({data}:{data:CompanyMeta}) {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-yellow-400 text-xl font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-yellow-400 text-xl font-semibold mb-4">
+              Quick Links
+            </h3>
             <ul className="space-y-2">
-              <li><a href="/" className="text-gray-400 hover:text-yellow-400 transition">Home</a></li>
-              <li><a href="/offers" className="text-gray-400 hover:text-yellow-400 transition">Offers</a></li>
-              <li><a href="/events" className="text-gray-400 hover:text-yellow-400 transition">Events</a></li>
-              <li><a href="/#partners" className="text-gray-400 hover:text-yellow-400 transition">Partners</a></li>
+              <li>
+                <a
+                  href="/"
+                  className="text-gray-400 hover:text-yellow-400 transition"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/offers"
+                  className="text-gray-400 hover:text-yellow-400 transition"
+                >
+                  Offers
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/events"
+                  className="text-gray-400 hover:text-yellow-400 transition"
+                >
+                  Events
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/#partners"
+                  className="text-gray-400 hover:text-yellow-400 transition"
+                >
+                  Partners
+                </a>
+              </li>
             </ul>
           </div>
 
           {/* Categories */}
           <div>
-            <h3 className="text-yellow-400 text-xl font-semibold mb-4">Categories</h3>
+            <h3 className="text-yellow-400 text-xl font-semibold mb-4">
+              Categories
+            </h3>
             <ul className="space-y-2">
-              <li><a href="/morefood" className="text-gray-400 hover:text-yellow-400 transition">Restaurants</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-yellow-400 transition">Salons</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-yellow-400 transition">Hotels</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-yellow-400 transition">Marketplace</a></li>
+              <li>
+                <a
+                  href="/morefood"
+                  className="text-gray-400 hover:text-yellow-400 transition"
+                >
+                  Restaurants
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-yellow-400 transition"
+                >
+                  Salons
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-yellow-400 transition"
+                >
+                  Hotels
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-yellow-400 transition"
+                >
+                  Marketplace
+                </a>
+              </li>
             </ul>
           </div>
 
           {/* Support */}
           <div>
-            <h3 className="text-yellow-400 text-xl font-semibold mb-4">Support</h3>
+            <h3 className="text-yellow-400 text-xl font-semibold mb-4">
+              Support
+            </h3>
             <ul className="space-y-2">
-              <li><Link href="/faq" className="text-gray-400 hover:text-yellow-400 transition">FAQ</Link></li>
-              <li><Link href="/" className="text-gray-400 hover:text-yellow-400 transition">Contact Us</Link></li>
-              <li><Link href="/terms-and-condition" className="text-gray-400 hover:text-yellow-400 transition">Terms</Link></li>
-              <li><Link href="/privacy-policy" className="text-gray-400 hover:text-yellow-400 transition">Privacy</Link></li>
+              <li>
+                <Link
+                  href="/faq"
+                  className="text-gray-400 hover:text-yellow-400 transition"
+                >
+                  FAQ
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/"
+                  className="text-gray-400 hover:text-yellow-400 transition"
+                >
+                  Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms-and-condition"
+                  className="text-gray-400 hover:text-yellow-400 transition"
+                >
+                  Terms
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/privacy-policy"
+                  className="text-gray-400 hover:text-yellow-400 transition"
+                >
+                  Privacy
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
 
         {/* Footer Bottom */}
         <div className="border-t border-gray-800 pt-6 text-center text-gray-500 text-sm">
-          &copy; 2023 MoreDealsX. All rights reserved.
+          <p>
+            &copy; {new Date().getFullYear()} MoreDealsX. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
   );
 }
-

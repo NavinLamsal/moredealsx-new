@@ -12,6 +12,10 @@ export type BillingCycle = "monthly" | "yearly";
     name: string;
     price: number;
     yearly_price: number;
+    free_trial?:{
+      is_free_trial: boolean, 
+      free_trial_period: string |null
+    }
     currency_symbol: string;
     currency_code: string;
     morefood_business_discount: number;
