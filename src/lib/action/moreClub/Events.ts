@@ -2,13 +2,14 @@
 
 import { useAxiosClient } from "@/lib/axios/axiosClient";
 import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
+import MoreFoodApiClient from "@/lib/axios/morefood/MoreFoodApiClient";
+import MorefoodApiClientWithoutAccess from "@/lib/axios/morefood/MorefoodApiClientWithoutAccess";
 import { MetaData } from "@/lib/type/CommonType";
 import { BookedEventList, EventList } from "@/lib/type/moreclub/Event";
 import { max } from "lodash";
 
-
 export const useFetchEvents = () => {
-  const axios = useAxiosClient("moredealsclub", false);
+  // const axios = useAxiosClient("moredealsclub", false);
 
   const fetchEventsList = async (
     page?: number
@@ -20,6 +21,23 @@ export const useFetchEvents = () => {
       const pages = page ?? 1;
       const response = await MoreClubApiClient.get(
         `events/list/?page=${pages}`
+      );
+      return { data: response.data.data, meta: response.data.meta };
+    } catch (error) {
+      return { data: [] as EventList[], meta: {} as MetaData };
+    }
+  };
+
+  const fetchRestroEventsList = async (
+    page?: number
+  ): Promise<{
+    data: EventList[];
+    meta: MetaData;
+  }> => {
+    try {
+      const pages = page ?? 1;
+      const response = await MorefoodApiClientWithoutAccess.get(
+        `${process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL}public/events/list/?page=${pages}`
       );
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
@@ -44,7 +62,6 @@ export const useFetchEvents = () => {
     }
   };
 
-
   const fetchBookedEventsList = async (
     type: string,
     page?: number
@@ -63,45 +80,39 @@ export const useFetchEvents = () => {
     }
   };
 
-
   const fetchEventsSeatAndStatus = async (
     slug: string
   ): Promise<{
-    
-      seat_available: number,
-      max_limit: number,
-      event_booked: boolean
-      can_book_by_country: string[]
-
+    seat_available: number;
+    max_limit: number;
+    event_booked: boolean;
+    can_book_by_country: string[];
   }> => {
     try {
-      const response = await MoreClubApiClient.get(
-        `events/${slug}/details/`
-      );
+      const response = await MoreClubApiClient.get(`events/${slug}/details/`);
       const formatteddata = {
         seat_available: response.data.data.seat_available,
         max_limit: response.data.data.max_limit,
         event_booked: response.data.data.event_booked,
-        can_book_by_country: response.data.data.can_book_by_country
-      }
+        can_book_by_country: response.data.data.can_book_by_country,
+      };
 
-      return formatteddata ;
+      return formatteddata;
     } catch (error) {
       return {} as {
-        seat_available: number,
-        max_limit: number,
-        event_booked: boolean
-        can_book_by_country: string[]
+        seat_available: number;
+        max_limit: number;
+        event_booked: boolean;
+        can_book_by_country: string[];
       };
     }
   };
 
-
   return {
     fetchPopularEventsList,
     fetchEventsList,
+    fetchRestroEventsList,
     fetchEventsSeatAndStatus,
-    fetchBookedEventsList
-
+    fetchBookedEventsList,
   };
 };

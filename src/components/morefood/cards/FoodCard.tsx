@@ -29,7 +29,7 @@ export default function FoodCard({ item }: { item: FoodtypeswithMenu }) {
     if(!item.has_variation && item.related_food_items.length === 0){
       setShowSheet(false);
       setShowDialog(false);
-      const price: number =  Number(item.discount_price) > 0 ? Number(item.discount_price) < Number(item.price) ? Number(item.discount_price) : item.price : item.price// Ensure item.price is a number    
+      const price: number =  Number(item.discount_price) > 0 ? Number(item.discount_price) < Number(item.price) ? Number(item.discount_price) : item.price : item.price
       const cartitems = {
         id: item.variations ? item.variations[Object.keys(item.variations)[0]][0].id: item.id,
         restaurant_id: item.restaurant_id,

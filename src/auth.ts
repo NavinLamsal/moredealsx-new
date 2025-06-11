@@ -260,6 +260,7 @@ export async function fetchUserDetails(token: string) {
 
     if (!userResponse.ok) throw new Error("Failed to fetch user details");
     const userData = await userResponse.json();
+ 
 
     const userDetails = {
       username: userData?.data?.username,

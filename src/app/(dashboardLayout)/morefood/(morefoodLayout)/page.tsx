@@ -15,7 +15,7 @@ const Page = () => {
    {/* <Offers /> */}
    <TodaysOffer/>
    <CategoriesList/>
-   <FeaturedRestaurants/>
+   {/* <FeaturedRestaurants/> */}
    <NearestRestaurant/>
    <PopularRestaurant />
    <PopularCombos/>

@@ -110,10 +110,11 @@
 import React, { useCallback, useRef } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { fetchOffer, fetchOfferList, Offer } from "@/lib/action/PublicCommonClient";
+import { fetchOffer, fetchOfferList, Offer, OfferDealType } from "@/lib/action/PublicCommonClient";
 import OfferCard from "../cards/moreclub/OfferCard";
-import { UniversalTextLoading } from "../loaders/UniversalTypingLoader";
+
 import OfferSkeleton from "../Skeletons/OfferSkeelton";
+import MoreOfferCard from "../cards/moreclub/morefoodoffer/MorefoodOfferCard";
 // import OfferCard from "../cards/OfferCard";
 
 
@@ -167,7 +168,7 @@ const AllOffersList = () => {
     if (isLoading) {
         return (
             <div className="flex justify-center items-center h-40">
-                <OfferSkeleton/>
+                <OfferSkeleton />
             </div>
         );
     }
@@ -176,35 +177,43 @@ const AllOffersList = () => {
         return <p className="text-red-500 text-center">Oops! Something went wrong.</p>;
     }
 
+
+    function isMoreFoodOffers(data: any[]): data is OfferDealType[] {
+        return data.length > 0 && "restro_url" in data[0];
+    }
+
     return (
-        <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className=" px-4 py-8">
             {/* No Transactions Found */}
             {data?.pages[0].data.length === 0 && <p className="text-center">No Offers Found</p>}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
                 {data?.pages.map((page: any) =>
-                    page?.data.map((offer: Offer, index: number) => (
-                        <div
-                            key={offer.id}
-                            className="animate-fadeIn"
-                        >
-                            <OfferCard
-                                key={index}
-                                offer={offer}
-                                ref={index === page.data.length - 1 ? lastRestaurantRef : null}
-                            />
-                        </div>
-                    ))
+                    page?.data.map((offer: any, index: number) => {
+                        const isLast = index === page.data.length - 1;
+                        return (
+                            <div key={offer.id} className="animate-fadeIn">
+                                {category === "morefood" && isMoreFoodOffers(page.data) ? (
+                                    <MoreOfferCard
+                                        key={offer.id}
+                                        item={offer}
+                                        ref={isLast ? lastRestaurantRef : null}
+                                    />
+                                ) : (
+                                    <OfferCard
+                                        key={offer.id}
+                                        offer={offer}
+                                        ref={isLast ? lastRestaurantRef : null}
+                                    />
+                                )}
+                            </div>
+                        );
+                    })
                 )}
             </div>
 
-            
-            {/* {(hasNextPage || isFetchingNextPage) && (
-                <div className="text-center mt-6">
-                    <Button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
-                        {isFetchingNextPage ? "Loading..." : "Load More"}
-                    </Button>
-                </div>
-            )} */}
+
+
 
             {/* Loading More Transactions */}
             {isFetchingNextPage && <p className="text-center mt-4 text-gray-600">Loading more offers...</p>}

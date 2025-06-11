@@ -60,6 +60,8 @@ const offersPage = () => {
 
         </Suspense>
       </div>
+      
+
       <AllOffersList />
 
     </Suspense>

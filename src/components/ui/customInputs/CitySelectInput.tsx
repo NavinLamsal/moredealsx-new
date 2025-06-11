@@ -27,7 +27,7 @@ export default function CitySelect({ onChange, initialValue = "", country }: Cit
             try {
                 const cities: CityListType[] = await getCityList(country);
                 const formattedCity: CityOption[] = cities.map((city) => ({
-                    value: city.name,
+                    value: city.code,
                     label: city.name,
                     icon: city.image || undefined,
                 }));
