@@ -1,9 +1,7 @@
-import BlogCard from '@/components/cards/BlogCard';
+
 import OfferCard from '@/components/cards/OfferCard';
-import SupportCard from '@/components/cards/SupportCard';
-import { fetchBlogs, fetchRecommendationBlogs, fetchRecommendationOffers } from '@/lib/action/PubilcCommon';
+import {  fetchRecommendationOffers } from '@/lib/action/PubilcCommon';
 import { Offer } from '@/lib/action/PublicCommonClient';
-import { Blog } from '@/lib/type/CommonType';
 import React from 'react';
 
 interface OfferRecommendationProps {

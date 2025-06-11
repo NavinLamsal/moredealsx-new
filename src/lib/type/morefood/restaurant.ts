@@ -10,7 +10,7 @@ export interface ResturantListType {
   address: string;
   url?: string;
   review_count: number;
-  restaurant_rating: number;
+  avg_rating: number;
   menu_count?: number;
 }
 
@@ -149,6 +149,7 @@ export interface OfferType {
   id: string; //"c1d5eb8f-d5f2-4834-bd28-b413f784ceba";
   name: string; // "Daju Bhai Bhati PasaL offer";
   price: string; // 800;
+  original_price: string; // 1000;
   description: string; // "authenic swedish dishes";
   banner: string;
   restaurant_slug: string; // "daju-bhai-bhati-pasal-offer";
@@ -369,4 +370,33 @@ export interface OrderDetail {
   refferal_points_id: string | null;
   items: OrderDetail_orderItem[];
   order_total_price: number;
+}
+
+export interface OfferDealType {
+  id: string;
+  banner: string;
+  start_date: string;
+  end_date: string;
+  currency_code: string;
+  food_item: FoodType[];
+  description: string;
+  is_hot_deal: boolean;
+  name: string;
+  price: number;
+  orginal_price: number;
+  repeat_sunday: boolean;
+  repeat_monday: boolean;
+  repeat_tuesday: boolean;
+  repeat_wednesday: boolean;
+  repeat_thursday: boolean;
+  repeat_friday: boolean;
+  repeat_saturday: boolean;
+}
+
+export interface FoodType {
+  id: string;
+  name: string;
+  image: string;
+  price: string;
+  discount_price: string;
 }

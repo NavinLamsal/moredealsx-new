@@ -10,14 +10,14 @@ import TrendingEventSkeleton from "../Skeletons/EventSkeleton";
 
 
 
-const TrendingEvents = ({title = "Trending Events", dashboard=false}: {title?: string , dashboard?: boolean}) => {
+const RestaurantTrendingEvents = ({title = "Trending Events" , dashboard =true}: {title?: string , dashboard?: boolean}) => {
 
-    const { fetchPopularEventsList} = useFetchEvents()
+    const { fetchRestroEventsList} = useFetchEvents()
  
 
    const { data, error, isLoading } = useQuery({
-     queryKey: ["Events" , 1],
-     queryFn: () => fetchPopularEventsList(1),
+     queryKey: ["Restro Events" , 1],
+     queryFn: () => fetchRestroEventsList(1),
      staleTime: 36000,
    });
 
@@ -53,7 +53,7 @@ const TrendingEvents = ({title = "Trending Events", dashboard=false}: {title?: s
           
         </div>
      ))} */}
-     <HorizontalCarousel title={title} dashboard={dashboard} center={false} viewAll="/event">
+     <HorizontalCarousel title={title} dashboard={dashboard} center={false} viewAll="/event/restaurant/">
       {data?.data.map((event, index) => (
         <div className="flex-shrink-0 w-72" key={event.id}>
          <AnimatedSection key={event.name} index={index}>
@@ -73,4 +73,4 @@ const TrendingEvents = ({title = "Trending Events", dashboard=false}: {title?: s
   );
 };
 
-export default TrendingEvents;
+export default RestaurantTrendingEvents;

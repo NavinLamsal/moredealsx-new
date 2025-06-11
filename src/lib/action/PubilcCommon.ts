@@ -68,8 +68,9 @@ export const getCurrencyList = async(country: string) => {
 
 
 export const getCityList = async(country: string) => {
+  // ${process.env.NEXT_PUBLIC_API_URL}country/${country}/by-id/cities/list/
   try{
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}country/${country}/by-id/cities/list/`, { next: { tags: [`cities list for ${country}`] ,revalidate: 300 }})
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}country/${country}/cities/list/`, { next: { tags: [`cities list for ${country}`] ,revalidate: 300 }})
     const data = await res.json()
     return data.data as CityListType[]
   }catch(err){
@@ -201,7 +202,9 @@ export const getOfferDetails = async(slug:string) => {
 export const fetchRecommendationOffers = async (
   pageParam: number = 1,
   title?: string,
-): Promise<OfferResponse> => {
+): Promise<{data: Offer[] 
+  meta: MetaData;
+}> => {
   const endpoint = `${process.env.NEXT_PUBLIC_API_URL}moreoffers/list/`;
 
   const response = await axios.get(endpoint, {

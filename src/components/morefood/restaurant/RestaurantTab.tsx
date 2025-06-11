@@ -9,6 +9,7 @@ import { ContainerSkeleton } from "@/components/MapBox/Skeletons";
 import OpeningHours from "./OpeningHours";
 import { Card } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
+import RestroOfferSection from "./RestroOffers";
 
 const RestaurantTab = ({ details }: { details: Restaurant }) => {
   const searchParams = useSearchParams();
@@ -20,7 +21,15 @@ const RestaurantTab = ({ details }: { details: Restaurant }) => {
       id: "3",
       value: "review",
       name: "Reviews",
-      content: <HomeReview slug={details.slug} rating={details.restaurant_rating} totalReview={details.review_count ? details.review_count : 0} postitveReview={details.positive_review_count} negativeReview={details.negative_review_count} />,
+      content: (
+        <HomeReview
+          slug={details.slug}
+          rating={details.restaurant_rating}
+          totalReview={details.review_count ? details.review_count : 0}
+          postitveReview={details.positive_review_count}
+          negativeReview={details.negative_review_count}
+        />
+      ),
     },
     {
       id: "1",
@@ -33,15 +42,31 @@ const RestaurantTab = ({ details }: { details: Restaurant }) => {
       value: "gallery",
       name: "Gallery",
       link: `/morefood/restaurant/${details.slug}/gallery`,
-      content: <Card className="h-40 flex items-center justify-center"><Loader2 size={24} className="animate-spin duration-1000" /></Card>,
+      content: (
+        <Card className="h-40 flex items-center justify-center">
+          <Loader2 size={24} className="animate-spin duration-1000" />
+        </Card>
+      ),
     },
     {
       id: "4",
       value: "opening",
       name: "Availability",
-      content: <Suspense fallback={<ContainerSkeleton />}>
-        <OpeningHours id={details.slug} />
-      </Suspense>,
+      content: (
+        <Suspense fallback={<ContainerSkeleton />}>
+          <OpeningHours id={details.slug} />
+        </Suspense>
+      ),
+    },
+    {
+      id: "5",
+      value: "offers",
+      name: "Offers",
+      content: (
+        <Suspense fallback={<ContainerSkeleton />}>
+          <RestroOfferSection />
+        </Suspense>
+      ),
     },
   ];
 
@@ -70,17 +95,13 @@ const RestaurantTab = ({ details }: { details: Restaurant }) => {
       </TabsList>
 
       {/* Tab Content */}
-      {tablist.map(
-        (item) =>
-        (
-          <TabsContent key={item.id} value={item.value} className="py-2">
-            {item.content}
-          </TabsContent>
-        )
-      )}
+      {tablist.map((item) => (
+        <TabsContent key={item.id} value={item.value} className="py-2">
+          {item.content}
+        </TabsContent>
+      ))}
     </Tabs>
   );
 };
 
 export default RestaurantTab;
-

@@ -7,7 +7,7 @@ import { forwardRef } from "react";
 
 type RestaurantCardProps = ResturantListType
 
-const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner, address, id, slug, open_hrs, name, restaurant_rating, review_count, offers,  menu_count}, ref) => {
+const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner, address, id, slug, open_hrs, name, avg_rating, review_count, offers,  menu_count}, ref) => {
 
   return (
     <Link href={`/morefood/restaurant/${slug}`}>
@@ -24,7 +24,7 @@ const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner
             objectFit="cover"
             className="rounded-lg"
           />
-          {(open_hrs !== "Closed") ? null :
+          {(open_hrs) ? null :
           <div className="absolute inset-0 bg-black/50 text-xs flex flex-col items-center justify-center text-white font-semibold px-2 py-1 rounded-md">
           <MoonIcon/> Closed
           </div>
@@ -44,9 +44,9 @@ const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner
           <h3 className="text-base font-semibold  truncate text-primary text-center">{name}</h3>
           <div className="flex items-center space-x-1 text-sm text-muted-foreground justify-center">
             <span className="text-yellow-500"><Crown className="w-4 h-4" /></span>
-            {restaurant_rating ?
+            {avg_rating ?
               <>
-                <span className="font-medium">{restaurant_rating ?? 0}</span>
+                <span className="font-medium">{avg_rating ?? 0}</span>
                 <span>({review_count ?? 0} reviews)</span>
               </>
               :

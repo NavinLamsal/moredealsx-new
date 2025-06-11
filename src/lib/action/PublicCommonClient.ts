@@ -1,4 +1,6 @@
 import MoreClubApiClient from "../axios/moreclub/MoreClubApiClient";
+import MoreFoodApiClient from "../axios/morefood/MoreFoodApiClient";
+import MorefoodApiClientWithoutAccess from "../axios/morefood/MorefoodApiClientWithoutAccess";
 import { MetaData } from "../type/CommonType";
 
 export interface Offer {
@@ -19,6 +21,27 @@ export interface Offer {
   currency_symbol: string;
   is_all_time: boolean;
   platform: string;
+}
+
+export interface OfferDealType {
+  id: string;
+  banner: string;
+  start_date: string;
+  end_date: string;
+  currency_code: string;
+  description: string;
+  is_hot_deal: boolean;
+  name: string;
+  price: number;
+  original_price: number;
+  restro_url: string;
+}
+export interface FoodType {
+  id: string;
+  name: string;
+  image: string;
+  price: string;
+  discount_price: string;
 }
 
 export interface OfferDetails {
@@ -48,19 +71,50 @@ export interface OfferDetails {
   applicable_countries: string[]; // [1];
 }
 
+// export const fetchOfferList = async (
+//   category: string | null,
+//   country: string | null
+// ): Promise<Offer[]> => {
+//   try {
+//     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+//     const endpoint = `${baseUrl}moreoffers/list/`;
+//     const response = await MoreClubApiClient.get(endpoint, {
+//       params: {
+//         country_code: country,
+//         ...(category !== "All" && {platform: category}),
+//       },
+//     });
+//     return response.data.data || [];
+//   } catch (error: any) {
+//     console.error("Error fetching offers:", error);
+//     return [];
+//   }
+// };
 export const fetchOfferList = async (
   category: string | null,
   country: string | null
-): Promise<Offer[]> => {
+): Promise<Offer[] | OfferDealType[]> => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-    const endpoint = `${baseUrl}moreoffers/list/`;
-    const response = await MoreClubApiClient.get(endpoint, {
-      params: {
-        country_code: country,
-        ...(category !== "All" && {platform: category}),
-      },
-    });
+    const isMoreFood = category === "morefood";
+
+    const endpoint = isMoreFood
+      ? `${process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL}public/offers/list/`
+      : `${baseUrl}moreoffers/list/`;
+
+    const config = isMoreFood
+      ? {} // No params for morefood
+      : {
+          params: {
+            country_code: country,
+            ...(category !== "All" && { platform: category }),
+          },
+        };
+
+    const response = isMoreFood ? 
+    await MorefoodApiClientWithoutAccess.get(endpoint, config)
+    :
+    await MoreClubApiClient.get(endpoint, config);
     return response.data.data || [];
   } catch (error: any) {
     console.error("Error fetching offers:", error);
@@ -68,10 +122,64 @@ export const fetchOfferList = async (
   }
 };
 
+
+export const fetchHOTDealsList = async (
+  
+  country: string | null
+): Promise< OfferDealType[]> => {
+  try {
+    const endpoint ="https://morebusinessinternational.com/api/public/offers/list/?"
+    const config =  {
+          params: {
+            country_code: country,
+            offer_filter: "hotdeals",
+            
+          },
+        };
+
+    const response = await MorefoodApiClientWithoutAccess.get(endpoint, config);
+    return response.data.data || [];
+  } catch (error: any) {
+    console.error("Error fetching offers:", error);
+    return [];
+  }
+};
+
+
 export interface OfferResponse {
-  data: Offer[];
+  data: Offer[] | OfferDealType[];
   meta: MetaData;
 }
+
+// export const fetchOffer = async (
+//   country: string | null,
+//   category: string | null,
+//   pageParam: number = 1,
+//   searchQuery: string = ""
+// ): Promise<OfferResponse> => {
+//   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+//   const endpoint = `${baseUrl}moreoffers/list/`;
+
+//   const response = await MoreClubApiClient.get(endpoint, {
+//     params: {
+//       title: searchQuery || undefined,
+//       page: pageParam,
+//       country_code: country,
+//       ...(category !== "All" && {platform: category}),
+//     },
+//   });
+
+//   return {
+//     data: response.data.data,
+//     meta: {
+//       links: { next: null, previous: null },
+//       count: 10,
+//       page_number: pageParam,
+//       total_pages: pageParam,
+//     }, // ✅ Return pagination metadata
+//   };
+// };
+
 
 export const fetchOffer = async (
   country: string | null,
@@ -79,25 +187,52 @@ export const fetchOffer = async (
   pageParam: number = 1,
   searchQuery: string = ""
 ): Promise<OfferResponse> => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  const endpoint = `${baseUrl}moreoffers/list/`;
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const isMoreFood = category === "morefood";
 
-  const response = await MoreClubApiClient.get(endpoint, {
-    params: {
-      title: searchQuery || undefined,
-      page: pageParam,
-      country_code: country,
-      ...(category !== "All" && {platform: category}),
-    },
-  });
+    const endpoint = isMoreFood
+      ? "https://morebusinessinternational.com/api/public/offers/list/"
+      : `${baseUrl}moreoffers/list/`;
 
-  return {
-    data: response.data.data,
-    meta: {
-      links: { next: null, previous: null },
-      count: 10,
-      page_number: pageParam,
-      total_pages: pageParam,
-    }, // ✅ Return pagination metadata
-  };
+    const config = isMoreFood
+      ? {
+        page: pageParam,
+      } // No query params for morefood
+      : {
+          params: {
+            title: searchQuery || undefined,
+            page: pageParam,
+            country_code: country,
+            ...(category !== "All" && { platform: category }),
+          },
+        };
+
+    const response = isMoreFood ?
+    await MorefoodApiClientWithoutAccess.get(endpoint, config)
+    :
+    await MoreClubApiClient.get(endpoint, config);
+
+    return {
+      data: response.data.data,
+      meta: {
+        links: response.data.links || { next: null, previous: null },
+        count: response.data.count || 0,
+        page_number: pageParam,
+        total_pages: response.data.total_pages || 1,
+      },
+    };
+  } catch (error: any) {
+    console.error("Error fetching offer:", error);
+
+    return {
+      data: [],
+      meta: {
+        links: { next: null, previous: null },
+        count: 0,
+        page_number: pageParam,
+        total_pages: 0,
+      },
+    };
+  }
 };

@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react";
 import { getClientApiUrl } from "../axiosClient";
 
 const baseURL =
-  getClientApiUrl("morefood") || process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL_NP;
+  getClientApiUrl("morefood") || process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL;
 
 const MoreFoodApiClientWA = () => {
   const defaultOptions = {

@@ -2,6 +2,7 @@
 
 import { useAxiosClient } from "@/lib/axios/axiosClient";
 import MoreFoodApiClient from "@/lib/axios/morefood/MoreFoodApiClient";
+import MoreFoodApiClientWC from "@/lib/axios/morefood/MoreFoodApiClientWC";
 import MorefoodApiClientWithoutAccess from "@/lib/axios/morefood/MorefoodApiClientWithoutAccess";
 import { MetaData } from "@/lib/type/CommonType";
 import {
@@ -67,7 +68,7 @@ export const useFetchRestaurant = () => {
   }> => {
     try {
       const pages = page ?? 1;
-      const response = await MoreFoodApiClient.get(`offers/list/`);
+      const response = await MoreFoodApiClientWC.get(`public/offers/list/`);
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
       console.error("Error in fetching popular Restaurants", error);

@@ -23,8 +23,8 @@ const OfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
           <span className=" bg-green-600 text-xs font-extrabold uppercase px-3 py-1 rounded text-white">
             {/* {offer.} */}
             {offer.discount_amount
-              ? `${offer.discount_amount} %`
-              : `${offer.discount_percentage} %`}
+              ? `${offer.currency_symbol} ${offer.discount_amount} off`
+              : `${offer.discount_percentage} % off`}
           </span>
         </div>
 
