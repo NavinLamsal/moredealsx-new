@@ -99,7 +99,7 @@ export const fetchOfferList = async (
     const isMoreFood = category === "morefood";
 
     const endpoint = isMoreFood
-      ? "https://morebusinessinternational.com/api/public/offers/list/"
+      ? `${process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL}public/offers/list/`
       : `${baseUrl}moreoffers/list/`;
 
     const config = isMoreFood

@@ -101,7 +101,7 @@ const CategoriesList = () => {
 
   return (
     <div className="p-4 my-4">
-      <HorizontalCarousel title="Choose Your Craving">
+      <HorizontalCarousel title="Choose Your Craving" dashboard={true}>
         {foodCategories.map((category, index) => (
           <div className="flex-shrink-0 w-28" key={category.name}>
             <AnimatedSection key={category.name} index={index}>

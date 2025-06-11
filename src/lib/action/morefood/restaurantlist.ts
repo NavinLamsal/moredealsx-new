@@ -68,7 +68,7 @@ export const useFetchRestaurant = () => {
   }> => {
     try {
       const pages = page ?? 1;
-      const response = await MoreFoodApiClientWC.get(`offers/list/`);
+      const response = await MoreFoodApiClientWC.get(`public/offers/list/`);
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
       console.error("Error in fetching popular Restaurants", error);

@@ -60,11 +60,11 @@ export default function OfferCard({
                 Order now
               </button>
               <p className="text-lg font-bold text-black ">
-                {offer.currency_symbol}&nbsp;{offer.price}
+                {offer.currency_code}&nbsp;{offer.price}
               </p>
             </div>
             <p className="text-sm font-bold text-neonRed text-right line-through mr-16">
-              {offer.currency_symbol}&nbsp;{offer.original_price}
+              {offer.currency_code}&nbsp;{offer.original_price}
             </p>
           </div>
 

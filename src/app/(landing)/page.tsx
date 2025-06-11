@@ -47,7 +47,7 @@ export default async function Home() {
 
       <RestaurantTrendingEvents title="Taste & Experience – Restaurant Events" dashboard={false} />
       {/* <FeaturedRestaurants /> */}
-      <TrendingEvents />
+      <TrendingEvents dashboard={false}/>
       </div>
 
       {/* <Salons />
