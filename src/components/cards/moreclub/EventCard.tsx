@@ -79,10 +79,34 @@ interface EventCardProps {
   name: string;
   location: string;
   slug: string;
+  platform: string;
+  schema_name?: string;
+  url?: string;
+  currency?: {
+    symbol: string;
+    icon: string;
+  };
+  price?: string;
 }
 
 const EventCard = forwardRef<HTMLDivElement, EventCardProps>(
-  ({  banner, start_date, name, location, slug }, ref) => {
+  ({  banner, start_date, name, location, slug , platform , url , currency, price, schema_name }, ref) => {
+
+    const isValidUrl = (str: string) => {
+      try {
+        new URL(str);
+        return true;
+      } catch (_) {
+        return false;
+      }
+    };
+    
+    const bannerToUse = isValidUrl(banner) ? banner : `/images/png/restro/hall.png`;
+
+    const handleRedirection = () => {
+      window.open(`https://${schema_name}.merkoll.com/event/${slug}`, "_blank");
+    };
+
     return (
       <div
         ref={ref}
@@ -96,7 +120,7 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(
         {/* Event Image */}
         <div className="w-full h-40 relative">
           <Image
-            src={banner}
+            src={bannerToUse}
             alt={name}
             layout="fill"
             objectFit="cover"
@@ -107,18 +131,33 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(
         {/* Content */}
         <div className="p-4">
           <h3 className="text-yellow-500 text-lg h-14 font-semibold mb-2 line-clamp-2">{name}</h3>
-
+          {currency && (
+            
+            <p className="text-gray-500 text-sm mb-2">
+              {currency.symbol} {price} 
+            </p>
+          )}
           <div className="flex items-center text-gray-500 text-sm mb-4">
             <MapPin className="h-4 w-4 text-yellow-500 mr-1" />
             <span className="line-clamp-1">{location}</span>
           </div>
 
+          {platform === "morefood" ? (
+            <div
+              onClick={handleRedirection}
+              className="block text-center text-sm font-bold bg-yellow-400 text-black py-2 rounded uppercase hover:bg-yellow-500 transition cursor-pointer"
+            >
+              Get Tickets
+            </div>
+          ):
+          (
           <Link
             href={`/event/${slug}`}
             className="block text-center text-sm font-bold bg-yellow-400 text-black py-2 rounded uppercase hover:bg-yellow-500 transition"
           >
             Get Tickets
           </Link>
+          )}
         </div>
       </div>
     );
