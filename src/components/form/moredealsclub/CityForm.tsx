@@ -107,16 +107,14 @@ export default function CityForm({
     const handleCitySelection = (option: any) => {
         setSelectedCity(option.label);
         localStorage.setItem("city", option.label);
+        localStorage.setItem("city_code", option.value);
         onCitySelect(option.label , selectedCountry!);
     };
 
     const handleCountrySelection = (option: any) => {
         setSelectedCountry(option.label);
-        const countryId = parseInt(option.value);
-        if (!isNaN(countryId)) {
-            setSelectedCountryId(countryId);
-            localStorage.setItem("countryId", option.value);
-        }
+        setSelectedCountryId(option.value);
+        localStorage.setItem("country_code", option.value);
         localStorage.setItem("country", option.label);
     };
 

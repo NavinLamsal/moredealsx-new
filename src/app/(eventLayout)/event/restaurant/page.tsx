@@ -1,5 +1,5 @@
 import EventList from "@/components/Events/EventsList";
-import RestaurantTrendingEvents from "@/components/Events/ResturantListCarousel";
+import RestaurantEventList from "@/components/Events/RestaurantEventList";
 import TrendingEvents from "@/components/Events/TrendingEvent";
 
 import PageHeadings from "@/components/ui/customTitles/PageHeadings";
@@ -12,13 +12,8 @@ const Page = () => {
     <div className="px-4">
       {/* <TrendingEvents title="Upcoming Events"/> */}
       <PageHeadings title="Events" description="Here's a list of Events!"/>   
-
-      <TrendingEvents title="Popular Events" />
-      <RestaurantTrendingEvents title="Taste & Experience – Restaurant Events"/>
-
-      {/* <TrendingEvents title="Live Events"/> */}
       <Heading title="Events You May Like" />
-      <EventList />
+      <RestaurantEventList />
         
       
     </div>

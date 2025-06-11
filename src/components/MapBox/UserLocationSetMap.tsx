@@ -362,37 +362,42 @@ const UserLocationSetMap = ({ setNewAddress , setChoosefield }: { setNewAddress?
     if (data.features.length > 0) {
       const cityFeature = data.features.find((feature: Feature) => feature.place_type.includes("place"));
       const countryFeature = data.features.find((feature: Feature) => feature.place_type.includes("country"));
-      
+      console.log(cityFeature, countryFeature , data);
       const cityName = cityFeature ? cityFeature.text : "";
       const countryName = countryFeature ? countryFeature.text : "";
       const fullAddress = data.features[0].place_name;
       
       setSearchText(fullAddress);
       setNewAddress?.({ fullAddress, city: cityName, country: countryName });
-
+      
       localStorage.setItem("location", fullAddress);
       localStorage.setItem("city", cityName);
       localStorage.setItem("country", countryName);
+
       
-      const validationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}country/validate/?country_name=${encodeURIComponent(
+      const validationUrl = `${process.env.NEXT_PUBLIC_API_URL}country/validate/?country_name=${encodeURIComponent(
         countryName
       )}&city_name=${encodeURIComponent(cityName)}`;
   
       const validationResponse = await fetch(validationUrl,{
         method:"GET"
       });
+
       const validationData = await validationResponse.json();
   
       if (!validationData.success) {
         setError("Service is not available in your region or city.");
         setChoosefield(true);
+        
         localStorage.removeItem("location");
         localStorage.removeItem("city")
         localStorage.removeItem("country");
         localStorage.removeItem("latitude");
         localStorage.removeItem("longitude");
         setNewAddress?.();
-      }else{
+      }else{;
+        localStorage.setItem("city_code", validationData.data.city_code);
+        localStorage.setItem("country_code", validationData.data.country_code);
         setChoosefield(false);
       }
     }

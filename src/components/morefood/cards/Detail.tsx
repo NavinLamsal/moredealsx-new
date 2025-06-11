@@ -69,7 +69,7 @@ const DetailComponent = ({
       }
     } else {
       const price: number = selectedRelatedItems.reduce(
-        (total, item) => total + Number(item.discount_price > 0 ? item.discount_price < item.price ? item.discount_price : item.price : item.price),  // Ensure item.price is a number
+        (total, item) => total + Number(item.discount_price > 0 ? item.discount_price < item.price ? item.discount_price : item.price : item.price),  
         0
       );
 

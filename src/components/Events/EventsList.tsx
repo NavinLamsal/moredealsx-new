@@ -75,6 +75,7 @@ const EventList = () => {
                   <EventCard
                     key={event.name}
                     {...event}
+                    platform="moreclub"
                     ref={index === page.data.length - 1 ? lastEventRef : null}
                   />
                 </AnimatedSection>

@@ -110,6 +110,7 @@ const BoookedEventList = ({type}:{type: "upcoming_events" | "past_events"}) => {
                                     <EventCard
                                         key={index}
                                         {...event.event}
+                                        platform="moreclub"
                                         ref={index === page.data.length - 1 ? lastEventRef : null}
                                     />
                                 </AnimatedSection>

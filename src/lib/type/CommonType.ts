@@ -86,6 +86,7 @@ export type CountryListType = {
 export type CityListType = {
   country: number;
   image: string;
+  code: string;
   id: number;
   name: string;
 };
