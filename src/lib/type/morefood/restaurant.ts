@@ -149,6 +149,7 @@ export interface OfferType {
   id: string; //"c1d5eb8f-d5f2-4834-bd28-b413f784ceba";
   name: string; // "Daju Bhai Bhati PasaL offer";
   price: string; // 800;
+  original_price: string; // 1000;
   description: string; // "authenic swedish dishes";
   banner: string;
   restaurant_slug: string; // "daju-bhai-bhati-pasal-offer";
