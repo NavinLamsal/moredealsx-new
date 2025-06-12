@@ -37,7 +37,7 @@ export const useFetchEvents = () => {
     try {
       const pages = page ?? 1;
       const response = await MorefoodApiClientWithoutAccess.get(
-        `${process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL}public/events/list/?page=${pages}`
+        `public/events/list/?page=${pages}`
       );
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
