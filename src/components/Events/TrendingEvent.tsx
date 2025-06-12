@@ -60,7 +60,7 @@ const TrendingEvents = ({title = "Trending Events", dashboard=false}: {title?: s
          <EventCard
             key={index}
             {...event}
-            platform="morefood"
+            platform="moreclub"
             ref={null} 
           />
           </AnimatedSection>

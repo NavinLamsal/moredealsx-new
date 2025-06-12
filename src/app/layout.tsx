@@ -9,6 +9,7 @@ import Locationretrive from "@/components/HOC/locationRetrive";
 import { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 import { Montserrat } from "next/font/google";
+import CookieConsentBanner from "@/layout/legal/CookiesConsent";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -52,6 +53,9 @@ export default async function  RootLayout({
           <Locationretrive/>
           </Suspense>
             {children}
+            <Suspense>
+            <CookieConsentBanner/>
+            </Suspense>
             <ToastContainer
                 position="top-right"
                 autoClose={5000}
