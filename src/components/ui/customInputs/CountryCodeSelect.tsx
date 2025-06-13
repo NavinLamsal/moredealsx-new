@@ -36,8 +36,8 @@ export default function CountrySelect({ onChange, initialValue = "", }: CountryS
         const countries: CountryListType[] = await getCountryList();
         const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL ?? "";
   
-        const formatted: CountryOption[] = countries.map(({ id, name, icon }) => ({
-          value: id.toString(),
+        const formatted: CountryOption[] = countries.map(({ code, name, icon }) => ({
+          value: code,
           label: name,
           icon: icon ? `${icon}` : undefined,
         }));
