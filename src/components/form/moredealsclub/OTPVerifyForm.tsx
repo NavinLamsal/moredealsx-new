@@ -70,9 +70,9 @@ const OTPVerifyForm: React.FC = () => {
         ...(formData.via === "email"
           ? { email: formData.email }
           : {
-              phone_number: removePrefix(formData.phone, formData.prefix),
-              phone_prefix: formData.prefix,
-            }),
+            phone_number: removePrefix(formData.phone, formData.prefix),
+            phone_prefix: formData.prefix,
+          }),
       };
 
       const response = await fetch(
@@ -95,10 +95,10 @@ const OTPVerifyForm: React.FC = () => {
 
           if (loginResponse?.success) {
             showToast("Login successful!", "success");
-            
-            localStorage.setItem("membership", "false");  
-            if(userType === "BUSINESS"){
-              localStorage.setItem("business_setup", "false");              
+
+            localStorage.setItem("membership", "false");
+            if (userType === "BUSINESS") {
+              localStorage.setItem("business_setup", "false");
             }
 
             sessionStorage.removeItem("registrationData");
@@ -132,7 +132,7 @@ const OTPVerifyForm: React.FC = () => {
 
   const handleResend = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     // Temporarily disable the resend button
     setIsResendDisabled(true);
     setResendTimer(5 * 60);
@@ -142,11 +142,11 @@ const OTPVerifyForm: React.FC = () => {
         ...(formData.via === "email"
           ? { email: formData.email }
           : {
-              phone_number: removePrefix(formData.phone, formData.prefix),
-              phone_prefix: formData.prefix,
-            }),
+            phone_number: removePrefix(formData.phone, formData.prefix),
+            phone_prefix: formData.prefix,
+          }),
       };
-  
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}auth/register/resend/otp/`,
         {
@@ -155,9 +155,9 @@ const OTPVerifyForm: React.FC = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-  
+
       const res = await response.json();
-  
+
       // ✅ Ensure `res.success` is explicitly `true`
       if (res.success === true) {
         showToast("OTP Resent Successfully!", "success");
@@ -175,12 +175,12 @@ const OTPVerifyForm: React.FC = () => {
       const errorMessage = err?.message || "Something went wrong";
       setServerErrors(errorMessage);
       showToast(errorMessage, "error");
-  
+
       // Re-enable resend button if there's an error
       setIsResendDisabled(false);
     }
   };
-  
+
   return (
     <form onSubmit={handleSubmit} className="p-4 space-y-4">
       <h2 className="text-center text-xl font-semibold mb-4">OTP Verification</h2>
@@ -222,7 +222,7 @@ const OTPVerifyForm: React.FC = () => {
           variant="outline"
           onClick={handleResend}
           className="flex items-center gap-2 justify-center w-full"
-          // disabled={isResendDisabled}
+        // disabled={isResendDisabled}
         >
           <RefreshCwIcon size={18} />
           {resendTimer > 0 ? `Resend OTP in ${Math.floor(resendTimer / 60)}:${resendTimer % 60}` : "Resend OTP"}
