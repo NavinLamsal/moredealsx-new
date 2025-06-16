@@ -397,8 +397,8 @@ export const useFetchRestaurant = () => {
 
   const fetchResturantDetails = async (slug: string): Promise<Restaurant> => {
     try {
-      const response = await MorefoodApiClientWithoutAccess.get(
-        `restaurants/details/${slug}`
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL}restaurants/details/${slug}`
       );
       const data = response.data.data;
 

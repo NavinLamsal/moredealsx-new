@@ -46,7 +46,7 @@ export default function PremiumSection() {
   
             <div>
               <Link
-                href="/login"
+                href="/auth/login"
                 className="inline-block bg-primary hover:bg-yellow-500 text-black font-semibold text-lg px-10 py-4 rounded-sm transition duration-300"
               >
                 Join Premium Free

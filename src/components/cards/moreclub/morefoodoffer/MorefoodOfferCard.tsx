@@ -35,10 +35,9 @@ const handleRedirection = () => {
           className="w-64 sm:w-72 md:w-80 xl:w-96 h-32 sm:h-36 md:h-44 lg:h-56 object-cover"
         />
       <div className="flex flex-col justify-end gap-2 absolute top-3 right-3">
-          <span className=" bg-red-600 text-xs font-extrabold uppercase px-3 py-1 rounded text-white">
-            {/* {offer.} */}
+          {/* <span className=" bg-red-600 text-xs font-extrabold uppercase px-3 py-1 rounded text-white">
             MOREFOOD
-          </span>
+          </span> */}
           {item.is_hot_deal &&
           <span className=" bg-green-600 text-xs font-extrabold uppercase px-3 py-1 rounded text-white">
             HOT DEALS
