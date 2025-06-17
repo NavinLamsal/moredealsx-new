@@ -16,10 +16,9 @@ const OfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
         className="bg-white dark:bg-background border   rounded-md overflow-hidden relative hover:-translate-y-2 transition-transform shadow-md hover:shadow-primary"
       >
         <div className="flex flex-col justify-end gap-2 absolute top-3 right-3">
-          <span className=" bg-red-600 text-xs font-extrabold uppercase px-3 py-1 rounded text-white">
-            {/* {offer.} */}
+          {/* <span className=" bg-red-600 text-xs font-extrabold uppercase px-3 py-1 rounded text-white">
             {offer.platform}
-          </span>
+          </span> */}
           <span className=" bg-green-600 text-xs font-extrabold uppercase px-3 py-1 rounded text-white">
             {/* {offer.} */}
             {offer.discount_amount

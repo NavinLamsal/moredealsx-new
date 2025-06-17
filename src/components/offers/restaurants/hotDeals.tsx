@@ -1,6 +1,7 @@
 "use client";
 
 import MoreOfferCard from "@/components/cards/moreclub/morefoodoffer/MorefoodOfferCard";
+import HorizontalCarousel from "@/components/carousel/horizontalCarousel";
 import HorizontalCarouselWithOutTitle from "@/components/carousel/HorizontalCarouselWithotTitle";
 import SectionTitle from "@/components/Homes/sectionTiltle";
 import OfferSkeleton from "@/components/Skeletons/OfferSkeelton";
@@ -39,36 +40,58 @@ export default function HotDeals({
     });
 
 
-   
+
 
     return (
         <section
             className={` py-20 ${Dashboard ? "w-full" : "w-11/12 mx-auto"} `}
             id="offers"
         >
-            {Dashboard ? (
+            {/* {Dashboard ? (
                 <DashboardSectionTitle title={title} viewAll="/offers" />
             ) : (
                 <SectionTitle title={title} />
-            )}
+            )} */}
 
 
             {isLoading ? (
-                <OfferSkeleton />
+                <>
+                    {Dashboard ? (
+                        <DashboardSectionTitle title={title} viewAll="/offers" />
+                    ) : (
+                        <SectionTitle title={title} />
+                    )}
+
+                    <OfferSkeleton />
+                </>
             ) : isError ? (
-                <p className="text-center text-red-500 py-12 bg-card w-full ">
-                    Failed to load offers.
-                </p>
+                <>
+                    {Dashboard ? (
+                        <DashboardSectionTitle title={title} viewAll="/offers" />
+                    ) : (
+                        <SectionTitle title={title} />
+                    )}
+                    <p className="text-center text-red-500 py-12 bg-card w-full ">
+                        Failed to load offers.
+                    </p>
+                </>
             ) : (
                 <>
                     {offerrs && offerrs.length === 0 && (
-                        <p className="py-12 bg-card w-full  text-center">
-                           Hot deals are not available
-                        </p>
+                        <>
+                            {Dashboard ? (
+                                <DashboardSectionTitle title={title} viewAll="/offers" />
+                            ) : (
+                                <SectionTitle title={title} />
+                            )}
+                            <p className="py-12 bg-card w-full  text-center">
+                                Hot deals are not available
+                            </p>
+                        </>
                     )}
 
 
-                    <HorizontalCarouselWithOutTitle title="">
+                    <HorizontalCarousel title={title} dashboard={Dashboard} center={false} viewAll="/event">
                         {offerrs.map((offer, index) => (
                             <div className="flex-shrink-0 w-72" key={offer.id}>
                                 <AnimatedSection index={index}>
@@ -76,7 +99,7 @@ export default function HotDeals({
                                 </AnimatedSection>
                             </div>
                         ))}
-                    </HorizontalCarouselWithOutTitle>
+                    </HorizontalCarousel>
 
 
 
