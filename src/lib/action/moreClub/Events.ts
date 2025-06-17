@@ -1,12 +1,10 @@
 "use client";
 
-import { useAxiosClient } from "@/lib/axios/axiosClient";
 import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
-import MoreFoodApiClient from "@/lib/axios/morefood/MoreFoodApiClient";
 import MorefoodApiClientWithoutAccess from "@/lib/axios/morefood/MorefoodApiClientWithoutAccess";
 import { MetaData } from "@/lib/type/CommonType";
 import { BookedEventList, EventList } from "@/lib/type/moreclub/Event";
-import { max } from "lodash";
+import axios from "axios";
 
 export const useFetchEvents = () => {
   // const axios = useAxiosClient("moredealsclub", false);
@@ -36,8 +34,8 @@ export const useFetchEvents = () => {
   }> => {
     try {
       const pages = page ?? 1;
-      const response = await MorefoodApiClientWithoutAccess.get(
-        `public/events/list/?page=${pages}`
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL}public/events/list/?page=${pages}`
       );
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {

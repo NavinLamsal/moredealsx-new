@@ -1,3 +1,4 @@
+import axios from "axios";
 import MoreClubApiClient from "../axios/moreclub/MoreClubApiClient";
 import MoreFoodApiClient from "../axios/morefood/MoreFoodApiClient";
 import MorefoodApiClientWithoutAccess from "../axios/morefood/MorefoodApiClientWithoutAccess";
@@ -209,7 +210,7 @@ export const fetchOffer = async (
         };
 
     const response = isMoreFood ?
-    await MorefoodApiClientWithoutAccess.get(endpoint, config)
+    await axios.get(endpoint, config)
     :
     await MoreClubApiClient.get(endpoint, config);
 
