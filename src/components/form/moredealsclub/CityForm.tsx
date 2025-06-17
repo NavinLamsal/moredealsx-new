@@ -72,9 +72,10 @@
 
 "use client";
 import React, { useState, useEffect } from "react";
-import CountrySelect from "@/components/ui/customInputs/CountrySelect";
+
 import CitySelect from "@/components/ui/customInputs/CitySelectInput";
 import { Button } from "@/components/ui/button";
+import CountrySelect from "@/components/ui/customInputs/CountryCodeSelect";
 
 export default function CityForm({
     onCitySelect,
@@ -122,8 +123,7 @@ export default function CityForm({
         <div className="flex flex-col gap-4 my-2">
             <div>
                 <label>Country</label>
-                <CountrySelect 
-                    onChange={handleCountrySelection} 
+                <CountrySelect                    onChange={handleCountrySelection} 
                     initialValue={selectedCountryId ? selectedCountryId.toString() : ""}
                 />
             </div>
