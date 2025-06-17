@@ -7,7 +7,7 @@ import { prevStep, updateField } from "@/lib/redux/slice/RegistrationSlice";
 import { RootState } from "@/lib/redux/store";
 import { removePrefix } from "@/lib/utils";
 import { validateRequired } from "@/lib/validation/common";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,6 +39,7 @@ const CurrencyForm = () => {
     agreeToTerms?: string;
   }>({});
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const handleSelection = (option: any) => {
     dispatch(updateField({ field: "currency", value: option.value }));
@@ -106,6 +107,7 @@ const CurrencyForm = () => {
     e.preventDefault();
     setLoading(true);
     if (!(await validate())) {
+      setLoading(false);
       return;
     }
 
@@ -176,7 +178,8 @@ const CurrencyForm = () => {
           );
         }
 
-        window.location.replace("/auth/otp-verify");
+        // window.location.replace("/auth/otp-verify");
+        router.push("/auth/otp-verify");
       }
     } catch (err) {
       console.log(err);
