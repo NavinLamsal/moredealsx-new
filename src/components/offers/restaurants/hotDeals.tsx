@@ -2,7 +2,6 @@
 
 import MoreOfferCard from "@/components/cards/moreclub/morefoodoffer/MorefoodOfferCard";
 import HorizontalCarousel from "@/components/carousel/horizontalCarousel";
-import HorizontalCarouselWithOutTitle from "@/components/carousel/HorizontalCarouselWithotTitle";
 import SectionTitle from "@/components/Homes/sectionTiltle";
 import OfferSkeleton from "@/components/Skeletons/OfferSkeelton";
 import AnimatedSection from "@/components/ui/animations/FadeUpView";
@@ -90,7 +89,8 @@ export default function HotDeals({
                         </>
                     )}
 
-
+                    {offerrs && offerrs.length > 0 &&
+                    
                     <HorizontalCarousel title={title} dashboard={Dashboard} center={false} viewAll="/event">
                         {offerrs.map((offer, index) => (
                             <div className="flex-shrink-0 w-72" key={offer.id}>
@@ -100,6 +100,8 @@ export default function HotDeals({
                             </div>
                         ))}
                     </HorizontalCarousel>
+                    
+                    }
 
 
 

@@ -14,7 +14,7 @@ const FeaturedRestaurants = () => {
   const { fetchRestaurantList} = useFetchRestaurant()
    const { data, error, isLoading } = useQuery({
      queryKey: ["Featured resturants" , 1 , {city_name: city}],
-     queryFn: () => fetchRestaurantList("list" ,{city_name: city}, 1) ,
+     queryFn: () => fetchRestaurantList("featured-restaurants/list/" ,{city_name: city}, 1) ,
      staleTime: 60000,
      enabled: !!city
    });

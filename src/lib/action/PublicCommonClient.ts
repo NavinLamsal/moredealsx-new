@@ -129,7 +129,7 @@ export const fetchHOTDealsList = async (
   country: string | null
 ): Promise< OfferDealType[]> => {
   try {
-    const endpoint ="https://morebusinessinternational.com/api/public/offers/list/?"
+    const endpoint ="https://api.moredealsx.com/api/public/offers/list/?"
     const config =  {
           params: {
             country_code: country,
