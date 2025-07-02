@@ -9,16 +9,13 @@ import AnimatedSection from "../ui/animations/FadeUpView";
 const RestroList = () => {
   const city =
     typeof window !== "undefined" ? localStorage.getItem("city") : null;
-  const country_code =
-    typeof window !== "undefined" ? localStorage.getItem("country_code") : null;
 
   const { fetchRestaurantList } = useFetchRestaurant();
   const { data, error, isLoading } = useQuery({
-    queryKey: ["Restaurant List 1", "list", { country_code: country_code }],
-    queryFn: () =>
-      fetchRestaurantList("list", { country_code: country_code }, 1),
+    queryKey: ["Restaurant List 1", "list", { city_name: city }],
+    queryFn: () => fetchRestaurantList("list", { city_name: city }, 1),
     staleTime: 60000,
-    enabled: !!country_code,
+    enabled: !!city,
   });
 
   if (isLoading) {
