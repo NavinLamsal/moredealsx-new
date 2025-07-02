@@ -38,6 +38,37 @@ export interface OfferDealType {
   original_price: number;
   restro_url: string;
 }
+
+export interface OfferFoodItem {
+  id: string;
+  name: string;
+  image: string;
+  price: string;
+  discount_price: string;
+}
+
+export interface OfferType {
+  id: string;
+  banner: string;
+  start_date: string;
+  end_date: string;
+  food_item: OfferFoodItem[];
+  description: string;
+  currency_code: string;
+  is_hot_deal: boolean;
+  orginal_price: number;
+  timezone: string;
+  name: string;
+  price: number;
+  repeat_sunday: boolean;
+  repeat_monday: boolean;
+  repeat_tuesday: boolean;
+  repeat_wednesday: boolean;
+  repeat_thursday: boolean;
+  repeat_friday: boolean;
+  repeat_saturday: boolean;
+}
+
 export interface FoodType {
   id: string;
   name: string;
@@ -95,25 +126,59 @@ export interface OfferDetails {
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
+// export const fetchOfferList = async (
+//   category: string | null,
+//   country: string | null
+// ): Promise<Offer[] | OfferDealType[]> => {
+//   try {
+//     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+//     const isMoreFood = category === "morefood";
+
+//     const endpoint = isMoreFood
+//       ? `${process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL}public/offers/list/`
+//       : `${baseUrl}moreoffers/list/`;
+
+//     const config = isMoreFood
+//       ? {} // No params for morefood
+//       : {
+//           params: {
+//             country_code: country,
+//             ...(category !== "All" && { platform: category }),
+//           },
+//         };
+
+//     const response = isMoreFood
+//       ? await MorefoodApiClientWithoutAccess.get(endpoint, config)
+//       : await MoreClubApiClient.get(endpoint, config);
+//     return response.data.data || [];
+//   } catch (error: any) {
+//     console.error("Error fetching offers:", error);
+//     return [];
+//   }
+// };
+
 export const fetchOfferList = async (
   category: string | null,
   country: string | null
-): Promise<Offer[] | OfferDealType[]> => {
+): Promise<OfferType[]> => {
   try {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     const isMoreFood = category === "morefood";
+    const All = category === "All";
 
     const endpoint = isMoreFood
-      ? `${process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL}public/offers/list/`
-      : `${baseUrl}moreoffers/list/`;
+      ? `${baseUrl}moreoffers/list/`
+      : `${baseUrl}public/offers/${country}/list/`;
 
-    const config = isMoreFood
-      ? {} // No params for morefood
-      : {
-          params: {
-            country_code: country,
-            ...(category !== "All" && { platform: category }),
-          },
-        };
+    const config =
+      isMoreFood || All
+        ? {} // No params for morefood
+        : {
+            params: {
+              // country_code: country,
+              ...(category !== "All" && { platform: category }),
+            },
+          };
 
     const response = isMoreFood
       ? await MorefoodApiClientWithoutAccess.get(endpoint, config)
