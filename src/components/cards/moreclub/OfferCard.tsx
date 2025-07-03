@@ -44,7 +44,7 @@ const OfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
           <h3 className="text-lg font-bold text-yellow-400 mb-2">
             {offer.name}
           </h3>
-          <p className="text-gray-400 mb-4">{offer.description}</p>
+          <p className="text-gray-400 mb-4 line-clamp-1">{offer.description}</p>
           <div className="flex items-center gap-2 mb-4">
             <span className="line-through text-gray-500">
               {offer.currency_code}
