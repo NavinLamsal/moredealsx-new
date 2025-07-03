@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import RatingInput from "@/components/ui/customInputs/RatingInput";
 import { showToast } from "@/lib/utilities/toastService";
 import { validateNumber, validateRequired } from "@/lib/validation/common";
-import ImageUploadDropBox from "@/components/ui/customInputs/MultipleImageUpload";
 import MoreFoodApiClient from "@/lib/axios/morefood/MoreFoodApiClient";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
