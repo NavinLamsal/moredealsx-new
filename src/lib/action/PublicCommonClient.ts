@@ -1,6 +1,5 @@
 import axios from "axios";
 import MoreClubApiClient from "../axios/moreclub/MoreClubApiClient";
-import MoreFoodApiClient from "../axios/morefood/MoreFoodApiClient";
 import MorefoodApiClientWithoutAccess from "../axios/morefood/MorefoodApiClientWithoutAccess";
 import { MetaData } from "../type/CommonType";
 import { ResturantListType } from "../type/morefood/restaurant";

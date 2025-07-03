@@ -1,7 +1,6 @@
 "use client";
 import HorizontalCarousel from "../carousel/horizontalCarousel";
 import { useQuery } from "@tanstack/react-query";
-import { CardSkeleton } from "../Skeletons/CardSkeleton";
 import AnimatedSection from "../ui/animations/FadeUpView";
 import { useFetchEvents } from "@/lib/action/moreClub/Events";
 import EventCard from "../cards/moreclub/EventCard";

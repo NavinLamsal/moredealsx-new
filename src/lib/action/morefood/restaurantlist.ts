@@ -21,44 +21,44 @@ import {
 export const useFetchRestaurant = () => {
   const axios = useAxiosClient("morefood", true);
 
-  const fetchPopularRestaurantsList = async (
-    city: string,
-    page?: number
-  ): Promise<{
-    data: ResturantListType[];
-    meta: MetaData;
-  }> => {
-    try {
-      const pages = page ?? 1;
-      const response = await MoreFoodApiClient.get(
-        `restaurants/popular/?city_name=${city}`
-      );
-      return { data: response.data.data, meta: response.data.meta };
-    } catch (error) {
-      console.error("Error in fetching popular Restaurants", error);
-      return { data: [] as ResturantListType[], meta: {} as MetaData };
-    }
-  };
+  // const fetchPopularRestaurantsList = async (
+  //   city: string,
+  //   page?: number
+  // ): Promise<{
+  //   data: ResturantListType[];
+  //   meta: MetaData;
+  // }> => {
+  //   try {
+  //     const pages = page ?? 1;
+  //     const response = await MoreFoodApiClient.get(
+  //       `restaurants/popular/?city_name=${city}`
+  //     );
+  //     return { data: response.data.data, meta: response.data.meta };
+  //   } catch (error) {
+  //     console.error("Error in fetching popular Restaurants", error);
+  //     return { data: [] as ResturantListType[], meta: {} as MetaData };
+  //   }
+  // };
 
-  const fetchfeatiesRestaurantsList = async (
-    city: string,
-    page?: number
-  ): Promise<{
-    data: ResturantListType[];
-    meta: MetaData;
-  }> => {
-    try {
-      const pages = page ?? 1;
-      const response = await MoreFoodApiClient.get(
-        `restaurants/featured-restaurants/?city_name=${city}`
-      );
+  // const fetchfeatiesRestaurantsList = async (
+  //   city: string,
+  //   page?: number
+  // ): Promise<{
+  //   data: ResturantListType[];
+  //   meta: MetaData;
+  // }> => {
+  //   try {
+  //     const pages = page ?? 1;
+  //     const response = await MoreFoodApiClient.get(
+  //       `restaurants/featured-restaurants/?city_name=${city}`
+  //     );
 
-      return { data: response.data.data, meta: response.data.meta };
-    } catch (error) {
-      console.error("Error in fetching popular Restaurants", error);
-      return { data: [] as ResturantListType[], meta: {} as MetaData };
-    }
-  };
+  //     return { data: response.data.data, meta: response.data.meta };
+  //   } catch (error) {
+  //     console.error("Error in fetching popular Restaurants", error);
+  //     return { data: [] as ResturantListType[], meta: {} as MetaData };
+  //   }
+  // };
 
   const fetchOffersList = async (
     page?: number
@@ -413,7 +413,7 @@ export const useFetchRestaurant = () => {
   };
 
   return {
-    fetchPopularRestaurantsList,
+    // fetchPopularRestaurantsList,
     fetchRestaurantList,
     fetchCategoryList,
     fetchRestaurantOpeningHours,
