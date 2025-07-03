@@ -4,7 +4,12 @@ import { useQuery } from "@tanstack/react-query";
 import DashboardSectionTitle from "../ui/DashboardSectionTitle";
 import HorizontalCarouselWithOutTitle from "../carousel/HorizontalCarouselWithotTitle";
 import AnimatedSection from "../ui/animations/FadeUpView";
-import { fetchOfferList, Offer, OfferDealType } from "@/lib/action/PublicCommonClient";
+import {
+  fetchOfferList,
+  Offer,
+  OfferDealType,
+  OfferType,
+} from "@/lib/action/PublicCommonClient";
 import SectionTitle from "../Homes/sectionTiltle";
 import OfferCard from "../cards/moreclub/OfferCard";
 import CategorySelector from "./OfferCategory";
@@ -30,10 +35,8 @@ export default function OfferSection({
 }) {
   const [activeCategory, setActiveCategory] = useState<string>("All");
 
-
-
   const country =
-    typeof window !== "undefined" ? localStorage.getItem("country") : null;
+    typeof window !== "undefined" ? localStorage.getItem("country_code") : null;
 
   const {
     data: offerrs = [],
@@ -51,12 +54,16 @@ export default function OfferSection({
   //         ? offerrs
   //         : offerrs.filter((offer: Offer) => offer.title === activeCategory);
 
-  function isMoreFoodOffers(data: Offer[] | OfferDealType[]): data is OfferDealType[] {
-    return (data.length > 0 && "restro_url" in data[0]);
+  // function isMoreFoodOffers(
+  //   data: Offer[] | OfferDealType[]
+  // ): data is OfferDealType[] {
+  //   return data.length > 0 && "restro_url" in data[0];
+  // }
+
+  function isMoreFoodOffers(data: OfferType[]): data is OfferType[] {
+    return data.length > 0 && "restro_url" in data[0];
   }
 
-
- 
   return (
     <section
       className={` py-20 ${Dashboard ? "w-full" : "w-11/12 mx-auto"} `}
@@ -85,12 +92,10 @@ export default function OfferSection({
         </p>
       ) : (
         <>
-          
-
           {offerrs && offerrs.length === 0 ? (
             <p className="py-12 bg-card w-full  text-center">
-            Offers not available
-          </p>
+              Offers not available
+            </p>
           ) : activeCategory === "morefood" && isMoreFoodOffers(offerrs) ? (
             <HorizontalCarouselWithOutTitle title="">
               {offerrs.map((offer, index) => (
@@ -103,7 +108,7 @@ export default function OfferSection({
             </HorizontalCarouselWithOutTitle>
           ) : (
             <HorizontalCarouselWithOutTitle title="">
-              {(offerrs as Offer[]).map((offer, index) => (
+              {(offerrs as OfferType[]).map((offer, index) => (
                 <div className="flex-shrink-0 w-72" key={offer.id}>
                   <AnimatedSection index={index}>
                     <OfferCard offer={offer} ref={null} />
@@ -112,8 +117,6 @@ export default function OfferSection({
               ))}
             </HorizontalCarouselWithOutTitle>
           )}
-
-
         </>
       )}
     </section>

@@ -1,17 +1,25 @@
 import axios from "axios";
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 import { RootState } from "./redux/store";
 import cookie from "cookie";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
-type DeviceType = 'Mobile' | 'Tablet' | 'Desktop' | 'Unknown';
-type BrowserType = 'Chrome' | 'Firefox' | 'Safari' | 'Edge' | 'Dart' | 'Unknown';
+type DeviceType = "Mobile" | "Tablet" | "Desktop" | "Unknown";
+type BrowserType =
+  | "Chrome"
+  | "Firefox"
+  | "Safari"
+  | "Edge"
+  | "Dart"
+  | "Unknown";
 
-export const parseUserAgent = (userAgent: string): { deviceType: DeviceType, browser: BrowserType } => {
+export const parseUserAgent = (
+  userAgent: string
+): { deviceType: DeviceType; browser: BrowserType } => {
   const mobileRegex = /mobile/i;
   const tabletRegex = /tablet/i;
   const androidRegex = /android/i;
@@ -20,40 +28,37 @@ export const parseUserAgent = (userAgent: string): { deviceType: DeviceType, bro
   const firefoxRegex = /firefox/i;
   const safariRegex = /safari/i;
   const edgeRegex = /edge/i;
-  const dartRegex = /dart/i;  // Regex for detecting Dart applications
+  const dartRegex = /dart/i; // Regex for detecting Dart applications
 
-  let deviceType: DeviceType = 'Desktop'; // Default to desktop
+  let deviceType: DeviceType = "Desktop"; // Default to desktop
 
   // If Dart is detected, classify it as mobile
   if (dartRegex.test(userAgent)) {
-    return { deviceType: 'Mobile', browser: 'Dart' }; // Dart is now classified as mobile
+    return { deviceType: "Mobile", browser: "Dart" }; // Dart is now classified as mobile
   }
 
   // Check for mobile and tablet devices
   if (mobileRegex.test(userAgent)) {
-    deviceType = 'Mobile';
+    deviceType = "Mobile";
   } else if (tabletRegex.test(userAgent)) {
-    deviceType = 'Tablet';
+    deviceType = "Tablet";
   }
 
   // Browser detection
-  let browser: BrowserType = 'Unknown';
+  let browser: BrowserType = "Unknown";
 
   if (chromeRegex.test(userAgent)) {
-    browser = 'Chrome';
+    browser = "Chrome";
   } else if (firefoxRegex.test(userAgent)) {
-    browser = 'Firefox';
+    browser = "Firefox";
   } else if (safariRegex.test(userAgent)) {
-    browser = 'Safari';
+    browser = "Safari";
   } else if (edgeRegex.test(userAgent)) {
-    browser = 'Edge';
+    browser = "Edge";
   }
 
   return { deviceType, browser };
 };
-
-
-
 
 export function maskEmail(email: string): string {
   const [user, domain] = email.split("@");
@@ -65,10 +70,11 @@ export function maskEmail(email: string): string {
   return `${visiblePart}${maskedPart}@${domain}`;
 }
 
-export const removePrefix = (phoneNumber: string, prefix: string) =>{
-  return  phoneNumber.startsWith(prefix) ? phoneNumber.slice(prefix.length) : phoneNumber;
-}
-
+export const removePrefix = (phoneNumber: string, prefix: string) => {
+  return phoneNumber.startsWith(prefix)
+    ? phoneNumber.slice(prefix.length)
+    : phoneNumber;
+};
 
 // export const removeEmptyStrings = (obj: any): any => {
 //   if (Array.isArray(obj)) {
@@ -83,7 +89,6 @@ export const removePrefix = (phoneNumber: string, prefix: string) =>{
 //   return obj;
 // };
 
-
 export function getTimeOfDay() {
   const hours = new Date().getHours();
   if (hours >= 5 && hours < 12) return "Morning";
@@ -91,7 +96,6 @@ export function getTimeOfDay() {
   if (hours >= 17 && hours < 21) return "Evening";
   return "Night";
 }
-
 
 export const getCurrencySymbolKey = (type: string) => {
   const normalizedType = type.trim().toUpperCase();
@@ -108,8 +112,6 @@ export const getCurrencySymbolKey = (type: string) => {
       return "currency_sent_symbol";
   }
 };
-
-
 
 export const getTransactionAmountKey = (type: string) => {
   const normalizedType = type.trim().toUpperCase();
@@ -135,13 +137,15 @@ export const removeEmptyStrings = (obj: any): any => {
   if (Array.isArray(obj)) {
     return obj
       .map(removeEmptyStrings) // Recursively clean each item in the array
-      .filter(item => item !== "" && item !== null && item !== undefined); // Remove empty strings, null, and undefined but keep valid files
-  } 
-  
+      .filter((item) => item !== "" && item !== null && item !== undefined); // Remove empty strings, null, and undefined but keep valid files
+  }
+
   if (typeof obj === "object" && obj !== null) {
     return Object.fromEntries(
       Object.entries(obj)
-        .filter(([_, value]) => value !== "" && value !== null && value !== undefined) // Remove empty values
+        .filter(
+          ([_, value]) => value !== "" && value !== null && value !== undefined
+        ) // Remove empty values
         .map(([key, value]) => [key, removeEmptyStrings(value)]) // Recurse into objects
     );
   }
@@ -149,66 +153,66 @@ export const removeEmptyStrings = (obj: any): any => {
   return obj;
 };
 
-
 import moment from "moment";
 
 export function getOfferStatus(from_date: string, to_date: string) {
-    const now = moment();
-    const startDate = moment(from_date);
-    const endDate = moment(to_date);
+  const now = moment.utc();
+  const startDate = moment.utc(from_date);
+  const endDate = moment.utc(to_date);
 
-    let statusText = "";
-    let badgeColor = "bg-secondary text-secondary-foreground";
-    let periodText = "";
+  let statusText = "";
+  let badgeColor = "bg-secondary text-secondary-foreground";
+  let periodText = "";
 
-    if (now.isBefore(startDate)) {
-        const duration = moment.duration(startDate.diff(now));
-        const days = Math.floor(duration.asDays());
-        const hours = duration.hours();
-        const minutes = duration.minutes();
+  if (now.isBefore(startDate)) {
+    const duration = moment.duration(startDate.diff(now));
+    const days = Math.floor(duration.asDays());
+    const hours = duration.hours();
+    const minutes = duration.minutes();
 
-        statusText = `Starts in ${days > 0 ? `${days}d ` : ""}${hours > 0 ? `${hours}h ` : ""}${minutes > 0 ? `${minutes}m` : ""}`.trim();
-        badgeColor = "bg-primary text-primary-foreground";
-        periodText = `🕒 ${startDate.format("MMM D")} → ${endDate.format("MMM D")}`;
-    } else if (now.isBetween(startDate, endDate)) {
-        const duration = moment.duration(endDate.diff(now));
-        const days = Math.floor(duration.asDays());
-        const hours = duration.hours();
-        const minutes = duration.minutes();
+    statusText = `Starts in ${days > 0 ? `${days}d ` : ""}${
+      hours > 0 ? `${hours}h ` : ""
+    }${minutes > 0 ? `${minutes}m` : ""}`.trim();
+    badgeColor = "bg-primary text-primary-foreground";
+    periodText = `🕒 ${startDate.format("MMM D")} → ${endDate.format("MMM D")}`;
+  } else if (now.isBetween(startDate, endDate)) {
+    const duration = moment.duration(endDate.diff(now));
+    const days = Math.floor(duration.asDays());
+    const hours = duration.hours();
+    const minutes = duration.minutes();
 
-        statusText = `Ends in ${days > 0 ? `${days}d ` : ""}${hours > 0 ? `${hours}h ` : ""}${minutes > 0 ? `${minutes}m` : ""}`.trim();
-        badgeColor = "bg-green-500 text-white";
-        periodText = `🕒 Now → ${endDate.format("MMM D")}`;
-    } else {
-        statusText = "Expired";
-        badgeColor = "bg-destructive text-white";
-        periodText = `Ended on ${endDate.format("MMM D, YYYY")}`;
-    }
+    statusText = `Ends in ${days > 0 ? `${days}d ` : ""}${
+      hours > 0 ? `${hours}h ` : ""
+    }${minutes > 0 ? `${minutes}m` : ""}`.trim();
+    badgeColor = "bg-green-500 text-white";
+    periodText = `🕒 Now → ${endDate.format("MMM D")}`;
+  } else {
+    statusText = "Expired";
+    badgeColor = "bg-destructive text-white";
+    periodText = `Ended on ${endDate.format("MMM D, YYYY")}`;
+  }
 
-    return { statusText, badgeColor, periodText };
+  return { statusText, badgeColor, periodText };
 }
-
 
 export const fetchLiveLocation = async () => {
   try {
-
     const res = await axios.get(
       `https://pro.ip-api.com/json/?key=F6UL4cER6af4oPb`
     );
-      if (typeof window !== "undefined") { 
-          const countryCode = res.data.countryCode;
-          const now = new Date();
-          now.setTime(now.getTime() + 20 * 60 * 1000); // Add days in milliseconds
-          const expires = "expires=" + now.toUTCString();
-          document.cookie = `countryCode=${countryCode}; path=/; ${expires}`; 
-      }
+    if (typeof window !== "undefined") {
+      const countryCode = res.data.countryCode;
+      const now = new Date();
+      now.setTime(now.getTime() + 20 * 60 * 1000); // Add days in milliseconds
+      const expires = "expires=" + now.toUTCString();
+      document.cookie = `countryCode=${countryCode}; path=/; ${expires}`;
+    }
     return res.data;
-  } catch (error:any) {
+  } catch (error: any) {
     console.error("Error in Live Location", error);
     return error.res.data;
   }
 };
-
 
 export const getCountryCode = async () => {
   let countrycode = "";
@@ -227,20 +231,20 @@ export const getCountryCode = async () => {
   return countrycode;
 };
 
-
-
 const apiUrlMapping: Record<string, string> = {
-  "morefood.se": process.env.NEXT_PUBLIC_BASEURL ?? 'https://api.morefood.se/api/',
-  "nepalbites.com": process.env.NEXT_PUBLIC_BASEURL_NEPAL ?? 'https://api.nepalbites.com/api/',
-  "localhost:3000": process.env.NEXT_PUBLIC_BASEURL_NEPAL ?? 'https://api.nepalbites.com/api/'
+  "morefood.se":
+    process.env.NEXT_PUBLIC_BASEURL ?? "https://api.morefood.se/api/",
+  "nepalbites.com":
+    process.env.NEXT_PUBLIC_BASEURL_NEPAL ?? "https://api.nepalbites.com/api/",
+  "localhost:3000":
+    process.env.NEXT_PUBLIC_BASEURL_NEPAL ?? "https://api.nepalbites.com/api/",
 };
 
 export const getApiUrl = (): string => {
   if (typeof window === "undefined") {
-    return process.env.NEXT_PUBLIC_BASEURL ?? 'https://api.morefood.se/api/'
+    return process.env.NEXT_PUBLIC_BASEURL ?? "https://api.morefood.se/api/";
   }
 
- 
   // Get the current host from the browser
   const currentHost = window.location.host.replace(/^(www\.)/, ""); // Remove "www." if present
 
@@ -248,27 +252,26 @@ export const getApiUrl = (): string => {
   const apiUrl = apiUrlMapping[currentHost];
 
   if (!apiUrl) {
-    return process.env.NEXT_PUBLIC_BASEURL ?? 'https://api.morefood.se/api/'
+    return process.env.NEXT_PUBLIC_BASEURL ?? "https://api.morefood.se/api/";
   }
 
   return apiUrl;
 };
 
-
-
-
-
-
-
-
 export const platformUrls: Record<string, Record<string, string>> = {
   moredealsclub: {
-    default: process.env.NEXT_PUBLIC_BASE_URL ?? "https://moretrek.com/api/",  // Default for morclub
+    default: process.env.NEXT_PUBLIC_BASE_URL ?? "https://moretrek.com/api/", // Default for morclub
   },
   morefood: {
-    SE: process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL_SE ?? "https://api.morefood.se/api/",
-    NP: process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL_NP ?? "https://api.nepalbites.com/api/",
-    default: process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL_SE ?? "https://api.morefood.se/api/", // Default for morefood
+    SE:
+      process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL_SE ??
+      "https://api.morefood.se/api/",
+    NP:
+      process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL_NP ??
+      "https://api.nepalbites.com/api/",
+    default:
+      process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL_SE ??
+      "https://api.morefood.se/api/", // Default for morefood
   },
   moreSalon: {
     default: "https://api.moresalons.com/api/", // Default for moresaloon
@@ -278,7 +281,10 @@ export const platformUrls: Record<string, Record<string, string>> = {
   },
 };
 
-export const getServerApiUrl = (platform: string, countryCode?: string): string => {
+export const getServerApiUrl = (
+  platform: string,
+  countryCode?: string
+): string => {
   const urls = platformUrls[platform];
 
   // If no platform-specific URLs are found, return the global fallback URL
@@ -295,29 +301,28 @@ export const getServerApiUrl = (platform: string, countryCode?: string): string 
   return urls["default"] || "https://moretrek.com/api/";
 };
 
-
 export const getMorefoodServerurl = (countryCode?: string): string => {
   const urls = platformUrls["morefood"];
   if (countryCode && urls[countryCode]) {
     return urls[countryCode];
   }
   return urls["default"] || "https://api.morefood.se/api/";
-}
-
-
-
-
-// Currency conversion utility function
-export const currencyConvertor = (fromCurrency: string, toCurrency: string, state: RootState) => {
-    const rates = state.currency.conversionRates;
-
-    if (rates[fromCurrency] && rates[toCurrency]) {
-        const fromRate = rates[fromCurrency];
-        const toRate = rates[toCurrency];
-        return toRate / fromRate;
-    }
-
-    console.warn("Conversion rates not available for the selected currencies.");
-    return null;
 };
 
+// Currency conversion utility function
+export const currencyConvertor = (
+  fromCurrency: string,
+  toCurrency: string,
+  state: RootState
+) => {
+  const rates = state.currency.conversionRates;
+
+  if (rates[fromCurrency] && rates[toCurrency]) {
+    const fromRate = rates[fromCurrency];
+    const toRate = rates[toCurrency];
+    return toRate / fromRate;
+  }
+
+  console.warn("Conversion rates not available for the selected currencies.");
+  return null;
+};
