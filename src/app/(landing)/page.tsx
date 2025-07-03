@@ -17,6 +17,9 @@ import PartnersSection from "@/components/Homes/partner";
 import PremiumSection from "@/components/Homes/pricing";
 // import TicketSection from "@/components/Homes/ticketSection";
 import TreasureSection from "@/components/Homes/trasureSection";
+import FeaturedRestaurant from "@/components/morefood/FeaturedRestaurants";
+import NearbyRestaurants from "@/components/morefood/NearbyRestaurants";
+import PopularRestaurants from "@/components/morefood/PopularRestaurants";
 
 import FeaturedRestaurants from "@/components/morefood/Restaurantslist";
 import RestroList from "@/components/morefood/RestroList";
@@ -33,21 +36,25 @@ export default async function Home() {
     <>
       <Hero />
       <Suspense fallback={<div>Loading...</div>}>
-      <HotDeals classname="min-[660px]:pl-0 min-[570px]:pl-20 min-[460px]:pl-40 pl-64"/>
+        <HotDeals classname="min-[660px]:pl-0 min-[570px]:pl-20 min-[460px]:pl-40 pl-64" />
       </Suspense>
       <Suspense fallback={<div>Loading...</div>}>
         <OfferSection classname="min-[660px]:pl-0 min-[570px]:pl-20 min-[460px]:pl-40 pl-64" />
       </Suspense>
       <TreasureSection />
-      
+      <PopularRestaurants />
       {/* <TicketSection /> */}
       <PartnersSection />
-      <RestroList/>
+      <FeaturedRestaurant />
+      <NearbyRestaurants />
+      <RestroList />
       <div className="px-4">
-
-      <RestaurantTrendingEvents title="Taste & Experience – Restaurant Events" dashboard={false} />
-      {/* <FeaturedRestaurants /> */}
-      <TrendingEvents dashboard={false}/>
+        <RestaurantTrendingEvents
+          title="Taste & Experience – Restaurant Events"
+          dashboard={false}
+        />
+        {/* <FeaturedRestaurants /> */}
+        <TrendingEvents dashboard={false} />
       </div>
 
       {/* <Salons />
