@@ -80,8 +80,10 @@ const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, onS
               >
                 <span className="text-md font-semibold">{pack?.name}</span>
                 <span className="text-sm text-muted-foreground">
-                  {pack.code === "free" ? "Try for Free" : `${pack.currency_symbol} ${data.plan_time === "yearly" ? pack.yearly_price : pack.price}`}
-
+                  {pack.code === "free" ? "Try for Free" : `${pack.currency_symbol} ${data.plan_time === "yearly" ? pack.yearly_price : pack.price}`}                 
+                </span>
+                <span className="text-sm text-muted-foreground">
+                  {pack.code === "free" ? "" : `No hidden fees`}                 
                 </span>
                 {pack?.name.includes("Power Saver") &&
                   <div>
@@ -91,7 +93,7 @@ const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, onS
                   </div>}
                 {pack.free_trial?.is_free_trial && <div>
 
-                  <span className='inline-flex px-3 py-1 text-xs font-semibold   rounded-full '>Free Trial</span>
+                  <span className='inline-flex px-3 py-1 text-xs font-semibold text-center  rounded-full '>Free 30 days Trial and join {pack?.name} Plan with {pack.currency_symbol} {data.plan_time === "yearly" ? pack.yearly_price : pack.price} {data.plan_time}</span>
 
                 </div>}
               </label>

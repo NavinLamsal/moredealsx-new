@@ -26,7 +26,7 @@ export default async function Page() {
             </Suspense> */}
       <Suspense fallback={<div>Loading...</div>}>
 
-      {/* <OfferSection Dashboard={true}  /> */}
+      <OfferSection Dashboard={true}  />
       </Suspense>
       <Treasurehunts />
       <TrendingEvents />
