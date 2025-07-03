@@ -27,6 +27,7 @@ export const useFetchEvents = () => {
   };
 
   const fetchRestroEventsList = async (
+    country: string,
     page?: number
   ): Promise<{
     data: EventList[];
@@ -35,7 +36,7 @@ export const useFetchEvents = () => {
     try {
       const pages = page ?? 1;
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL}public/events/list/?page=${pages}`
+        `${process.env.NEXT_PUBLIC_API_URL}public/events/${country}/list/?page=${pages}`
       );
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {

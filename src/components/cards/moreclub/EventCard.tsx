@@ -87,10 +87,11 @@ interface EventCardProps {
     icon: string;
   };
   price?: string;
+  domain_name?: string;
 }
 
 const EventCard = forwardRef<HTMLDivElement, EventCardProps>(
-  ({  banner, start_date, name, location, slug , platform , url , currency, price, schema_name }, ref) => {
+  ({  banner, start_date, name, location, slug , platform , url , domain_name, currency, price, schema_name }, ref) => {
 
     const isValidUrl = (str: string) => {
       try {
@@ -104,7 +105,7 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(
     const bannerToUse = isValidUrl(banner) ? banner : `/images/png/restro/hall.png`;
 
     const handleRedirection = () => {
-      window.open(`https://${schema_name}.merkoll.com/event/${slug}`, "_blank");
+      window.open(`https://${domain_name}.merkoll.com/event/${slug}`, "_blank");
     };
 
     return (
