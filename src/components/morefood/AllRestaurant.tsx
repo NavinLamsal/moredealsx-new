@@ -10,6 +10,8 @@ import { Button } from "../ui/button";
 const AllRestaurantList = () => {
   const city =
     typeof window !== "undefined" ? localStorage.getItem("city") : null;
+  const country =
+    typeof window !== "undefined" ? localStorage.getItem("country_code") : null;
   const { fetchRestaurantList } = useFetchRestaurant();
   const {
     data,
@@ -20,10 +22,10 @@ const AllRestaurantList = () => {
     isFetchingNextPage,
     refetch,
   } = useInfiniteQuery({
-    queryKey: ["Restaurant List", "list", { city_name: city }],
+    queryKey: ["Restaurant List", "list", { country: country }],
     queryFn: ({ pageParam = 1 }) =>
       //   fetchRestaurantList("list", { city_name: city }, pageParam),
-      fetchRestaurantList("list", {}, pageParam),
+      fetchRestaurantList(`list/${country}`, {}, pageParam),
 
     getNextPageParam: (lastPage) => {
       const nextPage = lastPage.meta.page_number + 1;

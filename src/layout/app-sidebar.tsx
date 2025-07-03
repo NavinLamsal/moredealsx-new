@@ -200,7 +200,7 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
       ...(session?.data?.user?.userDetails?.crm_link?.restro_link
         ? [
           {
-            name: "MOREFOOD CRM",
+            name: "RESTAURANT CRM",
             url:
               session?.data?.user?.userDetails?.crm_link?.restro_link ?? "#",
             icon: Frame,

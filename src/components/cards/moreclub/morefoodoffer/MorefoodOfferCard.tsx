@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-// import { OfferDealType } from "@/lib/types/public/restaurant";
 import Image from "next/image";
 import React, { forwardRef } from "react";
 import { OfferType } from "@/lib/action/PublicCommonClient";
@@ -10,11 +9,10 @@ interface OfferCardProps {
 
 const MoreOfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
   ({ item }, ref) => {
-    // const MoreOfferCard: React.FC<CardProps> = ({ item }) => {
-
+  
     const handleRedirection = () => {
-      window.open(`${item.restro_url}/#offers`, "_blank");
-      // window.open(`/`, "_blank");
+      window.open(`https://${item.domain_name}.merkoll.com/${item.restro_slug}/#offers`, "_blank");
+      
     };
 
     return (

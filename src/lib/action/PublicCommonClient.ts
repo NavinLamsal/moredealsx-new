@@ -58,6 +58,8 @@ export interface OfferType {
   is_hot_deal: boolean;
   orginal_price: number;
   timezone: string;
+  restro_slug: string;
+  domain_name: string;
   name: string;
   price: number;
   repeat_sunday: boolean;
@@ -212,24 +214,24 @@ export const fetchHOTDealsList = async (
   }
 };
 
-export const fetchPopularRestaurants = async (
-  city_code: string | null
-): Promise<ResturantListType[]> => {
-  try {
-    const endpoint = `${baseUrl}public/restaurants/popular/list/`;
-    const config = {
-      params: {
-        city_code: city_code,
-      },
-    };
+// export const fetchPopularRestaurants = async (
+//   city_code: string | null
+// ): Promise<ResturantListType[]> => {
+//   try {
+//     const endpoint = `${baseUrl}public/restaurants/popular/list/`;
+//     const config = {
+//       params: {
+//         city_code: city_code,
+//       },
+//     };
 
-    const response = await MorefoodApiClientWithoutAccess.get(endpoint, config);
-    return response.data.data || [];
-  } catch (error: any) {
-    console.error("Error fetching popular restaurants:", error);
-    return [];
-  }
-};
+//     const response = await MorefoodApiClientWithoutAccess.get(endpoint, config);
+//     return response.data.data || [];
+//   } catch (error: any) {
+//     console.error("Error fetching popular restaurants:", error);
+//     return [];
+//   }
+// };
 
 export const fetchNearbyRestaurants = async (
   city_code: string | null

@@ -51,7 +51,7 @@ export default function OfferSection({
 
 
   function isMoreFoodOffers(data: OfferType[]): data is OfferType[] {
-    return data.length > 0 && "restro_url" in data[0];
+    return data.length > 0 && "domain_name" in data[0];
   }
 
   return (

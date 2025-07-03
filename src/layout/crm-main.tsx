@@ -40,7 +40,7 @@ export function NavCRM({
                 onClick={(e) => {
                   e.preventDefault();
                   window.open(
-                    `https://${item.url}/auth/login-crm`,
+                    `https://${item.url}/auth/login`,
                     "_blank",
                     "noopener,noreferrer"
                   );
