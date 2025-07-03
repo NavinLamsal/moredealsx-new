@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
-// import { OfferDealType } from "@/lib/types/public/restaurant";
 import Image from "next/image";
 import React, { forwardRef } from "react";
-import { OfferDealType, OfferType } from "@/lib/action/PublicCommonClient";
+import { OfferType } from "@/lib/action/PublicCommonClient";
 
 interface OfferCardProps {
   item: OfferType;
@@ -10,11 +9,10 @@ interface OfferCardProps {
 
 const MoreOfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
   ({ item }, ref) => {
-    // const MoreOfferCard: React.FC<CardProps> = ({ item }) => {
-
+  
     const handleRedirection = () => {
-      // window.open(`${item.restro_url}/#offers`, "_blank");
-      window.open(`/`, "_blank");
+      window.open(`https://${item.domain_name}.merkoll.com/${item.restro_slug}/#offers`, "_blank");
+      
     };
 
     return (
@@ -31,9 +29,6 @@ const MoreOfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
             className="w-64 sm:w-72 md:w-80 xl:w-96 h-32 sm:h-36 md:h-44 lg:h-56 object-cover"
           />
           <div className="flex flex-col justify-end gap-2 absolute top-3 right-3">
-            {/* <span className=" bg-red-600 text-xs font-extrabold uppercase px-3 py-1 rounded text-white">
-            MOREFOOD
-          </span> */}
             {item.is_hot_deal && (
               <span className=" bg-green-600 text-xs font-extrabold uppercase px-3 py-1 rounded text-white">
                 HOT DEALS

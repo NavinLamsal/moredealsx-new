@@ -2,8 +2,8 @@ import axios from "axios";
 
 import { getClientApiUrl } from "../axiosClient";
 
-const baseURL =
-  getClientApiUrl("morefood") || process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL;
+const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  // getClientApiUrl("morefood") || process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL;
 
 const MoreFoodApiClientWA = () => {
   const defaultOptions = {

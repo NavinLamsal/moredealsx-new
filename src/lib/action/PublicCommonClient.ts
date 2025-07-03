@@ -58,6 +58,8 @@ export interface OfferType {
   is_hot_deal: boolean;
   orginal_price: number;
   timezone: string;
+  restro_slug: string;
+  domain_name: string;
   name: string;
   price: number;
   repeat_sunday: boolean;
@@ -67,6 +69,7 @@ export interface OfferType {
   repeat_thursday: boolean;
   repeat_friday: boolean;
   repeat_saturday: boolean;
+  restro_url: string;
 }
 
 export interface FoodType {
@@ -167,8 +170,8 @@ export const fetchOfferList = async (
     const All = category === "All";
 
     const endpoint = isMoreFood
-      ? `${baseUrl}moreoffers/list/`
-      : `${baseUrl}public/offers/${country}/list/`;
+      ? `${baseUrl}public/offers/${country}/list/`
+      : `${baseUrl}moreoffers/list/`;
 
     const config =
       isMoreFood || All
@@ -193,7 +196,7 @@ export const fetchOfferList = async (
 export const fetchHOTDealsList = async (
   country: string | null,
   city_code: string | null
-): Promise<OfferDealType[]> => {
+): Promise<OfferType[]> => {
   try {
     const endpoint = `${baseUrl}public/offers/${country}/list/`;
     const config = {
@@ -211,24 +214,24 @@ export const fetchHOTDealsList = async (
   }
 };
 
-export const fetchPopularRestaurants = async (
-  city_code: string | null
-): Promise<ResturantListType[]> => {
-  try {
-    const endpoint = `${baseUrl}public/restaurants/popular/list/`;
-    const config = {
-      params: {
-        city_code: city_code,
-      },
-    };
+// export const fetchPopularRestaurants = async (
+//   city_code: string | null
+// ): Promise<ResturantListType[]> => {
+//   try {
+//     const endpoint = `${baseUrl}public/restaurants/popular/list/`;
+//     const config = {
+//       params: {
+//         city_code: city_code,
+//       },
+//     };
 
-    const response = await MorefoodApiClientWithoutAccess.get(endpoint, config);
-    return response.data.data || [];
-  } catch (error: any) {
-    console.error("Error fetching popular restaurants:", error);
-    return [];
-  }
-};
+//     const response = await MorefoodApiClientWithoutAccess.get(endpoint, config);
+//     return response.data.data || [];
+//   } catch (error: any) {
+//     console.error("Error fetching popular restaurants:", error);
+//     return [];
+//   }
+// };
 
 export const fetchNearbyRestaurants = async (
   city_code: string | null

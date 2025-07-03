@@ -200,9 +200,9 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
       ...(session?.data?.user?.userDetails?.crm_link?.restro_link
         ? [
           {
-            name: "MOREFOOD CRM",
+            name: "RESTAURANT CRM",
             url:
-              session?.data?.user?.userDetails?.crm_link?.restro_link ?? "#",
+            `https://merkoll.com/auth/login`,
             icon: Frame,
             darkImage: "/images/svg/morefood.svg",
             lightImage: "/images/svg/morefood.svg",

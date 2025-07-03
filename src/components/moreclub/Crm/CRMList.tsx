@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 const crmDataMap = {
   Restaurant: {
-    name: "MOREFOOD CRM",
+    name: "RESTAURANT CRM",
     banner: "/images/svg/morefood.svg",
     urlkey: "restro_link",
   },
@@ -84,7 +84,7 @@ const CRMList = ({ name }: { name: string }) => {
               onClick={(e) => {
                 e.preventDefault();
                 window.open(
-                  `https://${session.user.userDetails.crm_link?.restro_link}/auth/login-crm`,
+                  `https://merkoll.com/auth/login`,
                   "_blank",
                   "noopener,noreferrer"
                 );

@@ -144,7 +144,7 @@ export default async function Page({
             <Heading title={title as string} />
           </div>
 
-          <RestaurantList type={slug as string} searchParams={searchparams} />
+          <RestaurantList type={`${slug}/list`} searchParams={searchparams} />
         </>
       )}
     </>

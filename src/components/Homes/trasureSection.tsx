@@ -55,7 +55,8 @@ const TreasureSection = () => {
           href="#"
           className="inline-block bg-yellow-400 text-black font-semibold px-6 py-3 rounded hover:bg-yellow-300 transition-colors"
         >
-          Open the Chest
+          {/* Open the Chest */}
+          Coming Soon
         </a>
       </div>
     </section>

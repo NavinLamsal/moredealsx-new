@@ -49,19 +49,9 @@ export default function OfferSection({
     enabled: !!country,
   });
 
-  // const filteredOffers =
-  //     activeCategory === "All"
-  //         ? offerrs
-  //         : offerrs.filter((offer: Offer) => offer.title === activeCategory);
-
-  // function isMoreFoodOffers(
-  //   data: Offer[] | OfferDealType[]
-  // ): data is OfferDealType[] {
-  //   return data.length > 0 && "restro_url" in data[0];
-  // }
 
   function isMoreFoodOffers(data: OfferType[]): data is OfferType[] {
-    return data.length > 0 && "restro_url" in data[0];
+    return data.length > 0 && "domain_name" in data[0];
   }
 
   return (

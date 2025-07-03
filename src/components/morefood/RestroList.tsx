@@ -7,15 +7,17 @@ import { CardSkeleton } from "../Skeletons/CardSkeleton";
 import AnimatedSection from "../ui/animations/FadeUpView";
 
 const RestroList = () => {
-  const city =
-    typeof window !== "undefined" ? localStorage.getItem("city") : null;
+  // const city =
+  //   typeof window !== "undefined" ? localStorage.getItem("city_code") : null;
+  const country =
+    typeof window !== "undefined" ? localStorage.getItem("country_code") : null;
 
   const { fetchRestaurantList } = useFetchRestaurant();
   const { data, error, isLoading } = useQuery({
-    queryKey: ["Restaurant List 1", "list", { city_name: city }],
-    queryFn: () => fetchRestaurantList("list", { city_name: city }, 1),
+    queryKey: ["Restaurant List 1", "list", { country: country }],
+    queryFn: () => fetchRestaurantList(`list/${country}`, { }, 1),
     staleTime: 60000,
-    enabled: !!city,
+    enabled: !!country,
   });
 
   if (isLoading) {
@@ -37,7 +39,7 @@ const RestroList = () => {
   return (
     <div className="p-1 lg:p-4">
       <HorizontalCarousel
-        title="Popular Restaurants"
+        title="All Restaurants"
         viewAll="/morefood/category/popular?title=Popular Restaurants"
       >
         {data.data.map((restaurant, index) => (

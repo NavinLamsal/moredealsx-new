@@ -177,7 +177,7 @@ export const useFetchRestaurant = () => {
       // const queryParams = new URLSearchParams({ ...params, offset:"0", limit:"10", page: page.toString() });
 
       const response = await MorefoodApiClientWithoutAccess.get(
-        `restaurants/${type}/?${queryParams.toString()}`
+        `public/restaurants/${type}/?${queryParams.toString()}`
       );
 
       if (type === "featured-restaurants") {

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Offer, OfferType } from "@/lib/action/PublicCommonClient";
+import { OfferType } from "@/lib/action/PublicCommonClient";
 import Link from "next/link";
 import React, { forwardRef } from "react";
 
@@ -44,7 +44,7 @@ const OfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
           <h3 className="text-lg font-bold text-yellow-400 mb-2">
             {offer.name}
           </h3>
-          <p className="text-gray-400 mb-4">{offer.description}</p>
+          <p className="sm:text-sm text-xs text-muted-foreground mb-4 line-clamp-2 h-6">{offer.description}</p>
           <div className="flex items-center gap-2 mb-4">
             <span className="line-through text-gray-500">
               {offer.currency_code}

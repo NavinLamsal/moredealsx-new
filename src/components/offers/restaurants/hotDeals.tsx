@@ -1,12 +1,8 @@
 "use client";
-
 import MoreOfferCard from "@/components/cards/moreclub/morefoodoffer/MorefoodOfferCard";
 import HorizontalCarousel from "@/components/carousel/horizontalCarousel";
-import HorizontalCarouselWithOutTitle from "@/components/carousel/HorizontalCarouselWithotTitle";
-import SectionTitle from "@/components/Homes/sectionTiltle";
 import OfferSkeleton from "@/components/Skeletons/OfferSkeelton";
 import AnimatedSection from "@/components/ui/animations/FadeUpView";
-import DashboardSectionTitle from "@/components/ui/DashboardSectionTitle";
 import { fetchHOTDealsList } from "@/lib/action/PublicCommonClient";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -31,11 +27,12 @@ export default function HotDeals({
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["offers", "hotdeals", country_code],
+    queryKey: ["offers", "hotdeals", country_code , city_code],
     queryFn: async () => await fetchHOTDealsList(country_code, city_code),
     staleTime: 360000,
     enabled: !!country_code,
   });
+
 
   return (
     <section
@@ -46,7 +43,7 @@ export default function HotDeals({
         title={title}
         dashboard={Dashboard}
         center={false}
-        viewAll="/event"
+        viewAll="/hot-deals"
       >
         {isError ? (
           <p className="text-center text-red-500 py-12 bg-card w-full ">
