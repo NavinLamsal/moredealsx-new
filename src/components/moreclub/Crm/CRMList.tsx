@@ -84,7 +84,7 @@ const CRMList = ({ name }: { name: string }) => {
               onClick={(e) => {
                 e.preventDefault();
                 window.open(
-                  `https://${session.user.userDetails.crm_link?.restro_link}/auth/login`,
+                  `https://merkoll.com/auth/login`,
                   "_blank",
                   "noopener,noreferrer"
                 );
