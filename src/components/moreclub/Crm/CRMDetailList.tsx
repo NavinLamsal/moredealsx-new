@@ -26,7 +26,6 @@
 // export default CRMDetailList
 
 "use client";
-import Heading from "@/components/ui/heading";
 import { fetchBusinessQRInfo } from "@/lib/action/moreClub/Business";
 import { useAppSelector } from "@/lib/redux/hooks";
 import { AppDispatch, RootState } from "@/lib/redux/store";
@@ -37,12 +36,11 @@ import BusinessTypes from "@/components/form/moredealsclub/business/BusinessType
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardTitle,
 } from "@/components/ui/card";
 import CrmSkeleton from "@/components/Skeletons/CrmSkeleton";
 import PageHeadings from "@/components/ui/customTitles/PageHeadings";
-// import CRMTabContent from './CRMTabContent';
+
+
 
 const CRMDetailList = () => {
   const dispatch = useDispatch<AppDispatch>();

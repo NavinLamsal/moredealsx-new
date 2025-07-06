@@ -178,9 +178,7 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
 
   return (
     <>
-
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-2 pb-2">
-
         <h3 className='my-4 font-bold text-lg'>Business Details</h3>
         <div className='grid md:grid-cols-2 gap-2'>
           <div>
