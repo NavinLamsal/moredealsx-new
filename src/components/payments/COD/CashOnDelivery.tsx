@@ -1,7 +1,6 @@
 import MoreFoodApiClient from '@/lib/axios/morefood/MoreFoodApiClient';
 import { FoodOrderTypes } from '@/lib/type/morefood/restaurant'
 import { showToast } from '@/lib/utilities/toastService';
-import { getCountryCode } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import React, { FormEvent, useState } from 'react'
 

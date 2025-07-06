@@ -51,7 +51,6 @@ const RegistrationMainForm = () => {
                     </div>
                 )}
 
-
                 <CardFooter className='flex w-full justify-center'>
                     <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
                         By clicking continue, you agree to our <a href="/terms-and-condition" target='_blank'>Terms of Service</a>{" "}

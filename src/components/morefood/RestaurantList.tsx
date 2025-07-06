@@ -14,8 +14,9 @@ const RestaurantList = ({
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
   const city =
-    typeof window !== "undefined" ? localStorage.getItem("city") : null;
+    typeof window !== "undefined" ? localStorage.getItem("city_code") : null;
   const { fetchRestaurantList } = useFetchRestaurant();
+  const { title, ...filteredParams } = searchParams;
   const observerRef = useRef<IntersectionObserver | null>(null);
   const {
     data,
@@ -26,11 +27,11 @@ const RestaurantList = ({
     isFetchingNextPage,
     refetch,
   } = useInfiniteQuery({
-    queryKey: ["Restaurant List", type, { ...searchParams, city_name: city }],
+    queryKey: ["Restaurant List", type, { ...filteredParams, city_name: city }],
     queryFn: ({ pageParam = 1 }) =>
       fetchRestaurantList(
         type,
-        { ...searchParams, city_name: city },
+        { ...filteredParams, city_code: city },
         pageParam
       ),
     getNextPageParam: (lastPage) => {

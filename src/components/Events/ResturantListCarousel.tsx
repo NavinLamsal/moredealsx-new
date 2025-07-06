@@ -1,7 +1,6 @@
 "use client";
 import HorizontalCarousel from "../carousel/horizontalCarousel";
 import { useQuery } from "@tanstack/react-query";
-import { CardSkeleton } from "../Skeletons/CardSkeleton";
 import AnimatedSection from "../ui/animations/FadeUpView";
 import { useFetchEvents } from "@/lib/action/moreClub/Events";
 import EventCard from "../cards/moreclub/EventCard";
@@ -11,14 +10,15 @@ import TrendingEventSkeleton from "../Skeletons/EventSkeleton";
 
 
 const RestaurantTrendingEvents = ({title = "Trending Events" , dashboard =true}: {title?: string , dashboard?: boolean}) => {
-
+  const country = typeof window !== "undefined" ? localStorage.getItem("country_code") : null;
     const { fetchRestroEventsList} = useFetchEvents()
  
 
    const { data, error, isLoading } = useQuery({
-     queryKey: ["Restro Events" , 1],
-     queryFn: () => fetchRestroEventsList(1),
+     queryKey: ["Restro Events" ,country, 1],
+     queryFn: () => fetchRestroEventsList(country!, 1),
      staleTime: 36000,
+     enabled: Boolean(country),
    });
 
    if (isLoading) {
@@ -60,6 +60,7 @@ const RestaurantTrendingEvents = ({title = "Trending Events" , dashboard =true}:
          <EventCard
             key={index}
             {...event}
+            domain_name={event.domain_name}
             platform="morefood"
             ref={null} 
           />
