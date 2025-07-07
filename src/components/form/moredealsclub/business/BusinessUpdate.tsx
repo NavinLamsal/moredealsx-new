@@ -59,9 +59,9 @@ export default function BusinessPage() {
     <div>
       <div className="space-y-0.5 mb-4">
         <Heading title="Business Profile" />
-        <p className="text-sm text-muted-foreground">
+        {/* <p className="text-sm text-muted-foreground">
           This is how others will see your Business on the site.
-        </p>
+        </p> */}
       </div>
 
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-4 lg:space-y-0">

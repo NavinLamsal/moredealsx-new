@@ -31,9 +31,6 @@ const Page = () => {
           <BackButton />
           <h2 className="text-2xl font-bold tracking-tight">Transactions</h2>
         </div>
-        <p className="text-muted-foreground ml-4">
-          Here&apos;s a list of your Networks!
-        </p>
 
         <div className="block 2xl:hidden">
           <Sheet open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
