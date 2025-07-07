@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { OfferType } from "@/lib/action/PublicCommonClient";
 import Link from "next/link";
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 
 interface OfferCardProps {
   offer: OfferType;
+  isOffer?: boolean;
 }
 
 export const calculateDiscount = (offer: OfferType): number => {
@@ -15,8 +16,20 @@ export const calculateDiscount = (offer: OfferType): number => {
 };
 
 const OfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
-  ({ offer }, ref) => {
+  ({ offer, isOffer }, ref) => {
     const discount = calculateDiscount(offer);
+
+    const descRef = useRef<HTMLParagraphElement>(null);
+    const [isTruncated, setIsTruncated] = useState(false);
+    const [expanded, setExpanded] = useState(false);
+
+    useEffect(() => {
+      const element = descRef.current;
+      if (element) {
+        const isOverflowing = element.scrollHeight > element.clientHeight;
+        setIsTruncated(isOverflowing);
+      }
+    }, [offer.description]);
 
     return (
       <div
@@ -44,9 +57,32 @@ const OfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
           <h3 className="text-lg font-bold text-yellow-400 mb-2">
             {offer.name}
           </h3>
-          <p className="sm:text-sm text-xs text-muted-foreground mb-4 line-clamp-2 h-6">
-            {offer.description}
-          </p>
+          {isOffer ? (
+            <>
+              {" "}
+              <p
+                ref={descRef}
+                className={`sm:text-sm text-xs text-muted-foreground transition-all ${
+                  expanded ? "" : "line-clamp-2 h-6"
+                }`}
+              >
+                {offer.description}
+              </p>
+              {isTruncated && (
+                <button
+                  onClick={() => setExpanded((prev) => !prev)}
+                  className="text-yellow-400 text-xs mb-2 underline"
+                >
+                  {expanded ? "Read Less" : "Read More"}
+                </button>
+              )}
+            </>
+          ) : (
+            <p className="sm:text-sm text-xs text-muted-foreground mb-4 line-clamp-2 h-6">
+              {offer.description}
+            </p>
+          )}
+
           <div className="flex items-center gap-2 mb-4">
             <span className="line-through text-gray-500">
               {offer.currency_code}
