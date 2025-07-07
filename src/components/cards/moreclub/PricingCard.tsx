@@ -314,9 +314,9 @@ const PricingCard = ({
       :
       <>
       <Button variant={tier.name.includes("Power Saver") ? "default" : "outline"} className='border-black dark:border-white w-full mt-4 py-5 h-12 font-bold'>
-        {tier.name.includes("Power Saver") ? "Start 30-day Trial" : tier.name.includes("custom") ? "Contact Sales" : "Get Started"}
+        {tier.free_trial?.is_free_trial ? "Start 30-day Trial" : tier.name.includes("custom") ? "Contact Sales" : "Get Started"}
       </Button>
-      {tier.name.includes("Power Saver") &&
+      {tier.free_trial?.is_free_trial &&
         <p className='text-center mt-4 text-sm '> No credit card required</p>}
       
       </>
