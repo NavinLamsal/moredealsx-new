@@ -1,13 +1,12 @@
 "use client";
-import { Suspense, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+
+import { Suspense, useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import DashboardSectionTitle from "../ui/DashboardSectionTitle";
 import HorizontalCarouselWithOutTitle from "../carousel/HorizontalCarouselWithotTitle";
 import AnimatedSection from "../ui/animations/FadeUpView";
 import {
   fetchOfferList,
-  Offer,
-  OfferDealType,
   OfferType,
 } from "@/lib/action/PublicCommonClient";
 import SectionTitle from "../Homes/sectionTiltle";
@@ -34,6 +33,8 @@ export default function OfferSection({
   classname?: string;
 }) {
   const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [checkedAllEmpty, setCheckedAllEmpty] = useState(false);
+  const queryClient = useQueryClient();
 
   const country =
     typeof window !== "undefined" ? localStorage.getItem("country_code") : null;
@@ -46,9 +47,15 @@ export default function OfferSection({
     queryKey: ["offers", activeCategory, country],
     queryFn: async () => await fetchOfferList(activeCategory, country),
     staleTime: 360000,
-    enabled: !!country,
+    enabled: !!country && !!activeCategory,
   });
 
+ 
+  useEffect(() => {
+    if (activeCategory === "All" && !isLoading && !isError && offerrs.length === 0) {
+      setActiveCategory("morefood");
+    }
+  }, [offerrs,activeCategory, isLoading, isError]);
 
   function isMoreFoodOffers(data: OfferType[]): data is OfferType[] {
     return data.length > 0 && "domain_name" in data[0];
@@ -64,12 +71,13 @@ export default function OfferSection({
       ) : (
         <SectionTitle title={title} />
       )}
+
       <Suspense fallback={<div>Loading...</div>}>
         <CategorySelector
           categories={categories}
           activeCategory={activeCategory}
           onCategoryChange={setActiveCategory}
-          dashboardStyle={Dashboard ? true : false}
+          dashboardStyle={!!Dashboard}
           classname={classname}
         />
       </Suspense>
@@ -82,8 +90,8 @@ export default function OfferSection({
         </p>
       ) : (
         <>
-          {offerrs && offerrs.length === 0 ? (
-            <p className="py-12 bg-card w-full  text-center">
+          {offerrs.length === 0 && checkedAllEmpty ? (
+            <p className="py-12 bg-card w-full text-center">
               Offers not available
             </p>
           ) : activeCategory === "morefood" && isMoreFoodOffers(offerrs) ? (
@@ -112,3 +120,4 @@ export default function OfferSection({
     </section>
   );
 }
+
