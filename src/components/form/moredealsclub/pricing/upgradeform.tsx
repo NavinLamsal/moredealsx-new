@@ -482,7 +482,7 @@ const UpgradeForm = ({ userType, membershiptype }: { userType: "BUSINESS" | "NOR
                             <p>Loading...</p>
                         ) :
                         (
-                            <PricingCard tier={selectedPackage as Package} idx={0} billingCycle={formData.plan_time} noOfPackage={1} subscribe={membershiptype.membership_name === selectedPackage.name} />
+                            <PricingCard tier={selectedPackage as Package} idx={0} billingCycle={formData.plan_time} noOfPackage={1} subscribe={membershiptype?.membership_name === selectedPackage.name} />
 
                         )}
                 </div>
