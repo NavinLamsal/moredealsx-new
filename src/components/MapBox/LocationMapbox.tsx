@@ -101,6 +101,8 @@ const LocationMapbox = ({ setNewAddress }: { setNewAddress?: any }) => {
 
     map.addControl(geolocateControl);
 
+    
+
       geolocateControl._onSuccess = async(e) => {
         const { longitude, latitude } = e.coords;
         if (markerRef.current) {
