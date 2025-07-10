@@ -5,6 +5,7 @@ import Treasurehunts from "@/components/Dashboard/treasurehunts"
 import RestaurantTrendingEvents from "@/components/Events/ResturantListCarousel"
 import TrendingEvents from "@/components/Events/TrendingEvent"
 import BusinessSetupModal from "@/components/form/moredealsclub/BusinessRegistration/BusinessRegisterForm"
+import CrmAlert from "@/components/moreclub/Crm/CrmAlert"
 import OfferSection from "@/components/offers/OfferSection"
 import HotDeals from "@/components/offers/restaurants/hotDeals"
 import { Suspense } from "react"
@@ -15,6 +16,7 @@ export default async function Page() {
   return (
     <div className="flex-1 space-y-4  pt-6">
       <BusinessSetupModal />
+      <CrmAlert/>
       <Stat />
       <Memberships />
       <Partners />

@@ -106,7 +106,7 @@ const BusinessSetupModal = () => {
               {status === "unauthenticated" && <div>Unauthorized</div>}
               {status === "authenticated" && (
                <>
-               {!user.lastFetchedProfileAt && user.isLoading && <div>Loading...</div>}
+              {!user.lastFetchedProfileAt && user.isLoading && <div>Loading...</div>}
               
               {user.lastFetchedProfileAt && !user.isLoading && user.profile && <UpgradeFormPopup
                   userType={user.profile.user_type as 'BUSINESS' | 'NORMAL'}

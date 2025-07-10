@@ -1,5 +1,5 @@
 "use client";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import DashboardSectionTitle from "../ui/DashboardSectionTitle";
 import HorizontalCarouselWithOutTitle from "../carousel/HorizontalCarouselWithotTitle";
@@ -49,6 +49,14 @@ export default function OfferSection({
     enabled: !!country,
   });
 
+
+  useEffect(() => {
+    if (activeCategory === "All" && !isLoading && !isError && offerrs.length === 0) {
+      setActiveCategory("morefood");
+    }
+  }, [offerrs,activeCategory, isLoading, isError]);
+
+
   function isMoreFoodOffers(data: OfferType[]): data is OfferType[] {
     return data.length > 0 && "domain_name" in data[0];
   }
@@ -83,7 +91,7 @@ export default function OfferSection({
         <>
           {offerrs && offerrs.length === 0 ? (
             <p className="py-12 bg-card w-full  text-center">
-              Offers not available
+              {(activeCategory === "All" || activeCategory === "morefood") ? "No offers found." : "Stay tuned! Coming soon."}
             </p>
           ) : activeCategory === "morefood" && isMoreFoodOffers(offerrs) ? (
             <HorizontalCarouselWithOutTitle title="">

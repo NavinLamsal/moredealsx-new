@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
-const crmDataMap = {
+export const crmDataMap = {
   Restaurant: {
     name: "RESTAURANT CRM",
     banner: "/images/svg/morefood.svg",
@@ -32,6 +32,7 @@ const CRMList = ({ name }: { name: string }) => {
     banner: "/images/svg/default.svg",
     urlkey: "crm_link",
   };
+
 
   if (!session) {
     return <div>crm listing for {name}</div>;
