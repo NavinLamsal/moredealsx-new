@@ -1,11 +1,13 @@
 "use client";
 
 import { useAxiosClient } from "@/lib/axios/axiosClient";
+import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 import MoreFoodApiClient from "@/lib/axios/morefood/MoreFoodApiClient";
 import MoreFoodApiClientWC from "@/lib/axios/morefood/MoreFoodApiClientWC";
 import MorefoodApiClientWithoutAccess from "@/lib/axios/morefood/MorefoodApiClientWithoutAccess";
 import { MetaData } from "@/lib/type/CommonType";
 import {
+  BusinessRestaurantList,
   CategoryListType,
   FoodListType,
   ImagesList,
@@ -160,7 +162,10 @@ export const useFetchRestaurant = () => {
     type: string,
     params: Record<string, any> = {}, // Flexible search parameters
     page: number = 1
-  ): Promise<{ data: ResturantListType[]; meta: MetaData }> => {
+  ): Promise<{
+    data: ResturantListType[];
+    meta: MetaData;
+  }> => {
     try {
       const limit = 10;
       const offset = (page - 1) * limit;
@@ -191,6 +196,34 @@ export const useFetchRestaurant = () => {
     } catch (error) {
       console.error("Error fetching restaurants:", error);
       return { data: [] as ResturantListType[], meta: {} as MetaData };
+    }
+  };
+
+  const fetchBusinessRestaurantList = async (
+    page: number = 1
+  ): Promise<{
+    data: BusinessRestaurantList[];
+    meta: MetaData;
+  }> => {
+    try {
+      const limit = 10;
+      const offset = (page - 1) * limit;
+
+      // Convert params object to query string
+      const queryParams = new URLSearchParams({
+        offset: offset.toString(),
+        limit: limit.toString(),
+        page: page.toString(),
+      });
+
+      const response = await MoreClubApiClient.get(
+        `public/restaurants/restaurants-business/list/`
+      );
+
+      return { data: response.data.data, meta: response.data.meta };
+    } catch (error) {
+      console.error("Error fetching restaurants:", error);
+      return { data: [] as BusinessRestaurantList[], meta: {} as MetaData };
     }
   };
 
@@ -415,6 +448,7 @@ export const useFetchRestaurant = () => {
   return {
     // fetchPopularRestaurantsList,
     fetchRestaurantList,
+    fetchBusinessRestaurantList,
     fetchCategoryList,
     fetchRestaurantOpeningHours,
     fetchRestaurantsFooditems,

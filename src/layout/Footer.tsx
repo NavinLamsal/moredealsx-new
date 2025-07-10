@@ -3,8 +3,11 @@
 // import Link from "next/link";
 // import React, { Suspense } from "react";
 
+import { auth } from "@/auth";
 import { CompanyMeta } from "@/lib/type/CommonType";
+import Image from "next/image";
 import Link from "next/link";
+import RestaurantsLink from "./RestroFooterLink";
 
 // const Footer = ({data}:{data:CompanyMeta}) => {
 //   return (
@@ -87,162 +90,187 @@ import Link from "next/link";
 // export default Footer;
 
 // components/Footer.tsx
-export default function Footer({ data }: { data: CompanyMeta }) {
+interface FooterProps {
+  data: CompanyMeta;
+}
+
+export default async function Footer({ data }: FooterProps) {
+  const session = await auth();
+  const isAuthenticated = !!session;
+
   return (
     <footer className="bg-black py-16 px-4 text-white">
       <div className="max-w-7xl mx-auto">
-        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
-          {/* Brand Info */}
-          <div>
-            <h3 className="text-yellow-400 text-xl font-semibold mb-4">
-              MoreDealsX
-            </h3>
-            <p className="text-gray-400 mt-2">
-              Premium savings platform for the elite.
-            </p>
-            <div className="flex gap-4 mt-5">
-              <a
-                href="#"
-                className="social-icon bg-neutral-900 text-yellow-400 hover:bg-yellow-400 hover:text-black transition w-10 h-10 rounded-full flex items-center justify-center text-xl"
-              >
-                📱
-              </a>
-              <a
-                href="#"
-                className="social-icon bg-neutral-900 text-yellow-400 hover:bg-yellow-400 hover:text-black transition w-10 h-10 rounded-full flex items-center justify-center text-xl"
-              >
-                💻
-              </a>
-              <a
-                href="#"
-                className="social-icon bg-neutral-900 text-yellow-400 hover:bg-yellow-400 hover:text-black transition w-10 h-10 rounded-full flex items-center justify-center text-xl"
-              >
-                📧
-              </a>
+        <div className="flex flex-col gap-2 ">
+          <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
+            {/* Brand Info */}
+            <div>
+              <h3 className="text-yellow-400 text-xl font-semibold mb-4">
+                MoreDealsX
+              </h3>
+              <p className="text-gray-400 mt-2">
+                Premium savings platform for the elite.
+              </p>
+              <div className="flex gap-4 mt-5">
+                <a
+                  href="#"
+                  className="social-icon bg-neutral-900 text-yellow-400 hover:bg-yellow-400 hover:text-black transition w-10 h-10 rounded-full flex items-center justify-center text-xl"
+                >
+                  <Image
+                    src={"/images/svg/facebook.svg"}
+                    alt="facebook icon"
+                    width={100}
+                    height={100}
+                    className="w-6 h-6"
+                  />
+                </a>
+                <a
+                  href="#"
+                  className="social-icon bg-neutral-900 text-yellow-400 hover:bg-yellow-400 hover:text-black transition w-10 h-10 rounded-full flex items-center justify-center text-xl"
+                >
+                  <Image
+                    src={"/images/svg/instagram.svg"}
+                    alt="instagram icon"
+                    width={100}
+                    height={100}
+                    className="w-6 h-6"
+                  />
+                </a>
+                <a
+                  href="#"
+                  className="social-icon bg-neutral-900 text-yellow-400 hover:bg-yellow-400 hover:text-black transition w-10 h-10 rounded-full flex items-center justify-center text-xl"
+                >
+                  <Image
+                    src={"/images/svg/tiktok.svg"}
+                    alt="tiktok icon"
+                    width={100}
+                    height={100}
+                    className="w-6 h-6"
+                  />
+                </a>
+                <a
+                  href="#"
+                  className="social-icon bg-neutral-900 text-yellow-400 hover:bg-yellow-400 hover:text-black transition w-10 h-10 rounded-full flex items-center justify-center text-xl"
+                >
+                  <Image
+                    src={"/images/svg/youtube.svg"}
+                    alt="youtube icon"
+                    width={100}
+                    height={100}
+                    className="w-6 h-6"
+                  />
+                </a>
+              </div>
             </div>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-yellow-400 text-xl font-semibold mb-4">
-              Quick Links
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href="/"
-                  className="text-gray-400 hover:text-yellow-400 transition"
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/offers"
-                  className="text-gray-400 hover:text-yellow-400 transition"
-                >
-                  Offers
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/events"
-                  className="text-gray-400 hover:text-yellow-400 transition"
-                >
-                  Events
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/#partners"
-                  className="text-gray-400 hover:text-yellow-400 transition"
-                >
-                  Partners
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Categories */}
-          <div>
-            <h3 className="text-yellow-400 text-xl font-semibold mb-4">
-              Categories
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href="/morefood"
-                  className="text-gray-400 hover:text-yellow-400 transition"
-                >
-                  Restaurants
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-yellow-400 transition"
-                >
-                  Salons
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-yellow-400 transition"
-                >
-                  Hotels
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-yellow-400 transition"
-                >
-                  Marketplace
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div>
-            <h3 className="text-yellow-400 text-xl font-semibold mb-4">
-              Support
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/faq"
-                  className="text-gray-400 hover:text-yellow-400 transition"
-                >
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/"
-                  className="text-gray-400 hover:text-yellow-400 transition"
-                >
-                  Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/terms-and-condition"
-                  className="text-gray-400 hover:text-yellow-400 transition"
-                >
-                  Terms
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/privacy-policy"
-                  className="text-gray-400 hover:text-yellow-400 transition"
-                >
-                  Privacy
-                </Link>
-              </li>
-            </ul>
+            {/* Quick Links */}
+            <div>
+              <h3 className="text-yellow-400 text-xl font-semibold mb-4">
+                Quick Links
+              </h3>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="/"
+                    className="text-gray-400 hover:text-yellow-400 transition"
+                  >
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/offers"
+                    className="text-gray-400 hover:text-yellow-400 transition"
+                  >
+                    Offers
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/events"
+                    className="text-gray-400 hover:text-yellow-400 transition"
+                  >
+                    Events
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/#partners"
+                    className="text-gray-400 hover:text-yellow-400 transition"
+                  >
+                    Partners
+                  </a>
+                </li>
+              </ul>
+            </div>
+            {/* Categories */}
+            <div>
+              <h3 className="text-yellow-400 text-xl font-semibold mb-4">
+                Categories
+              </h3>
+              <ul className="space-y-2">
+                <li>
+                  <RestaurantsLink isAuthenticated={isAuthenticated} />
+                </li>
+                <li className="text-gray-400 hover:text-yellow-400 transition flex items-center gap-2">
+                  <p>Salons</p>
+                  <span className="bg-yellow-500 text-black px-2 py-0.5 rounded-full text-xs font-medium">
+                    Coming Soon
+                  </span>
+                </li>
+                <li className="text-gray-400 hover:text-yellow-400 transition flex items-center gap-2">
+                  <p>Hotels</p>
+                  <span className="bg-yellow-500 text-black px-2 py-0.5 rounded-full text-xs font-medium">
+                    Coming Soon
+                  </span>
+                </li>
+                <li className="text-gray-400 hover:text-yellow-400 transition flex items-center gap-2">
+                  <p>Marketplace</p>
+                  <span className="bg-yellow-500 text-black px-2 py-0.5 rounded-full text-xs font-medium">
+                    Coming Soon
+                  </span>
+                </li>
+              </ul>
+            </div>
+            {/* Support */}
+            <div>
+              <h3 className="text-yellow-400 text-xl font-semibold mb-4">
+                Support
+              </h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link
+                    href="/faq"
+                    className="text-gray-400 hover:text-yellow-400 transition"
+                  >
+                    FAQ
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="text-gray-400 hover:text-yellow-400 transition"
+                  >
+                    Contact Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/terms-and-condition"
+                    className="text-gray-400 hover:text-yellow-400 transition"
+                  >
+                    Terms
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/privacy-policy"
+                    className="text-gray-400 hover:text-yellow-400 transition"
+                  >
+                    Privacy
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 

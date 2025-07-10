@@ -3,10 +3,7 @@
 import * as React from "react";
 import {
   BookOpen,
-  Bot,
-  Frame,
-  Map,
-  PieChart,
+  Frame, 
   Settings,
   SquareTerminal,
 } from "lucide-react";
@@ -51,12 +48,13 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
   const data = {
     user: {
       name: `${session.data?.user?.userDetails?.first_name} ${session.data?.user?.userDetails?.last_name}`,
-      email: `${session.data?.user?.userDetails?.email === ""
+      email: `${
+        session.data?.user?.userDetails?.email === ""
           ? session.data?.user?.userDetails?.phone_prefix +
-          " " +
-          session.data?.user?.userDetails?.phone_number
+            " " +
+            session.data?.user?.userDetails?.phone_number
           : session.data?.user?.userDetails?.email
-        }`,
+      }`,
       avatar: `${session.data?.user?.userDetails?.display_picture}`,
     },
     teams: [
@@ -167,7 +165,7 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
 
     projects: [
       {
-        name: "MOREFOOD",
+        name: "Deals of Food",
         url: "/morefood",
         // url: `${session.data?.user?.userDetails?.crm_link[0] as string}`,
         icon: Frame,
@@ -199,15 +197,14 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
     crm: [
       ...(session?.data?.user?.userDetails?.crm_link?.restro_link
         ? [
-          {
-            name: "RESTAURANT CRM",
-            url:
-            `https://merkoll.com/auth/login`,
-            icon: Frame,
-            darkImage: "/images/svg/morefood.svg",
-            lightImage: "/images/svg/morefood.svg",
-          },
-        ]
+            {
+              name: "RESTAURANT CRM",
+              url: `https://merkoll.com/auth/login`,
+              icon: Frame,
+              darkImage: "/images/svg/morefood.svg",
+              lightImage: "/images/svg/morefood.svg",
+            },
+          ]
         : []),
     ],
   };
