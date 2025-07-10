@@ -218,6 +218,51 @@ export const fetchHOTDealsList = async (
   }
 };
 
+
+export const fetchBusinessOfferList = async (): Promise<OfferType[]> => {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+   
+    const endpoint = `${baseUrl}public/offers/NP/list/`
+
+    const config = {
+            params: {
+              offer_filter: "normal",
+            },
+          }
+        
+
+    const response = await MorefoodApiClientWithoutAccess.get(endpoint, config)
+    return response.data.data || [];
+  } catch (error: any) {
+    console.error("Error fetching offers:", error);
+    return [];
+  }
+};
+
+
+export const fetchBusinessHOTDealsList = async (
+  country: string | null,
+  city_code: string | null
+): Promise<OfferType[]> => {
+  try {
+    const endpoint = `${baseUrl}public/offers/${country}/list/`;
+    const config = {
+      params: {
+        city_code: city_code,
+        offer_filter: "hotdeals",
+      },
+    };
+
+    const response = await MorefoodApiClientWithoutAccess.get(endpoint, config);
+    return response.data.data || [];
+  } catch (error: any) {
+    console.error("Error fetching offers:", error);
+    return [];
+  }
+};
+
+
 // export const fetchPopularRestaurants = async (
 //   city_code: string | null
 // ): Promise<ResturantListType[]> => {
