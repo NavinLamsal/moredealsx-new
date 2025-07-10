@@ -174,11 +174,16 @@ export const fetchOfferList = async (
 
     const config =
       isMoreFood || All
-        ? {} // No params for morefood
+        ? {
+            params: {
+              offer_filter: "normal",
+            },
+          }
         : {
             params: {
               // country_code: country,
               ...(category !== "All" && { platform: category }),
+              offer_filter: "normal",
             },
           };
 

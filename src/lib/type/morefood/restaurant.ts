@@ -14,6 +14,15 @@ export interface ResturantListType {
   menu_count?: number;
 }
 
+export interface BusinessRestaurantList {
+  id: string;
+  name: string;
+  address: string;
+  slug: string;
+  banner: string;
+  is_open: boolean;
+}
+
 export interface CategoryListType {
   name: string;
   icon: string;

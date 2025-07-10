@@ -49,7 +49,6 @@ export default function OfferSection({
     enabled: !!country,
   });
 
-
   function isMoreFoodOffers(data: OfferType[]): data is OfferType[] {
     return data.length > 0 && "domain_name" in data[0];
   }
@@ -91,7 +90,7 @@ export default function OfferSection({
               {offerrs.map((offer, index) => (
                 <div className="flex-shrink-0 w-72" key={offer.id}>
                   <AnimatedSection index={index}>
-                    <MoreOfferCard item={offer} />
+                    <MoreOfferCard item={offer} isOffer={true} />
                   </AnimatedSection>
                 </div>
               ))}
@@ -101,7 +100,7 @@ export default function OfferSection({
               {(offerrs as OfferType[]).map((offer, index) => (
                 <div className="flex-shrink-0 w-72" key={offer.id}>
                   <AnimatedSection index={index}>
-                    <OfferCard offer={offer} ref={null} />
+                    <OfferCard offer={offer} ref={null} isOffer={true} />
                   </AnimatedSection>
                 </div>
               ))}

@@ -9,6 +9,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Montserrat } from "next/font/google";
+import Image from "next/image";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export function TeamSwitcher({
@@ -52,14 +53,34 @@ export function TeamSwitcher({
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-center my-5 ">
-            <div className="w-6 h-8 relative mr-1">
-              <span className="absolute  font-extrabold  -translate-y-1/2 w-4 h-4 text-primary -rotate-45 text-4xl">
-                +
-              </span>
-            </div>
+          // <div className="flex items-center justify-center my-5 ">
+          //   <div className="w-6 h-8 relative mr-1">
+          //     <span className="absolute  font-extrabold  -translate-y-1/2 w-4 h-4 text-primary -rotate-45 text-4xl">
+          //       +
+          //     </span>
+          //   </div>
+          //   <div
+          //     className={`${montserrat.className} uppercase text-2xl font-extrabold tracking-wide text-foreground `}
+          //   >
+          //     MORE<span className="text-primary">DEALS</span>X
+          //   </div>
+          // </div>
+
+          <div className="flex items-center justify-center my-5">
+            {/* New "X" Image positioned like the old "+" sign */}
+            {/* <div className="w-6 h-8 relative mr-1 flex items-center justify-center">
+              <Image
+                src="/images/png/moredealsxnew.png"
+                alt="x logo"
+                width={32}
+                height={32}
+                className="w-4 h-4 object-contain"
+              />
+            </div> */}
+
+            {/* Logo Text */}
             <div
-              className={`${montserrat.className} uppercase text-2xl font-extrabold tracking-wide text-foreground `}
+              className={`${montserrat.className} uppercase text-2xl font-extrabold tracking-wide text-foreground`}
             >
               MORE<span className="text-primary">DEALS</span>X
             </div>

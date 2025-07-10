@@ -1,19 +1,33 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import { OfferType } from "@/lib/action/PublicCommonClient";
 
 interface OfferCardProps {
   item: OfferType;
+  isOffer?: boolean;
 }
 
 const MoreOfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
-  ({ item }, ref) => {
-  
+  ({ item, isOffer }, ref) => {
     const handleRedirection = () => {
-      window.open(`https://${item.domain_name}.merkoll.com/${item.restro_slug}/#offers`, "_blank");
-      
+      window.open(
+        `https://${item.domain_name}.merkoll.com/${item.restro_slug}/#offers`,
+        "_blank"
+      );
     };
+
+    const descRef = useRef<HTMLParagraphElement>(null);
+    const [isTruncated, setIsTruncated] = useState(false);
+    const [expanded, setExpanded] = useState(false);
+
+    useEffect(() => {
+      const element = descRef.current;
+      if (element) {
+        const isOverflowing = element.scrollHeight > element.clientHeight;
+        setIsTruncated(isOverflowing);
+      }
+    }, [item.description]);
 
     return (
       <div
@@ -58,9 +72,32 @@ const MoreOfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
               </span>
             )}
           </div>
-          <p className="sm:text-sm text-xs text-muted-foreground mb-4 line-clamp-2 h-6">
-            {item.description}
-          </p>
+          {isOffer ? (
+            <>
+              <p
+                ref={descRef}
+                className={`sm:text-sm text-xs text-muted-foreground  transition-all ${
+                  expanded ? "" : "line-clamp-2 h-6"
+                }`}
+              >
+                {item.description}
+              </p>
+
+              {isTruncated && (
+                <button
+                  onClick={() => setExpanded((prev) => !prev)}
+                  className="text-red-600 text-xs mb-2 underline"
+                >
+                  {expanded ? "Read Less" : "Read More"}
+                </button>
+              )}
+            </>
+          ) : (
+            <p className="sm:text-sm text-xs text-muted-foreground mb-4 line-clamp-2 h-6">
+              {item.description}
+            </p>
+          )}
+
           <Button
             onClick={handleRedirection}
             className="bg-red-600 text-white w-full py-2 font-bold rounded hover:bg-red-700"
