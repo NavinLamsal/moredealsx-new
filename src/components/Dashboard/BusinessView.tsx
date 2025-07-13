@@ -1,3 +1,4 @@
+"use client"
 import React, { Suspense } from 'react'
 import HotDeals from '../offers/restaurants/hotDeals'
 import OfferSection from '../offers/OfferSection'

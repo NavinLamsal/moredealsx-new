@@ -15,7 +15,7 @@ import OfferSection from "@/components/offers/OfferSection"
 
 
 
-export default async function Page() {
+export default function Page() {
   return (
     <div className="flex-1 space-y-4  pt-6">
       <BusinessSetupModal />

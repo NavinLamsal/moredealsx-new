@@ -3,6 +3,7 @@ import MoreClubApiClient from "../axios/moreclub/MoreClubApiClient";
 import MorefoodApiClientWithoutAccess from "../axios/morefood/MorefoodApiClientWithoutAccess";
 import { MetaData } from "../type/CommonType";
 import { ResturantListType } from "../type/morefood/restaurant";
+import MoreFoodApiClient from "../axios/morefood/MoreFoodApiClient";
 
 export interface Offer {
   banner: string;
@@ -219,68 +220,53 @@ export const fetchHOTDealsList = async (
 };
 
 
-export const fetchBusinessOfferList = async (): Promise<OfferType[]> => {
+export const fetchBusinessOfferList = async (
+  page: number
+ ): Promise<{data:OfferType[] , meta:MetaData}> => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
    
-    const endpoint = `${baseUrl}public/offers/NP/list/`
+    const endpoint = `${baseUrl}public/offers/my-business/offers/`
 
     const config = {
             params: {
+              page: page,
               offer_filter: "normal",
             },
           }
         
 
-    const response = await MorefoodApiClientWithoutAccess.get(endpoint, config)
-    return response.data.data || [];
+    const response = await MoreFoodApiClient.get(endpoint, config)
+    return response.data || [];
   } catch (error: any) {
     console.error("Error fetching offers:", error);
-    return [];
+    return {data:[],meta:{} as MetaData};
   }
 };
 
 
 export const fetchBusinessHOTDealsList = async (
-  country: string | null,
-  city_code: string | null
-): Promise<OfferType[]> => {
+ page: number
+): Promise<{data:OfferType[] , meta:MetaData}> => {
   try {
-    const endpoint = `${baseUrl}public/offers/${country}/list/`;
+    const endpoint = `${baseUrl}public/offers/my-business/offers/`;
     const config = {
       params: {
-        city_code: city_code,
+        page: page,
         offer_filter: "hotdeals",
       },
     };
 
-    const response = await MorefoodApiClientWithoutAccess.get(endpoint, config);
-    return response.data.data || [];
+    const response = await MoreFoodApiClient.get(endpoint, config);
+    return response.data || [];
   } catch (error: any) {
     console.error("Error fetching offers:", error);
-    return [];
+    return {data:[],meta:{} as MetaData};
   }
 };
 
 
-// export const fetchPopularRestaurants = async (
-//   city_code: string | null
-// ): Promise<ResturantListType[]> => {
-//   try {
-//     const endpoint = `${baseUrl}public/restaurants/popular/list/`;
-//     const config = {
-//       params: {
-//         city_code: city_code,
-//       },
-//     };
 
-//     const response = await MorefoodApiClientWithoutAccess.get(endpoint, config);
-//     return response.data.data || [];
-//   } catch (error: any) {
-//     console.error("Error fetching popular restaurants:", error);
-//     return [];
-//   }
-// };
 
 export const fetchNearbyRestaurants = async (
   city_code: string | null

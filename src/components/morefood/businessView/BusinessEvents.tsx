@@ -17,7 +17,7 @@ const RestaurantEventList = () => {
 
   return (
     <InfiniteList
-      queryKey="restro-events-list"
+      queryKey="business-events-list"
       fetchFunction={fetchWithCountry}
       loadingFallback={<TrendingEventSkeleton />}
       emptyFallback={<p className="text-center">No Events Found</p>}

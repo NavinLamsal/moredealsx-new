@@ -1,11 +1,9 @@
 "use client";
 import MoreOfferCard from "@/components/cards/moreclub/morefoodoffer/MorefoodOfferCard";
-import HorizontalCarousel from "@/components/carousel/horizontalCarousel";
-import OfferSkeleton from "@/components/Skeletons/OfferSkeelton";
+import InfiniteHorizontalCarouselWithNav from "@/components/lists/InitinteHorizontalListing";
 import AnimatedSection from "@/components/ui/animations/FadeUpView";
-import { fetchBusinessHOTDealsList } from "@/lib/action/PublicCommonClient";
-import { useQuery } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
+import { fetchBusinessHOTDealsList, OfferType } from "@/lib/action/PublicCommonClient";
+
 
 export default function HotDeals({
   Dashboard,
@@ -16,55 +14,39 @@ export default function HotDeals({
   title?: string;
   classname?: string;
 }) {
-  const session = useSession();
-  const country_code =
-    typeof window !== "undefined" ? localStorage.getItem("country_code") : null;
-  const city_code =
-    typeof window !== "undefined" ? localStorage.getItem("city_code") : null;
 
-  const {
-    data: offerrs = [],
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["business offers", "hotdeals", country_code , city_code],
-    queryFn: async () => await fetchBusinessHOTDealsList(country_code, city_code),
-    staleTime: 360000,
-    enabled: !!country_code,
-  });
+  // const {
+  //   data: offerrs = [],
+  //   isLoading,
+  //   isError,
+  // } = useQuery({
+  //   queryKey: ["business offers", "hotdeals", ],
+  //   queryFn: async () => await fetchBusinessHOTDealsList(),
+  //   staleTime: 360000,
+  // });
+
+  const fetchData = (page: number) => fetchBusinessHOTDealsList(page);
 
 
   return (
     <section
-      className={` py-20 ${Dashboard ? "w-full" : "w-11/12 mx-auto"} `}
-      id="offers"
+      className={` pt-20 ${Dashboard ? "w-full" : "w-11/12 mx-auto"} `}
+      id="business-offers"
     >
-      <HorizontalCarousel
-        title={title}
-        dashboard={Dashboard}
-        center={false}
-        viewAll="/hot-deals"
-      >
-        {isError ? (
-          <p className="text-center text-red-500 py-12 bg-card w-full ">
-            Failed to load offers.
-          </p>
-        ) : isLoading ? (
-          <OfferSkeleton />
-        ) : offerrs && offerrs.length === 0 ? (
-          <p className="py-12 bg-card w-full  text-center">
-            Hot deals are not available
-          </p>
-        ) : (
-          offerrs.map((offer, index) => (
-            <div className="flex-shrink-0 w-72" key={offer.id}>
+      <InfiniteHorizontalCarouselWithNav
+         title="Your Hot Deals"
+         queryKey="business-offers-hotdeals"
+          fetchFunction={fetchData}
+          renderItem={(offer, index, ref) => (
+            <div key={offer.id} className="flex-shrink-0 w-60 lg:w-72" ref={ref}>
               <AnimatedSection index={index}>
-                <MoreOfferCard item={offer} />
+                <MoreOfferCard item={offer as OfferType}  />
               </AnimatedSection>
             </div>
-          ))
-        )}
-      </HorizontalCarousel>
+          )}
+        
+  
+/>
     </section>
   );
 }

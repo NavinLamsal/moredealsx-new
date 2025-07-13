@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import BusinessRestaurantList from '../BusinessRestaurants'
 import BusinessHotDeals from './BusinessHotDeals'

@@ -53,8 +53,8 @@ export const useFetchEvents = () => {
   }> => {
     try {
       const pages = page ?? 1;
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}public/events/${country}/list/?page=${pages}`
+      const response = await MoreClubApiClient.get(
+        `${process.env.NEXT_PUBLIC_API_URL}public/events/my-business/events/?page=${pages}`
       );
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {

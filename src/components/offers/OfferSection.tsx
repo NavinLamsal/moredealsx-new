@@ -14,6 +14,7 @@ import CategorySelector from "./OfferCategory";
 import OfferSkeleton from "../Skeletons/OfferSkeelton";
 import MoreOfferCard from "../cards/moreclub/morefoodoffer/MorefoodOfferCard";
 import { useBusinessType } from "@/hooks/useBusinessType"; // your hook path
+import ComingSoon from "../cards/ComingSoon";
 
 const baseCategories = [
   { title: "All", value: "All" },
@@ -59,16 +60,54 @@ export default function OfferSection({
     });
   }, [businessType, businessLoading]);
 
+  // useEffect(() => {
+  //   // If current active category is not allowed, reset it
+  //   const isCategoryAllowed = filteredCategories.some(
+  //     (cat) => cat.value === activeCategory
+  //   );
+
+  //   if (!isCategoryAllowed) {
+  //     setActiveCategory("All");
+  //   }
+  // }, [filteredCategories, activeCategory]);
+
   useEffect(() => {
-    // If current active category is not allowed, reset it
     const isCategoryAllowed = filteredCategories.some(
       (cat) => cat.value === activeCategory
     );
-
+  
     if (!isCategoryAllowed) {
       setActiveCategory("All");
+      return;
     }
-  }, [filteredCategories, activeCategory]);
+  
+    // Apply logic ONLY if activeCategory is "All" and has no offers
+    if (
+      activeCategory === "All" &&
+      !isLoading &&
+      !isError &&
+      offerrs.length === 0
+    ) {
+      const currentIndex = filteredCategories.findIndex(
+        (cat) => cat.value === "All"
+      );
+  
+      // Check the next category in the list
+      const nextCategory = filteredCategories[currentIndex + 1];
+  
+      if (nextCategory) {
+        fetchOfferList(nextCategory.value, country).then((nextOffers) => {
+          // Only switch if the next one has offers
+          if (nextOffers.length > 0) {
+            setActiveCategory(nextCategory.value);
+          } else {
+            // else do nothing and let it show ComingSoon or message
+          }
+        });
+      }
+    }
+  }, [filteredCategories, activeCategory, isLoading, isError, offerrs.length]);
+  
 
 
 
@@ -112,7 +151,7 @@ export default function OfferSection({
             <p className="py-12 bg-card w-full text-center">
               {(activeCategory === "All" || activeCategory === "morefood")
                 ? "No offers found."
-                : "Stay tuned! Coming soon."}
+                : <ComingSoon/>}
             </p>
           ) : activeCategory === "morefood" && isMoreFoodOffers(offerrs) ? (
             <HorizontalCarouselWithOutTitle title="">
