@@ -6,9 +6,6 @@ import { useFetchEvents } from "@/lib/action/moreClub/Events";
 import EventCard from "../cards/moreclub/EventCard";
 import TrendingEventSkeleton from "../Skeletons/EventSkeleton";
 
-
-
-
 const RestaurantTrendingEvents = ({title = "Trending Events" , dashboard =true}: {title?: string , dashboard?: boolean}) => {
   const country = typeof window !== "undefined" ? localStorage.getItem("country_code") : null;
     const { fetchRestroEventsList} = useFetchEvents()
@@ -40,19 +37,6 @@ const RestaurantTrendingEvents = ({title = "Trending Events" , dashboard =true}:
 
   return (
     <div className="">
-      {/* <HorizontalCarousel title={title}>
-      {data.data.map((event, index) => (
-        <div className="flex-shrink-0 w-48 lg:w-60" key={event.id}>
-         <AnimatedSection key={event.id} index={index}>
-         <EventCard
-            key={index}
-            event={event}
-            ref={null} 
-          />
-          </AnimatedSection>
-          
-        </div>
-     ))} */}
      <HorizontalCarousel title={title} dashboard={dashboard} center={false} viewAll="/event/restaurant/">
       {data?.data.map((event, index) => (
         <div className="flex-shrink-0 w-72" key={event.id}>
