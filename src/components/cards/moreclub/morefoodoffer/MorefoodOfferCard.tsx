@@ -32,7 +32,7 @@ const MoreOfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
     return (
       <div
         ref={ref}
-        className="group bg-card text-card-foreground flex flex-col h-full rounded-xl shadow-lg overflow-hidden  transform transition duration-300 hover:-translate-y-2  w-full"
+        className="group bg-card text-card-foreground flex flex-col rounded-xl shadow-lg overflow-hidden  transform transition duration-300 hover:-translate-y-2  w-full h-full"
       >
         <div className="relative">
           <Image
@@ -58,7 +58,7 @@ const MoreOfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
             </span>
           )}
         </div>
-        <div className="p-4 grow">
+        <div className="p-4 flex flex-col flex-1 grow justify-between items-start">
           <h3 className="text-yellow-500 font-bold smLtext-lg text-base">
             {item.name}
           </h3>
@@ -66,11 +66,13 @@ const MoreOfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
             <span className=" font-bold md:text-xl text-sm">
               {item.currency_code} {item.price}
             </span>
-            {item.orginal_price !== item.price && (
-              <span className=" font-bold md:text-sm text-xs line-through text-red-500">
-                {item.currency_code} {item.orginal_price}
-              </span>
-            )}
+            {item.orginal_price !== item.price &&
+              item.orginal_price !== 0 &&
+              item.orginal_price !== 0.0 && (
+                <span className=" font-bold md:text-sm text-xs line-through text-red-500">
+                  {item.currency_code} {item.orginal_price}
+                </span>
+              )}
           </div>
           {isOffer ? (
             <>
