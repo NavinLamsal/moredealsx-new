@@ -19,7 +19,10 @@ async function refreshAccessToken(token: any) {
       ? decodedToken.exp * 1000
       : undefined;
     if (Date.now() >= (refreshTokenExpires as number)) {
-      signOut();
+      return {
+        ...token,
+        error: "RefreshTokenExpired",
+      };
     }
   }
   try {
@@ -45,16 +48,34 @@ async function refreshAccessToken(token: any) {
       );
     }
 
+    const decodedAccessToken = jwtDecode(tokens.access);
+    const newAccessTokenExpires = decodedAccessToken.exp
+      ? decodedAccessToken.exp * 1000 // Convert to milliseconds
+      : Date.now() + 30 * 60 * 1000; // Fallback to 30 minutes from now
+
     return {
       ...token,
       user: {
         ...token.user,
         accessToken: tokens.access,
         refreshToken: tokens.refresh ?? token.user.refreshToken, // Fall back to old refresh token
+        accessTokenExpires: newAccessTokenExpires,
       },
       accessToken: tokens.access,
       refreshToken: tokens.refresh ?? token.user.refreshToken, // Fall back to old refresh token
+      accessTokenExpires: newAccessTokenExpires,
     };
+
+    // return {
+    //   ...token,
+    //   user: {
+    //     ...token.user,
+    //     accessToken: tokens.access,
+    //     refreshToken: tokens.refresh ?? token.user.refreshToken, // Fall back to old refresh token
+    //   },
+    //   accessToken: tokens.access,
+    //   refreshToken: tokens.refresh ?? token.user.refreshToken, // Fall back to old refresh token
+    // };
   } catch (error) {
     return {
       ...token,
@@ -71,7 +92,7 @@ export const {
 } = NextAuth({
   session: {
     strategy: "jwt",
-    maxAge: 30 * 60, // 1 Day
+    maxAge: 30 * 60 * 60, // 3 hours
   },
   pages: {
     signIn: "/auth/login",
@@ -129,7 +150,6 @@ export const {
             }
           );
 
-      
           const loginData = await loginResponse.json();
 
           // ✅ Check if login was unsuccessful
@@ -177,11 +197,11 @@ export const {
       session?: any;
     }) => {
       if (account && user) {
-
         return {
           ...token,
           accessToken: token?.accessToken,
           refreshToken: token?.refreshToken,
+          accessTokenExpires: Date.now() + 30 * 60 * 1000,
           user: user,
         };
       }
@@ -245,7 +265,6 @@ export const {
 });
 
 export async function fetchUserDetails(token: string) {
- 
   try {
     // Fetch user details
     const userResponse = await fetch(
@@ -260,7 +279,6 @@ export async function fetchUserDetails(token: string) {
 
     if (!userResponse.ok) throw new Error("Failed to fetch user details");
     const userData = await userResponse.json();
- 
 
     const userDetails = {
       username: userData?.data?.username,
