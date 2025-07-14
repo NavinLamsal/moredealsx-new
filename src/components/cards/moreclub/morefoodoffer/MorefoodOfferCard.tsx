@@ -59,7 +59,7 @@ const MoreOfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
           )}
         </div>
         <div className="p-4 flex flex-col flex-1 grow justify-between items-start">
-          <h3 className="text-yellow-500 font-bold smLtext-lg text-base">
+          <h3 className="text-yellow-500 font-bold smLtext-lg text-base line-clamp-1">
             {item.name}
           </h3>
           <div className="flex items-center gap-2 my-2">
