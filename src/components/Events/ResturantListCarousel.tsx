@@ -45,6 +45,7 @@ const RestaurantTrendingEvents = ({title = "Trending Events" , dashboard =true}:
             key={index}
             {...event}
             domain_name={event.domain_name}
+            restro_slug={event.restro_slug}
             platform="morefood"
             ref={null} 
           />
