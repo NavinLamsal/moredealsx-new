@@ -14,7 +14,7 @@ import { AppDispatch, RootState } from "@/lib/redux/store";
 import { fetchBusinessTypes } from "@/lib/action/moreClub/Business";
 import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 import { businessQrinfoUpdate } from "@/lib/redux/slice/moreclub/BusinessSlice";
-import { Loader2 } from "lucide-react";
+import { CircleAlert, Loader2 } from "lucide-react";
 import { showToast } from "@/lib/utilities/toastService";
 
 const BusinessTypes: React.FC = () => {
@@ -195,6 +195,12 @@ const BusinessTypes: React.FC = () => {
                     handleAffiliatedDiscountChange(index, e.target.value)
                   }
                 />
+                <div className="text-xs text-red-500 mt-1 flex items-center gap-1">
+                  <div className="w-5 h-5 place-self-start">
+                    <CircleAlert className="w-5 h-5 " strokeWidth={1.5} />
+                  </div>
+                  <p>Affiliated discount must be greater than 5%</p>
+                </div>
               </div>
 
               {/* Individual Submit Button */}
