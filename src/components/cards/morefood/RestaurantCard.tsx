@@ -1,16 +1,22 @@
 import { ResturantListType } from "@/lib/type/morefood/restaurant";
 import { BookOpen, Crown, MoonIcon } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { forwardRef } from "react";
 
 type RestaurantCardProps = ResturantListType
 
-const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner, address, id, slug, open_hrs, name, avg_rating, review_count, offers,  menu_count}, ref) => {
+const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner, address, id, slug, open_hrs, name, avg_rating, review_count, offers,  menu_count , domain}, ref) => {
+
+
+  const handleRedirection = () => {
+    window.open(`https://${domain}.merkoll.com/${slug}`, "_blank");
+  };
+
 
   return (
-    <Link href={`/morefood/restaurant/${slug}`}>
+    // <Link href={`/morefood/restaurant/${slug}`}>
       <div
+        onClick={handleRedirection}
         ref={ref}
         className="w-full min-w-xs max-w-xs rounded-lg overflow-hidden transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg active:shadow-xl hover:bg-card active:bg-card bg-white dark:bg-zinc-900  border border-white/25"
       >
@@ -59,7 +65,7 @@ const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(({ banner
           </div>
         </div>
       </div>
-    </Link>
+    // </Link>
   );
 });
 

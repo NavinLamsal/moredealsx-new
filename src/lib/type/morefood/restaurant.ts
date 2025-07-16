@@ -12,6 +12,7 @@ export interface ResturantListType {
   review_count: number;
   avg_rating: number;
   menu_count?: number;
+  domain?:string
 }
 
 export interface BusinessRestaurantList {
