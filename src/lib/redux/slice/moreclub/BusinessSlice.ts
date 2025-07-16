@@ -2,42 +2,39 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Define TypeScript Interfaces
 interface BusinessType {
-  id:string,
-    name: string,
-    image : string,
-    banner : string,
+  id: string;
+  name: string;
+  image: string;
+  banner: string;
 }
 
-
-
 export interface BusinessQRInfo {
-   
   business_type_id: string;
   discount: string;
   business_type_name?: string;
   // Add other properties as needed
   business_type_icon?: string;
   qr_code?: string;
+  affilated_discount?: string;
 }
 
 interface BusinessProfile {
-  id: string // 265294155914468256035831662212092080783,
-  business_logo: string // "https://res.cloudinary.com/dmginqfq4/image/upload/v1/media/business/logo/1000000048_rz8re4",
-  business_name: string // "Kusal",
-  business_address: string // "Gharipatan, Pokhara",
-  lng: string // "83.9660283",
-  lat: string // "28.1895717",
-  business_email: string // "a@gmail.co",
-  business_phone: string // "99989899",
-  business_registration_number: string // "9289299",
-  business_documents: string // "https://res.cloudinary.com/dmginqfq4/image/upload/v1/media/business/documents/1000000048_dyjuix",
-  business_tax_documents: string // null,
-  is_verified: string // true,
-  not_verified: string // false,
-  is_automatic_fund: string // false,
-  is_active: string // true,
-  qr_code: string // "https://res.cloudinary.com/dmginqfq4/image/upload/v1/media/business/qr_code/qr_code_207a6f76-9465-4751-ac5d-6ac651859bd0_oosbeg"
-
+  id: string; // 265294155914468256035831662212092080783,
+  business_logo: string; // "https://res.cloudinary.com/dmginqfq4/image/upload/v1/media/business/logo/1000000048_rz8re4",
+  business_name: string; // "Kusal",
+  business_address: string; // "Gharipatan, Pokhara",
+  lng: string; // "83.9660283",
+  lat: string; // "28.1895717",
+  business_email: string; // "a@gmail.co",
+  business_phone: string; // "99989899",
+  business_registration_number: string; // "9289299",
+  business_documents: string; // "https://res.cloudinary.com/dmginqfq4/image/upload/v1/media/business/documents/1000000048_dyjuix",
+  business_tax_documents: string; // null,
+  is_verified: string; // true,
+  not_verified: string; // false,
+  is_automatic_fund: string; // false,
+  is_active: string; // true,
+  qr_code: string; // "https://res.cloudinary.com/dmginqfq4/image/upload/v1/media/business/qr_code/qr_code_207a6f76-9465-4751-ac5d-6ac651859bd0_oosbeg"
 }
 
 // Define State
@@ -100,7 +97,6 @@ export const businessSlice = createSlice({
       state.isLoading = false;
     },
 
-
     // Fetch Business QR Info
     businessQRInfoSuccess: (state, action: PayloadAction<BusinessQRInfo[]>) => {
       state.businessQRInfo = action.payload;
@@ -119,7 +115,6 @@ export const businessSlice = createSlice({
       } else {
         state.businessQRInfo.push(action.payload);
       }
-
     },
   },
 });
