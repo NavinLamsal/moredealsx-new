@@ -3,10 +3,7 @@
 import * as React from "react";
 import {
   BookOpen,
-  Bot,
-  Frame,
-  Map,
-  PieChart,
+  Frame, 
   Settings,
   SquareTerminal,
 } from "lucide-react";
@@ -223,8 +220,7 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
           <NavMain items={data.navbusiness} title="Business" />
         )}
         <NavProjects projects={data.projects} />
-        {user?.profile?.user_type === "BUSINESS" &&
-          session?.data?.user?.userDetails?.crm_link && (
+        {session?.data?.user?.userDetails?.crm_link && (
             <NavCRM projects={data.crm} />
           )}
       </SidebarContent>

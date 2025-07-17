@@ -1,22 +1,23 @@
 
+
+
 "use client";
+import EventCard from "@/components/cards/moreclub/EventCard";
+import InfiniteList from "@/components/lists/infiniteListing";
+import TrendingEventSkeleton from "@/components/Skeletons/EventSkeleton";
+import AnimatedSection from "@/components/ui/animations/FadeUpView";
 import { useFetchEvents } from "@/lib/action/moreClub/Events";
-import EventCard from "../cards/moreclub/EventCard";
-import AnimatedSection from "../ui/animations/FadeUpView";
-import TrendingEventSkeleton from "../Skeletons/EventSkeleton";
-import InfiniteList from "../lists/infiniteListing";
 
 
 const RestaurantEventList = () => {
 
   const country = typeof window !== "undefined" ? localStorage.getItem("country_code") : null;
-  const { fetchRestroEventsList } = useFetchEvents();
-  const fetchWithCountry = (page: number) => fetchRestroEventsList(country!, page);
-
+  const { fetchRestroBusinessEventsList } = useFetchEvents();
+  const fetchWithCountry = (page: number) => fetchRestroBusinessEventsList(country!, page);
 
   return (
     <InfiniteList
-      queryKey="restro-events-list"
+      queryKey="business-events-list"
       fetchFunction={fetchWithCountry}
       loadingFallback={<TrendingEventSkeleton />}
       emptyFallback={<p className="text-center">No Events Found</p>}

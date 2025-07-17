@@ -5,6 +5,7 @@ import CountrySelect from "@/components/ui/customInputs/CountrySelect";
 import CurrencySelect from "@/components/ui/customInputs/CurrencySelectInput";
 import { prevStep, updateField } from "@/lib/redux/slice/RegistrationSlice";
 import { RootState } from "@/lib/redux/store";
+import { showToast } from "@/lib/utilities/toastService";
 import { removePrefix } from "@/lib/utils";
 import { validateRequired } from "@/lib/validation/common";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -181,8 +182,8 @@ const CurrencyForm = () => {
         // window.location.replace("/auth/otp-verify");
         router.push("/auth/otp-verify");
       }
-    } catch (err) {
-      console.log(err);
+    } catch (err:any) {
+      showToast( `${err?.response?.data?.errors.non_field_errors[0] || err?.response?.data?.message || "Something went wrong"}`, "error");
     } finally {
       setLoading(false);
     }

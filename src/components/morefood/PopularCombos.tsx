@@ -1,6 +1,5 @@
 "use client";
 import { useFetchRestaurant } from "@/lib/action/morefood/restaurantlist";
-import RestaurantCard from "../cards/morefood/RestaurantCard";
 import HorizontalCarousel from "../carousel/horizontalCarousel";
 import { useQuery } from "@tanstack/react-query";
 import { CardSkeleton } from "../Skeletons/CardSkeleton";

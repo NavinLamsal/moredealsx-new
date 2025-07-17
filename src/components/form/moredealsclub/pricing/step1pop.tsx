@@ -1,7 +1,5 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { RootState } from "@/lib/redux/store";
 import { AlertOctagonIcon } from "lucide-react";
@@ -80,10 +78,12 @@ const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, onS
               >
                 <span className="text-md font-semibold">{pack?.name}</span>
                 <span className="text-sm text-muted-foreground">
-                  {pack.code === "free" ? "Try for Free" : `${pack.currency_symbol} ${data.plan_time === "yearly" ? pack.yearly_price : pack.price}`}                 
+                  {pack.code === "free" ? "Try for Free" : `${pack.currency_symbol} ${data.plan_time === "yearly" ? `${pack.yearly_price}` : pack.price}`}                 
                 </span>
-                <span className="text-sm text-muted-foreground">
-                  {pack.code === "free" ? "" : `No hidden fees`}                 
+                <span className="text-xs text-black text-center">
+                {data.plan_time === "yearly" && `(${pack.currency_symbol} ${pack.price} x 11)`}  <br/>
+                  {pack.code === "free" ? "" : `No hidden fees`} 
+                                
                 </span>
                 {pack?.name.includes("Power Saver") &&
                   <div>
@@ -92,9 +92,7 @@ const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, onS
 
                   </div>}
                 {pack.free_trial?.is_free_trial && <div>
-
-                  <span className='inline-flex px-3 py-1 text-xs font-semibold text-center  rounded-full '>Free 30 days Trial and join {pack?.name} Plan with {pack.currency_symbol} {data.plan_time === "yearly" ? pack.yearly_price : pack.price} {data.plan_time}</span>
-
+                  <span className='inline-flex px-3 py-1 text-xs font-semibold text-center  rounded-full '>30-day trial, no credit card required</span>
                 </div>}
               </label>
             </div>
@@ -102,6 +100,7 @@ const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, onS
         </RadioGroup>
         {errors.package && <p className="text-red-500">{errors.package}</p>}
       </div>
+
 
       {(user.profile?.user_type === "NORMAL" && packages.find((p: Package) => p.id === data.package)?.code === "free") ? (
         <Button type="button" onClick={onSkip} className="w-full" disabled={isLoading}>

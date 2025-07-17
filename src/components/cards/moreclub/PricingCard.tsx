@@ -1,4 +1,4 @@
-// import { Package } from '@/lib/redux/slice/moreclub/Pricing';
+// import { tierage } from '@/lib/redux/slice/moreclub/Pricing';
 // import { CheckIcon } from 'lucide-react';
 // import React from 'react'
 
@@ -264,6 +264,12 @@ const PricingCard = ({
           </span>
         </div>
         {/* <p>{tier?.description}</p> */}
+        
+                <span className="text-xs text-white text-start">
+                {billingCycle === "yearly" && `(${tier.currency_symbol} ${tier.price} x 11)`}  <br/>
+                  {tier.code === "free" ? "" : `No hidden fees`} 
+                                
+                </span>
 
         {tier.name.includes("Power Saver") &&
           <div>
@@ -308,11 +314,10 @@ const PricingCard = ({
       :
       <>
       <Button variant={tier.name.includes("Power Saver") ? "default" : "outline"} className='border-black dark:border-white w-full mt-4 py-5 h-12 font-bold'>
-        {tier.name.includes("Power Saver") ? "Start 30-day Trial" : tier.name.includes("custom") ? "Contact Sales" : "Get Started"}
+        {tier.free_trial?.is_free_trial ? "Start 30-day Trial" : tier.name.includes("custom") ? "Contact Sales" : "Get Started"}
       </Button>
-      {tier.name.includes("Power Saver") &&
-        <p className='text-center mt-4 text-sm '>or {tier.currency_symbol}
-          {billingCycle === "yearly" ? tier.yearly_price : tier.price}/{billingCycle} (save 34%)</p>}
+      {tier.free_trial?.is_free_trial &&
+        <p className='text-center mt-4 text-sm '> No credit card required</p>}
       
       </>
     }
