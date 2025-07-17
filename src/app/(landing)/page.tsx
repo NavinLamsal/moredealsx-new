@@ -1,4 +1,3 @@
-
 import RestaurantTrendingEvents from "@/components/Events/ResturantListCarousel";
 import TrendingEvents from "@/components/Events/TrendingEvent";
 import Hero from "@/components/Homes/hero";
@@ -14,8 +13,6 @@ import OfferSection from "@/components/offers/OfferSection";
 import HotDeals from "@/components/offers/restaurants/hotDeals";
 import { Suspense } from "react";
 
-
-
 export default async function Home() {
   return (
     <>
@@ -26,20 +23,11 @@ export default async function Home() {
       <Suspense fallback={<div>Loading...</div>}>
         <OfferSection classname="min-[660px]:pl-0 min-[570px]:pl-20 min-[460px]:pl-40 pl-64" />
       </Suspense>
-      
-      <TreasureSection />
-      
-      <PopularRestaurant />
-      
-      {/* <TicketSection /> */}
-      <PartnersSection />
-
-
 
       <FeaturedRestaurants />
-      <NearestRestaurant/>
+      <NearestRestaurant />
       <RestroList />
-      
+
       <div className="px-4">
         <RestaurantTrendingEvents
           title="Taste & Experience – Restaurant Events"
@@ -48,6 +36,13 @@ export default async function Home() {
         {/* <FeaturedRestaurants /> */}
         <TrendingEvents dashboard={false} />
       </div>
+
+      <TreasureSection />
+
+      <PopularRestaurant />
+
+      {/* <TicketSection /> */}
+      <PartnersSection />
 
       {/* <Salons />
       <Products />
