@@ -15,7 +15,7 @@ const RestroList = () => {
   const { fetchRestaurantList } = useFetchRestaurant();
   const { data, error, isLoading } = useQuery({
     queryKey: ["Restaurant List 1", "list", { country: country }],
-    queryFn: () => fetchRestaurantList(`list/${country}`, { }, 1),
+    queryFn: () => fetchRestaurantList(`list/${country}`, {}, 1),
     staleTime: 60000,
     enabled: !!country,
   });
@@ -38,10 +38,7 @@ const RestroList = () => {
 
   return (
     <div className="p-1 lg:p-4">
-      <HorizontalCarousel
-        title="All Restaurants"
-        viewAll="/morefood/category/popular?title=Popular Restaurants"
-      >
+      <HorizontalCarousel title="All Restaurants" viewAll="/morefood">
         {data.data.map((restaurant, index) => (
           <div className="flex-shrink-0 w-60" key={index}>
             <AnimatedSection key={restaurant.id} index={index}>
