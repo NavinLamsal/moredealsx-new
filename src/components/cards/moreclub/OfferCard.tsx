@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { OfferType } from "@/lib/action/PublicCommonClient";
 import Link from "next/link";
