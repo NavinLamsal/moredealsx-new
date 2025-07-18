@@ -270,6 +270,7 @@ import PricingCard from "@/components/cards/moreclub/PricingCard";
 import moment from "moment";
 import { useSession } from "next-auth/react";
 import { Package } from "@/lib/redux/slice/moreclub/Pricing";
+import Step1UpgradeForm from "./Step1UpgradeForm";
 
 const DEFAULT_PACKAGE = {
   id: "6de16bd7-2fbe-44d8-b057-2c3139744cc6",
@@ -475,7 +476,7 @@ const UpgradeForm = ({
 
   const steps = [
     {
-      component: Step1PopForm,
+      component: Step1UpgradeForm,
       props: {
         data: formData,
         errors,
