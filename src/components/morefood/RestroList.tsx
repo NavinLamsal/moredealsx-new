@@ -5,8 +5,10 @@ import HorizontalCarousel from "../carousel/horizontalCarousel";
 import { useQuery } from "@tanstack/react-query";
 import { CardSkeleton } from "../Skeletons/CardSkeleton";
 import AnimatedSection from "../ui/animations/FadeUpView";
+import { useSession } from "next-auth/react";
 
 const RestroList = () => {
+  const { data: session}  = useSession();
   // const city =
   //   typeof window !== "undefined" ? localStorage.getItem("city_code") : null;
   const country =
@@ -38,7 +40,7 @@ const RestroList = () => {
 
   return (
     <div className="p-1 lg:p-4">
-      <HorizontalCarousel title="All Restaurants" viewAll="/morefood">
+      <HorizontalCarousel title="All Restaurants" viewAll={session ? "/morefood" : "/category/all-restaurants?title=All Restaurants"}>
         {data.data.map((restaurant, index) => (
           <div className="flex-shrink-0 w-60" key={index}>
             <AnimatedSection key={restaurant.id} index={index}>
