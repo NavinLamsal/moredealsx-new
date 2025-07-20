@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { RootState } from "@/lib/redux/store";
-import { AlertOctagonIcon, CheckIcon, XIcon } from "lucide-react";
+import { AlertOctagonIcon } from "lucide-react";
 import React from "react";
 import { useSelector } from "react-redux";
 import { UpgradeFormDataType } from "./upgradeform";
@@ -18,85 +18,7 @@ interface Step1Props {
   isLoading: boolean;
 }
 
-const formatFeatures = (tier: Package) => {
-  return [
-    {
-      label: tier.morefood_business_discount
-        ? `${tier.morefood_business_discount}% Discounts on Morefood`
-        : `Discounts on Morefood not available`,
-      enabled: tier.morefood_business_discount != null,
-    },
-    {
-      label: tier.morefood_referral_precentage
-        ? `${tier.morefood_referral_precentage}% Referral Bonus on Morefood`
-        : `Referral on Morefood not available`,
-      enabled: tier.morefood_referral_precentage != null,
-    },
-    {
-      label: tier.salon_business_discount
-        ? `${tier.salon_business_discount}% Discounts on Salons`
-        : `Discounts on Salons not available`,
-      enabled: tier.salon_business_discount != null,
-    },
-    {
-      label: tier.salon_referral_precentage
-        ? `${tier.salon_referral_precentage}% Referral Bonus on Salons`
-        : `Referral on Salons not available`,
-      enabled: tier.salon_referral_precentage != null,
-    },
-    {
-      label: tier.hotel_business_discount
-        ? `${tier.hotel_business_discount}% Discounts on Hotels`
-        : `Discounts on Hotels not available`,
-      enabled: tier.hotel_business_discount != null,
-    },
-    {
-      label: tier.hotel_referral_precentage
-        ? `${tier.hotel_referral_precentage}% Referral Bonus on Hotels`
-        : `Referral on Hotels not available`,
-      enabled: tier.hotel_referral_precentage != null,
-    },
-    {
-      label: tier.marketplace_business_discount
-        ? `${tier.marketplace_business_discount}% Discounts on Marketplace`
-        : `Discounts on Marketplace not available`,
-      enabled: tier.marketplace_business_discount != null,
-    },
-    {
-      label: tier.marketplace_referral_precentage
-        ? `${tier.marketplace_referral_precentage}% Referral Bonus on Marketplace`
-        : `Referral on Marketplace not available`,
-      enabled: tier.marketplace_referral_precentage != null,
-    },
-    // {
-    //   label:
-    //     tier.max_networks_list
-    //       ? `Up to ${tier.max_networks_list} Network Connections`
-    //       : `Network Connections not available`,
-    //   enabled: tier.max_networks_list != null,
-    // },
-    // {
-    //   label:
-    //     tier.max_networks_bulk_mail_month
-    //       ? `Send ${tier.max_networks_bulk_mail_month} Bulk Emails per Month`
-    //       : `Bulk Emails not available`,
-    //   enabled: tier.max_networks_bulk_mail_month != null,
-    // },
-    // {
-    //   label:
-    //     tier.max_networks_bulk_sms_month
-    //       ? `Send ${tier.max_networks_bulk_sms_month} Bulk SMS per Month`
-    //       : `Bulk SMS not available`,
-    //   enabled: tier.max_networks_bulk_sms_month != null,
-    // },
-  ];
-};
-
-function classNames(...classes: (string | undefined | null | false)[]): string {
-  return classes.filter(Boolean).join(" ");
-}
-
-const Step1PopForm: React.FC<Step1Props> = ({
+const Step1UpgradeForm: React.FC<Step1Props> = ({
   data,
   errors,
   setData,
@@ -124,8 +46,6 @@ const Step1PopForm: React.FC<Step1Props> = ({
       setData("currency_code", selectedPack.currency_code);
     }
   };
-
-  console.log("Packages: ", packages);
 
   return (
     <div className="space-y-4">
@@ -217,32 +137,6 @@ const Step1PopForm: React.FC<Step1Props> = ({
                       </span>
                     </div>
                   )}
-                  <ul role="list" className="space-y-1 text-[10px]">
-                    {formatFeatures(pack).map(({ label, enabled }) => (
-                      <li
-                        key={label}
-                        className={classNames(
-                          enabled
-                            ? "text-foreground"
-                            : "text-muted-foreground ",
-                          "flex gap-x-3 items-center"
-                        )}
-                      >
-                        {enabled ? (
-                          <CheckIcon
-                            className="h-5 w-5 text-white"
-                            aria-hidden="true"
-                          />
-                        ) : (
-                          <XIcon
-                            className="h-5 w-5 text-muted-foreground"
-                            aria-hidden="true"
-                          />
-                        )}
-                        {label}
-                      </li>
-                    ))}
-                  </ul>
                 </label>
               </div>
             ))}
@@ -289,4 +183,4 @@ const Step1PopForm: React.FC<Step1Props> = ({
   );
 };
 
-export default Step1PopForm;
+export default Step1UpgradeForm;
