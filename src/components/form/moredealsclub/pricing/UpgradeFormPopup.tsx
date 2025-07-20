@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Step1PopForm from "./step1pop";
 import Step2PopForm from "./Step2pop";
 import Step3Form from "./Step3";
@@ -10,7 +10,6 @@ import { setLoading } from "@/lib/redux/slice/CurrencySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/redux/store";
 import { fetchPackages } from "@/lib/action/moreClub/pricing";
-import { useSession } from "next-auth/react";
 
 export interface UpgradeFormDataType {
   package: string;
@@ -26,7 +25,13 @@ export interface UpgradeFormDataType {
   phone_number: string;
 }
 
-const UpgradeFormPopup = ({ userType , onFinish }: { userType: "BUSINESS" | "NORMAL", onFinish: () => void }) => {
+const UpgradeFormPopup = ({
+  userType,
+  onFinish,
+}: {
+  userType: "BUSINESS" | "NORMAL";
+  onFinish: () => void;
+}) => {
   const dispatch = useDispatch<AppDispatch>();
   // const { data: session } = useSession();
   const user = useSelector((state: RootState) => state.user);
@@ -50,14 +55,27 @@ const UpgradeFormPopup = ({ userType , onFinish }: { userType: "BUSINESS" | "NOR
     currency_code: "",
     user_id: user?.profile?.id ?? "",
     email: user?.profile?.email ?? "",
-    phone_number: `${user?.profile?.phone_prefix ?? ""}${user?.profile?.phone_number ?? ""}`,
+    phone_number: `${user?.profile?.phone_prefix ?? ""}${
+      user?.profile?.phone_number ?? ""
+    }`,
   });
 
   useEffect(() => {
-    if(user?.profile?.country.code){
-      dispatch(fetchPackages({ type: formData.plan_type, cycle: formData.plan_time ,country_code:user?.profile?.country.code }));
+    if (user?.profile?.country.code) {
+      dispatch(
+        fetchPackages({
+          type: formData.plan_type,
+          cycle: formData.plan_time,
+          country_code: user?.profile?.country.code,
+        })
+      );
     }
-  }, [formData.plan_type, formData.plan_time, dispatch ,user?.profile?.country?.code ]);
+  }, [
+    formData.plan_type,
+    formData.plan_time,
+    dispatch,
+    user?.profile?.country?.code,
+  ]);
 
   useEffect(() => {
     const current = packages[formData.plan_type]?.[formData.plan_time];
@@ -73,42 +91,50 @@ const UpgradeFormPopup = ({ userType , onFinish }: { userType: "BUSINESS" | "NOR
     }
   }, [packages, formData.plan_type, formData.plan_time]);
 
+  const setData = useCallback(
+    (key: string, value: any) => {
+      setFormData((prev) => {
+        let updated = { ...prev, [key]: value };
 
-  const setData = useCallback((key: string, value: any) => {
-    setFormData((prev) => {
-      let updated = { ...prev, [key]: value };
-
-      if (key === "package") {
-        const pkg = packages[formData.plan_type]?.[formData.plan_time]?.find((p) => p.id === value) ?? null;
-        if(pkg){
+        if (key === "package") {
+          const pkg =
+            packages[formData.plan_type]?.[formData.plan_time]?.find(
+              (p) => p.id === value
+            ) ?? null;
+          if (pkg) {
             updated = {
               ...updated,
               amount: pkg.price.toString(),
               currency_symbol: pkg.currency_symbol,
               currency_code: pkg.currency_code,
             };
+          }
+        } else if (key === "plan_time") {
+          const pkg = packages[formData.plan_type as "BUSINESS" | "NORMAL"][
+            formData.plan_time as "monthly" | "yearly"
+          ]?.find((p) => p.id === formData.package);
+          updated.amount = pkg?.price?.toString() ?? "";
         }
-      } else if (key === "plan_time") {
-        const pkg = packages[formData.plan_type as "BUSINESS" | "NORMAL"][formData.plan_time as "monthly" | "yearly"]?.find((p) => p.id === formData.package);
-        updated.amount = pkg?.price?.toString() ?? "";
-      }
 
-      return updated;
-    });
+        return updated;
+      });
 
-    setErrors((prev) => ({ ...prev, [key]: "" }));
-  }, [formData.package, formData.plan_type, packages]);
+      setErrors((prev) => ({ ...prev, [key]: "" }));
+    },
+    [formData.package, formData.plan_type, packages]
+  );
 
-  const validate = useCallback(async (fields = formData) => {
-    const temp: Record<string, string> = {};
-    temp.package = validateRequired(fields.package, "Package");
-    temp.plan_time = validateRequired(fields.plan_time, "Plan Time");
-    temp.currency_code = validateRequired(fields.plan_time, "Package");
-    setErrors(temp);
-    return Object.values(temp).every((err) => !err);
-  }, [formData]);
-
-
+  const validate = useCallback(
+    async (fields = formData) => {
+      const temp: Record<string, string> = {};
+      temp.package = validateRequired(fields.package, "Package");
+      temp.plan_time = validateRequired(fields.plan_time, "Plan Time");
+      temp.currency_code = validateRequired(fields.plan_time, "Package");
+      setErrors(temp);
+      return Object.values(temp).every((err) => !err);
+    },
+    [formData]
+  );
 
   const handleServerError = useCallback((err: any) => {
     const resErrors = err.response?.data?.errors ?? {};
@@ -117,7 +143,10 @@ const UpgradeFormPopup = ({ userType , onFinish }: { userType: "BUSINESS" | "NOR
       recipient: resErrors.username || "",
       transferAmount: resErrors.balance || "",
     }));
-    const message = resErrors.non_field_errors?.[0] || err.response?.data?.message || "Something went wrong, please try again.";
+    const message =
+      resErrors.non_field_errors?.[0] ||
+      err.response?.data?.message ||
+      "Something went wrong, please try again.";
     setServerError(message);
     showToast(message, "error");
   }, []);
@@ -129,15 +158,18 @@ const UpgradeFormPopup = ({ userType , onFinish }: { userType: "BUSINESS" | "NOR
         setServerError("");
         setIsLoading(true);
         try {
-          const { data } = await MoreClubApiClient.post(`${process.env.NEXT_PUBLIC_API_URL}subscriptions/check/`, {
-            membership_type: formData.package,
-            plan_time: formData.plan_time,
-          });
+          const { data } = await MoreClubApiClient.post(
+            `${process.env.NEXT_PUBLIC_API_URL}subscriptions/check/`,
+            {
+              membership_type: formData.package,
+              plan_time: formData.plan_time,
+            }
+          );
           setPurchasingInfo(data.data);
           setStep(nextStep);
         } catch (err: any) {
           handleServerError(err);
-        }finally{
+        } finally {
           setIsLoading(false);
         }
       } else if (step === 1) {
@@ -146,12 +178,12 @@ const UpgradeFormPopup = ({ userType , onFinish }: { userType: "BUSINESS" | "NOR
         onFinish();
       }
     },
-    [formData, step, validate,  handleServerError]
+    [formData, step, validate, handleServerError]
   );
 
   const handleSkip = useCallback(async () => {
     try {
-      if(!(await validate())) return;
+      if (!(await validate())) return;
       setServerError("");
       showToast("Subscribed successfully!", "success");
       onFinish();
@@ -163,15 +195,38 @@ const UpgradeFormPopup = ({ userType , onFinish }: { userType: "BUSINESS" | "NOR
   const steps = [
     {
       component: Step1PopForm,
-      props: { data: formData, errors, serverError, setData,  onNext: () => handleNext(1), onSkip: () => handleSkip(), setLoading, isLoading },
+      props: {
+        data: formData,
+        errors,
+        serverError,
+        setData,
+        onNext: () => handleNext(1),
+        onSkip: () => handleSkip(),
+        setLoading,
+        isLoading,
+      },
     },
     {
       component: Step2PopForm,
-      props: { purchasingInformation: purchasingInfo, data: formData, errors, serverError, setData, onNext: () => handleNext(2), onBack: () => setStep(0), isLoading },
+      props: {
+        purchasingInformation: purchasingInfo,
+        data: formData,
+        errors,
+        serverError,
+        setData,
+        onNext: () => handleNext(2),
+        onBack: () => setStep(0),
+        isLoading,
+      },
     },
     {
       component: Step3Form,
-      props: { purchasingInformation: purchasingInfo, data: formData, onPrint: () => window.print(), onReset: () => setStep(0) },
+      props: {
+        purchasingInformation: purchasingInfo,
+        data: formData,
+        onPrint: () => window.print(),
+        onReset: () => setStep(0),
+      },
     },
   ];
 
@@ -187,5 +242,3 @@ const UpgradeFormPopup = ({ userType , onFinish }: { userType: "BUSINESS" | "NOR
 };
 
 export default UpgradeFormPopup;
-
-
