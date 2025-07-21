@@ -264,12 +264,12 @@ const PricingCard = ({
           </span>
         </div>
         {/* <p>{tier?.description}</p> */}
-        
-                <span className="text-xs text-white text-start">
-                {billingCycle === "yearly" && `(${tier.currency_symbol} ${tier.price} x 11)`}  <br/>
-                  {tier.code === "free" ? "" : `No hidden fees`} 
-                                
-                </span>
+
+        <span className="text-xs text-white text-start">
+          {billingCycle === "yearly" && `(${tier.currency_symbol} ${tier.price} x 11)`}  <br />
+          {tier.code === "free" ? "" : `No hidden fees`}
+
+        </span>
 
         {tier.name.includes("Power Saver") &&
           <div>
@@ -284,7 +284,7 @@ const PricingCard = ({
           role="list"
           className="mt-8 space-y-3 text-sm/6 sm:mt-10"
         >
-          {formatFeatures(tier).map(({ label, enabled }) => (
+          {/* {formatFeatures(tier).map(({ label, enabled }) => (
             <li
               key={label}
               className={classNames(
@@ -305,22 +305,36 @@ const PricingCard = ({
               )}
               {label}
             </li>
-          ))}
+          ))} */}
+          {tier?.features && (
+            <ul className="mt-2 space-y-1 ">
+              <li className="font-semibold text-center">Plan Includes</li>
+              {tier.features.map((feature, index: number) => (
+                <li key={index} className={`flex items-start text-start gap-2 ${feature.icon.toLocaleLowerCase() === "check" ? "" : "text-muted-foreground"}`}>{feature.icon.toLocaleLowerCase() === "check" ? <CheckIcon
+                  className="h-5 w-5 text-primary"
+                  aria-hidden="true"
+                /> : feature.icon.toLocaleLowerCase() === "x" ? <XIcon
+                  className="h-5 w-5 text-muted-foreground"
+                  aria-hidden="true"
+                /> : ""} {feature.title}</li>
+              ))}
+            </ul>
+          )}
         </ul>
 
 
-       {subscribe ? 
-       <Button className='bg-green-500 text-white w-full mt-4 py-5 h-12 font-bold'>Subscribed</Button>
-      :
-      <>
-      <Button variant={tier.name.includes("Power Saver") ? "default" : "outline"} className='border-black dark:border-white w-full mt-4 py-5 h-12 font-bold'>
-        {tier.free_trial?.is_free_trial ? "Start 30-day Trial" : tier.name.includes("custom") ? "Contact Sales" : "Get Started"}
-      </Button>
-      {tier.free_trial?.is_free_trial &&
-        <p className='text-center mt-4 text-sm '> No credit card required</p>}
-      
-      </>
-    }
+        {subscribe ?
+          <Button className='bg-green-500 text-white w-full mt-4 py-5 h-12 font-bold'>Subscribed</Button>
+          :
+          <>
+            <Button variant={tier.name.includes("Power Saver") ? "default" : "outline"} className='border-black dark:border-white w-full mt-4 py-5 h-12 font-bold'>
+              {tier.free_trial?.is_free_trial ? "Start 30-day Trial" : tier.name.includes("custom") ? "Contact Sales" : "Get Started"}
+            </Button>
+            {tier.free_trial?.is_free_trial &&
+              <p className='text-center mt-4 text-sm '> No credit card required</p>}
+
+          </>
+        }
 
       </div>
     </div>

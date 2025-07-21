@@ -6,6 +6,8 @@ import { jwtDecode } from "jwt-decode";
 import { AdapterUser } from "@auth/core/adapters";
 
 async function refreshAccessToken(token: any) {
+  console.log("refreshtoken check", !token.user.refreshToken);
+
   if (!token.user.refreshToken) {
     return {
       ...token,
@@ -18,6 +20,8 @@ async function refreshAccessToken(token: any) {
     const refreshTokenExpires = decodedToken?.exp
       ? decodedToken.exp * 1000
       : undefined;
+
+    console.log("refreshTokenExpires check", Date.now() >= (refreshTokenExpires as number));
     if (Date.now() >= (refreshTokenExpires as number)) {
       return {
         ...token,
@@ -25,9 +29,11 @@ async function refreshAccessToken(token: any) {
       };
     }
   }
+
+
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}auth/token/refresh/`,
+      `${process.env.NEXT_PUBLIC_API_URL}auth/token/refresh/`,
       {
         method: "POST",
         headers: {
@@ -39,7 +45,6 @@ async function refreshAccessToken(token: any) {
         }),
       }
     );
-
     const tokens = await response.json();
 
     if (!response.ok) {
@@ -65,17 +70,6 @@ async function refreshAccessToken(token: any) {
       refreshToken: tokens.refresh ?? token.user.refreshToken, // Fall back to old refresh token
       accessTokenExpires: newAccessTokenExpires,
     };
-
-    // return {
-    //   ...token,
-    //   user: {
-    //     ...token.user,
-    //     accessToken: tokens.access,
-    //     refreshToken: tokens.refresh ?? token.user.refreshToken, // Fall back to old refresh token
-    //   },
-    //   accessToken: tokens.access,
-    //   refreshToken: tokens.refresh ?? token.user.refreshToken, // Fall back to old refresh token
-    // };
   } catch (error) {
     return {
       ...token,
@@ -196,31 +190,38 @@ export const {
       trigger?: any;
       session?: any;
     }) => {
+      
       if (account && user) {
+        const decodedToken = jwtDecode(user?.accessToken.toString());
+        const expiresAt = decodedToken?.exp as number * 1000;
         return {
           ...token,
           accessToken: token?.accessToken,
           refreshToken: token?.refreshToken,
-          accessTokenExpires: Date.now() + 30 * 60 * 1000,
+          accessTokenExpires: expiresAt ? expiresAt : undefined,
           user: user,
         };
       }
 
-      if (token.user.accessToken) {
-        const decodedToken = jwtDecode(token.user.accessToken.toString());
-        // const expiresAt = Date.now() / 1000 - 30;
-        // console.log("expiresAt",expiresAt)
 
-        const expiresAt = decodedToken?.exp;
-        if (expiresAt) {
-          // const thirtySecondsLater = expiresAt * 1000 ;
-          // token.accessTokenExpires = thirtySecondsLater;
-          const fiveMinutesBeforeExpiration = expiresAt * 1000 - 5 * 60 * 1000;
-          token.accessTokenExpires = fiveMinutesBeforeExpiration;
-        } else {
-          token.accessTokenExpires = undefined;
-        }
-      }
+      // if (token.user.accessToken) {
+      //   const decodedToken = jwtDecode(token.user.accessToken.toString());
+      //   console.log("decodedToken", decodedToken.exp);
+      //   // const expiresAt = Date.now() / 1000 - 30;
+      //   // console.log("expiresAt",expiresAt)
+
+      //   const expiresAt = decodedToken?.exp;
+      //   if (expiresAt) {
+      //     // const thirtySecondsLater = expiresAt * 1000 ;
+      //     // token.accessTokenExpires = thirtySecondsLater;
+      //     console.log("expiresAt", expiresAt);
+      //     const fiveMinutesBeforeExpiration = expiresAt * 1000 - 5 * 60 * 1000;
+      //     token.accessTokenExpires = fiveMinutesBeforeExpiration;
+      //   } else {
+      //     token.accessTokenExpires = undefined;
+      //   }
+      //   console.log("token.accessTokenExpires", token.accessTokenExpires);
+      // }
 
       if (trigger === "update" && session) {
         // console.log("updated" , trigger , session)
@@ -246,7 +247,8 @@ export const {
       }
 
       if (Date.now() > (token.accessTokenExpires as number)) {
-        return refreshAccessToken(token);
+        const refresh = await refreshAccessToken(token);
+        return refresh;
       } else {
         return token;
       }
@@ -258,6 +260,8 @@ export const {
         session.accessToken = tokenAsToken.user.accessToken as string;
         session.refreshToken = tokenAsToken.user.refreshToken as string;
         session.user = tokenAsToken.user.user as User as AdapterUser & User;
+        session.accessTokenExpires = tokenAsToken.user.accessTokenExpires as number;
+        session.error = tokenAsToken.error as string;
       }
       return session;
     },
@@ -300,49 +304,6 @@ export async function fetchUserDetails(token: string) {
       crm_link: userData?.data?.crm_link,
       membership: userData?.data?.membership === null ? false : true,
     };
-
-    // let businessDetails = null;
-    // let permissions = null;
-
-    // If the user is a business, fetch business details
-    // if (userDetails.exists_business_profile === true && userDetails?.user_type === "BUSINESS") {
-    //   try {
-    //     const businessResponse = await fetch(
-    //       `${process.env.NEXT_PUBLIC_BASE_URL}business/profile/`,
-    //       {
-    //         method: "GET",
-    //         headers: {
-    //           Authorization: `Bearer ${token}`,
-    //         },
-    //       }
-    //     );
-
-    //     if (!businessResponse.ok) throw new Error("Failed to fetch business details");
-    //     const businessData = await businessResponse.json();
-    //     businessDetails = businessData.data;
-    //   } catch (error) {
-    //     console.error("❌ Error fetching business details:", error);
-    //   }
-    // }
-
-    // Fetch permissions data
-    // try {
-    //   const permissionsResponse = await fetch(
-    //     `${process.env.NEXT_PUBLIC_BASE_URL}users/permissions/`,
-    //     {
-    //       method: "GET",
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     }
-    //   );
-
-    //   if (!permissionsResponse.ok) throw new Error("Failed to fetch permissions");
-
-    //   permissions = await permissionsResponse.json();
-    // } catch (error) {
-    //   console.error("❌ Error fetching permissions:", error);
-    // }
 
     // Return all combined data
     return {

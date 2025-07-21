@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { RootState } from "@/lib/redux/store";
-import { AlertOctagonIcon } from "lucide-react";
+import { AlertOctagonIcon, CheckIcon, ShieldCloseIcon, X, XIcon } from "lucide-react";
 import React from "react";
 import { useSelector } from "react-redux";
 import { UpgradeFormDataType } from "./upgradeform";
@@ -92,7 +92,7 @@ const Step1UpgradeForm: React.FC<Step1Props> = ({
         <RadioGroup
           value={data.package}
           onValueChange={handlePackageChange}
-          className="grid md:grid-cols-3 gap-4 "
+          className="grid md:grid-cols-2 gap-4 "
         >
           {lastpackage &&
             packages.map((pack: Package) => (
@@ -136,6 +136,15 @@ const Step1UpgradeForm: React.FC<Step1Props> = ({
                         30-day trial, no credit card required
                       </span>
                     </div>
+                  )}
+
+                  {pack?.features && (
+                    <ul className="mt-2 space-y-1 text-sm ">
+                      <li className="font-semibold text-center">Plan Includes</li>
+                      {pack.features.map((feature, index: number) => (
+                        <li key={index} className={`flex items-start text-start gap-2 ${feature.icon.toLocaleLowerCase() === "check" ? "" : "text-muted-foreground"}`}>{feature.icon.toLocaleLowerCase() === "check" ? <CheckIcon className="h-4 w-4" /> : feature.icon.toLocaleLowerCase() === "x" ? <XIcon className="h-4 w-4" /> : ""} {feature.title}</li>
+                      ))}
+                    </ul>
                   )}
                 </label>
               </div>

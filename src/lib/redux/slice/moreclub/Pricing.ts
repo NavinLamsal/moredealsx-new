@@ -1,34 +1,35 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-
 // Define Package Type
 export type PackageType = "BUSINESS" | "NORMAL";
 export type BillingCycle = "monthly" | "yearly";
 
+export interface Package {
+  id: string;
+  code: string;
+  name: string;
+  price: number;
+  yearly_price: number;
+  free_trial?: {
+    is_free_trial: boolean;
+    free_trial_period: string | null;
+  };
+  features: {
+    icon: string;
+    title: string;
+  }[];
 
-  export interface Package {
-    id: string;
-    code: string;
-    name: string;
-    price: number;
-    yearly_price: number;
-    free_trial?:{
-      is_free_trial: boolean, 
-      free_trial_period: string |null
-    }
-    currency_symbol: string;
-    currency_code: string;
-    morefood_business_discount: number;
-    morefood_referral_precentage: number;
-    salon_business_discount: number;
-    salon_referral_precentage: number;
-    hotel_business_discount: number;
-    hotel_referral_precentage: number;
-    marketplace_business_discount: number;
-    marketplace_referral_precentage: number;
-  }
-  
-
+  currency_symbol: string;
+  currency_code: string;
+  morefood_business_discount: number;
+  morefood_referral_precentage: number;
+  salon_business_discount: number;
+  salon_referral_precentage: number;
+  hotel_business_discount: number;
+  hotel_referral_precentage: number;
+  marketplace_business_discount: number;
+  marketplace_referral_precentage: number;
+}
 
 interface PackageState {
   packages: {
@@ -68,15 +69,22 @@ const packageSlice = createSlice({
   name: "packages",
   initialState,
   reducers: {
-    setPackages: (state, action: PayloadAction<{ type: PackageType; cycle: BillingCycle; data: Package[] }>) => {
-        const { type, cycle, data } = action.payload;
+    setPackages: (
+      state,
+      action: PayloadAction<{
+        type: PackageType;
+        cycle: BillingCycle;
+        data: Package[];
+      }>
+    ) => {
+      const { type, cycle, data } = action.payload;
 
-        // Update only the fetched package type & cycle
-        state.packages[type][cycle] = data;
-        
-        // Update lastFetched timestamp for that type & cycle
-        state.lastFetched[type][cycle] = Date.now();
-      },
+      // Update only the fetched package type & cycle
+      state.packages[type][cycle] = data;
+
+      // Update lastFetched timestamp for that type & cycle
+      state.lastFetched[type][cycle] = Date.now();
+    },
 
     clearPackages: (state) => {
       state.packages = {
@@ -90,8 +98,6 @@ const packageSlice = createSlice({
     },
   },
 });
-
-
 
 export const { setPackages, clearPackages } = packageSlice.actions;
 
