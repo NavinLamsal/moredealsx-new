@@ -12,7 +12,7 @@ export interface ResturantListType {
   review_count: number;
   avg_rating: number;
   menu_count?: number;
-  domain?:string
+  domain?: string;
 }
 
 export interface BusinessRestaurantList {
@@ -270,18 +270,22 @@ export interface orderFoodItem {
 }
 
 export interface Review {
-  comment: string;
-  created_at: string;
   id: string;
-  image: string[];
-  rating: number;
+  user: {
+    first_name: string;
+    last_name: string;
+  };
   restaurant: {
     id: string;
-    logo: string;
     name: string;
+    logo: string;
     slug: string;
+    domain: string;
   };
-  user: { first_name: string; last_name: string };
+  rating: number;
+  comment: string;
+  created_at: string;
+  image: string[];
 }
 
 export interface ImagesList {

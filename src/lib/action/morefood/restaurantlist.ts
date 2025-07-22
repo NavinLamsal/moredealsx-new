@@ -323,9 +323,7 @@ export const useFetchRestaurant = () => {
       page: page.toString(),
     });
     try {
-      const response = await MoreFoodApiClient.get(
-        `reviews/user-reviews/?${queryParams.toString()}`
-      );
+      const response = await MoreClubApiClient.get(`public/reviews/list/`);
 
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
