@@ -33,7 +33,6 @@ const CRMList = ({ name }: { name: string }) => {
     urlkey: "crm_link",
   };
 
-
   if (!session) {
     return <div>crm listing for {name}</div>;
   }
@@ -70,11 +69,14 @@ const CRMList = ({ name }: { name: string }) => {
         <div className="w-full min-w-xs max-w-xs  bg-background rounded-lg overflow-hidden transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg active:shadow-xl hover:bg-background active:bg-background">
           <div className="relative w-full h-40">
             <Image
-              src={crmData.banner}
+              // src={crmData.banner}
+              src={"/images/png/moredealsxnew.png"}
               alt={name}
-              layout="fill"
-              objectFit="cover"
-              className="rounded-lg"
+              // layout="fill"
+              // objectFit="contain"
+              className="rounded-lg bg-white object-contain w-full h-40 p-4"
+              width={500}
+              height={500}
             />
           </div>
           <div className="p-4">
