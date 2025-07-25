@@ -13,6 +13,7 @@ export interface ResturantListType {
   avg_rating: number;
   menu_count?: number;
   domain?: string;
+  is_open: boolean;
 }
 
 export interface BusinessRestaurantList {
