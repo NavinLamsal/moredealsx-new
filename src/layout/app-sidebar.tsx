@@ -1,12 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  BookOpen,
-  Frame, 
-  Settings,
-  SquareTerminal,
-} from "lucide-react";
+import { BookOpen, Frame, Settings, SquareTerminal } from "lucide-react";
 
 import { NavMain } from "@/layout/nav-main";
 import { NavProjects } from "@/layout/nav-projects";
@@ -169,8 +164,8 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
         url: "/morefood",
         // url: `${session.data?.user?.userDetails?.crm_link[0] as string}`,
         icon: Frame,
-        darkImage: "/images/svg/morefood.svg",
-        lightImage: "/images/svg/morefood.svg",
+        darkImage: "/images/png/moredealsxnew.png",
+        lightImage: "/images/png/moredealsxnew.png",
       },
       // {
       //   name: "MORESALONS",
@@ -201,8 +196,8 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
               name: "RESTAURANT CRM",
               url: `https://merkoll.com/auth/login`,
               icon: Frame,
-              darkImage: "/images/svg/morefood.svg",
-              lightImage: "/images/svg/morefood.svg",
+              darkImage: "/images/png/moredealsxnew.png",
+              lightImage: "/images/png/moredealsxnew.png",
             },
           ]
         : []),
@@ -221,8 +216,8 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
         )}
         <NavProjects projects={data.projects} />
         {session?.data?.user?.userDetails?.crm_link && (
-            <NavCRM projects={data.crm} />
-          )}
+          <NavCRM projects={data.crm} />
+        )}
       </SidebarContent>
       <SidebarFooter className="py-4">
         <SidebarMenuButton
