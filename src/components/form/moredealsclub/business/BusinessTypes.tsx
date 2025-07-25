@@ -173,7 +173,7 @@ const BusinessTypes: React.FC = () => {
               {/* Business Discount Input */}
               <div>
                 <label className="block font-medium mb-1">
-                  Business Discount (%)
+                  Member Discount (%)
                 </label>
                 <Input
                   type="text"
@@ -181,6 +181,14 @@ const BusinessTypes: React.FC = () => {
                   className="p-2 border rounded w-full"
                   onChange={(e) => handleDiscountChange(index, e.target.value)}
                 />
+                <div className="text-xs text-black mt-1 flex items-center gap-1">
+                  <div className="w-5 h-5 place-self-start">
+                    <CircleAlert className="w-5 h-5 " strokeWidth={1.5} />
+                  </div>
+                  <p>
+                    The discount offered by the restaurant to its costumers.
+                  </p>
+                </div>
               </div>
 
               <div>
@@ -199,8 +207,15 @@ const BusinessTypes: React.FC = () => {
                   <div className="w-5 h-5 place-self-start">
                     <CircleAlert className="w-5 h-5 " strokeWidth={1.5} />
                   </div>
-                  <p>Affiliated discount must be greater than 5%</p>
+                  <p>
+                    Affiliated discount must be greater than 5%,
+                    <br />
+                  </p>
                 </div>
+                <span className="text-foreground text-xs">
+                  Affiliated discount is the service fee applied when ordering
+                  through our platform
+                </span>
               </div>
 
               {/* Individual Submit Button */}
