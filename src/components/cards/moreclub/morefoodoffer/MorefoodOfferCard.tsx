@@ -49,9 +49,9 @@ const MoreOfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
               </span>
             )}
           </div>
-          <span className="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition duration-300">
+          {/* <span className="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition duration-300">
             MOREFOOD
-          </span>
+          </span> */}
           {item.is_hot_deal && (
             <span className="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition duration-300">
               HOT DEALS
