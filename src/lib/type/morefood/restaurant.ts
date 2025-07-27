@@ -10,7 +10,7 @@ export interface ResturantListType {
   address: string;
   url?: string;
   review_count: number;
-  avg_rating: number;
+  average_rating: number;
   menu_count?: number;
   domain?: string;
   is_open: boolean;
