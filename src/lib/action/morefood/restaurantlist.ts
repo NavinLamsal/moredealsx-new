@@ -9,6 +9,7 @@ import { MetaData } from "@/lib/type/CommonType";
 import {
   BusinessRestaurantList,
   CategoryListType,
+  FeaturedRestaurantListType,
   FoodListType,
   ImagesList,
   OfferType,
@@ -158,19 +159,53 @@ export const useFetchRestaurant = () => {
     }
   };
 
-  const fetchRestaurantList = async (
+  // const fetchRestaurantList = async (
+  //   type: string,
+  //   params: Record<string, any> = {}, // Flexible search parameters
+  //   page: number = 1
+  // ): Promise<{
+  //   data: ResturantListType[] | FeaturedRestaurantListType[];
+  //   meta: MetaData;
+  // }> => {
+  const fetchRestaurantList = async <
+    T extends ResturantListType | FeaturedRestaurantListType
+  >(
     type: string,
-    params: Record<string, any> = {}, // Flexible search parameters
+    params: Record<string, any> = {},
     page: number = 1
-  ): Promise<{
-    data: ResturantListType[];
-    meta: MetaData;
-  }> => {
+  ): Promise<{ data: T[]; meta: MetaData }> => {
+    // try {
+    //   const limit = 10;
+    //   const offset = (page - 1) * limit;
+
+    //   // Convert params object to query string
+    //   const queryParams = new URLSearchParams({
+    //     ...params,
+    //     offset: offset.toString(),
+    //     limit: limit.toString(),
+    //     page: page.toString(),
+    //   });
+
+    //   // // Convert params object to query string
+    //   // const queryParams = new URLSearchParams({ ...params, offset:"0", limit:"10", page: page.toString() });
+
+    //   const response = await MorefoodApiClientWithoutAccess.get(
+    //     `public/restaurants/${type}/?${queryParams.toString()}`
+    //   );
+
+    //   if (type === "featured-restaurants") {
+    //     const extractedData = response.data.data.map(
+    //       (item: { restaurant: ResturantListType }) => item.restaurant
+    //     );
+    //     return { data: extractedData, meta: response.data.meta };
+    //   } else {
+    //     return { data: response.data.data, meta: response.data.meta };
+    //   }
+    // }
     try {
       const limit = 10;
       const offset = (page - 1) * limit;
 
-      // Convert params object to query string
       const queryParams = new URLSearchParams({
         ...params,
         offset: offset.toString(),
@@ -178,24 +213,21 @@ export const useFetchRestaurant = () => {
         page: page.toString(),
       });
 
-      // // Convert params object to query string
-      // const queryParams = new URLSearchParams({ ...params, offset:"0", limit:"10", page: page.toString() });
-
       const response = await MorefoodApiClientWithoutAccess.get(
         `public/restaurants/${type}/?${queryParams.toString()}`
       );
 
-      if (type === "featured-restaurants") {
+      if (type === "featured/list") {
         const extractedData = response.data.data.map(
-          (item: { restaurant: ResturantListType }) => item.restaurant
+          (item: { restaurant: FeaturedRestaurantListType }) => item.restaurant
         );
-        return { data: extractedData, meta: response.data.meta };
+        return { data: response.data.data as T[], meta: response.data.meta };
       } else {
-        return { data: response.data.data, meta: response.data.meta };
+        return { data: response.data.data as T[], meta: response.data.meta };
       }
     } catch (error) {
       console.error("Error fetching restaurants:", error);
-      return { data: [] as ResturantListType[], meta: {} as MetaData };
+      return { data: [] as T[], meta: {} as MetaData };
     }
   };
 

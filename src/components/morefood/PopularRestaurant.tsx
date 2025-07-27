@@ -5,6 +5,7 @@ import HorizontalCarousel from "../carousel/horizontalCarousel";
 import { useQuery } from "@tanstack/react-query";
 import { CardSkeleton } from "../Skeletons/CardSkeleton";
 import AnimatedSection from "../ui/animations/FadeUpView";
+import { ResturantListType } from "@/lib/type/morefood/restaurant";
 
 const PopularRestaurant = () => {
   const city =
@@ -13,7 +14,12 @@ const PopularRestaurant = () => {
   const { fetchRestaurantList } = useFetchRestaurant();
   const { data, error, isLoading } = useQuery({
     queryKey: ["Restaurant List", "popular", { city_code: city }],
-    queryFn: () => fetchRestaurantList("popular/list", { city_code: city }, 1),
+    queryFn: () =>
+      fetchRestaurantList<ResturantListType>(
+        "popular/list",
+        { city_code: city },
+        1
+      ),
     staleTime: 60000,
     enabled: !!city,
   });

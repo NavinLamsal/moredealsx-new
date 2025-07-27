@@ -4,7 +4,6 @@ export interface ResturantListType {
   id: string;
   name: string;
   slug: string;
-  open_hrs: string;
   offers: string;
   banner: string;
   address: string;
@@ -16,6 +15,23 @@ export interface ResturantListType {
   is_open: boolean;
 }
 
+export interface FeaturedRestaurantListType {
+  id: string;
+  restro: string;
+  restro_name: string;
+  restro_logo: string;
+  restro_slug: string;
+  restro_country: string;
+  start_date: string;
+  end_date: string;
+  paid_fee: string;
+  currency: string;
+  domain: string;
+  created_at: string;
+  is_open: boolean;
+  restro_banner: string;
+  address: string;
+}
 export interface BusinessRestaurantList {
   id: string;
   name: string;
