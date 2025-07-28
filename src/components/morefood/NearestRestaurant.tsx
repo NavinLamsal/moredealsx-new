@@ -5,23 +5,33 @@ import HorizontalCarousel from "../carousel/horizontalCarousel";
 import { useQuery } from "@tanstack/react-query";
 import { CardSkeleton } from "../Skeletons/CardSkeleton";
 import AnimatedSection from "../ui/animations/FadeUpView";
-
-
+import { ResturantListType } from "@/lib/type/morefood/restaurant";
 
 const NearestRestaurant = () => {
-  const city = typeof window !== "undefined" ? localStorage.getItem("city_code") : null;
-  const latitude = typeof window !== "undefined" ? localStorage.getItem("latitude") : null;
-  const longitude = typeof window !== "undefined" ? localStorage.getItem("longitude") : null;
+  const city =
+    typeof window !== "undefined" ? localStorage.getItem("city_code") : null;
+  const latitude =
+    typeof window !== "undefined" ? localStorage.getItem("latitude") : null;
+  const longitude =
+    typeof window !== "undefined" ? localStorage.getItem("longitude") : null;
 
-  const { fetchRestaurantList } = useFetchRestaurant()
+  const { fetchRestaurantList } = useFetchRestaurant();
   const { data, error, isLoading } = useQuery({
-    queryKey: ["Restaurant List", "nearest", { city_code: city, lat: latitude, lng: longitude }],
-    queryFn: () => fetchRestaurantList("nearby/list", { city_code: city, lat: latitude, lng: longitude }, 1),
+    queryKey: [
+      "Restaurant List",
+      "nearest",
+      { city_code: city, lat: latitude, lng: longitude },
+    ],
+    queryFn: () =>
+      fetchRestaurantList<ResturantListType>(
+        "nearby/list",
+        { city_code: city, lat: latitude, lng: longitude },
+        1
+      ),
 
     staleTime: 60000,
-    enabled: !!city
+    enabled: !!city,
   });
-
 
   if (isLoading) {
     return (
@@ -35,22 +45,21 @@ const NearestRestaurant = () => {
     return <div>Error: {error?.message}</div>;
   }
 
-
-  if (!data || JSON.stringify(data.data) === '{}' || data.data.length === 0) {
+  if (!data || JSON.stringify(data.data) === "{}" || data.data.length === 0) {
     return null;
   }
 
-
   return (
     <div className="p-1 lg:p-4">
-      <HorizontalCarousel title="Nearest Restaurants" viewAll={`/morefood/category/nearby?title=Nearest Restaurants&lat=${latitude}&lng=${longitude}`} dashboard={true}>
+      <HorizontalCarousel
+        title="Nearest Restaurants"
+        viewAll={`/morefood/category/nearby?title=Nearest Restaurants&lat=${latitude}&lng=${longitude}`}
+        dashboard={true}
+      >
         {data?.data.map((restaurant, index) => (
           <div className="flex-shrink-0 w-60" key={index}>
             <AnimatedSection key={restaurant.id} index={index}>
-              <RestaurantCard
-                key={index}
-                {...restaurant}
-              />
+              <RestaurantCard key={index} {...restaurant} />
             </AnimatedSection>
           </div>
         ))}

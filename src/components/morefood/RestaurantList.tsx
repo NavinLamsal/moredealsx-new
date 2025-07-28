@@ -5,6 +5,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import AnimatedSection from "../ui/animations/FadeUpView";
 import { useFetchRestaurant } from "@/lib/action/morefood/restaurantlist";
 import RestaurantCard from "../cards/morefood/RestaurantCard";
+import { ResturantListType } from "@/lib/type/morefood/restaurant";
 
 const RestaurantList = ({
   type,
@@ -15,9 +16,9 @@ const RestaurantList = ({
 }) => {
   const city =
     typeof window !== "undefined" ? localStorage.getItem("city_code") : null;
-  const country = 
+  const country =
     typeof window !== "undefined" ? localStorage.getItem("country_code") : null;
-    
+
   const { fetchRestaurantList } = useFetchRestaurant();
   const { title, ...filteredParams } = searchParams;
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -32,11 +33,11 @@ const RestaurantList = ({
   } = useInfiniteQuery({
     queryKey: ["Restaurant List", type, { ...filteredParams, city_name: city }],
     queryFn: ({ pageParam = 1 }) =>
-      fetchRestaurantList(
+      fetchRestaurantList<ResturantListType>(
         type === "list" ? `list/${country}` : type,
         {
           ...filteredParams,
-          ...(type !== "list" && { city_code: city })
+          ...(type !== "list" && { city_code: city }),
         },
         pageParam
       ),

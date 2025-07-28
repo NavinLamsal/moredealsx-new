@@ -16,7 +16,7 @@ const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(
       slug,
       is_open,
       name,
-      average_rating,
+      average_ratings,
       review_count,
       offers,
       menu_count,
@@ -61,9 +61,9 @@ const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(
               <span className="text-yellow-500">
                 <Crown className="w-4 h-4" />
               </span>
-              {average_rating ? (
+              {average_ratings ? (
                 <>
-                  <span className="font-medium">{average_rating ?? 0}</span>
+                  <span className="font-medium">{average_ratings ?? 0}</span>
                   <span>({review_count ?? 0} reviews)</span>
                 </>
               ) : (

@@ -24,8 +24,6 @@ const PopularRestaurant = () => {
     enabled: !!city,
   });
 
-  console.log("Restaurant Data:", data);
-
   if (isLoading) {
     return (
       <div>

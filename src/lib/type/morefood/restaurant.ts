@@ -3,16 +3,22 @@ import FoodList from "@/components/morefood/restaurant/FoodList";
 export interface ResturantListType {
   id: string;
   name: string;
-  slug: string;
-  offers: string;
-  banner: string;
   address: string;
-  url?: string;
-  review_count: number;
-  average_rating: number;
-  menu_count?: number;
-  domain?: string;
+  slug: string;
   is_open: boolean;
+  domain?: string;
+  banner: string;
+  review_count?: number;
+  offers?: string;
+  menu_count?: number;
+  lat?: string;
+  lng?: string;
+  logo?: string;
+  has_delivery?: boolean;
+  has_pickup?: boolean;
+  has_dine?: boolean;
+  distance?: number;
+  average_ratings?: number;
 }
 
 export interface FeaturedRestaurantListType {

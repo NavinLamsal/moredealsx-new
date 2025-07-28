@@ -9,7 +9,7 @@
 // interface EventCardProps {
 //     event: EventList;
 //   }
-  
+
 //   const EventCard = forwardRef<HTMLDivElement, EventCardProps>(({ event }, ref) => {
 //     return (
 //         <Link href={`/event/${event?.slug}`}>
@@ -32,7 +32,7 @@
 
 //                     {/* Promoted Badge */}
 //                     <div className='absolute top-2 right-2 flex flex-col items-end gap-2'>
-//                         {event?.promoted && 
+//                         {event?.promoted &&
 //                         <span className="bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">
 //                             PROMOTED
 //                         </span>
@@ -56,7 +56,7 @@
 //                        <MapPin size={12} className='text-red-500'/>&nbsp;{event.location}
 //                     </p>
 //                     <p className="inline-flex px-1 py-0.5 rounded text-xs lg:text-sm bg-[hsla(264,68%,49%,0.2)] text-primary line-clamp-1">{event.event_type[0
-        
+
 //                     ]}</p>
 //                     <p className="text-sm lg:text-base font-semibold mt-1">{event.currency.symbol} {event.price} onwards</p>
 //                 </div>
@@ -67,11 +67,11 @@
 
 // export default EventCard
 
-import React, { forwardRef } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { MapPin } from 'lucide-react';
-import moment from 'moment';
+import React, { forwardRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { MapPin } from "lucide-react";
+import moment from "moment";
 
 interface EventCardProps {
   start_date: string;
@@ -92,8 +92,23 @@ interface EventCardProps {
 }
 
 const EventCard = forwardRef<HTMLDivElement, EventCardProps>(
-  ({  banner, start_date, name, location, slug , platform , url , domain_name, currency, price, schema_name, restro_slug }, ref) => {
-
+  (
+    {
+      banner,
+      start_date,
+      name,
+      location,
+      slug,
+      platform,
+      url,
+      domain_name,
+      currency,
+      price,
+      schema_name,
+      restro_slug,
+    },
+    ref
+  ) => {
     const isValidUrl = (str: string) => {
       try {
         new URL(str);
@@ -102,11 +117,16 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(
         return false;
       }
     };
-    
-    const bannerToUse = isValidUrl(banner) ? banner : `/images/png/restro/hall.png`;
+
+    const bannerToUse = isValidUrl(banner)
+      ? banner
+      : `/images/png/restro/hall.png`;
 
     const handleRedirection = () => {
-      window.open(`https://${domain_name}.merkoll.com/${restro_slug}?redirect=/event/${slug}`, "_blank");
+      window.open(
+        `https://${domain_name}.merkoll.com/${restro_slug}?redirect=/event/${slug}`,
+        "_blank"
+      );
     };
 
     return (
@@ -116,7 +136,7 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(
       >
         {/* Date Badge */}
         <div className="bg-yellow-400 text-black text-center font-bold py-2 text-sm">
-        {moment(start_date).format('Do MMM YY')}
+          {moment(start_date).format("Do MMM YY")}
         </div>
 
         {/* Event Image */}
@@ -132,11 +152,12 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(
 
         {/* Content */}
         <div className="p-4">
-          <h3 className="text-yellow-500 text-lg h-14 font-semibold mb-2 line-clamp-2">{name}</h3>
+          <h3 className="text-yellow-500 text-lg h-14 font-semibold mb-2 line-clamp-2">
+            {name}
+          </h3>
           {currency && (
-            
             <p className="text-gray-500 text-sm mb-2">
-              {currency.symbol} {price} 
+              {currency.symbol} {price}
             </p>
           )}
           <div className="flex items-center text-gray-500 text-sm mb-4">
@@ -149,16 +170,15 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(
               onClick={handleRedirection}
               className="block text-center text-sm font-bold bg-yellow-400 text-black py-2 rounded uppercase hover:bg-yellow-500 transition cursor-pointer"
             >
-              Get Tickets
+              View Details
             </div>
-          ):
-          (
-          <Link
-            href={`/event/${slug}`}
-            className="block text-center text-sm font-bold bg-yellow-400 text-black py-2 rounded uppercase hover:bg-yellow-500 transition"
-          >
-            Get Tickets
-          </Link>
+          ) : (
+            <Link
+              href={`/event/${slug}`}
+              className="block text-center text-sm font-bold bg-yellow-400 text-black py-2 rounded uppercase hover:bg-yellow-500 transition"
+            >
+              View Details
+            </Link>
           )}
         </div>
       </div>
@@ -166,59 +186,58 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(
   }
 );
 
-EventCard.displayName = 'EventCard';
+EventCard.displayName = "EventCard";
 
 export default EventCard;
 
-
 // banner
-// : 
+// :
 // "http://192.168.1.155:8001/media/event_banner/ChatGPT_Image_Apr_7_2025_05_39_18_PM.png"
 // can_book_by_country
-// : 
+// :
 // ["e97856a7-d27c-4989-bcbd-e73f72d7d124"]
 // currency
-// : 
+// :
 // "0cd4bd69-c2ec-4d91-8516-f10b27341f74"
 // description
-// : 
+// :
 // "Join the biggest summer fest in town!"
 // end_date
-// : 
+// :
 // "2025-07-12T22:00:00"
 // event_highlights_description
-// : 
+// :
 // "Don't miss the fireworks and the top bands performing live."
 // event_highlights_title
-// : 
+// :
 // "Fireworks, Live Music"
 // event_type
-// : 
+// :
 // [1]
 // id
-// : 
+// :
 // 1
 // is_active
-// : 
+// :
 // true
 // lat
-// : 
+// :
 // "28.2096"
 // lng
-// : 
+// :
 // "83.9856"
 // location
-// : 
+// :
 // "Pokhara"
 // max_limit
-// : 
+// :
 // 100
 // name
-// : 
+// :
 // "SummerFest 2025"
 // price
-// : 
+// :
 // "1500.00"
 // start_date
-// : 
+// :
 // "2025-05-20T14:00:00"
