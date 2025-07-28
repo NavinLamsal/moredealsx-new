@@ -160,7 +160,7 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
 
     projects: [
       {
-        name: "Deals of Food",
+        name: "Food Deals",
         url: "/morefood",
         // url: `${session.data?.user?.userDetails?.crm_link[0] as string}`,
         icon: Frame,
