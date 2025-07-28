@@ -6,6 +6,7 @@ import AnimatedSection from "../ui/animations/FadeUpView";
 import { useFetchRestaurant } from "@/lib/action/morefood/restaurantlist";
 import RestaurantCard from "../cards/morefood/RestaurantCard";
 import { Button } from "../ui/button";
+import { ResturantListType } from "@/lib/type/morefood/restaurant";
 
 const AllRestaurantList = () => {
   const city =
@@ -25,7 +26,7 @@ const AllRestaurantList = () => {
     queryKey: ["Restaurant List", "list", { country: country }],
     queryFn: ({ pageParam = 1 }) =>
       //   fetchRestaurantList("list", { city_name: city }, pageParam),
-      fetchRestaurantList(`list/${country}`, {}, pageParam),
+      fetchRestaurantList<ResturantListType>(`list/${country}`, {}, pageParam),
 
     getNextPageParam: (lastPage) => {
       const nextPage = lastPage.meta.page_number + 1;
@@ -35,6 +36,8 @@ const AllRestaurantList = () => {
     staleTime: 36000,
     enabled: true,
   });
+
+  console.log("All restaurants:", data);
 
   if (isLoading) {
     return (
@@ -60,23 +63,28 @@ const AllRestaurantList = () => {
       {/* Transaction List */}
       <div className="grid grid-cols-2 sm:flex sm:flex-wrap  xl:grid xl:grid-cols-3 2xl:flex 2xl:flex-wrap gap-3">
         {data?.pages.map((page, pageIndex) =>
-          page.data.map((restaurant, index) => (
-            <div key={`${pageIndex}-${index}`}>
-              <div
-                className="flex-shrink-0 sm:w-48 lg:w-60 xl:w-48"
-                key={restaurant.id}
-              >
-                <AnimatedSection key={restaurant.id} index={index}>
-                  <RestaurantCard
-                    key={index}
-                    {...restaurant}
-                    ref={null}
-                    // ref={index === page.data.length - 1 ? lastRestaurantRef : null}
-                  />
-                </AnimatedSection>
+          page.data.map((restaurant, index) => {
+            console.log("Restaurants List:", data);
+            return (
+              <div key={`${pageIndex}-${index}`}>
+                <div
+                  className="flex-shrink-0 sm:w-48 lg:w-60 xl:w-48"
+                  key={restaurant.id}
+                >
+                  <AnimatedSection key={restaurant.id} index={index}>
+                    <RestaurantCard
+                      key={index}
+                      {...restaurant}
+                      ref={null}
+                      // ref={
+                      //   index === page.data.length - 1 ? lastRestaurantRef : null
+                      // }
+                    />
+                  </AnimatedSection>
+                </div>
               </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
 
