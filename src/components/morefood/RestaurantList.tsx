@@ -5,6 +5,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import AnimatedSection from "../ui/animations/FadeUpView";
 import { useFetchRestaurant } from "@/lib/action/morefood/restaurantlist";
 import RestaurantCard from "../cards/morefood/RestaurantCard";
+import { ResturantListType } from "@/lib/type/morefood/restaurant";
 
 const RestaurantList = ({
   type,
@@ -14,8 +15,12 @@ const RestaurantList = ({
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
   const city =
-    typeof window !== "undefined" ? localStorage.getItem("city") : null;
+    typeof window !== "undefined" ? localStorage.getItem("city_code") : null;
+  const country =
+    typeof window !== "undefined" ? localStorage.getItem("country_code") : null;
+
   const { fetchRestaurantList } = useFetchRestaurant();
+  const { title, ...filteredParams } = searchParams;
   const observerRef = useRef<IntersectionObserver | null>(null);
   const {
     data,
@@ -26,11 +31,14 @@ const RestaurantList = ({
     isFetchingNextPage,
     refetch,
   } = useInfiniteQuery({
-    queryKey: ["Restaurant List", type, { ...searchParams, city_name: city }],
+    queryKey: ["Restaurant List", type, { ...filteredParams, city_name: city }],
     queryFn: ({ pageParam = 1 }) =>
-      fetchRestaurantList(
-        type,
-        { ...searchParams, city_name: city },
+      fetchRestaurantList<ResturantListType>(
+        type === "list" ? `list/${country}` : type,
+        {
+          ...filteredParams,
+          ...(type !== "list" && { city_code: city }),
+        },
         pageParam
       ),
     getNextPageParam: (lastPage) => {
@@ -86,7 +94,7 @@ const RestaurantList = ({
           page.data.map((restaurant, index) => (
             <div key={`${pageIndex}-${index}`}>
               <div
-                className="flex-shrink-0 sm:w-48 lg:w-60"
+                className="flex-shrink-0 sm:w-48 lg:w-60 2xl:w-64"
                 key={restaurant.id}
               >
                 <AnimatedSection key={restaurant.id} index={index}>

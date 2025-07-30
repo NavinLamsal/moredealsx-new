@@ -13,6 +13,9 @@ export interface EventList {
     seat_available: number
     id: string;
     start_date: string;
+    domain_name?: string;
+    restro_slug?: string
+    
 }
 
 

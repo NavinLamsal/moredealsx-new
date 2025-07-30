@@ -1,15 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  BookOpen,
-  Bot,
-  Frame,
-  Map,
-  PieChart,
-  Settings,
-  SquareTerminal,
-} from "lucide-react";
+import { BookOpen, Frame, Settings, SquareTerminal } from "lucide-react";
 
 import { NavMain } from "@/layout/nav-main";
 import { NavProjects } from "@/layout/nav-projects";
@@ -51,12 +43,13 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
   const data = {
     user: {
       name: `${session.data?.user?.userDetails?.first_name} ${session.data?.user?.userDetails?.last_name}`,
-      email: `${session.data?.user?.userDetails?.email === ""
+      email: `${
+        session.data?.user?.userDetails?.email === ""
           ? session.data?.user?.userDetails?.phone_prefix +
-          " " +
-          session.data?.user?.userDetails?.phone_number
+            " " +
+            session.data?.user?.userDetails?.phone_number
           : session.data?.user?.userDetails?.email
-        }`,
+      }`,
       avatar: `${session.data?.user?.userDetails?.display_picture}`,
     },
     teams: [
@@ -167,12 +160,12 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
 
     projects: [
       {
-        name: "MOREFOOD",
+        name: "Food Deals",
         url: "/morefood",
         // url: `${session.data?.user?.userDetails?.crm_link[0] as string}`,
         icon: Frame,
-        darkImage: "/images/svg/morefood.svg",
-        lightImage: "/images/svg/morefood.svg",
+        darkImage: "/images/png/moredealsxnew.png",
+        lightImage: "/images/png/moredealsxnew.png",
       },
       // {
       //   name: "MORESALONS",
@@ -199,15 +192,14 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
     crm: [
       ...(session?.data?.user?.userDetails?.crm_link?.restro_link
         ? [
-          {
-            name: "MOREFOOD CRM",
-            url:
-              session?.data?.user?.userDetails?.crm_link?.restro_link ?? "#",
-            icon: Frame,
-            darkImage: "/images/svg/morefood.svg",
-            lightImage: "/images/svg/morefood.svg",
-          },
-        ]
+            {
+              name: "RESTAURANT CRM",
+              url: `https://merkoll.com/auth/login`,
+              icon: Frame,
+              darkImage: "/images/png/moredealsxnew.png",
+              lightImage: "/images/png/moredealsxnew.png",
+            },
+          ]
         : []),
     ],
   };
@@ -223,10 +215,9 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
           <NavMain items={data.navbusiness} title="Business" />
         )}
         <NavProjects projects={data.projects} />
-        {user?.profile?.user_type === "BUSINESS" &&
-          session?.data?.user?.userDetails?.crm_link && (
-            <NavCRM projects={data.crm} />
-          )}
+        {session?.data?.user?.userDetails?.crm_link && (
+          <NavCRM projects={data.crm} />
+        )}
       </SidebarContent>
       <SidebarFooter className="py-4">
         <SidebarMenuButton

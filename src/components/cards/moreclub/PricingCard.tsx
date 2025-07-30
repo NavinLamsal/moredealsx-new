@@ -1,4 +1,4 @@
-// import { Package } from '@/lib/redux/slice/moreclub/Pricing';
+// import { tierage } from '@/lib/redux/slice/moreclub/Pricing';
 // import { CheckIcon } from 'lucide-react';
 // import React from 'react'
 
@@ -265,6 +265,12 @@ const PricingCard = ({
         </div>
         {/* <p>{tier?.description}</p> */}
 
+        <span className="text-xs text-white text-start">
+          {billingCycle === "yearly" && `(${tier.currency_symbol} ${tier.price} x 11)`}  <br />
+          {tier.code === "free" ? "" : `No hidden fees`}
+
+        </span>
+
         {tier.name.includes("Power Saver") &&
           <div>
             <span className='inline-flex px-3 py-1 text-xs font-semibold text-white  rounded-full bg-destructive'>RECOMMENDED</span>
@@ -278,7 +284,7 @@ const PricingCard = ({
           role="list"
           className="mt-8 space-y-3 text-sm/6 sm:mt-10"
         >
-          {formatFeatures(tier).map(({ label, enabled }) => (
+          {/* {formatFeatures(tier).map(({ label, enabled }) => (
             <li
               key={label}
               className={classNames(
@@ -299,23 +305,36 @@ const PricingCard = ({
               )}
               {label}
             </li>
-          ))}
+          ))} */}
+          {tier?.features && (
+            <ul className="mt-2 space-y-1 ">
+              <li className="font-semibold text-center">Plan Includes</li>
+              {tier.features.map((feature, index: number) => (
+                <li key={index} className={`flex items-start text-start gap-2 ${feature.icon.toLocaleLowerCase() === "check" ? "" : "text-muted-foreground"}`}>{feature.icon.toLocaleLowerCase() === "check" ? <CheckIcon
+                  className="h-5 w-5 text-primary"
+                  aria-hidden="true"
+                /> : feature.icon.toLocaleLowerCase() === "x" ? <XIcon
+                  className="h-5 w-5 text-muted-foreground"
+                  aria-hidden="true"
+                /> : ""} {feature.title}</li>
+              ))}
+            </ul>
+          )}
         </ul>
 
 
-       {subscribe ? 
-       <Button className='bg-green-500 text-white w-full mt-4 py-5 h-12 font-bold'>Subscribed</Button>
-      :
-      <>
-      <Button variant={tier.name.includes("Power Saver") ? "default" : "outline"} className='border-black dark:border-white w-full mt-4 py-5 h-12 font-bold'>
-        {tier.name.includes("Power Saver") ? "Start 30-day Trial" : tier.name.includes("custom") ? "Contact Sales" : "Get Started"}
-      </Button>
-      {tier.name.includes("Power Saver") &&
-        <p className='text-center mt-4 text-sm '>or {tier.currency_symbol}
-          {billingCycle === "yearly" ? tier.yearly_price : tier.price}/{billingCycle} (save 34%)</p>}
-      
-      </>
-    }
+        {subscribe ?
+          <Button className='bg-green-500 text-white w-full mt-4 py-5 h-12 font-bold'>Subscribed</Button>
+          :
+          <>
+            <Button variant={tier.name.includes("Power Saver") ? "default" : "outline"} className='border-black dark:border-white w-full mt-4 py-5 h-12 font-bold'>
+              {tier.free_trial?.is_free_trial ? "Start 30-day Trial" : tier.name.includes("custom") ? "Contact Sales" : "Get Started"}
+            </Button>
+            {tier.free_trial?.is_free_trial &&
+              <p className='text-center mt-4 text-sm '> No credit card required</p>}
+
+          </>
+        }
 
       </div>
     </div>

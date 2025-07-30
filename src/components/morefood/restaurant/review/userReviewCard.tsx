@@ -1,16 +1,31 @@
-'use client';
+"use client";
 import { useState } from "react";
 import { Review } from "@/lib/type/morefood/restaurant";
 import { Crown, Edit2 } from "lucide-react";
 import moment from "moment";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { ReviewForm } from "@/components/form/morefood/reviewForm";
 import Heading from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-export const UserReviewCard = ({ review, slug, showName=false}: { review: Review , slug: string , showName?: boolean}) => {
+export const UserReviewCard = ({
+  review,
+  slug,
+  showName = false,
+}: {
+  review: Review;
+  slug: string;
+  showName?: boolean;
+}) => {
   const [isOpen, setIsOpen] = useState(false); // State to manage modal visibility
   const [isEditMode, setIsEditMode] = useState(false); // State to toggle edit mode
   const [editedComment, setEditedComment] = useState(review.comment); // Store the edited comment
@@ -35,42 +50,89 @@ export const UserReviewCard = ({ review, slug, showName=false}: { review: Review
     setIsOpen(false); // Close the modal or bottom sheet
   };
 
+  const handleRedirection = () => {
+    window.open(
+      `https://${review.restaurant.domain}.merkoll.com/${review.restaurant.slug}?redirect=/review`,
+      "_blank"
+    );
+  };
+
   return (
     <div className="border p-4 rounded-lg shadow-sm bg-white dark:bg-slate-900 flex flex-col gap-2 mb-2 ">
-      <h6 className="text-base font-bold ">{showName ? `Review for ${review.restaurant.name}`: "Your Review"} </h6>  
-      <p className="text-muted-foreground h-12 italic">"{review.comment}"
-        <Button variant="ghost" size={"icon"}  onClick={() => setIsOpen(true)}> <Edit2 className="w-4 h-4" /></Button>
+      <h6 className="text-base font-bold ">
+        {showName ? `Review for ${review.restaurant.name}` : "Your Review"}{" "}
+      </h6>
+      <p className="text-muted-foreground h-12 italic">
+        "{review.comment}"
+        {/* <Button variant="ghost" size={"icon"} onClick={() => setIsOpen(true)}>
+          {" "}
+          <Edit2 className="w-4 h-4" />
+        </Button> */}
       </p>
+      <button
+        onClick={handleRedirection}
+        className="bg-primary px-4 py-1 rounded w-fit"
+      >
+        View
+      </button>
       <p className="text-sm text-muted-foreground flex items-center gap-1">
         {Array.from({ length: review.rating }, (_, i) => (
-          <Crown key={i} fill={"currentcolor"} className="w-4 h-4 text-yellow-500" />
+          <Crown
+            key={i}
+            fill={"currentcolor"}
+            className="w-4 h-4 text-yellow-500"
+          />
         ))}
-        - {`${review.user.first_name} ${review.user.last_name}`} • {moment.utc(review.created_at).local().format("YYYY-MM-DD")}
+        - {`${review.user.first_name} ${review.user.last_name}`} •{" "}
+        {moment.utc(review.created_at).local().format("YYYY-MM-DD")}
       </p>
-    
+
       {/* Modal (Dialog for large screens) */}
-      {isOpen && !isSmallScreen && (
-        <Dialog open={isOpen} onOpenChange={()=>setIsOpen(false)} >
-            <DialogContent className="sm:max-w-[425px] md:max-w-md lg:max-w-lg xl:max-w-xl md:max-h-[60%] lg:max-h-[75%] overflow-y-scroll hide-scroll-bar ">
-                <Heading title="Edit Review" />
-                <ReviewForm initialReview={review} isEditing={true} onSubmit={() => {handleSave()}} onCancel={()=>{handleCancel()}} slug={slug} />
-            </DialogContent>
+      {/* {isOpen && !isSmallScreen && (
+        <Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
+          <DialogContent className="sm:max-w-[425px] md:max-w-md lg:max-w-lg xl:max-w-xl md:max-h-[60%] lg:max-h-[75%] overflow-y-scroll hide-scroll-bar ">
+            <Heading title="Edit Review" />
+            <ReviewForm
+              initialReview={review}
+              isEditing={true}
+              onSubmit={() => {
+                handleSave();
+              }}
+              onCancel={() => {
+                handleCancel();
+              }}
+              slug={slug}
+            />
+          </DialogContent>
         </Dialog>
-      )}
+      )} */}
 
       {/* Bottom Sheet for Small Screens */}
-      {isOpen && isSmallScreen && (
-        <Sheet open={isOpen} onOpenChange={()=>setIsOpen(false)}>
-            <SheetContent side="bottom" className="h-[80vh] overflow-y-scroll p-2">
+      {/* {isOpen && isSmallScreen && (
+        <Sheet open={isOpen} onOpenChange={() => setIsOpen(false)}>
+          <SheetContent
+            side="bottom"
+            className="h-[80vh] overflow-y-scroll p-2"
+          >
             <SheetHeader>
-                <SheetTitle>Edit Review</SheetTitle>
-              </SheetHeader>
-                <SheetDescription>
-                <ReviewForm  initialReview={review} isEditing={true} onSubmit={() => {handleSave()}} onCancel={()=>{handleCancel()}} slug={slug} />
+              <SheetTitle>Edit Review</SheetTitle>
+            </SheetHeader>
+            <SheetDescription>
+              <ReviewForm
+                initialReview={review}
+                isEditing={true}
+                onSubmit={() => {
+                  handleSave();
+                }}
+                onCancel={() => {
+                  handleCancel();
+                }}
+                slug={slug}
+              />
             </SheetDescription>
-        </SheetContent>
+          </SheetContent>
         </Sheet>
-      )}
+      )} */}
     </div>
   );
 };

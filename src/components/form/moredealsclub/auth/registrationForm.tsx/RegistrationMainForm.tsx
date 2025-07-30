@@ -35,7 +35,7 @@ const RegistrationMainForm = () => {
     return (
 
         <div className="w-full flex flex-col justify-center items-center  sm:p-6 relative">
-            <Card className="w-full max-w-4xl sm:shadow-lg  rounded-xl bg-inherit shadow-none border-0 sm:border sm:bg-card">
+            <Card className="w-full max-w-4xl sm:shadow-lg  rounded-xl  shadow-none border-0 sm:border bg-card">
                 {/* <div className='flex justify-center w-full items-center'><AuthHeaders /></div> */}
 
                 {currentStep && (
@@ -50,7 +50,6 @@ const RegistrationMainForm = () => {
                         <CardContent>{currentStep.forms}</CardContent>
                     </div>
                 )}
-
 
                 <CardFooter className='flex w-full justify-center'>
                     <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">

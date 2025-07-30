@@ -3,15 +3,48 @@ import FoodList from "@/components/morefood/restaurant/FoodList";
 export interface ResturantListType {
   id: string;
   name: string;
-  slug: string;
-  open_hrs: string;
-  offers: string;
-  banner: string;
   address: string;
-  url?: string;
-  review_count: number;
-  avg_rating: number;
+  slug: string;
+  is_open: boolean;
+  domain?: string;
+  banner: string;
+  review_count?: number;
+  offers?: string;
   menu_count?: number;
+  lat?: string;
+  lng?: string;
+  logo?: string;
+  has_delivery?: boolean;
+  has_pickup?: boolean;
+  has_dine?: boolean;
+  distance?: number;
+  average_ratings?: number;
+}
+
+export interface FeaturedRestaurantListType {
+  id: string;
+  restro: string;
+  restro_name: string;
+  restro_logo: string;
+  restro_slug: string;
+  restro_country: string;
+  start_date: string;
+  end_date: string;
+  paid_fee: string;
+  currency: string;
+  domain: string;
+  created_at: string;
+  is_open: boolean;
+  restro_banner: string;
+  address: string;
+}
+export interface BusinessRestaurantList {
+  id: string;
+  name: string;
+  address: string;
+  slug: string;
+  banner: string;
+  is_open: boolean;
 }
 
 export interface CategoryListType {
@@ -260,18 +293,22 @@ export interface orderFoodItem {
 }
 
 export interface Review {
-  comment: string;
-  created_at: string;
   id: string;
-  image: string[];
-  rating: number;
+  user: {
+    first_name: string;
+    last_name: string;
+  };
   restaurant: {
     id: string;
-    logo: string;
     name: string;
+    logo: string;
     slug: string;
+    domain: string;
   };
-  user: { first_name: string; last_name: string };
+  rating: number;
+  comment: string;
+  created_at: string;
+  image: string[];
 }
 
 export interface ImagesList {

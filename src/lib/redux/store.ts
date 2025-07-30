@@ -14,9 +14,11 @@ import packageReducer from "./slice/moreclub/Pricing";
 import notificationsReducer from "./slice/notificationSlice";
 
 import userReducer from "./slice/moreclub/UserSlice";
+import authReducer from "./slice/moreclub/authStore";
 
 
 const rootReducer = combineReducers({
+  auth: authReducer,
   notification:notificationsReducer,
 
   // products: productReducer,

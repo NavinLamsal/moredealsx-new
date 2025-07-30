@@ -8,12 +8,16 @@ import InfiniteList from "../lists/infiniteListing";
 
 
 const RestaurantEventList = () => {
+
+  const country = typeof window !== "undefined" ? localStorage.getItem("country_code") : null;
   const { fetchRestroEventsList } = useFetchEvents();
+  const fetchWithCountry = (page: number) => fetchRestroEventsList(country!, page);
+
 
   return (
     <InfiniteList
       queryKey="restro-events-list"
-      fetchFunction={fetchRestroEventsList}
+      fetchFunction={fetchWithCountry}
       loadingFallback={<TrendingEventSkeleton />}
       emptyFallback={<p className="text-center">No Events Found</p>}
       renderItem={(event, index, ref) => (

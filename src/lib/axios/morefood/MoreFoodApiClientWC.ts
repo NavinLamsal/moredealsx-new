@@ -1,6 +1,4 @@
 import axios from "axios";
-import { getSession } from "next-auth/react";
-// import { getClientApiUrl } from "./axiosClient";
 
 const baseURL = process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL;
 

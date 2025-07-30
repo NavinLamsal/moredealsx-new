@@ -1,10 +1,8 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { RootState } from "@/lib/redux/store";
-import { AlertOctagonIcon } from "lucide-react";
+import { AlertOctagonIcon, CheckIcon, ShieldCloseIcon, X, XIcon } from "lucide-react";
 import React from "react";
 import { useSelector } from "react-redux";
 import { UpgradeFormDataType } from "./upgradeform";
@@ -20,9 +18,22 @@ interface Step1Props {
   isLoading: boolean;
 }
 
-const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, onSkip, serverError, isLoading }) => {
-  const lastpackage = useSelector((state: RootState) => state.pricing.lastFetched[data.plan_type][data.plan_time]);
-  const packages = useSelector((state: RootState) => state.pricing.packages[data.plan_type][data.plan_time]);
+const Step1UpgradeForm: React.FC<Step1Props> = ({
+  data,
+  errors,
+  setData,
+  onNext,
+  onSkip,
+  serverError,
+  isLoading,
+}) => {
+  const lastpackage = useSelector(
+    (state: RootState) =>
+      state.pricing.lastFetched[data.plan_type][data.plan_time]
+  );
+  const packages = useSelector(
+    (state: RootState) => state.pricing.packages[data.plan_type][data.plan_time]
+  );
 
   const user = useSelector((state: RootState) => state.user);
 
@@ -48,7 +59,11 @@ const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, onS
 
       <div>
         <label className="block text-sm font-medium mb-1">Plan Time</label>
-        <RadioGroup value={data.plan_time} onValueChange={(value) => setData("plan_time", value)} className="grid grid-cols-2 gap-4">
+        <RadioGroup
+          value={data.plan_time}
+          onValueChange={(value) => setData("plan_time", value)}
+          className="grid grid-cols-2 gap-4"
+        >
           {["monthly", "yearly"].map((type) => (
             <div key={type}>
               <RadioGroupItem value={type} id={type} className="peer sr-only" />
@@ -61,67 +76,120 @@ const Step1PopForm: React.FC<Step1Props> = ({ data, errors, setData, onNext, onS
             </div>
           ))}
         </RadioGroup>
-        {errors.plan_time && <p className="text-red-500 text-sm">{errors.plan_time}</p>}
+        {errors.plan_time && (
+          <p className="text-red-500 text-sm">{errors.plan_time}</p>
+        )}
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Choose a Package</label>
-        {!lastpackage && <p className="text-sm text-muted-foreground">loading...</p>}
+        <label className="block text-sm font-medium mb-2">
+          Choose a Package
+        </label>
+        {!lastpackage && (
+          <p className="text-sm text-muted-foreground">loading...</p>
+        )}
 
-        <RadioGroup value={data.package} onValueChange={handlePackageChange} className="grid md:grid-cols-3 gap-4 ">
-
-          {lastpackage && packages.map((pack: Package) => (
-            <div key={pack.id}>
-              <RadioGroupItem value={pack.id} id={pack.id} className="peer sr-only" />
-              <label
-                htmlFor={pack.id}
-                className="
+        <RadioGroup
+          value={data.package}
+          onValueChange={handlePackageChange}
+          className="grid md:grid-cols-2 gap-4 "
+        >
+          {lastpackage &&
+            packages.map((pack: Package) => (
+              <div key={pack.id}>
+                <RadioGroupItem
+                  value={pack.id}
+                  id={pack.id}
+                  className="peer sr-only"
+                />
+                <label
+                  htmlFor={pack.id}
+                  className="
                 flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary peer-data-[state=checked]:bg-primary [&:has([data-state=checked])]:text-primary-foreground"
-              >
-                <span className="text-md font-semibold">{pack?.name}</span>
-                <span className="text-sm text-muted-foreground">
-                  {pack.code === "free" ? "Try for Free" : `${pack.currency_symbol} ${data.plan_time === "yearly" ? pack.yearly_price : pack.price}`}
+                >
+                  <span className="text-md font-semibold">{pack?.name}</span>
+                  <span className="text-sm text-muted-foreground">
+                    {pack.code === "free"
+                      ? "Try for Free"
+                      : `${pack.currency_symbol} ${
+                          data.plan_time === "yearly"
+                            ? `${pack.yearly_price}`
+                            : pack.price
+                        }`}
+                  </span>
+                  <span className="text-xs text-black text-center">
+                    {data.plan_time === "yearly" &&
+                      `(${pack.currency_symbol} ${pack.price} x 11)`}{" "}
+                    <br />
+                    {pack.code === "free" ? "" : `No hidden fees`}
+                  </span>
+                  {pack?.name.includes("Power Saver") && (
+                    <div>
+                      <span className="inline-flex px-3 py-1 text-xs font-semibold text-white  rounded-full bg-destructive">
+                        RECOMMENDED
+                      </span>
+                    </div>
+                  )}
+                  {pack.free_trial?.is_free_trial && (
+                    <div>
+                      <span className="inline-flex px-3 py-1 text-xs font-semibold text-center  rounded-full ">
+                        30-day trial, no credit card required
+                      </span>
+                    </div>
+                  )}
 
-                </span>
-                {pack?.name.includes("Power Saver") &&
-                  <div>
-
-                    <span className='inline-flex px-3 py-1 text-xs font-semibold text-white  rounded-full bg-destructive'>RECOMMENDED</span>
-
-                  </div>}
-                {pack.free_trial?.is_free_trial && <div>
-
-                  <span className='inline-flex px-3 py-1 text-xs font-semibold   rounded-full '>Free Trial</span>
-
-                </div>}
-              </label>
-            </div>
-          ))}
+                  {pack?.features && (
+                    <ul className="mt-2 space-y-1 text-sm ">
+                      <li className="font-semibold text-center">Plan Includes</li>
+                      {pack.features.map((feature, index: number) => (
+                        <li key={index} className={`flex items-start text-start gap-2 ${feature.icon.toLocaleLowerCase() === "check" ? "" : "text-muted-foreground"}`}>{feature.icon.toLocaleLowerCase() === "check" ? <CheckIcon className="h-4 w-4" /> : feature.icon.toLocaleLowerCase() === "x" ? <XIcon className="h-4 w-4" /> : ""} {feature.title}</li>
+                      ))}
+                    </ul>
+                  )}
+                </label>
+              </div>
+            ))}
         </RadioGroup>
         {errors.package && <p className="text-red-500">{errors.package}</p>}
       </div>
 
-      {(user.profile?.user_type === "NORMAL" && packages.find((p: Package) => p.id === data.package)?.code === "free") ? (
-        <Button type="button" onClick={onSkip} className="w-full" disabled={isLoading}>
+      {user.profile?.user_type === "NORMAL" &&
+      packages.find((p: Package) => p.id === data.package)?.code === "free" ? (
+        <Button
+          type="button"
+          onClick={onSkip}
+          className="w-full"
+          disabled={isLoading}
+        >
           Skip
         </Button>
-      )
-        :
+      ) : (
         <>
-          {(user.profile?.user_type === "BUSINESS" && packages.find((p: Package) => p.id === data.package)?.free_trial?.is_free_trial) ? (
-            <Button type="button" onClick={onSkip} className="w-full" disabled={isLoading}>
+          {user.profile?.user_type === "BUSINESS" &&
+          packages.find((p: Package) => p.id === data.package)?.free_trial
+            ?.is_free_trial ? (
+            <Button
+              type="button"
+              onClick={onSkip}
+              className="w-full"
+              disabled={isLoading}
+            >
               Continue with Free trial
             </Button>
-          ) :
-            <Button type="button" onClick={onNext} className="w-full" disabled={isLoading}>
+          ) : (
+            <Button
+              type="button"
+              onClick={onNext}
+              className="w-full"
+              disabled={isLoading}
+            >
               {isLoading ? "Processing..." : "Next"}
             </Button>
-          }
+          )}
         </>
-      }
-
+      )}
     </div>
   );
 };
 
-export default Step1PopForm;
+export default Step1UpgradeForm;

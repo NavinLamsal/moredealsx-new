@@ -34,7 +34,9 @@ const TreasureSection = () => {
       className="py-20 text-center bg-cover bg-center"
       style={{
         backgroundImage:
-          "linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')",
+          // "linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')",
+          "linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/images/png/background.png')",
+          
       }}
     >
       <div className="max-w-3xl mx-auto text-white">
@@ -53,7 +55,8 @@ const TreasureSection = () => {
           href="#"
           className="inline-block bg-yellow-400 text-black font-semibold px-6 py-3 rounded hover:bg-yellow-300 transition-colors"
         >
-          Open the Chest
+          {/* Open the Chest */}
+          Coming Soon
         </a>
       </div>
     </section>

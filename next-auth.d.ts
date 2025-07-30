@@ -14,6 +14,7 @@ declare module "next-auth" {
     refreshToken: string; // Refresh token
     accessTokenExpires: number; // Access token expiration time (milliseconds)
     user: User; // User object
+    error: string;
   }
 
   interface JWT {
@@ -26,6 +27,7 @@ declare module "next-auth" {
     refreshToken: string; // Refresh token
     accessTokenExpires: number; // Access token expiration time (milliseconds)
     user: User; // User object
+    error: string;
   }
 }
 

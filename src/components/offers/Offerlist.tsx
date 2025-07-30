@@ -107,7 +107,7 @@
 
 "use client";
 
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { fetchOffer, fetchOfferList, Offer, OfferDealType } from "@/lib/action/PublicCommonClient";
@@ -145,6 +145,7 @@ const AllOffersList = () => {
         staleTime: 36000,
         enabled: true,
     });
+
 
     // Infinite Scroll Observer
     const lastRestaurantRef = useCallback(

@@ -16,14 +16,10 @@ const Treasurehunts = () => {
                 <p className="mb-8 max-w-xl text-lg mx-auto">Unlock hidden deals and collect exclusive rewards by participating in our daily treasure hunt!</p>
 
                 <Button  className='h-12 text-xl font-bold px-5'>
-                    Start Hunting
+                    {/* Start Hunting */}
+                    Coming Soon
                 </Button>
-                {/* <a
-                    href="#"
-                    className="inline-block bg-yellow-400 text-black font-semibold px-6 py-3 rounded hover:bg-yellow-300 transition-colors"
-                >
-                    Start Hunting
-                </a> */}
+                
             </div>
         </section>
 

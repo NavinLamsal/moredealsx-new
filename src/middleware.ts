@@ -31,7 +31,7 @@ export async function middleware(request: any) {
     "/support",
     "/offers",
   ]; // Add more public paths as needed
-  const wildcardPaths = ["/events", "/blog", "/offers"];
+  const wildcardPaths = ["/events", "/blog", "/offers" ,"/category"];
   const isPublicPath =
     publicPaths.includes(nextUrl.pathname) ||
     wildcardPaths.some((path) => nextUrl.pathname.startsWith(`${path}/`));
