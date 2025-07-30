@@ -483,6 +483,8 @@ const UpgradeForm = ({
         setData,
         onNext: () => handleNext(1),
         isLoading,
+        subscribed : membershiptype,
+        
       },
     },
     {
