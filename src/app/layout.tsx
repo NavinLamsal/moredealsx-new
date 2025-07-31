@@ -50,7 +50,7 @@ export default async function  RootLayout({
         <SessionProvider>
         <Provider>
           <Suspense>
-          <Locationretrive/>
+          {/* <Locationretrive/> */}
           </Suspense>
             {children}
             <Suspense>

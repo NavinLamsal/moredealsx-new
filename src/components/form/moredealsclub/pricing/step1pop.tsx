@@ -50,7 +50,7 @@ const Step1UpgradeForm: React.FC<Step1Props> = ({
   };
 
 
-  const subscribed_id = packages.find((p: Package) => p.name === subscribed.membership_name);
+  const subscribed_id = packages.find((p: Package) => p.name === subscribed?.membership_name);
 
 
   return (
