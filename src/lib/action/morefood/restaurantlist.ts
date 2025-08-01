@@ -437,13 +437,13 @@ export const useFetchRestaurant = () => {
         page: page.toString(),
       });
 
-      const response = await MoreFoodApiClient.get(
-        `orders/user/list/?${queryParams.toString()}`
+      const response = await MoreClubApiClient.get(
+        `public/orders/list/user/?${queryParams.toString()}`
       );
 
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
-      console.error("Error fetching restaurants:", error);
+      console.error("Error fetching order list:", error);
       return { data: [] as Order[], meta: {} as MetaData };
     }
   };
