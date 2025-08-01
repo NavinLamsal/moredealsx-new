@@ -152,11 +152,16 @@ export default function ProfileCard() {
           <div className="flex items-center">
             <input
               type="text"
-              defaultValue={
-                business?.businessProfile?.id
-                  ? `${process.env.NEXT_PUBLIC_HOST_URL}/auth/register/?bpms=${business?.businessProfile?.id}`
-                  : ""
-              }
+              // defaultValue={
+              //   business?.businessProfile?.id
+              //     ? `${process.env.NEXT_PUBLIC_HOST_URL}/auth/register/?bpms=${business?.businessProfile?.id}`
+              //     : ""
+              // }
+              defaultValue={`${
+                process.env.NEXT_PUBLIC_HOST_URL
+              }/auth/register/?refferal=${
+                user?.reffer_code?.referral_code ?? "N/A"
+              }}`}
               className="bg-black text-white border-0 p-1 w-4/5 outline-none"
               ref={linkInputRef}
               readOnly
