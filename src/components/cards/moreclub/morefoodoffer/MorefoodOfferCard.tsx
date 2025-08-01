@@ -77,41 +77,36 @@ const MoreOfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
                 </span>
               )}
           </div>
-          {isOffer ? (
-            !expanded ? (
-              <div className="flex items-center gap-1 mb-2 w-full overflow-hidden">
-                <p
-                  ref={descRef}
-                  className="sm:text-sm text-xs text-muted-foreground truncate whitespace-nowrap overflow-hidden flex-1"
-                >
-                  {item.description}
-                </p>
-                {isTruncated && (
-                  <button
-                    onClick={() => setExpanded(true)}
-                    className="text-yellow-400 text-xs underline flex-shrink-0"
-                  >
-                    Read More
-                  </button>
-                )}
-              </div>
-            ) : (
-              <div className="mb-2">
-                <p className="sm:text-sm text-xs text-muted-foreground mb-1">
-                  {item.description}
-                </p>
+
+          {!expanded ? (
+            <div className="flex items-center gap-1 mb-2 w-full overflow-hidden">
+              <p
+                ref={descRef}
+                className="sm:text-sm text-xs text-muted-foreground truncate whitespace-nowrap overflow-hidden flex-1"
+              >
+                {item.description}
+              </p>
+              {isTruncated && (
                 <button
-                  onClick={() => setExpanded(false)}
-                  className="text-yellow-400 text-xs underline"
+                  onClick={() => setExpanded(true)}
+                  className="text-yellow-400 text-xs underline flex-shrink-0"
                 >
-                  Read Less
+                  Read More
                 </button>
-              </div>
-            )
+              )}
+            </div>
           ) : (
-            <p className="sm:text-sm text-xs text-muted-foreground mb-4 truncate whitespace-nowrap overflow-hidden">
-              {item.description}
-            </p>
+            <div className="mb-2">
+              <p className="sm:text-sm text-xs text-muted-foreground mb-1">
+                {item.description}
+              </p>
+              <button
+                onClick={() => setExpanded(false)}
+                className="text-yellow-400 text-xs underline"
+              >
+                Read Less
+              </button>
+            </div>
           )}
 
           <Button
