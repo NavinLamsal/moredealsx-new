@@ -159,9 +159,9 @@ export default function ProfileCard() {
               // }
               defaultValue={`${
                 process.env.NEXT_PUBLIC_HOST_URL
-              }/auth/register/?refferal=${
+              }/auth/register/?referral=${
                 user?.reffer_code?.referral_code ?? "N/A"
-              }}`}
+              }`}
               className="bg-black text-white border-0 p-1 w-4/5 outline-none"
               ref={linkInputRef}
               readOnly
