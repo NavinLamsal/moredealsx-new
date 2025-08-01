@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React, { forwardRef, useEffect, useRef, useState } from "react";
@@ -24,7 +26,8 @@ const MoreOfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
     useEffect(() => {
       const element = descRef.current;
       if (element) {
-        const isOverflowing = element.scrollHeight > element.clientHeight;
+        // const isOverflowing = element.scrollHeight > element.clientHeight;
+        const isOverflowing = element.scrollWidth > element.clientWidth;
         setIsTruncated(isOverflowing);
       }
     }, [item.description]);
@@ -74,30 +77,36 @@ const MoreOfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
                 </span>
               )}
           </div>
-          {isOffer ? (
-            <>
+
+          {!expanded ? (
+            <div className="flex items-center gap-1 mb-2 w-full overflow-hidden">
               <p
                 ref={descRef}
-                className={`sm:text-sm text-xs text-muted-foreground  transition-all ${
-                  expanded ? "" : "line-clamp-2 h-6"
-                }`}
+                className="sm:text-sm text-xs text-muted-foreground truncate whitespace-nowrap overflow-hidden flex-1"
               >
                 {item.description}
               </p>
-
               {isTruncated && (
                 <button
-                  onClick={() => setExpanded((prev) => !prev)}
-                  className="text-red-600 text-xs mb-2 underline"
+                  onClick={() => setExpanded(true)}
+                  className="text-yellow-400 text-xs underline flex-shrink-0"
                 >
-                  {expanded ? "Read Less" : "Read More"}
+                  Read More
                 </button>
               )}
-            </>
+            </div>
           ) : (
-            <p className="sm:text-sm text-xs text-muted-foreground mb-4 line-clamp-2 h-6">
-              {item.description}
-            </p>
+            <div className="mb-2">
+              <p className="sm:text-sm text-xs text-muted-foreground mb-1">
+                {item.description}
+              </p>
+              <button
+                onClick={() => setExpanded(false)}
+                className="text-yellow-400 text-xs underline"
+              >
+                Read Less
+              </button>
+            </div>
           )}
 
           <Button
