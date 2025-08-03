@@ -120,7 +120,9 @@ import MoreOfferCard from "../cards/moreclub/morefoodoffer/MorefoodOfferCard";
 
 
 const AllOffersList = () => {
-    const country = typeof window !== "undefined" ? localStorage.getItem("country") : null;
+    const country =
+    typeof window !== "undefined" ? localStorage.getItem("country_code") : null;
+
     const searchParams = useSearchParams();
     const searchQuery = searchParams.get("search") || "";
     const category = searchParams.get("category") || "";

@@ -7,7 +7,7 @@ import { CardSkeleton } from "../Skeletons/CardSkeleton";
 import AnimatedSection from "../ui/animations/FadeUpView";
 import { ResturantListType } from "@/lib/type/morefood/restaurant";
 
-const PopularRestaurant = () => {
+const PopularRestaurant = ({ dashboard=false }: { dashboard?: boolean }) => {
   const city =
     typeof window !== "undefined" ? localStorage.getItem("city_code") : null;
 
@@ -44,7 +44,7 @@ const PopularRestaurant = () => {
     <div className="p-1 lg:p-4">
       <HorizontalCarousel
         title="Popular Restaurants"
-        viewAll={`/morefood/category/popular/list?title=Popular Restaurants`}
+        viewAll={ dashboard ? `/morefood/category/popular?title=Popular Restaurants` :`/category/popular?title=Popular Restaurants`}
       >
         {data.data.map((restaurant, index) => (
           <div className="flex-shrink-0 w-60" key={index}>

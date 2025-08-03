@@ -1,10 +1,7 @@
 import React from "react";
 import { LocationDialog } from "./location/LocationDialog";
-
 import AuthNavbarContent from "./AuthNavbarContent";
 import { Montserrat } from "next/font/google";
-import { X } from "lucide-react";
-import Logo from "./Logo";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,20 +9,6 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 
 const Navbar = () => {
   return (
-    // <div className="bg-navbar text-white py-1 px-6 ">
-    //   <div className='max-w-8xl mx-auto flex justify-between items-center'>
-
-    //     <div className="flex items-center gap-4">
-    //       <a href="/" className="flex items-center gap-3">
-    //         <Image src={dark_logo} alt={"MOREDEALSCLUB"} width={200} height={200} className='h-[4.5rem] w-auto hidden dark:inline-block' />
-    //         <Image src={light_logo} alt={"MOREDEALSCLUB"} width={200} height={200} className='h-[4.5rem] w-auto  inline-block dark:hidden' />
-    //       </a>
-    //       <LocationDialog />
-    //     </div>
-
-    //     <AuthNavbarContent header={true} />
-    //   </div>
-    // </div>
     <header className="bg-black bg-background py-5 border-b-2 border-primary">
       <div className="mx-auto sm:py-5 py-2 sm:px-6 px-3">
         <div className="flex flex-col justify-end">
