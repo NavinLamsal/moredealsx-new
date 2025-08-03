@@ -49,6 +49,7 @@ export default async function Page({
             </div>
           </HeadingChild>
           <RestaurantList
+            dashboard={true}
             type={`list`}
             searchParams={{ ...searchparams, category: category }}
           />
@@ -59,7 +60,7 @@ export default async function Page({
             <Heading title={title as string} />
           </div>
 
-          <RestaurantList type={`${slug}/list`} searchParams={searchparams} />
+          <RestaurantList dashboard={true} type={`${slug}/list`} searchParams={searchparams} />
         </>
       )}
     </>

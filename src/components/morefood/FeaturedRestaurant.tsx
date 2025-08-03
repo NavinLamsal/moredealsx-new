@@ -1,6 +1,5 @@
 "use client";
 import { useFetchRestaurant } from "@/lib/action/morefood/restaurantlist";
-import RestaurantCard from "../cards/morefood/RestaurantCard";
 import HorizontalCarousel from "../carousel/horizontalCarousel";
 import { useQuery } from "@tanstack/react-query";
 import { CardSkeleton } from "../Skeletons/CardSkeleton";
@@ -8,7 +7,7 @@ import AnimatedSection from "../ui/animations/FadeUpView";
 import FeaturedRestaurantCard from "../cards/morefood/FeaturedRestroCard";
 import { FeaturedRestaurantListType } from "@/lib/type/morefood/restaurant";
 
-const FeaturedRestaurants = () => {
+const FeaturedRestaurants = ({dashboard = false}: {dashboard?: boolean}) => {
   const city =
     typeof window !== "undefined" ? localStorage.getItem("city_code") : null;
 
@@ -44,7 +43,7 @@ const FeaturedRestaurants = () => {
     <div className="p-1 lg:p-4">
       <HorizontalCarousel
         title="Featured Restaurants"
-        viewAll={`/morefood/category/featured?title=Featured Restaurants`}
+        viewAll={ dashboard ? `/morefood/category/featured?title=Featured Restaurants` :`/category/featured?title=Featured Restaurants`}
       >
         {data.data.map((restaurant, index) => (
           <div className="flex-shrink-0 w-60" key={index}>
