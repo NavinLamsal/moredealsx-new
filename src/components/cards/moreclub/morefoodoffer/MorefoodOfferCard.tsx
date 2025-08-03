@@ -35,7 +35,7 @@ const MoreOfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
     return (
       <div
         ref={ref}
-        className="group bg-card w-52 sm:w-64 md:w-72 text-card-foreground flex flex-col rounded-xl shadow-lg overflow-hidden  transform transition duration-300 hover:-translate-y-2  h-full"
+        className="group bg-card  text-card-foreground flex flex-col rounded-xl shadow-lg overflow-hidden  transform transition duration-300 hover:-translate-y-2  h-full w-full"
       >
         <div className="relative w-full h-40">
           <Image
