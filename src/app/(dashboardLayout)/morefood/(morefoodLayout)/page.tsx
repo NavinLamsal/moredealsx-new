@@ -28,8 +28,8 @@ const Page = () => {
       <TodaysOffer />
       <CategoriesList />
       {/* <FeaturedRestaurants/> */}
-      <NearestRestaurant />
-      <PopularRestaurant />
+      <NearestRestaurant dashboard={true} />
+      <PopularRestaurant dashboard={true} />
       <PopularCombos />
       <Heading title="All Restaurants" />
       <AllRestaurantList />

@@ -350,12 +350,13 @@ export const fetchOffer = async (
     const isMoreFood = category === "morefood";
 
     const endpoint = isMoreFood
-      ? "https://morebusinessinternational.com/api/public/offers/list/"
+      ? `${baseUrl}public/offers/${country}/list/`
       : `${baseUrl}moreoffers/list/`;
 
     const config = isMoreFood
       ? {
           page: pageParam,
+          offer_filter: "normal",
         } // No query params for morefood
       : {
           params: {
