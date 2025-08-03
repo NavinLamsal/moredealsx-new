@@ -4,12 +4,10 @@ import PhoneNumberInput from "@/components/ui/customInputs/PhoneNumberInput";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
-import { createServerPlatformAxiosInstance } from "@/lib/axios/platformBasedAxios";
 import { nextStep, updateField } from "@/lib/redux/slice/RegistrationSlice";
 import { RootState } from "@/lib/redux/store";
 import { validateRequired } from "@/lib/validation/common";
 import { Loader2Icon, Mail, Phone } from "lucide-react";
-import Link from "next/link";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

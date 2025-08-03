@@ -16,6 +16,7 @@ interface Step1Props {
   onNext: () => void;
   onSkip: () => void;
   isLoading: boolean;
+  subscribed: any;
 }
 
 const Step1UpgradeForm: React.FC<Step1Props> = ({
@@ -26,6 +27,7 @@ const Step1UpgradeForm: React.FC<Step1Props> = ({
   onSkip,
   serverError,
   isLoading,
+  subscribed,
 }) => {
   const lastpackage = useSelector(
     (state: RootState) =>
@@ -46,6 +48,10 @@ const Step1UpgradeForm: React.FC<Step1Props> = ({
       setData("currency_code", selectedPack.currency_code);
     }
   };
+
+
+  const subscribed_id = packages.find((p: Package) => p.name === subscribed?.membership_name);
+
 
   return (
     <div className="space-y-4">
@@ -102,51 +108,98 @@ const Step1UpgradeForm: React.FC<Step1Props> = ({
                   id={pack.id}
                   className="peer sr-only"
                 />
-                <label
-                  htmlFor={pack.id}
-                  className="
-                flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary peer-data-[state=checked]:bg-primary [&:has([data-state=checked])]:text-primary-foreground"
-                >
-                  <span className="text-md font-semibold">{pack?.name}</span>
-                  <span className="text-sm text-muted-foreground">
-                    {pack.code === "free"
-                      ? "Try for Free"
-                      : `${pack.currency_symbol} ${
-                          data.plan_time === "yearly"
-                            ? `${pack.yearly_price}`
-                            : pack.price
-                        }`}
-                  </span>
-                  <span className="text-xs text-black text-center">
-                    {data.plan_time === "yearly" &&
-                      `(${pack.currency_symbol} ${pack.price} x 11)`}{" "}
-                    <br />
-                    {pack.code === "free" ? "" : `No hidden fees`}
-                  </span>
-                  {pack?.name.includes("Power Saver") && (
-                    <div>
-                      <span className="inline-flex px-3 py-1 text-xs font-semibold text-white  rounded-full bg-destructive">
-                        RECOMMENDED
-                      </span>
-                    </div>
-                  )}
-                  {pack.free_trial?.is_free_trial && (
-                    <div>
-                      <span className="inline-flex px-3 py-1 text-xs font-semibold text-center  rounded-full ">
-                        30-day trial, no credit card required
-                      </span>
-                    </div>
-                  )}
+                <div key={pack.id} className="max-w-xl h-full group">
+                  <RadioGroupItem
+                    value={pack.id}
+                    id={pack.id}
+                    className="peer sr-only "
+                  // disabled={isSubscribed}
+                  />
+                  <label
+                    htmlFor={pack.id}
+                    className={`flex flex-col gap-4 items-center  h-full rounded-md justify-between border-2 border-muted bg-popover  shadow-lg  peer-data-[state=checked]:border-4 peer-data-[state=checked]:border-yellow-400 [&:has([data-state=checked])]:border-yellow-400  [&:has([data-state=checked])]:text-black text-white  ${" transition-all duration-300 group-hover:scale-105 hover:shadow-yellow-300"
+                      }`}
+                  >
+                    <div className="w-full">
+                      <div className="lg:p-10 p-6 text-center border-2 border-muted w-full bg-black">
+                        <span className="text-xl font-bold uppercase ">
+                          {pack?.name}
+                        </span>
+                        <div className="text-lg font-bold">
+                          {pack.currency_symbol}
+                          {data.plan_time === "yearly" ? pack.yearly_price : pack.price}
+                          <span className="text-base font-normal opacity-80 ml-2">
+                            /{data.plan_time}
+                          </span>
+                        </div>
+                        {data.plan_time === "yearly" &&
+                          <span className="text-xs text-white text-start">
+                            {pack.currency_symbol} {pack.price} x 11 <br />
+                            {pack.code === "free" ? "" : `No hidden fees`}
 
-                  {pack?.features && (
-                    <ul className="mt-2 space-y-1 text-sm ">
-                      <li className="font-semibold text-center">Plan Includes</li>
-                      {pack.features.map((feature, index: number) => (
-                        <li key={index} className={`flex items-start text-start gap-2 ${feature.icon.toLocaleLowerCase() === "check" ? "" : "text-muted-foreground"}`}>{feature.icon.toLocaleLowerCase() === "check" ? <CheckIcon className="h-4 w-4" /> : feature.icon.toLocaleLowerCase() === "x" ? <XIcon className="h-4 w-4" /> : ""} {feature.title}</li>
-                      ))}
-                    </ul>
-                  )}
-                </label>
+                          </span>
+
+                        }
+
+                        {pack.name.toLowerCase() === "silver" && pack.name !== subscribed?.membership_name && (
+                          <div>
+                            <span className="inline-flex px-3 py-1 text-xs font-semibold text-white  rounded-full bg-destructive">
+                              RECOMMENDED
+                            </span>
+                          </div>
+                        )}
+                        {pack.name === subscribed?.membership_name && (
+                          <div>
+                            <span className="inline-flex px-3 py-1 text-xs font-semibold text-white  rounded-full bg-green-500">
+                              CURRENTLY SUBSCRIBED
+                            </span>
+                          </div>
+                        )}
+
+                        {pack.free_trial?.is_free_trial && (
+                          <div>
+                            <span className="inline-flex px-3 pt-1 text-xs font-semibold text-center  rounded-full ">
+                              30-day trial, no credit card required
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="px-6 ">
+
+                        <div className="grow space-y-3 mb-3 text-black ">
+                          {pack?.features && (
+                            <ul className="mt-2 space-y-1 text-sm ">
+                              <li className="font-semibold text-center">Plan Includes</li>
+                              {pack.features.map((feature, index: number) => (
+                                <li key={index} className={`flex items-start text-start gap-2 ${feature.icon.toLocaleLowerCase() === "check" ? "" : "text-muted-foreground"}`}>{feature.icon.toLocaleLowerCase() === "check" ? <CheckIcon className="h-4 w-4" /> : feature.icon.toLocaleLowerCase() === "x" ? <XIcon className="h-4 w-4" /> : ""} {feature.title}</li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                        {pack?.name.includes("Power Saver") && (
+                          <div>
+                            <span className="inline-flex px-3 py-1 text-xs font-semibold text-white  rounded-full bg-destructive">
+                              RECOMMENDED
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* {isSubscribed && (
+                      <div className="place-self-center mb-4 w-full px-2 ">
+                        
+                        <Button
+                          type="button"
+                          className={`cursor-not-allowed bg-green-500 hover:bg-green-500  text-black w-full  `}
+                        >
+                          CURRENTLY SUBSCRIBED
+                        </Button>
+                      </div>
+                    )} */}
+                  </label>
+                </div>
               </div>
             ))}
         </RadioGroup>
@@ -154,7 +207,7 @@ const Step1UpgradeForm: React.FC<Step1Props> = ({
       </div>
 
       {user.profile?.user_type === "NORMAL" &&
-      packages.find((p: Package) => p.id === data.package)?.code === "free" ? (
+        packages.find((p: Package) => p.id === data.package)?.code === "free" ? (
         <Button
           type="button"
           onClick={onSkip}
@@ -166,16 +219,31 @@ const Step1UpgradeForm: React.FC<Step1Props> = ({
       ) : (
         <>
           {user.profile?.user_type === "BUSINESS" &&
-          packages.find((p: Package) => p.id === data.package)?.free_trial
-            ?.is_free_trial ? (
-            <Button
-              type="button"
-              onClick={onSkip}
-              className="w-full"
-              disabled={isLoading}
-            >
-              Continue with Free trial
-            </Button>
+            packages.find((p: Package) => p.id === data.package)?.free_trial
+              ?.is_free_trial ? (
+            <>
+              {subscribed_id?.id === data.package  && subscribed_id.price > 0? (
+                <Button
+                  type="button"
+                  onClick={onNext}
+                  className="w-full"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Processing..." : "Next"}
+                </Button>
+              )
+                : (
+                  <Button
+                    type="button"
+                    onClick={onSkip}
+                    className="w-full"
+                    disabled={isLoading}
+                  >
+                    Continue with Free trial
+                  </Button>
+                )
+              }
+            </>
           ) : (
             <Button
               type="button"
@@ -184,6 +252,7 @@ const Step1UpgradeForm: React.FC<Step1Props> = ({
               disabled={isLoading}
             >
               {isLoading ? "Processing..." : "Next"}
+
             </Button>
           )}
         </>

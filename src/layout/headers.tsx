@@ -43,8 +43,6 @@ const Headers = ({teams}:{teams?:{
         </div>
         <div className='flex items-center gap-2'>
         <AuthNavbarContent />
-        
-        
         </div>
       </div>
     </header>
