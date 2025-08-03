@@ -35,15 +35,15 @@ const MoreOfferCard = forwardRef<HTMLDivElement, OfferCardProps>(
     return (
       <div
         ref={ref}
-        className="group bg-card text-card-foreground flex flex-col rounded-xl shadow-lg overflow-hidden  transform transition duration-300 hover:-translate-y-2  w-full h-full"
+        className="group bg-card w-52 sm:w-64 md:w-72 text-card-foreground flex flex-col rounded-xl shadow-lg overflow-hidden  transform transition duration-300 hover:-translate-y-2  h-full"
       >
-        <div className="relative">
+        <div className="relative w-full h-40">
           <Image
             src={item.banner}
             alt={item.name}
-            width={500}
-            height={500}
-            className="w-64 sm:w-72 md:w-80 xl:w-96 h-32 sm:h-36 md:h-44 lg:h-56 object-cover"
+            layout="fill"
+            objectFit="cover"
+            className="w-52 sm:w-64 md:w-72 h-32 sm:h-36 md:h-44 lg:h-56 object-cover"
           />
           <div className="flex flex-col justify-end gap-2 absolute top-3 right-3">
             {item.is_hot_deal && (
