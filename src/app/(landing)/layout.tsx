@@ -13,10 +13,10 @@ export default async function LandingLayout({
   const MetaDatas: CompanyMeta = await getMetadata();
 
   return (
-    <React.Fragment>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      {children}
+      <div className="flex-1">{children}</div>
       <Footer data={MetaDatas} />
-    </React.Fragment>
+    </div>
   );
 }
