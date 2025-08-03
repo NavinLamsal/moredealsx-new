@@ -136,7 +136,7 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(
       >
         {/* Date Badge */}
         <div className="bg-yellow-400 text-black text-center font-bold py-2 text-sm">
-          {moment(start_date).format("Do MMM YY")}
+          {moment(start_date).format("Do MMM")}
         </div>
 
         {/* Event Image */}
