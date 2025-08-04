@@ -93,17 +93,19 @@ export const sendEmail = createAsyncThunk(
 //   return await res.json();
 // });
 
+
+
 export const sendSMS = createAsyncThunk(
   "leadDetail/sendSMS",
-  async ({ leadId, message }: { leadId: string; message: string }) => {
-    const res = await fetch(`/api/leads/${leadId}/sms`, {
-      method: "POST",
-      body: JSON.stringify({ message }),
-      headers: { "Content-Type": "application/json" },
+  async ({ leadId, message }: { leadId: string[]; message: string }) => {
+    const res = await MoreClubApiClient.post(`networks/send/sms/`, {
+     recipients:leadId,
+     message: message,
     });
-    return await res.json();
+    return res;
   }
 );
+
 
 // export const fetchActivity = createAsyncThunk("leadDetail/fetchActivity", async (leadId: string) => {
 //   const res = await fetch(`/api/leads/${leadId}/activity`);
@@ -198,7 +200,7 @@ const leadDetailSlice = createSlice({
         state.sms.sendError = null;
       })
       .addCase(sendSMS.fulfilled, (state, action) => {
-        state.sms.data.unshift(action.payload);
+        state.sms.data.unshift(action.payload.data);
         state.sms.sending = false;
       })
       .addCase(sendSMS.rejected, (state, action) => {
