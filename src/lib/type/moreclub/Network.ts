@@ -1,5 +1,7 @@
 export interface NetworkList {
+  id: string;
   user: NetworkUser;
+  created: string;
 }
 
 export interface NetworkUser {

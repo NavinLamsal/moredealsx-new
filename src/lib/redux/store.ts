@@ -15,6 +15,7 @@ import notificationsReducer from "./slice/notificationSlice";
 
 import userReducer from "./slice/moreclub/UserSlice";
 import authReducer from "./slice/moreclub/authStore";
+import leadDetailReducer from "./slice/moreclub/network";
 
 
 const rootReducer = combineReducers({
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   registration: registrationReducer,
   businessRegistration: businessRegistrationReducer,
   network: networkReducer,
+  leadDetail: leadDetailReducer,
 
   business: businessReducer,
   user:userReducer,

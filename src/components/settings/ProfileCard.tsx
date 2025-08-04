@@ -20,13 +20,8 @@ export default function ProfileCard() {
   const dispatch = useDispatch<AppDispatch>();
 
   const user = useAppSelector((state: RootState) => state.user.profile);
-  const business = useAppSelector((state: RootState) => state.business);
 
-  // const { data: metadatas, isLoading: metaloading, isError: metaerror } = useQuery({
-  //     queryKey: ["Meta data "],
-  //     queryFn: async () => await getMetadata(),
-  //     staleTime: 360000,
-  // });
+
 
   const linkInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -42,7 +37,7 @@ export default function ProfileCard() {
     }
   };
 
-  console.log(business);
+ 
 
   useEffect(() => {
     dispatch(fetchBusinessData({ fetchForce: false }));
@@ -143,7 +138,7 @@ export default function ProfileCard() {
           </div>
         </CardContent>
       </Card>
-      {business.isLoading ? (
+      {!user ? (
         <p>Loading referral code...</p>
       ) : (
         <div className="max-w-lg bg-primary shadow shadow-primary rounded text-base mt-2 mb-2 border-b pb-2 p-2">
