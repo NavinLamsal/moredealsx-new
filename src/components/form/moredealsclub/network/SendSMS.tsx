@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import { SendHorizonal, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/redux/store";
 import { sendSMS } from "@/lib/redux/slice/moreclub/network";
 import { showToast } from "@/lib/utilities/toastService";
+
+
 
 const SMSForm = ({ to }: { to: string }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -29,9 +30,9 @@ const SMSForm = ({ to }: { to: string }) => {
     }
 
     try {
-      await dispatch(sendSMS({ leadId: to, message })).unwrap();
+      await dispatch(sendSMS({ leadId: [to], message })).unwrap();
       showToast("SMS sent successfully", "success");
-      setMessage("");
+      // setMessage("");
     } catch (error: any) {
       showToast(error.message || "Failed to send SMS", "error");
     }

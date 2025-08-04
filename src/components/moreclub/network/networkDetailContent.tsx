@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { AlertCircle, SendHorizonal } from "lucide-react";
+// import { Input } from "@/components/ui/input";
+// import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+// import { AlertCircle, SendHorizonal } from "lucide-react";
 import { useSelector } from "react-redux";
 import { selectLeadDetailState } from "@/lib/redux/slice/moreclub/network";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -192,7 +192,7 @@ const LeadDetailPage = ({id}:{id:string}) => {
                 </Card>
 
                 {/* Tabbed History View */}
-                <Tabs defaultValue="sms" className="space-y-4">
+                {/* <Tabs defaultValue="sms" className="space-y-4">
                     <TabsList>
                         <TabsTrigger value="sms">SMS History</TabsTrigger>
                         <TabsTrigger value="email">Email History</TabsTrigger>
@@ -232,7 +232,7 @@ const LeadDetailPage = ({id}:{id:string}) => {
                             )}
                         </Card>
                     </TabsContent>
-                </Tabs>
+                </Tabs> */}
             </div>
         </div>
     );

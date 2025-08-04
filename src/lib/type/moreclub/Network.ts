@@ -11,4 +11,5 @@ export interface NetworkUser {
   first_name: string;
   last_name: string;
   display_picture: string;
+  user_id: string;
 }
