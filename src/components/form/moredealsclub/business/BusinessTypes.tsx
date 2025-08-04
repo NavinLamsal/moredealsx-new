@@ -193,7 +193,7 @@ const BusinessTypes: React.FC = () => {
 
               <div>
                 <label className="block font-medium mb-1">
-                  Affiliated Discount (%)
+                  Platform Commission (%)
                 </label>
                 <Input
                   type="text"

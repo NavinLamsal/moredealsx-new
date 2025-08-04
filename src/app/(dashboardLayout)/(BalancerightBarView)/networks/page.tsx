@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import NetworkList from "@/components/moreclub/NetworkList";
 import { Suspense } from "react";
-import BackButton from "@/components/ui/back_button";
 import PageHeadings from "@/components/ui/customTitles/PageHeadings";
 
 export const metadata: Metadata = {
