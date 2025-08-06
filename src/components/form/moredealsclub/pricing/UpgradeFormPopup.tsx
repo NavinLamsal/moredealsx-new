@@ -33,7 +33,7 @@ const UpgradeFormPopup = ({
   onFinish: () => void;
 }) => {
   const dispatch = useDispatch<AppDispatch>();
-  // const { data: session } = useSession();
+
   const user = useSelector((state: RootState) => state.user);
 
   const packages = useSelector((state: RootState) => state.pricing.packages);
@@ -183,7 +183,16 @@ const UpgradeFormPopup = ({
 
   const handleSkip = useCallback(async () => {
     try {
+
+      if(user?.profile?.membership?.membership_name === "Free"){
+        showToast("Subscribed successfully!", "success");
+        setServerError("");
+        onFinish();
+        return;
+      }
+
       if (!(await validate())) return;
+      
       setServerError("");
       showToast("Subscribed successfully!", "success");
       onFinish();

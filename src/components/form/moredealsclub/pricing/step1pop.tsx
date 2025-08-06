@@ -7,6 +7,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { UpgradeFormDataType } from "./upgradeform";
 import { Package } from "@/lib/redux/slice/moreclub/Pricing";
+import { SkeletonBox } from "@/components/Skeletons/packageSkelton";
 
 interface Step1Props {
   data: UpgradeFormDataType;
@@ -92,7 +93,11 @@ const Step1UpgradeForm: React.FC<Step1Props> = ({
           Choose a Package
         </label>
         {!lastpackage && (
-          <p className="text-sm text-muted-foreground">loading...</p>
+          <div className="grid md:grid-cols-2 gap-4">
+            {[1, 2].map((i) => (
+              <SkeletonBox key={i} className="h-40 rounded-md" />
+            ))}
+          </div>
         )}
 
         <RadioGroup
@@ -206,23 +211,48 @@ const Step1UpgradeForm: React.FC<Step1Props> = ({
         {errors.package && <p className="text-red-500">{errors.package}</p>}
       </div>
 
-      {user.profile?.user_type === "NORMAL" &&
-        packages.find((p: Package) => p.id === data.package)?.code === "free" ? (
-        <Button
-          type="button"
-          onClick={onSkip}
-          className="w-full"
-          disabled={isLoading}
-        >
-          Skip
-        </Button>
-      ) : (
+      {packages.length > 0 &&
+
         <>
-          {user.profile?.user_type === "BUSINESS" &&
-            packages.find((p: Package) => p.id === data.package)?.free_trial
-              ?.is_free_trial ? (
+          {user.profile?.user_type === "NORMAL" &&
+            packages.find((p: Package) => p.id === data.package)?.code === "free" ? (
+            <Button
+              type="button"
+              onClick={onSkip}
+              className="w-full"
+              disabled={isLoading}
+            >
+              Skip
+            </Button>
+          ) : (
             <>
-              {subscribed_id?.id === data.package  && subscribed_id.price > 0? (
+              {user.profile?.user_type === "BUSINESS" &&
+                packages.find((p: Package) => p.id === data.package)?.free_trial
+                  ?.is_free_trial ? (
+                <>
+                  {subscribed_id?.id === data.package && subscribed_id.price > 0 ? (
+                    <Button
+                      type="button"
+                      onClick={onNext}
+                      className="w-full"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? "Processing..." : "Next"}
+                    </Button>
+                  )
+                    : (
+                      <Button
+                        type="button"
+                        onClick={onSkip}
+                        className="w-full"
+                        disabled={isLoading}
+                      >
+                        Continue with Free trial
+                      </Button>
+                    )
+                  }
+                </>
+              ) : (
                 <Button
                   type="button"
                   onClick={onNext}
@@ -230,33 +260,15 @@ const Step1UpgradeForm: React.FC<Step1Props> = ({
                   disabled={isLoading}
                 >
                   {isLoading ? "Processing..." : "Next"}
-                </Button>
-              )
-                : (
-                  <Button
-                    type="button"
-                    onClick={onSkip}
-                    className="w-full"
-                    disabled={isLoading}
-                  >
-                    Continue with Free trial
-                  </Button>
-                )
-              }
-            </>
-          ) : (
-            <Button
-              type="button"
-              onClick={onNext}
-              className="w-full"
-              disabled={isLoading}
-            >
-              {isLoading ? "Processing..." : "Next"}
 
-            </Button>
+                </Button>
+              )}
+            </>
           )}
+
         </>
-      )}
+
+      }
     </div>
   );
 };

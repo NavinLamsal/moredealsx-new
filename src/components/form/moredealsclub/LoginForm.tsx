@@ -184,21 +184,7 @@ const LoginForm: React.FC = () => {
                 country_code: session.user.userDetails.country.code,
               })
             );
-            dispatch(
-              fetchPackages({
-                type: "BUSINESS",
-                cycle: "yearly",
-                country_code: session.user.userDetails.country.code,
-              })
-            );
           } else {
-            dispatch(
-              fetchPackages({
-                type: "NORMAL",
-                cycle: "monthly",
-                country_code: session.user.userDetails.country.code,
-              })
-            );
             dispatch(
               fetchPackages({
                 type: "NORMAL",
