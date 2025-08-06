@@ -9,7 +9,6 @@ export const fetchPackages = createAsyncThunk(
   async ({ type, cycle ,country_code }: { type: "BUSINESS" | "NORMAL"; cycle: "monthly" | "yearly", country_code: string }, { dispatch, getState }) => {
     const state = getState() as RootState;
     const lastFetchedAt = state.pricing.lastFetched[type][cycle];
-    console.log("fetchPackages", country_code);
     // Avoid excessive API calls (fetch only if older than 5 minutes)
     if (lastFetchedAt && Date.now() - lastFetchedAt < 5 * 60 * 1000) {
       return;
@@ -18,7 +17,8 @@ export const fetchPackages = createAsyncThunk(
     try {
       const response = await MoreClubApiClient.get(`subscriptions/list/?plan_type=${type}&plan_time=${cycle}&country_code=${country_code}`);
       const data = response.data.data;
-      dispatch(setPackages({ type, cycle, data})); // ✅ Store fetched data in Redux
+      dispatch(setPackages({ type, cycle: "monthly", data})); // ✅ Store fetched data in Redux
+      dispatch(setPackages({ type, cycle: "yearly", data}));
     } catch (error: any) {
       console.error("Failed to fetch packages:", error);
     }

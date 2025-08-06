@@ -12,6 +12,7 @@ import ExtraInfoForm from "@/components/auth/ExtraForm";
 import { AppDispatch, RootState } from "@/lib/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile } from "@/lib/action/moreClub/User";
+import { SkeletonBox } from "@/components/Skeletons/packageSkelton";
 
 const BusinessSetupModal = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,7 +25,8 @@ const BusinessSetupModal = () => {
 
   useEffect(() => {
     const isNewUser = sessionStorage.getItem("newuser") === "true";
-    const pinset = localStorage.getItem("membership") === "false";
+    // const pinset = localStorage.getItem("membership") === "false";
+    const pinset = true
     const businessSetup = localStorage.getItem("business_setup") === "false";
 
     if (isNewUser) {
@@ -102,18 +104,26 @@ const BusinessSetupModal = () => {
                 Choose the plan that best suits your needs.
               </CardDescription>
 
-              {status === "loading" && <div>Loading...</div>}
+              {status === "loading" && <div className="grid md:grid-cols-2 gap-4">
+                {[1, 2].map((i) => (
+                  <SkeletonBox key={i} className="h-40 rounded-md" />
+                ))}
+              </div>}
               {status === "unauthenticated" && <div>Unauthorized</div>}
               {status === "authenticated" && (
-               <>
-              {!user.lastFetchedProfileAt && user.isLoading && <div>Loading...</div>}
-              
-              {user.lastFetchedProfileAt && !user.isLoading && user.profile && <UpgradeFormPopup
-                  userType={user.profile.user_type as 'BUSINESS' | 'NORMAL'}
-                  onFinish={handlePinSetupComplete}
-                />} 
-               </>
-               
+                <>
+                  {!user.lastFetchedProfileAt && user.isLoading && <div className="grid md:grid-cols-2 gap-4">
+                    {[1, 2].map((i) => (
+                      <SkeletonBox key={i} className="h-40 rounded-md" />
+                    ))}
+                  </div>}
+
+                  {user.lastFetchedProfileAt && !user.isLoading && user.profile && <UpgradeFormPopup
+                    userType={user.profile.user_type as 'BUSINESS' | 'NORMAL'}
+                    onFinish={handlePinSetupComplete}
+                  />}
+                </>
+
               )}
             </Card>
           )}

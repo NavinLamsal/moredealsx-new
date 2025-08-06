@@ -2,7 +2,6 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/layout/app-sidebar";
 import Footer from "@/layout/Footer";
 import Headers from "@/layout/headers";
-import Userheadings from "@/layout/userheadings";
 import { getMetadata } from "@/lib/action/PubilcCommon";
 import { CompanyMeta } from "@/lib/type/CommonType";
 import type { Metadata } from "next";
