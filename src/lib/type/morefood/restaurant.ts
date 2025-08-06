@@ -6,7 +6,7 @@ export interface ResturantListType {
   address: string;
   slug: string;
   is_open: boolean;
-  domain?: string;
+  domain: string;
   banner: string;
   review_count?: number;
   offers?: string;

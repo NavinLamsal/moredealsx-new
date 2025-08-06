@@ -1,4 +1,5 @@
 import { ResturantListType } from "@/lib/type/morefood/restaurant";
+import { redirectToUrl } from "@/lib/utils/token";
 import { BookOpen, Crown, MoonIcon } from "lucide-react";
 import Image from "next/image";
 import { forwardRef } from "react";
@@ -24,10 +25,11 @@ const RestaurantCard = forwardRef<HTMLDivElement, RestaurantCardProps>(
     },
     ref
   ) => {
-    const handleRedirection = () => {
-      window.open(`https://${domain}.merkoll.com/${slug}`, "_blank");
-    };
 
+
+    const handleRedirection = async () => {
+      await redirectToUrl({ domain, slug });
+    };
     return (
       // <Link href={`/morefood/restaurant/${slug}`}>
       <div

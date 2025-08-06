@@ -72,6 +72,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
 import moment from "moment";
+import { redirectToUrl } from "@/lib/utils/token";
 
 interface EventCardProps {
   start_date: string;
@@ -122,12 +123,20 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(
       ? banner
       : `/images/png/restro/hall.png`;
 
-    const handleRedirection = () => {
-      window.open(
-        `https://${domain_name}.merkoll.com/${restro_slug}?redirect=/event/${slug}`,
-        "_blank"
-      );
+
+
+
+
+    const handleRedirection = async () => {
+      if (domain_name && restro_slug) {
+        await redirectToUrl({
+          domain: domain_name,
+          slug: restro_slug,
+          path: `/event/${slug}`,  // ✅ fixed: proper string interpolation
+        });
+      }
     };
+
 
     return (
       <div
