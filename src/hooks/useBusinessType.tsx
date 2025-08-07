@@ -1,4 +1,5 @@
 'use client';
+import { useAuth } from '@/providers/auth-provider';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
@@ -6,30 +7,30 @@ type BusinessType = 'restaurant' | 'hotel' | 'unknown';
 type UserType = 'BUSINESS' | 'NORMAL' | 'unknown';
 
 export const useBusinessType = () => {
-  const { data: session, status } = useSession(); // track loading state via status
+    const { logout, user, isLoading} = useAuth()
+  
   const [businessType, setBusinessType] = useState<BusinessType>('unknown');
   const [userType, setUserType] = useState<UserType>('unknown');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (status === 'loading') return; // wait until session is loaded
+    if (isLoading) return; // wait until session is loaded
 
-    const userDetails = session?.user?.userDetails;
 
-    if (userDetails) {
+    if (user) {
       // Determine business type
-      if (userDetails.crm_link?.restro_link) {
+      if (user.crm_link?.restro_link) {
         setBusinessType('restaurant');
-      } else if (userDetails.crm_link?.hotel_link) {
+      } else if (user.crm_link?.hotel_link) {
         setBusinessType('hotel');
       } else {
         setBusinessType('unknown');
       }
 
       // Determine user type
-      if (userDetails.user_type === 'BUSINESS') {
+      if (user.user_type === 'BUSINESS') {
         setUserType('BUSINESS');
-      } else if (userDetails.user_type === 'NORMAL') {
+      } else if (user.user_type === 'NORMAL') {
         setUserType('NORMAL');
       } else {
         setUserType('unknown');
@@ -40,7 +41,7 @@ export const useBusinessType = () => {
     }
 
     setLoading(false);
-  }, [session, status]);
+  }, [user, isLoading]);
 
   return { businessType, userType, loading };
 };

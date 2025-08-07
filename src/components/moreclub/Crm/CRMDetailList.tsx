@@ -1,30 +1,3 @@
-// "use client"
-// import Heading from '@/components/ui/heading';
-// import { getBusinessList } from '@/lib/action/PubilcCommon';
-// import React, { Suspense } from 'react'
-// import CRMTabContent from './CRMTabContent';
-
-// const CRMDetailList =async () => {
-
-//       const categories = await getBusinessList();
-
-//       return (
-// <div>
-//   <div className="space-y-0.5 mb-4">
-//     <Heading title="Manage your CRM" />
-//     <p className="text-sm text-muted-foreground">
-//       This is how others will see you on the site.
-//     </p>
-//   </div>
-//   <Suspense fallback={<div>Loading...</div>}>
-//  <CRMTabContent  categories={categories}/>
-//  </Suspense>
-// </div>
-//         );
-//       }
-
-// export default CRMDetailList
-
 "use client";
 import { fetchBusinessQRInfo } from "@/lib/action/moreClub/Business";
 import { useAppSelector } from "@/lib/redux/hooks";
@@ -54,22 +27,15 @@ const CRMDetailList = () => {
     return <CrmSkeleton />;
   }
 
+
   return (
     <div className="px-4">
-      {/* <div className="space-y-0.5 mb-4">
-        <Heading title="Manage your CRM" />
-        <p className="text-sm text-muted-foreground">
-          This is how others will see you on the site.
-        </p>
-      </div> */}
       <PageHeadings
         title="Manage your CRM"
         description="This is how others will see you on the site."
       />
-      {business.businessQRInfo && business.businessQRInfo.length > 0 && (
-        <Suspense fallback={<div>Loading...</div>}>
+      {business.businessQRInfo && business.businessQRInfo.length > 0 && (        
           <CRMTabContent categories={business.businessQRInfo} />
-        </Suspense>
       )}
       {business.lastFetchedQRInfoAt &&
         business.businessQRInfo &&

@@ -11,7 +11,7 @@ const Page = () => {
   return (
     <div className="px-4">
       {/* <TrendingEvents title="Upcoming Events"/> */}
-      <PageHeadings title="Events" description="Here's a list of Events!"/>   
+      <PageHeadings title="Resturants Events" description="Here's a list of Events!"/>   
       <Heading title="Events You May Like" />
       <RestaurantEventList />
         

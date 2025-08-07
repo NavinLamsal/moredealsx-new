@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import Heading from "@/components/ui/heading";
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/redux/store";
 import { fetchBusinessData } from "@/lib/action/moreClub/Business";
@@ -10,6 +9,7 @@ import CrmCreateSkeleton from "@/components/Skeletons/CrmCreateSkeleton";
 import PageHeadings from "@/components/ui/customTitles/PageHeadings";
 
 export default function CRMDetail() {
+  
   const dispatch = useDispatch<AppDispatch>();
   const business = useAppSelector((state: RootState) => state.business);
 

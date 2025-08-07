@@ -8,10 +8,10 @@ import { usePathname } from 'next/navigation'
 
 
 import { NavUser } from './nav-user'
-import { useSession } from 'next-auth/react'
 
 import { LocationDialog } from './location/LocationDialog'
 import AuthNavbarContent from './AuthNavbarContent'
+import { useAuth } from '@/providers/auth-provider'
 
 
 const Headers = ({teams}:{teams?:{
@@ -20,18 +20,18 @@ const Headers = ({teams}:{teams?:{
   plan: string,
 }}) => {
   const pathname = usePathname();
-  const session = useSession();
+  const {user:session}= useAuth()
   const pathSegments = pathname.split('/').filter(Boolean);
   let lastSegment = pathSegments[pathSegments.length - 1] || '';
   lastSegment = lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1).replace(/-/g, ' ');
 
   const users= {
-    name: `${session.data?.user?.userDetails?.first_name} ${session.data?.user?.userDetails?.last_name}`,
-    email: `${session.data?.user?.userDetails?.email === '' ? 
-     session.data?.user?.userDetails?.phone_prefix +' '+ session.data?.user?.userDetails?.phone_number:
-      session.data?.user?.userDetails?.email
+    name: `${session?.first_name} ${session?.last_name}`,
+    email: `${session?.email === '' ? 
+     session?.phone_prefix +' '+ session?.phone_number:
+      session?.email
     }`,
-    avatar: `${session.data?.user?.userDetails?.display_picture}`    }
+    avatar: `${session?.display_picture}`    }
 
   return (
     <header className="flex h-16 lg:h-[4.5rem] shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 sticky top-0 z-50  bg-background text-foreground">

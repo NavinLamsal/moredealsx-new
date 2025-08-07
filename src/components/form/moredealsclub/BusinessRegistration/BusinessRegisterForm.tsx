@@ -12,6 +12,7 @@ import ExtraInfoForm from "@/components/auth/ExtraForm";
 import { AppDispatch, RootState } from "@/lib/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile } from "@/lib/action/moreClub/User";
+import { useAuth } from "@/providers/auth-provider";
 
 const BusinessSetupModal = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -19,7 +20,7 @@ const BusinessSetupModal = () => {
   const [setupPin, setSetupPin] = useState(false);
   const [showExtraInfo, setShowExtraInfo] = useState(false);
 
-  const { data: session, status } = useSession();
+  const {user:session , isLoading}= useAuth();
   const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
@@ -102,14 +103,12 @@ const BusinessSetupModal = () => {
                 Choose the plan that best suits your needs.
               </CardDescription>
 
-              {status === "loading" && <div>Loading...</div>}
-              {status === "unauthenticated" && <div>Unauthorized</div>}
-              {status === "authenticated" && (
+              {isLoading && <div>Loading...</div>}
+              {!isLoading && !session && <div>Unauthorized</div>}
+              {session && (
                <>
-              {!user.lastFetchedProfileAt && user.isLoading && <div>Loading...</div>}
-              
-              {user.lastFetchedProfileAt && !user.isLoading && user.profile && <UpgradeFormPopup
-                  userType={user.profile.user_type as 'BUSINESS' | 'NORMAL'}
+              {!isLoading && session && <UpgradeFormPopup
+                  userType={session.user_type as 'BUSINESS' | 'NORMAL'}
                   onFinish={handlePinSetupComplete}
                 />} 
                </>

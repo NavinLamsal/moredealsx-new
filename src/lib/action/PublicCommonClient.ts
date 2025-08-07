@@ -1,9 +1,8 @@
 import axios from "axios";
 import MoreClubApiClient from "../axios/moreclub/MoreClubApiClient";
-import MorefoodApiClientWithoutAccess from "../axios/morefood/MorefoodApiClientWithoutAccess";
 import { MetaData } from "../type/CommonType";
 import { ResturantListType } from "../type/morefood/restaurant";
-import MoreFoodApiClient from "../axios/morefood/MoreFoodApiClient";
+import api from "@/utils/api";
 
 export interface Offer {
   banner: string;
@@ -127,7 +126,7 @@ export interface OfferDetails {
 //   }
 // };
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 // export const fetchOfferList = async (
 //   category: string | null,
@@ -165,7 +164,7 @@ export const fetchOfferList = async (
   country: string | null
 ): Promise<OfferType[]> => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const isMoreFood = category === "morefood";
     const All = category === "All";
 
@@ -189,8 +188,8 @@ export const fetchOfferList = async (
           };
 
     const response = isMoreFood
-      ? await MorefoodApiClientWithoutAccess.get(endpoint, config)
-      : await MoreClubApiClient.get(endpoint, config);
+      ? await api.get(endpoint, config)
+      : await api.get(endpoint, config);
     return response.data.data || [];
   } catch (error: any) {
     console.error("Error fetching offers:", error);
@@ -211,7 +210,7 @@ export const fetchHOTDealsList = async (
       },
     };
 
-    const response = await MorefoodApiClientWithoutAccess.get(endpoint, config);
+    const response = await api.get(endpoint, config);
     return response.data.data || [];
   } catch (error: any) {
     console.error("Error fetching offers:", error);
@@ -236,7 +235,7 @@ export const fetchBusinessOfferList = async (
           }
         
 
-    const response = await MoreFoodApiClient.get(endpoint, config)
+    const response = await api.get(endpoint, config)
     return response.data || [];
   } catch (error: any) {
     console.error("Error fetching offers:", error);
@@ -257,7 +256,7 @@ export const fetchBusinessHOTDealsList = async (
       },
     };
 
-    const response = await MoreFoodApiClient.get(endpoint, config);
+    const response = await api.get(endpoint, config);
     return response.data || [];
   } catch (error: any) {
     console.error("Error fetching offers:", error);
@@ -279,7 +278,7 @@ export const fetchNearbyRestaurants = async (
       },
     };
 
-    const response = await MorefoodApiClientWithoutAccess.get(endpoint, config);
+    const response = await api.get(endpoint, config);
     return response.data.data || [];
   } catch (error: any) {
     console.error("Error fetching popular restaurants:", error);
@@ -297,7 +296,7 @@ export const fetchFeaturedRestaurants = async (
       },
     };
 
-    const response = await MorefoodApiClientWithoutAccess.get(endpoint, config);
+    const response = await api.get(endpoint, config);
     return response.data.data || [];
   } catch (error: any) {
     console.error("Error fetching popular restaurants:", error);
@@ -339,6 +338,64 @@ export interface OfferResponse {
 //   };
 // };
 
+// export const fetchOffer = async (
+//   country: string | null,
+//   category: string | null,
+//   pageParam: number = 1,
+//   searchQuery: string = ""
+// ): Promise<OfferResponse> => {
+//   try {
+//     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+//     const isMoreFood = category === "morefood";
+
+//     const endpoint = isMoreFood
+//     ? `${baseUrl}public/offers/${country}/list/`
+//     : `${baseUrl}moreoffers/list/`;
+
+//       console.log(endpoint);
+
+//     const config = isMoreFood
+//       ? {
+//           page: pageParam,
+//         } // No query params for morefood
+//       : {
+//           params: {
+//             title: searchQuery || undefined,
+//             page: pageParam,
+//             country_code: country,
+//             ...(category !== "All" && { platform: category }),
+//           },
+//         };
+
+//     const response = isMoreFood
+//       ? await axios.get(endpoint, config)
+//       : await api.get(endpoint, config);
+
+//     return {
+//       data: response.data.data,
+//       meta: {
+//         links: response.data.links || { next: null, previous: null },
+//         count: response.data.count || 0,
+//         page_number: pageParam,
+//         total_pages: response.data.total_pages || 1,
+//       },
+//     };
+//   } catch (error: any) {
+//     console.error("Error fetching offer:", error);
+
+//     return {
+//       data: [],
+//       meta: {
+//         links: { next: null, previous: null },
+//         count: 0,
+//         page_number: pageParam,
+//         total_pages: 0,
+//       },
+//     };
+//   }
+// };
+
+
 export const fetchOffer = async (
   country: string | null,
   category: string | null,
@@ -346,17 +403,21 @@ export const fetchOffer = async (
   searchQuery: string = ""
 ): Promise<OfferResponse> => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const isMoreFood = category === "morefood";
 
     const endpoint = isMoreFood
-      ? "https://morebusinessinternational.com/api/public/offers/list/"
+      ? `${baseUrl}public/offers/${country}/list/`
       : `${baseUrl}moreoffers/list/`;
+
+    console.log("Request to:", endpoint);
 
     const config = isMoreFood
       ? {
-          page: pageParam,
-        } // No query params for morefood
+          params: {
+            page: pageParam, // ✅ fixed here
+          },
+        }
       : {
           params: {
             title: searchQuery || undefined,
@@ -368,7 +429,7 @@ export const fetchOffer = async (
 
     const response = isMoreFood
       ? await axios.get(endpoint, config)
-      : await MoreClubApiClient.get(endpoint, config);
+      : await api.get(endpoint, config);
 
     return {
       data: response.data.data,

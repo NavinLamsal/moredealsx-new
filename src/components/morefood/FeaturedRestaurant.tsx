@@ -8,7 +8,7 @@ import AnimatedSection from "../ui/animations/FadeUpView";
 import FeaturedRestaurantCard from "../cards/morefood/FeaturedRestroCard";
 import { FeaturedRestaurantListType } from "@/lib/type/morefood/restaurant";
 
-const FeaturedRestaurants = () => {
+const FeaturedRestaurants = ({dashboard = false }: {dashboard?: boolean}) => {
   const city =
     typeof window !== "undefined" ? localStorage.getItem("city_code") : null;
 

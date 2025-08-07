@@ -38,12 +38,15 @@ export default function BusinessPage() {
       {
         title: "Documents",
         component: (
+          
           <BusinessDocumentsUploadForm
             businessData={business.businessProfile}
           />
         ),
       },
-      { title: "Discounts", component: <BusinessTypes /> },
+      { title: "Discounts", 
+        component: <BusinessTypes /> 
+      },
     ],
     [business.businessProfile]
   );

@@ -6,12 +6,12 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import MoreClubApiClient from '@/lib/axios/moreclub/MoreClubApiClient';
 import { showToast } from '@/lib/utilities/toastService';
-import { removeEmptyStrings, removePrefix } from '@/lib/utils';
+import { extractSubdomainFromMalformedUrl, removeEmptyStrings, removePrefix } from '@/lib/utils';
 import { validateRequired } from '@/lib/validation/common';
+import { useAuth } from '@/providers/auth-provider';
 import { Loader2 } from 'lucide-react';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 const platformOptions: Record<string, string> = {
@@ -19,23 +19,70 @@ const platformOptions: Record<string, string> = {
   hotel: `${process.env.NEXT_PUBLIC_API_URL}crm/moreliving/domain/`,
 };
 
+export function getCRMInfoByPlatform(
+  platform: string,
+  crmLink: Record<string, string> = {}
+): { domain: string; alreadyCreated: boolean } {
+  const linkKeyMap: Record<string, keyof typeof crmLink> = {
+    restaurant: "restro_link",
+    hotel: "hotel_link",
+    // Add more platforms here...
+  };
+
+  const linkKey = linkKeyMap[platform];
+  const rawUrl = crmLink?.[linkKey];
+
+  if (!rawUrl) return { domain: "", alreadyCreated: false };
+
+  const subdomain = extractSubdomainFromMalformedUrl(rawUrl);
+  return {
+    domain: subdomain || "",
+    alreadyCreated: !!subdomain,
+  };
+}
+
 const CRMCreateForm = ({ businessData }: { businessData: any }) => {
   const router = useRouter();
-  const { data: session, update } = useSession();
+  const {user:session} = useAuth()
+  const [isAlreadyCreated, setIsAlreadyCreated]= useState(false)
+
   const [formData, setFormData] = useState({
-    username: session?.user.userDetails?.username || "",
+    username: session?.username || "",
     business_name: businessData?.business_name || "",
     business_email: businessData?.business_email || "",
     business_phone: businessData?.business_phone || "",
+    
     domain: "",
     platform: "restaurant",
-    email: session?.user.userDetails?.email || "",
-    phone: session?.user.userDetails?.phone_number
-      ? `${session?.user.userDetails?.phone_prefix}${session?.user.userDetails?.phone_number}`
+    email: session?.email || "",
+    phone: session?.phone_number
+      ? `${session?.phone_prefix}${session?.phone_number}`
       : "",
-    prefix: session?.user.userDetails?.phone_prefix || "",
+    prefix: session?.phone_prefix || "",
     password: ""
   });
+
+  useEffect(() => {
+    if (session) {
+      let domains =""
+      const { domain, alreadyCreated } = getCRMInfoByPlatform(formData.platform, session?.crm_link);
+      domains = domain ?? "";
+      setIsAlreadyCreated(alreadyCreated)
+      setFormData(prev => ({
+        ...prev,
+        username: session.username || "",
+        email: session.email || "",
+        domain: domains,
+        phone: session.phone_number
+          ? `${session.phone_prefix}${session.phone_number}`
+          : "",
+        prefix: session.phone_prefix || ""
+      }));
+      
+    }
+  }, [session]);
+
+
 
 
   const [errors, setErrors] = useState<{
@@ -65,8 +112,21 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
 
   // Update Redux store for interactive fields (if needed)
   const handleChange = (field: string, value: string) => {
-    setFormData({ ...formData, [field]: value });
-    setErrors((prev) => ({ ...prev, [field]: validateRequired(value, field) }));
+    if(field === "platform"){
+      const { domain, alreadyCreated } = getCRMInfoByPlatform(value, session?.crm_link);
+      setIsAlreadyCreated(alreadyCreated);
+      setFormData(prev => ({
+        ...prev,
+        platform: value,
+        domain: domain ?? "",
+      }));
+      setErrors((prev) => ({ ...prev, [field]: validateRequired(value, field) }));
+    }else{
+
+      setFormData({ ...formData, [field]: value });
+      setErrors((prev) => ({ ...prev, [field]: validateRequired(value, field) }));
+    }
+
   };
 
 
@@ -122,6 +182,10 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
     e.preventDefault();
     setLoading(true);
     // If you need further validation, add it here.
+    if(isAlreadyCreated){
+      setLoading(false);
+      return
+    }
 
     if (!(await validate())) {
       setLoading(false);
@@ -142,7 +206,7 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
       business_email: formData.business_email,
       business_phone: formData.business_phone,
       domain_name: formData.domain,
-      ...(session?.user.userDetails?.email ? { email: formData.email, phone_number: null, phone_prefix: null }
+      ...(session?.email ? { email: formData.email, phone_number: null, phone_prefix: null }
         : {
           email: null,
           phone_number: removePrefix(formData.phone, formData.prefix),
@@ -159,13 +223,13 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
       showToast("CRM Created Successfully", "success");
 
       const updateData = {
-        ...session?.user.userDetails,
+        ...session,
         crm_link: {
           restro_link: res.data.data.domain
         }
       }
 
-      update({ userDetails: updateData })
+      // update({ userDetails: updateData })
       router.push("/business/crm/manage")
 
     } catch (err: any) {
@@ -262,16 +326,11 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
               </SelectTrigger>
 
               <SelectContent>
-                <SelectItem value="restaurant">Restaurant (MOREFOOD)</SelectItem>
-                <SelectItem value="hotel">Hotel (MORELIVING)</SelectItem>
+                <SelectItem value="restaurant">Restaurant</SelectItem>
+                <SelectItem value="hotel">Hotel</SelectItem>
               </SelectContent>
             </Select>
             {errors.platform && <p className="text-red-500">{errors.platform}</p>}
-
-
-
-
-
           </div>
         </div>
 
@@ -319,15 +378,16 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
           </div>
 
         </div>
-
-        <div className="grid w-full ">
-          <Button type="submit" disabled={loading} className='font-bold text-lg'>
+        <div className="grid w-full gap-2  ">
+          {isAlreadyCreated &&
+          <div className="grid w-full text-center bg-red-200 p-2 text-red-500">
+            You can only create one domain for one platform
+          </div>
+          }
+          <Button type="submit" disabled={loading || isAlreadyCreated} className='font-bold text-lg'>
             {loading && <Loader2 className="animate-spin w-5 h-5 mr-2" />} Create CRM
           </Button>
         </div>
-
-
-
       </form>
     </>
   );

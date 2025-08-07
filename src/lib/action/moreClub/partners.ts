@@ -9,7 +9,7 @@ import axios from "axios";
 
 export const fetchPartnerList = async () => {
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}partners/list/`);
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}partners/list/`);
    
 
     const data = response?.data?.data || [];

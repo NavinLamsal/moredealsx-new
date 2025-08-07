@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import ImageUploadDropBox from "@/components/ui/customInputs/ImageUploads";
-import useMoredealsClient from "@/lib/axios/moredealsClient";
+
 import { showToast } from "@/lib/utilities/toastService";
 import { Loader2 } from "lucide-react";
 import { fetchBusinessData } from "@/lib/action/moreClub/Business";
@@ -11,7 +11,6 @@ import { AppDispatch } from "@/lib/redux/store";
 import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 
 const BusinessDocumentUpload = ({ initialDocumentUrl }: { initialDocumentUrl?: string }) => {
-  const axios = useMoredealsClient();
   const dispatch = useDispatch<AppDispatch>();
   const [document, setDocument] = useState<File | null>(null);
   const [documentUrl, setDocumentUrl] = useState<string | undefined>(initialDocumentUrl);

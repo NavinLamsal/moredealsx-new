@@ -1,9 +1,6 @@
 "use client";
 import BoookedEventList from "@/components/Events/BookedEventsList";
-// import BoookedEventList from "@/components/Events/BookedEventsList";
-import BackButton from "@/components/ui/back_button";
 import PageHeadings from "@/components/ui/customTitles/PageHeadings";
-import Heading from "@/components/ui/heading";
 import { SidebarNav } from "@/layout/Tabnav";
 import React, { useState } from "react";
 

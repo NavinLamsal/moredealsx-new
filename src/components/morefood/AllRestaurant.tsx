@@ -7,6 +7,8 @@ import { useFetchRestaurant } from "@/lib/action/morefood/restaurantlist";
 import RestaurantCard from "../cards/morefood/RestaurantCard";
 import { Button } from "../ui/button";
 import { ResturantListType } from "@/lib/type/morefood/restaurant";
+import Heading from "../ui/heading";
+import DashboardSectionTitle from "../ui/DashboardSectionTitle";
 
 const AllRestaurantList = () => {
   const city =
@@ -37,24 +39,30 @@ const AllRestaurantList = () => {
     enabled: true,
   });
 
-  console.log("All restaurants:", data);
 
   if (isLoading) {
     return (
+      <>
+      <DashboardSectionTitle title={"All Restaurants"} />
       <div className="flex justify-center items-center h-40">
         <p className="text-gray-600">Loading restaurants...</p>
       </div>
+      </>
     );
   }
 
   if (isError) {
     return (
+      <>
+      <DashboardSectionTitle title={"All Restaurants"} />
       <p className="text-red-500 text-center">Oops! Something went wrong.</p>
+      </>
     );
   }
 
   return (
     <div className="">
+      <DashboardSectionTitle title={"All Restaurants"} />
       {/* No Transactions Found */}
       {data?.pages[0].data.length === 0 && (
         <p className="text-center">No restaurants Found</p>
@@ -64,11 +72,10 @@ const AllRestaurantList = () => {
       <div className="grid grid-cols-2 sm:flex sm:flex-wrap  xl:grid xl:grid-cols-3 2xl:flex 2xl:flex-wrap gap-3">
         {data?.pages.map((page, pageIndex) =>
           page.data.map((restaurant, index) => {
-            console.log("Restaurants List:", data);
             return (
               <div key={`${pageIndex}-${index}`}>
                 <div
-                  className="flex-shrink-0 sm:w-48 lg:w-60 xl:w-48"
+                  className="flex-shrink-0 sm:w-48 lg:w-60 xl:w-48 2xl:w-60"
                   key={restaurant.id}
                 >
                   <AnimatedSection key={restaurant.id} index={index}>

@@ -1,18 +1,9 @@
 import Image from "next/image";
-import moment from "moment";
 import { Suspense } from "react";
-import { Metadata, ResolvingMetadata } from "next";
-import { getBlogDetails, getOfferDetails } from "@/lib/action/PubilcCommon";
-import { Blog } from "@/lib/type/CommonType";
-import CommentSection from "@/components/moreclub/Blog/CommentSection";
-import FAQRecommendation from "@/components/moreclub/Blog/FAQRecommendation";
-import {
-  Offer,
-  OfferDetails,
-  OfferType,
-} from "@/lib/action/PublicCommonClient";
+
+import { getOfferDetails } from "@/lib/action/PubilcCommon";
+
 import { getOfferStatus } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import OfferRecommendation from "@/components/moreclub/Blog/OfferRecomendation";
 import Heading from "@/components/ui/heading";
 import { calculateDiscount } from "@/components/cards/moreclub/OfferCard";

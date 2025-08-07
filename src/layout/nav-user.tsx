@@ -34,7 +34,6 @@ import {
 
 import Link from "next/link"
 
-import Logout from "./Logout"
 import { useDispatch } from "react-redux"
 import { AppDispatch, RootState } from "@/lib/redux/store"
 import { useAppSelector } from "@/lib/redux/hooks"

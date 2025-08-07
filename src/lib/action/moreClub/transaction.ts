@@ -1,6 +1,7 @@
-import axios from "axios";
+
 import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 import { MetaData } from "@/lib/type/CommonType";
+import api from "@/utils/api";
 
 // Define response structure
 interface TransactionResponse {
@@ -15,10 +16,10 @@ export const fetchTransactions = async (
   searchQuery: { [key: string]: any } = {}
 ): Promise<TransactionResponse> => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL; // Use Environment Variable
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL; // Use Environment Variable
     const endpoint = `${baseUrl}payments/transactions/lists/`;
 
-    const response = await MoreClubApiClient.get(endpoint, {
+    const response = await api.get(endpoint, {
       params: {
         ...searchQuery,
         page: pageParam,
@@ -58,7 +59,7 @@ export const fetchRecentTransactions = async (
   searchQuery: string = ""
 ): Promise<TransactionResponse> => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const endpoint = `${baseUrl}payments/transactions/lists/`;
 
     let transactions: transactionList[] = [];
@@ -143,7 +144,7 @@ export const fetchRecentTransactions = async (
 
 export const fetchTransactionDetail = async (transactionId: string) => {
   try {
-    const response = await MoreClubApiClient.get(`${process.env.NEXT_PUBLIC_BASE_URL}wallets/transaction/${transactionId}/details/`,
+    const response = await api.get(`${process.env.NEXT_PUBLIC_BASE_URL}wallets/transaction/${transactionId}/details/`,
     );
 
     return response.data.data;

@@ -9,7 +9,6 @@ export const fetchPackages = createAsyncThunk(
   async ({ type, cycle ,country_code }: { type: "BUSINESS" | "NORMAL"; cycle: "monthly" | "yearly", country_code: string }, { dispatch, getState }) => {
     const state = getState() as RootState;
     const lastFetchedAt = state.pricing.lastFetched[type][cycle];
-    console.log("fetchPackages", country_code);
     // Avoid excessive API calls (fetch only if older than 5 minutes)
     if (lastFetchedAt && Date.now() - lastFetchedAt < 5 * 60 * 1000) {
       return;

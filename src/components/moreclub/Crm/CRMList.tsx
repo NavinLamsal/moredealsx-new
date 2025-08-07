@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/providers/auth-provider";
 
 export const crmDataMap = {
   Restaurant: {
@@ -25,7 +26,7 @@ export const crmDataMap = {
 type CrmType = keyof typeof crmDataMap;
 
 const CRMList = ({ name }: { name: string }) => {
-  const { data: session } = useSession();
+  const {user: session} = useAuth();
 
   const crmData = crmDataMap[name as CrmType] || {
     name: "Unknown CRM",
@@ -37,12 +38,12 @@ const CRMList = ({ name }: { name: string }) => {
     return <div>crm listing for {name}</div>;
   }
 
-  const userDetails = session.user?.userDetails;
-  const crmLink = userDetails?.crm_links?.[
+  const userDetails = session;
+  const crmLink = userDetails?.crm_link[
     crmData.urlkey
   ] as keyof typeof userDetails;
 
-  if (!session?.user?.userDetails?.crm_link) {
+  if (!session?.crm_link) {
     return (
       <Link href={`/business/crm/create/`}>
         <div className="max-w-sm mx-auto bg-blue-100 border border-blue-200 rounded-lg p-6 text-center hover:shadow-md transition-shadow duration-300">
@@ -63,7 +64,7 @@ const CRMList = ({ name }: { name: string }) => {
     );
   }
 
-  if (session?.user?.userDetails?.crm_link) {
+  if (session?.crm_link) {
     return (
       <>
         <div className="w-full min-w-xs max-w-xs  bg-background rounded-lg overflow-hidden transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg active:shadow-xl hover:bg-background active:bg-background">

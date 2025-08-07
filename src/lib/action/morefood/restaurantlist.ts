@@ -1,10 +1,10 @@
 "use client";
 
 import { useAxiosClient } from "@/lib/axios/axiosClient";
-import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
-import MoreFoodApiClient from "@/lib/axios/morefood/MoreFoodApiClient";
-import MoreFoodApiClientWC from "@/lib/axios/morefood/MoreFoodApiClientWC";
-import MorefoodApiClientWithoutAccess from "@/lib/axios/morefood/MorefoodApiClientWithoutAccess";
+// import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
+// import MoreFoodApiClient from "@/lib/axios/morefood/MoreFoodApiClient";
+// import MoreFoodApiClientWC from "@/lib/axios/morefood/MoreFoodApiClientWC";
+// import MorefoodApiClientWithoutAccess from "@/lib/axios/morefood/MorefoodApiClientWithoutAccess";
 import { MetaData } from "@/lib/type/CommonType";
 import {
   BusinessRestaurantList,
@@ -20,9 +20,10 @@ import {
   ResturantListType,
   Review,
 } from "@/lib/type/morefood/restaurant";
+import api from "@/utils/api";
 
 export const useFetchRestaurant = () => {
-  const axios = useAxiosClient("morefood", true);
+ 
 
   // const fetchPopularRestaurantsList = async (
   //   city: string,
@@ -71,7 +72,7 @@ export const useFetchRestaurant = () => {
   }> => {
     try {
       const pages = page ?? 1;
-      const response = await MoreFoodApiClientWC.get(`public/offers/list/`);
+      const response = await api.get(`public/offers/list/`);
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
       console.error("Error in fetching popular Restaurants", error);
@@ -87,7 +88,7 @@ export const useFetchRestaurant = () => {
   }> => {
     try {
       const pages = page ?? 1;
-      const response = await MoreFoodApiClient.get(`offers/combo/list/`);
+      const response = await api.get(`offers/combo/list/`);
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
       console.error("Error in fetching popular Restaurants", error);
@@ -104,7 +105,7 @@ export const useFetchRestaurant = () => {
   }> => {
     try {
       const pages = page ?? 1;
-      const response = await MoreFoodApiClient.get(
+      const response = await api.get(
         `offers/restaurant/${slug}/list/?page=${pages}`
       );
       console.log("response", response.data);
@@ -119,7 +120,7 @@ export const useFetchRestaurant = () => {
     time: string
   ): Promise<CategoryListType[]> => {
     try {
-      const response = await MoreFoodApiClient.get(
+      const response = await api.get(
         `menus/global-menu/lists/?time_rule=${time}`
       );
       return response.data.data;
@@ -148,7 +149,7 @@ export const useFetchRestaurant = () => {
       // // Convert params object to query string
       // const queryParams = new URLSearchParams({ ...params, offset:"0", limit:"10", page: page.toString() });
 
-      const response = await MoreFoodApiClient.get(
+      const response = await api.get(
         `offers/${type}/?${queryParams.toString()}`
       );
 
@@ -213,7 +214,7 @@ export const useFetchRestaurant = () => {
         page: page.toString(),
       });
 
-      const response = await MorefoodApiClientWithoutAccess.get(
+      const response = await api.get(
         `public/restaurants/${type}/?${queryParams.toString()}`
       );
 
@@ -248,7 +249,7 @@ export const useFetchRestaurant = () => {
         page: page.toString(),
       });
 
-      const response = await MoreClubApiClient.get(
+      const response = await api.get(
         `public/restaurants/restaurants-business/list/`
       );
 
@@ -263,7 +264,7 @@ export const useFetchRestaurant = () => {
     slug: string
   ): Promise<OpeningHours[]> => {
     try {
-      const response = await MoreFoodApiClient.get(
+      const response = await api.get(
         `restaurants/${slug}/working-hour/`
       );
       return response.data.data;
@@ -287,7 +288,7 @@ export const useFetchRestaurant = () => {
       : `menus/restaurant/${slug}/foods/`;
 
     try {
-      const response = await MoreFoodApiClient.get(url);
+      const response = await api.get(url);
 
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
@@ -314,7 +315,7 @@ export const useFetchRestaurant = () => {
       page: page.toString(),
     });
     try {
-      const response = await MoreFoodApiClient.get(
+      const response = await api.get(
         `reviews/restaurant/${slug}/reviews/?${queryParams.toString()}`
       );
 
@@ -327,7 +328,7 @@ export const useFetchRestaurant = () => {
 
   const fetchRestaurantUserReview = async (slug: string): Promise<Review> => {
     try {
-      const response = await MoreFoodApiClient.get(
+      const response = await api.get(
         `reviews/restaurant/${slug}/user-review/`
       );
 
@@ -355,7 +356,7 @@ export const useFetchRestaurant = () => {
       page: page.toString(),
     });
     try {
-      const response = await MoreClubApiClient.get(`public/reviews/list/`);
+      const response = await api.get(`public/reviews/list/`);
 
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
@@ -382,7 +383,7 @@ export const useFetchRestaurant = () => {
       page: page.toString(),
     });
     try {
-      const response = await MoreFoodApiClient.get(
+      const response = await api.get(
         `restaurants/${slug}/gallery/?${queryParams.toString()}`
       );
       return { data: response.data.data, meta: response.data.meta };
@@ -410,7 +411,7 @@ export const useFetchRestaurant = () => {
       page: page.toString(),
     });
     try {
-      const response = await MoreFoodApiClient.get(
+      const response = await api.get(
         `restaurants/${slug}/user-upload-gallery/?${queryParams.toString()}`
       );
       return { data: response.data.data, meta: response.data.meta };
@@ -437,7 +438,7 @@ export const useFetchRestaurant = () => {
         page: page.toString(),
       });
 
-      const response = await MoreFoodApiClient.get(
+      const response = await api.get(
         `orders/user/list/?${queryParams.toString()}`
       );
 
@@ -450,7 +451,7 @@ export const useFetchRestaurant = () => {
 
   const fetchOrderDetails = async (id: string): Promise<OrderDetail> => {
     try {
-      const response = await MoreFoodApiClient.get(`orders/${id}/details/`);
+      const response = await api.get(`orders/${id}/details/`);
       return response.data.data;
     } catch (error) {
       console.error("Error fetching restaurants:", error);
@@ -460,7 +461,7 @@ export const useFetchRestaurant = () => {
 
   const fetchResturantDetails = async (slug: string): Promise<Restaurant> => {
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `${process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL}restaurants/details/${slug}`
       );
       const data = response.data.data;

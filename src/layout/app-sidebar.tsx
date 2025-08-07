@@ -16,12 +16,12 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { CompanyMeta } from "@/lib/type/CommonType";
 import { NavCRM } from "./crm-main";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/redux/store";
 import { fetchUserProfile } from "@/lib/action/moreClub/User";
+import { useAuth } from "@/providers/auth-provider";
 
 // This is sample data.
 
@@ -31,7 +31,7 @@ type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
 
 export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
   const pathname = usePathname();
-  const session = useSession();
+  const {user:session}= useAuth()
   const dispatch = useDispatch<AppDispatch>();
 
   const user = useSelector((state: RootState) => state.user);
@@ -42,15 +42,15 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
 
   const data = {
     user: {
-      name: `${session.data?.user?.userDetails?.first_name} ${session.data?.user?.userDetails?.last_name}`,
+      name: `${session?.first_name} ${session?.last_name}`,
       email: `${
-        session.data?.user?.userDetails?.email === ""
-          ? session.data?.user?.userDetails?.phone_prefix +
+        session?.email === ""
+          ? session?.phone_prefix +
             " " +
-            session.data?.user?.userDetails?.phone_number
-          : session.data?.user?.userDetails?.email
+            session?.phone_number
+          : session?.email
       }`,
-      avatar: `${session.data?.user?.userDetails?.display_picture}`,
+      avatar: `${session?.display_picture}`,
     },
     teams: [
       {
@@ -190,7 +190,7 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
       // },
     ],
     crm: [
-      ...(session?.data?.user?.userDetails?.crm_link?.restro_link
+      ...(session?.crm_link?.restro_link
         ? [
             {
               name: "RESTAURANT CRM",
@@ -215,7 +215,7 @@ export function AppSidebar({ metadata, ...props }: AppSidebarProps) {
           <NavMain items={data.navbusiness} title="Business" />
         )}
         <NavProjects projects={data.projects} />
-        {session?.data?.user?.userDetails?.crm_link && (
+        {session?.crm_link && (
           <NavCRM projects={data.crm} />
         )}
       </SidebarContent>

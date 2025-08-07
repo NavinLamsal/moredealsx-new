@@ -15,6 +15,7 @@ const BusinessViews = () => {
     return (
       <>
         <BusinessHotDeals Dashboard={true}/>
+        
         <BusinessOffersDeals Dashboard={true}/>
       </>
     )

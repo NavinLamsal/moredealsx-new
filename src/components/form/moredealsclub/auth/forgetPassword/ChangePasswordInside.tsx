@@ -93,7 +93,7 @@ const ChangePasswordInsideForm = () => {
             };
 
             const response = await MoreClubApiClient.post(
-                `${process.env.NEXT_PUBLIC_BASE_URL}users/change/password/`,
+                `users/change/password/`,
                 payload
                 // {
                 //   method: "POST",

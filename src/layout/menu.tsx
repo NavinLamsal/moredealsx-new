@@ -76,6 +76,7 @@ import Link from "next/link";
 import menuData from "@/data.json"; 
 import { useSession } from "next-auth/react";
 import LogoutTrigger from "@/components/auth/logouts/logouttrigger";
+import { useAuth } from "@/providers/auth-provider";
 
 // Define types for menu data
 interface MenuItem {
@@ -102,9 +103,11 @@ const exclusions = {
 
 export default function Menu() {
   const [search, setSearch] = useState<string>("");
-  const {data: session} = useSession();
+  const {user, }= useAuth()
+  // const {data: session} = useSession();
   // Safely extract and narrow user type
-  const userType = (session?.user?.userDetails?.user_type ?? 'NORMAL') as 'BUSINESS' | 'NORMAL' | 'DELIVERY';
+  const userType = (user?.user_type ?? 'NORMAL') as 'BUSINESS' | 'NORMAL' | 'DELIVERY';
+
   const userExclusions = userType ? exclusions[userType] : [];
 
   const filteredMenu: MenuCategory[] = menuData.menuData

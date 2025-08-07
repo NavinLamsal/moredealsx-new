@@ -6,7 +6,6 @@ import { jwtDecode } from "jwt-decode";
 import { AdapterUser } from "@auth/core/adapters";
 
 async function refreshAccessToken(token: any) {
-  console.log("refreshtoken check", !token.user.refreshToken);
 
   if (!token.user.refreshToken) {
     return {

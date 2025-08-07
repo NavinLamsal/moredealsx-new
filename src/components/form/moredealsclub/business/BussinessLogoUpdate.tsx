@@ -11,7 +11,7 @@ import { fetchBusinessData } from "@/lib/action/moreClub/Business";
 import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 
 const BusinessLogoUpload = ({ initialLogoUrl }: { initialLogoUrl?: string }) => {
-  const axios = useMoredealsClient();
+
   const dispatch = useDispatch<AppDispatch>();
   const [logo, setLogo] = useState<File | null>(null);
   const [logoUrl, setLogoUrl] = useState<string | undefined>(initialLogoUrl);

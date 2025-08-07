@@ -35,7 +35,7 @@ buttonText?:string
  
 
   const fetchCountryCodeAndPaymentIntent = useCallback(async () => {
-    console.log("metadata", metadata);
+
 
     try {
       const response = await fetch("/api/create-payment-intent", {

@@ -7,7 +7,7 @@ import { CardSkeleton } from "../Skeletons/CardSkeleton";
 import AnimatedSection from "../ui/animations/FadeUpView";
 import { ResturantListType } from "@/lib/type/morefood/restaurant";
 
-const NearestRestaurant = () => {
+const NearestRestaurant = ({ dashboard=false }: { dashboard?: boolean }) => {
   const city =
     typeof window !== "undefined" ? localStorage.getItem("city_code") : null;
   const latitude =
@@ -54,7 +54,7 @@ const NearestRestaurant = () => {
       <HorizontalCarousel
         title="Nearest Restaurants"
         viewAll={`/morefood/category/nearby?title=Nearest Restaurants&lat=${latitude}&lng=${longitude}`}
-        dashboard={true}
+        dashboard={dashboard}
       >
         {data?.data.map((restaurant, index) => (
           <div className="flex-shrink-0 w-60" key={index}>

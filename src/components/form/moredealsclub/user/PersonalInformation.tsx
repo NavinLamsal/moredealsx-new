@@ -6,12 +6,12 @@ import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { fetchUserProfile } from '@/lib/action/moreClub/User';
 import MoreClubApiClient from '@/lib/axios/moreclub/MoreClubApiClient';
-import useMoredealsClient from '@/lib/axios/moredealsClient';
-import { createServerPlatformAxiosInstance } from '@/lib/axios/platformBasedAxios';
 import { AppDispatch } from '@/lib/redux/store';
 import { showToast } from '@/lib/utilities/toastService';
 import { removeEmptyStrings } from '@/lib/utils';
 import { validateRequired } from '@/lib/validation/common';
+import api from '@/utils/api';
+import { useQueryClient } from '@tanstack/react-query';
 import { Loader2Icon, Mail, Phone } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import React, { useState } from 'react'
@@ -46,7 +46,7 @@ export const CheckUserName = async (username: string, prefix?: string) => {
     payload = { username };
   }
   try {
-    const res = await createServerPlatformAxiosInstance("moredealsclub", false).post(`auth/check/user/`, payload
+    const res = await api.post(`auth/check/user/`, payload
 
     );
     if (res.status === 200) {
@@ -54,8 +54,6 @@ export const CheckUserName = async (username: string, prefix?: string) => {
     }
   } catch (error: any) {
     return error.response.data?.errors?.non_field_errors[0]
-
-
   }
 
 }
@@ -74,7 +72,7 @@ const validateEmailAddress = async (email: string): Promise<string> => {
 
 const PersonalInformation = ({ userdata }: { userdata: any }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const {data:session, update} = useSession();
+  const queryClient = useQueryClient();
   const initialFormData = {
     firstName: userdata.first_name ?? "",
     lastName: userdata.last_name ?? "",
@@ -210,7 +208,9 @@ const PersonalInformation = ({ userdata }: { userdata: any }) => {
             const res = await MoreClubApiClient.patch(`users/details/me/` ,cleanedData,
             )  
             dispatch(fetchUserProfile({ fetchForce: true }));   
-            update({userDetails: res.data.data }) 
+            queryClient.invalidateQueries({
+              queryKey: ["user"],
+            })
             showToast("Your changes are updated", "success");
           }catch(err:any){  
             showToast("error uploading your changes", "error")

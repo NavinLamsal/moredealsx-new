@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
  
 
     const data = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}payments/create-payment-intent/`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}payments/create-payment-intent/`,
       {
         method: "POST",
         headers: {

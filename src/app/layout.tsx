@@ -1,27 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { getMetadata } from "@/lib/action/PubilcCommon";
-import { CompanyMeta } from "@/lib/type/CommonType";
-import { SessionProvider } from "next-auth/react";
-import Provider from "@/components/HOC/provider";
-import Locationretrive from "@/components/HOC/locationRetrive";
 import { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 import { Montserrat } from "next/font/google";
 import CookieConsentBanner from "@/layout/legal/CookiesConsent";
-
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
-
-
+import Provider from "@/providers/Provider";
 
 
 const montserrat = Montserrat({ subsets: ["latin"],  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], variable: "--font-montserrat"});
@@ -37,8 +20,6 @@ export default async function  RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const MetaDatas : CompanyMeta = await getMetadata();
-
   return (
     <html lang="en">
       <head>
@@ -47,7 +28,6 @@ export default async function  RootLayout({
       <body
         className={`${montserrat.variable} antialiased`}
       >
-        <SessionProvider>
         <Provider>
           <Suspense>
           {/* <Locationretrive/> */}
@@ -69,7 +49,6 @@ export default async function  RootLayout({
                 theme="light"
             />
           </Provider>
-        </SessionProvider>
       </body>
     </html>
   );

@@ -159,7 +159,7 @@ const UpgradeFormPopup = ({
         setIsLoading(true);
         try {
           const { data } = await MoreClubApiClient.post(
-            `${process.env.NEXT_PUBLIC_API_URL}subscriptions/check/`,
+            `subscriptions/check/`,
             {
               membership_type: formData.package,
               plan_time: formData.plan_time,

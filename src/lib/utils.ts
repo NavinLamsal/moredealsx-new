@@ -129,6 +129,23 @@ export const getTransactionAmountKey = (type: string) => {
   }
 };
 
+
+export function extractSubdomainFromMalformedUrl(rawUrl: string): string | null {
+  try {
+    // Fix malformed format like: https://demo.https://api.moredealsx.com/
+    const match = rawUrl.match(/https?:\/\/([^\.]+)\./); // Match first subdomain before a dot
+
+    if (match && match[1]) {
+      return match[1]; // e.g., "demo"
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Error parsing CRM link:", rawUrl);
+    return null;
+  }
+}
+
 export const removeEmptyStrings = (obj: any): any => {
   if (obj instanceof File || obj instanceof Blob) {
     return obj; // Keep File and Blob objects intact

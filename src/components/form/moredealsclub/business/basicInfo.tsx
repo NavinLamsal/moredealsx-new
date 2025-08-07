@@ -19,7 +19,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const BasicInfoForm = ({ businessData }: { businessData: any }) => {
-  const axios = useMoredealsClient();
   const dispatch = useDispatch<AppDispatch>();
 
   const initialFormData = {

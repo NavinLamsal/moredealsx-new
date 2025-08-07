@@ -1,23 +1,20 @@
 "use client";
-import React, { Suspense, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PhoneIcon, MailIcon } from "lucide-react";
 import PhoneNumberInput from "@/components/ui/customInputs/PhoneNumberInput";
-import { doCredentialLogin } from "@/lib/action/authAction";
+import { fetchUserDetails } from "@/lib/action/authAction";
 
 import { showToast } from "@/lib/utilities/toastService";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { getSession } from "next-auth/react";
-import { useDispatch } from "react-redux";
-import { clearPackages } from "@/lib/redux/slice/moreclub/Pricing";
-import { fetchPackages } from "@/lib/action/moreClub/pricing";
-import { AppDispatch } from "@/lib/redux/store";
 import PasswordField from "@/components/ui/customInputs/PasswordInput";
 import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 import GoogleLoginComponent from "@/components/auth/GoogleLoginComponent";
-// import SectionTitle from "@/components/Homes/sectionTiltle";
+import api from "@/utils/api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { removePrefix } from "@/lib/utils";
 
 export const CheckUserName = async (username: string, prefix?: string) => {
   const isEmail = (username: string) =>
@@ -56,9 +53,9 @@ export const CheckUserName = async (username: string, prefix?: string) => {
   } catch (error: any) {
     if (
       error.response.data?.errors?.non_field_errors[0] ===
-        "Email already exists." ||
+      "Email already exists." ||
       error.response.data?.errors?.non_field_errors[0] ===
-        "Phone number already exists."
+      "Phone number already exists."
     ) {
       return "";
     } else {
@@ -80,8 +77,9 @@ const validatePhoneNumber = async (phone: string, prefix?: string) => {
   return await CheckUserName(phone, prefix);
 };
 
+
+
 const LoginForm: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
   const [isEmailLogin, setIsEmailLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: "",
@@ -92,8 +90,58 @@ const LoginForm: React.FC = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [serverErrors, setServerErrors] = useState(""); // Server errors
   const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const searchParams = useSearchParams();
+  const queryClient = useQueryClient();
+
+  const loginMutation = useMutation({
+    mutationFn: async () => {
+      const formDatas = new FormData();
+      formDatas.append("password", formData.password);
+      formDatas.append("via", isEmailLogin ? "email" : "phone_number");
+      if (!isEmailLogin) {
+        formDatas.append("phone_prefix", formData.phone_prefix);
+        formDatas.append("phone_number", removePrefix(formData.phone, formData.phone_prefix));
+      } else {
+        formDatas.append("email", formData.email);
+      }
+  
+      const res = await api.post(`auth/login/`, formDatas);
+      return res.data;
+    },
+  
+    onSuccess: async (res: any) => {
+      if (!res?.success) {
+        throw new Error(res?.error || "Invalid credentials");
+      }
+      showToast("Login successful!", "success");
+      queryClient.refetchQueries({ queryKey: ["user"] });
+
+      
+      const user = await fetchUserDetails(); // same as session?.user.userDetails
+      const { user_type, exists_business_profile, membership, country } = user;
+  
+      // Save additional user states if needed
+      if (membership === false) localStorage.setItem("membership", "false");
+      else localStorage.removeItem("membership");
+  
+      if (user_type === "BUSINESS" && exists_business_profile === false) {
+        localStorage.setItem("business_setup", "false");
+      } else {
+        localStorage.removeItem("business_setup");
+      }
+      setIsLoading(false);
+      const callbackUrl = searchParams.get("callbackUrl");
+      window.location.href = callbackUrl ?? "/dashboard";
+    },
+  
+    onError: (error: any) => {
+      const message = error.response.data.errors.non_field_errors[0] ||error.response.data.message || "Login failed!";
+      setServerErrors(message);
+      showToast(message, "error");
+      setIsLoading(false);
+    },
+  });
+  
 
   const validate = async () => {
     const tempErrors: { [key: string]: string } = {};
@@ -131,6 +179,9 @@ const LoginForm: React.FC = () => {
     setErrors({ ...errors, phone: "" });
   };
 
+
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -140,89 +191,7 @@ const LoginForm: React.FC = () => {
       setIsLoading(false);
       return;
     }
-
-    try {
-      const formDatas = new FormData();
-      formDatas.append("password", formData.password);
-      formDatas.append("via", isEmailLogin ? "email" : "phone_number");
-      if (!isEmailLogin) {
-        formDatas.append("phone_prefix", formData.phone_prefix);
-        formDatas.append("phone_number", formData.phone);
-      } else {
-        formDatas.append("email", formData.email);
-      }
-      const response = await doCredentialLogin(formDatas);
-
-      if (response?.success) {
-        showToast("Login successful!", "success");
-        const session = await getSession();
-        if (session?.user?.userDetails?.membership === false) {
-          localStorage.setItem("membership", "false");
-        } else {
-          localStorage.removeItem("membership");
-        }
-
-        if (
-          session?.user?.userDetails?.user_type === "BUSINESS" &&
-          session?.user?.userDetails?.exists_business_profile === false
-        ) {
-          localStorage.setItem("business_setup", "false");
-        } else {
-          localStorage.removeItem("business_setup");
-        }
-
-        dispatch(clearPackages());
-        if (session) {
-          if (session?.user?.userDetails?.user_type === "BUSINESS") {
-            if (session.user.userDetails?.exists_business_profile === false) {
-              localStorage.setItem("business_setup", "false");
-            }
-            dispatch(
-              fetchPackages({
-                type: "BUSINESS",
-                cycle: "monthly",
-                country_code: session.user.userDetails.country.code,
-              })
-            );
-            dispatch(
-              fetchPackages({
-                type: "BUSINESS",
-                cycle: "yearly",
-                country_code: session.user.userDetails.country.code,
-              })
-            );
-          } else {
-            dispatch(
-              fetchPackages({
-                type: "NORMAL",
-                cycle: "monthly",
-                country_code: session.user.userDetails.country.code,
-              })
-            );
-            dispatch(
-              fetchPackages({
-                type: "NORMAL",
-                cycle: "yearly",
-                country_code: session.user.userDetails.country.code,
-              })
-            );
-          }
-        }
-
-        const callbackUrl = searchParams.get("callbackUrl");
-        window.location.href = callbackUrl ?? "/dashboard";
-      } else {
-        throw new Error(response.error || "Invalid credentials");
-      }
-    } catch (error) {
-      setServerErrors(error instanceof Error ? error.message : "Login failed");
-      showToast(
-        error instanceof Error ? error.message : "Login failed",
-        "error"
-      );
-    } finally {
-      setIsLoading(false);
-    }
+    loginMutation.mutate();
   };
 
   return (
@@ -251,9 +220,8 @@ const LoginForm: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
             placeholder="m@example.com"
-            className={`p-2 border rounded w-full ${
-              errors.email ? "border-red-500" : ""
-            }`}
+            className={`p-2 border rounded w-full ${errors.email ? "border-red-500" : ""
+              }`}
           />
           {errors.email && (
             <p className="text-red-500 text-sm">{errors.email}</p>
@@ -335,9 +303,9 @@ const LoginForm: React.FC = () => {
           or continue with
         </p>
         <div className="flex justify-center gap-4">
-          <Suspense fallback={<div>Loading...</div>}>
+          {/* <Suspense fallback={<div>Loading...</div>}>
             <GoogleLoginComponent />
-          </Suspense>
+          </Suspense> */}
           {/* <button
             type="button"
             className="w-10 h-10 rounded-full bg-black text-yellow-400 border border-yellow-400 flex items-center justify-center text-lg cursor-pointer transition-all hover:bg-yellow-400 hover:text-black hover:-translate-y-1"

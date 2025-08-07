@@ -9,11 +9,12 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
 import MobileMenuDropdown from "./mobilemenudropdown";
+import { useAuth } from "@/providers/auth-provider";
 
 const AuthNavbarContent = ({ header }: { header?: boolean }) => {
-  const { data: session } = useSession();
+  const { logout, user, } = useAuth()
 
-  if (!session) {
+  if (!user) {
     return (
       <div className="flex items-center gap-2">
         <ModeToggle />
@@ -37,15 +38,15 @@ const AuthNavbarContent = ({ header }: { header?: boolean }) => {
     );
   } else {
     const users = {
-      name: `${session?.user?.userDetails?.first_name} ${session?.user?.userDetails?.last_name}`,
+      name: `${user?.first_name} ${user?.last_name}`,
       email: `${
-        session?.user?.userDetails?.email === ""
-          ? session?.user?.userDetails?.phone_prefix +
+        user?.email === ""
+          ? user?.phone_prefix +
             " " +
-            session?.user?.userDetails?.phone_number
-          : session?.user?.userDetails?.email
+            user?.phone_number
+          : user?.email
       }`,
-      avatar: `${session?.user?.userDetails?.display_picture}`,
+      avatar: `${user?.display_picture}`,
     };
 
     return (

@@ -1,7 +1,6 @@
 
 // this api instance is for server side proxy api and moreclub only 
 import axios, { AxiosInstance } from "axios";
-import { auth } from "@/auth"; // NextAuth auth function import
 
 const BaseURL = process.env.NEXT_PUBLIC_BASE_URL || "";
 

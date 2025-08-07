@@ -3,10 +3,9 @@ import { LocationDialog } from "./location/LocationDialog";
 
 import AuthNavbarContent from "./AuthNavbarContent";
 import { Montserrat } from "next/font/google";
-import { X } from "lucide-react";
-import Logo from "./Logo";
 import Image from "next/image";
 import Link from "next/link";
+import AuthProvider from "@/providers/auth-provider";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -51,7 +50,9 @@ const Navbar = () => {
             </div>
           </Link>
           <div>
+          <AuthProvider>
             <AuthNavbarContent header={true} />
+          </AuthProvider>
           </div>
         </div>
       </div>

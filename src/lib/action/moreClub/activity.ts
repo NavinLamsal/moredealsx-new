@@ -3,24 +3,11 @@
 import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 import { MetaData } from "@/lib/type/CommonType";
 import { NetworkList } from "@/lib/type/moreclub/Network";
+import api from "@/utils/api";
 
 
 export const useFetchActivity = () => {
 
-
-//   const fetchActivityList = async (params: Record<string, string | number>
-//   ): Promise<{
-//     data: NetworkList[];
-//     meta: MetaData;
-//   }> => {
-//     try {
-//       const response = await MoreClubApiClient.get(`activity/list/`, { params });
-//       console.log("response", response.data);
-//       return { data: response.data.data, meta: response.data.meta };
-//     } catch (error) {
-//       return { data: [] as NetworkList[], meta: {} as MetaData };
-//     }
-//   };
 
     const fetchActivityList = async (
       
@@ -39,11 +26,9 @@ export const useFetchActivity = () => {
         page: page.toString(),
       });
   
-        const response = await MoreClubApiClient.get(`logactivity/list/?${queryParams.toString()}`);
-            
+        const response = await api.get(`logactivity/list/?${queryParams.toString()}`);   
           return { data: response.data.data, meta: response.data.meta };
-        
-  
+    
       } catch (error) {
         console.error("Error fetching restaurants:", error);
         return { data: [] as NetworkList[], meta: {} as MetaData };

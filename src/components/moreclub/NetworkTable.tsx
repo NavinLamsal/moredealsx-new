@@ -93,9 +93,9 @@ const NetworkTable: React.FC<NetworkTableProps> = ({ list, meta }) => {
             <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 md:p-4">
                 {list.length > 0 ? (
                     list.map((row) =>
-                        <>
+                        
                             <NetworkCard key={row.user.username} user={row.user} />
-                        </>
+                        
                     )
                 ) : (
                     <p className="text-center text-gray-500 col-span-full">No referrals found</p>

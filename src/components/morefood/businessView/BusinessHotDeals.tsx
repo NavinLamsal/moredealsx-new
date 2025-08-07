@@ -2,6 +2,7 @@
 import MoreOfferCard from "@/components/cards/moreclub/morefoodoffer/MorefoodOfferCard";
 import InfiniteHorizontalCarouselWithNav from "@/components/lists/InitinteHorizontalListing";
 import AnimatedSection from "@/components/ui/animations/FadeUpView";
+import DashboardSectionTitle from "@/components/ui/DashboardSectionTitle";
 import { fetchBusinessHOTDealsList, OfferType } from "@/lib/action/PublicCommonClient";
 
 
@@ -15,15 +16,6 @@ export default function HotDeals({
   classname?: string;
 }) {
 
-  // const {
-  //   data: offerrs = [],
-  //   isLoading,
-  //   isError,
-  // } = useQuery({
-  //   queryKey: ["business offers", "hotdeals", ],
-  //   queryFn: async () => await fetchBusinessHOTDealsList(),
-  //   staleTime: 360000,
-  // });
 
   const fetchData = (page: number) => fetchBusinessHOTDealsList(page);
 
@@ -44,6 +36,13 @@ export default function HotDeals({
               </AnimatedSection>
             </div>
           )}
+          emptyFallback={
+            <div>
+               <DashboardSectionTitle title={"Your Hot Deals"} />
+               
+               <p className="text-center">No Offers Found</p>
+            </div>
+            }
         
   
 />

@@ -3,7 +3,6 @@
 // import Link from "next/link";
 // import React, { Suspense } from "react";
 
-import { auth } from "@/auth";
 import { CompanyMeta } from "@/lib/type/CommonType";
 import Image from "next/image";
 import Link from "next/link";
@@ -94,9 +93,8 @@ interface FooterProps {
   data: CompanyMeta;
 }
 
-export default async function Footer({ data }: FooterProps) {
-  const session = await auth();
-  const isAuthenticated = !!session;
+export default function Footer({ data }: FooterProps) {
+
 
   return (
     <footer className="bg-black py-16 px-4 text-white">
@@ -209,7 +207,7 @@ export default async function Footer({ data }: FooterProps) {
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <RestaurantsLink isAuthenticated={isAuthenticated} />
+                  {/* <RestaurantsLink isAuthenticated={isAuthenticated} /> */}
                 </li>
                 <li className="text-gray-400 hover:text-yellow-400 transition flex items-center gap-2">
                   <p>Salons</p>

@@ -5,7 +5,6 @@ import OfferSkeleton from "@/components/Skeletons/OfferSkeelton";
 import AnimatedSection from "@/components/ui/animations/FadeUpView";
 import { fetchHOTDealsList } from "@/lib/action/PublicCommonClient";
 import { useQuery } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 
 export default function HotDeals({
   Dashboard,
@@ -16,7 +15,7 @@ export default function HotDeals({
   title?: string;
   classname?: string;
 }) {
-  const session = useSession();
+
   const country_code =
     typeof window !== "undefined" ? localStorage.getItem("country_code") : null;
   const city_code =

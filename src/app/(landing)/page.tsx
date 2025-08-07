@@ -33,7 +33,7 @@ export default async function Home() {
           title="Taste & Experience – Restaurant Events"
           dashboard={false}
         />
-        {/* <FeaturedRestaurants /> */}
+        
         <TrendingEvents dashboard={false} />
       </div>
 
@@ -41,13 +41,13 @@ export default async function Home() {
 
       <PopularRestaurant />
 
-      {/* <TicketSection /> */}
       <PartnersSection />
 
+      <PremiumSection />
+      {/* <TicketSection /> */}
       {/* <Salons />
       <Products />
       <Hotels /> */}
-      <PremiumSection />
     </>
   );
 }

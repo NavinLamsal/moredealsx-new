@@ -65,7 +65,7 @@ export const getBusinessList = async () => {
 
 export const getCountryList = async () => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}country/list/`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}country/list/`, {
       next: { tags: ["country list"], revalidate: 300 },
     });
     const data = await res.json();
@@ -79,7 +79,7 @@ export const getCountryList = async () => {
 export const getCurrencyList = async (country: string) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}currency/list/?country=${country}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}currency/list/?country=${country}`,
       { next: { tags: [`country list for ${country}`], revalidate: 300 } }
     );
     const data = await res.json();
@@ -91,10 +91,10 @@ export const getCurrencyList = async (country: string) => {
 };
 
 export const getCityList = async (country: string) => {
-  // ${process.env.NEXT_PUBLIC_API_URL}country/${country}/by-id/cities/list/
+  // ${process.env.NEXT_PUBLIC_BASE_URL}country/${country}/by-id/cities/list/
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}country/${country}/cities/list/`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}country/${country}/cities/list/`,
       { next: { tags: [`cities list for ${country}`], revalidate: 300 } }
     );
     const data = await res.json();
@@ -108,7 +108,7 @@ export const getCityList = async (country: string) => {
 export const getlegalPages = async (pagetype: string) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}helpcenter/${pagetype}/`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}helpcenter/${pagetype}/`,
       { next: { tags: [`${pagetype}`], revalidate: 300 } }
     );
     const data = await res.json();
@@ -123,7 +123,7 @@ export const getlegalPages = async (pagetype: string) => {
 export const getStatdata = async () => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}helpcenter/home/data/`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}helpcenter/home/data/`,
       { next: { tags: [`Stat Data`], revalidate: 300 } }
     );
     const data = await res.json();
@@ -149,8 +149,8 @@ export const fetchBlogs = async (
   searchQuery: string = ""
 ): Promise<BlogResponse> => {
   const endpoint = searchQuery
-    ? `${process.env.NEXT_PUBLIC_API_URL}blogs/search/`
-    : `${process.env.NEXT_PUBLIC_API_URL}blogs/list/`;
+    ? `${process.env.NEXT_PUBLIC_BASE_URL}blogs/search/`
+    : `${process.env.NEXT_PUBLIC_BASE_URL}blogs/list/`;
 
   const response = await axios.get(endpoint, {
     params: {
@@ -174,7 +174,7 @@ export const fetchRecommendationBlogs = async (
   pageParam: number = 1,
   title?: string
 ): Promise<BlogResponse> => {
-  const endpoint = `${process.env.NEXT_PUBLIC_API_URL}blogs/similar/blog/`;
+  const endpoint = `${process.env.NEXT_PUBLIC_BASE_URL}blogs/similar/blog/`;
 
   const response = await axios.get(endpoint, {
     params: {
@@ -197,7 +197,7 @@ export const fetchRecommendationBlogs = async (
 export const getBlogDetails = async (slug: string) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}blogs/${slug}/detail/`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}blogs/${slug}/detail/`,
       { next: { tags: [`Blog Detail for ${slug}`], revalidate: 300 } }
     );
     const data = await res.json();
@@ -210,9 +210,9 @@ export const getBlogDetails = async (slug: string) => {
 
 export const getOfferDetails = async (id: string) => {
   try {
-    // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}moreoffers/${slug}/details/`, { next: { tags: [`Offer Detail for ${slug}`] ,revalidate: 300 }})
+    // const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}moreoffers/${slug}/details/`, { next: { tags: [`Offer Detail for ${slug}`] ,revalidate: 300 }})
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}offers/details/${id}/ `,
+      `${process.env.NEXT_PUBLIC_BASE_URL}offers/details/${id}/ `,
       { next: { tags: [`Offer Detail for ${id}`], revalidate: 300 } }
     );
     console.log(res);
@@ -229,7 +229,7 @@ export const fetchRecommendationOffers = async (
   pageParam: number = 1,
   title?: string
 ): Promise<{ data: Offer[]; meta: MetaData }> => {
-  const endpoint = `${process.env.NEXT_PUBLIC_API_URL}moreoffers/list/`;
+  const endpoint = `${process.env.NEXT_PUBLIC_BASE_URL}moreoffers/list/`;
 
   const response = await axios.get(endpoint, {
     params: {
@@ -252,7 +252,7 @@ export const fetchRecommendationOffers = async (
 export const getEventDetails = async (slug: string) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}events/${slug}/details/`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}events/${slug}/details/`,
       { next: { tags: [`Events Detail of ${slug}`], revalidate: 200 } }
     );
     const data = await res.json();
