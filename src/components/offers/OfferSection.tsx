@@ -28,12 +28,16 @@ export default function OfferSection({
   Dashboard,
   title = "ALL OFFERS IN TOWN",
   classname = "",
+  defaultTab = "All",
+  remove = "",
 }: {
   Dashboard?: boolean;
   title?: string;
   classname?: string;
+  defaultTab?: string;
+  remove?: string;
 }) {
-  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [activeCategory, setActiveCategory] = useState<string>(defaultTab);
   const { businessType, loading: businessLoading } = useBusinessType();
 
   const country =
