@@ -21,7 +21,7 @@ export async function redirectToUrl({
     // if (session) {
       try {
         const res = await MoreClubApiClient.post(
-          `${process.env.NEXT_PUBLIC_API_URL}auth/generate/auth-code/`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}auth/generate/auth-code/`,
         );
 
         if (res.data && res.status === 200) {

@@ -223,7 +223,7 @@ export const fetchBusinessOfferList = async (
   page: number
 ): Promise<{ data: OfferType[]; meta: MetaData }> => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
     const endpoint = `${baseUrl}public/offers/my-business/offers/`;
 

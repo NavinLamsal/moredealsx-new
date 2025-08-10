@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
+const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   // getClientApiUrl("morefood") || process.env.NEXT_PUBLIC_MOREFOOD_BASE_URL;
 
 const MoreFoodApiClientWA = () => {

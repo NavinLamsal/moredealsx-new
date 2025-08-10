@@ -107,7 +107,7 @@ const ChangePasswordForm = () => {
             };
 
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}auth/reset/password/`,
+                `${process.env.NEXT_PUBLIC_BASE_URL}auth/reset/password/`,
                 {
                     method: "POST",
                     body: JSON.stringify(payload),

@@ -199,7 +199,7 @@ const UpgradeForm = ({
         if (!(await validate())) return;
         try {
           const { data } = await MoreClubApiClient.post(
-            `${process.env.NEXT_PUBLIC_API_URL}subscriptions/check/`,
+            `${process.env.NEXT_PUBLIC_BASE_URL}subscriptions/check/`,
             {
               membership_type: formData.package,
               plan_time: formData.plan_time,

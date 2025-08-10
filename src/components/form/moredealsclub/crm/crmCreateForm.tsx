@@ -15,8 +15,8 @@ import React, { useEffect, useState } from 'react';
 
 
 const platformOptions: Record<string, string> = {
-  restaurant: `${process.env.NEXT_PUBLIC_API_URL}business/create/domain/`,
-  hotel: `${process.env.NEXT_PUBLIC_API_URL}crm/moreliving/domain/`,
+  restaurant: `${process.env.NEXT_PUBLIC_BASE_URL}business/create/domain/`,
+  hotel: `${process.env.NEXT_PUBLIC_BASE_URL}crm/moreliving/domain/`,
 };
 
 export function getCRMInfoByPlatform(
@@ -166,7 +166,7 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
 
   const verifyDomain = async () => {
     try {
-      const res = await MoreClubApiClient.post(`${process.env.NEXT_PUBLIC_API_URL}business/domain/verify/`, { domain_name: formData.domain });
+      const res = await MoreClubApiClient.post(`${process.env.NEXT_PUBLIC_BASE_URL}business/domain/verify/`, { domain_name: formData.domain });
       const data = res.data;
       setErrors({ ...errors, domain: "" });
       return true

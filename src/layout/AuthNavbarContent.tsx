@@ -10,9 +10,9 @@ import MobileMenuDropdown from "./mobilemenudropdown";
 import { useAuth } from "@/providers/auth-provider";
 
 const AuthNavbarContent = ({ header }: { header?: boolean }) => {
-  const { logout, user, isLoading } = useAuth();
+  const { user, isLoading } = useAuth();
 
-  if (isLoading || !user) {
+  if (isLoading) {
     return (
       <div className="flex items-center gap-2">
         <ModeToggle />

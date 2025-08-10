@@ -54,7 +54,7 @@ export const CheckUserName = async (username: string, prefix?: string) => {
     payload = { username };
   }
   try {
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}auth/check/user/`, payload
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}auth/check/user/`, payload
 
     );
     if (res.status === 200) {
@@ -144,7 +144,7 @@ const ForgetPasswordForm: React.FC = () => {
     try {
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}auth/forget/password/`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}auth/forget/password/`,
         {
           method: "POST",
           body: JSON.stringify(payload),
