@@ -199,8 +199,9 @@ export const fetchOfferList = async (
 
 export const fetchHOTDealsList = async (
   country: string | null,
-  city_code: string | null
-): Promise<OfferType[]> => {
+  city_code: string | null,
+  page: number = 1
+): Promise<{ data: OfferType[]; meta: MetaData }> => {
   try {
     const endpoint = `${baseUrl}public/offers/${country}/list/`;
     const config = {
@@ -214,39 +215,36 @@ export const fetchHOTDealsList = async (
     return response.data.data || [];
   } catch (error: any) {
     console.error("Error fetching offers:", error);
-    return [];
+    return { data: [] as OfferType[], meta: {} as MetaData };
   }
 };
 
-
 export const fetchBusinessOfferList = async (
   page: number
- ): Promise<{data:OfferType[] , meta:MetaData}> => {
+): Promise<{ data: OfferType[]; meta: MetaData }> => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-   
-    const endpoint = `${baseUrl}public/offers/my-business/offers/`
+
+    const endpoint = `${baseUrl}public/offers/my-business/offers/`;
 
     const config = {
-            params: {
-              page: page,
-              offer_filter: "normal",
-            },
-          }
-        
+      params: {
+        page: page,
+        offer_filter: "normal",
+      },
+    };
 
     const response = await api.get(endpoint, config)
     return response.data || [];
   } catch (error: any) {
     console.error("Error fetching offers:", error);
-    return {data:[],meta:{} as MetaData};
+    return { data: [], meta: {} as MetaData };
   }
 };
 
-
 export const fetchBusinessHOTDealsList = async (
- page: number
-): Promise<{data:OfferType[] , meta:MetaData}> => {
+  page: number
+): Promise<{ data: OfferType[]; meta: MetaData }> => {
   try {
     const endpoint = `${baseUrl}public/offers/my-business/offers/`;
     const config = {
@@ -260,12 +258,9 @@ export const fetchBusinessHOTDealsList = async (
     return response.data || [];
   } catch (error: any) {
     console.error("Error fetching offers:", error);
-    return {data:[],meta:{} as MetaData};
+    return { data: [], meta: {} as MetaData };
   }
 };
-
-
-
 
 export const fetchNearbyRestaurants = async (
   city_code: string | null
@@ -416,6 +411,7 @@ export const fetchOffer = async (
       ? {
           params: {
             page: pageParam, // ✅ fixed here
+            offer_filter: "normal",
           },
         }
       : {

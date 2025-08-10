@@ -15,7 +15,7 @@ export function ModeToggle() {
   return (
     <button
       onClick={() => handleToggle(!isDarkMode)}
-      className={`relative flex h-8 w-16 items-center rounded-full p-1 transition-all
+      className={`relative flex sm:h-8 h-7 sm:w-16 w-14 items-center rounded-full p-1 transition-all
         ${isDarkMode ? "bg-blue-600" : "bg-gray-300"}
       `}
     >

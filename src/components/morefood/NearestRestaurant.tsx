@@ -53,7 +53,7 @@ const NearestRestaurant = ({ dashboard=false }: { dashboard?: boolean }) => {
     <div className="p-1 lg:p-4">
       <HorizontalCarousel
         title="Nearest Restaurants"
-        viewAll={`/morefood/category/nearby?title=Nearest Restaurants&lat=${latitude}&lng=${longitude}`}
+        viewAll={ dashboard ? `/morefood/category/nearby?title=Nearest Restaurants&lat=${latitude}&lng=${longitude}` :`/category/nearby?title=Nearest Restaurants&lat=${latitude}&lng=${longitude}`}
         dashboard={dashboard}
       >
         {data?.data.map((restaurant, index) => (

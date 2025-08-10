@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { fetchComments, addComment, addReply } from "@/lib/redux/slice/CommentSlice";
 import { AppDispatch } from "@/lib/redux/store";
-import { useSession } from "next-auth/react";
+import { useAuth } from "@/providers/auth-provider";
 
 const CommentSection = ({ slug }: { slug: string }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const {data:session} = useSession()
+  const {user:session} = useAuth()
   const comments = useSelector((state: any) => state.comments[slug] || []);
 
   const [commentText, setCommentText] = useState("");

@@ -69,13 +69,13 @@ const AllRestaurantList = () => {
       )}
 
       {/* Transaction List */}
-      <div className="grid grid-cols-2 sm:flex sm:flex-wrap  xl:grid xl:grid-cols-3 2xl:flex 2xl:flex-wrap gap-3">
+      <div className="grid grid-cols-2 sm:flex sm:flex-wrap  sm:w-full gap-4">
         {data?.pages.map((page, pageIndex) =>
           page.data.map((restaurant, index) => {
             return (
               <div key={`${pageIndex}-${index}`}>
                 <div
-                  className="flex-shrink-0 sm:w-48 lg:w-60 xl:w-48 2xl:w-60"
+                  className="flex-shrink-0 sm:w-48 lg:w-64 xl:w-72 2xl:w-72"
                   key={restaurant.id}
                 >
                   <AnimatedSection key={restaurant.id} index={index}>

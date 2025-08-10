@@ -8,12 +8,12 @@ import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Heading from '@/components/ui/heading';
 import { RootState } from '@/lib/redux/store';
 import { Loader2 } from 'lucide-react';
-import useMoredealsClient from '@/lib/axios/moredealsClient';
 import { showToast } from '@/lib/utilities/toastService';
+import MoreClubApiClient from '@/lib/axios/moreclub/MoreClubApiClient';
 
 const DocumentsUploadForm = ({onFinish}:{onFinish: () => void}) => {
     const dispatch = useDispatch();
-    const axios = useMoredealsClient()
+   
     const [formData, setFormData] = useState<{ BusinessDocument: File | null; TaxDocument: File | null }>({
         BusinessDocument: null,
         TaxDocument: null
@@ -72,7 +72,7 @@ const DocumentsUploadForm = ({onFinish}:{onFinish: () => void}) => {
         };
         try {
             setLoading(true);
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}business/profile/`, combinedFormData, {
+            const response = await MoreClubApiClient.post(`business/profile/`, combinedFormData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

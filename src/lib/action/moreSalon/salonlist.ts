@@ -1,6 +1,5 @@
 "use client";
 
-import { useAxiosClient } from "@/lib/axios/axiosClient";
 import { MetaData } from "@/lib/type/CommonType";
 import { SaloonTypes } from "@/lib/type/moresalons/salon";
 import axios from "axios";

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import ImageUploadDropBox from "@/components/ui/customInputs/ImageUploads";
-import useMoredealsClient from "@/lib/axios/moredealsClient";
+
 import { showToast } from "@/lib/utilities/toastService";
 import { Loader2 } from "lucide-react";
 import { useDispatch } from "react-redux";

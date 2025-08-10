@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftFromLine, RefreshCwIcon } from "lucide-react";
-import { doOTPVerifyLogin } from "@/lib/action/authAction";
+// import { doOTPVerifyLogin } from "@/lib/action/authAction";
 import { showToast } from "@/lib/utilities/toastService";
 import {
   InputOTP,
@@ -12,6 +12,8 @@ import {
 import { removePrefix } from "@/lib/utils";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/redux/store";
+import axios from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 
 // Utility function to remove prefix
 
@@ -30,6 +32,7 @@ const OTPVerifyForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const [resendTimer, setResendTimer] = useState(0);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -75,37 +78,34 @@ const OTPVerifyForm: React.FC = () => {
           }),
       };
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}auth/register/verify/otp/`,
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}auth/register/verify/otp/`,
+
+        payload,
+
         {
-          method: "POST",
-          body: JSON.stringify(payload),
-          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
         }
       );
 
-      const data = await response.json();
+      const data = response.data;
+
       if (data?.success) {
         try {
-          const formData = new FormData();
-          formData.append("token", data?.data?.access_token);
-          formData.append("refresh", data?.data?.refresh_token);
+          showToast("Login successful!", "success");
+          queryClient.refetchQueries({ queryKey: ["user"] });
 
-          const loginResponse = await doOTPVerifyLogin(formData);
 
-          if (loginResponse?.success) {
-            showToast("Login successful!", "success");
-
-            localStorage.setItem("membership", "false");
-            if (userType === "BUSINESS") {
-              localStorage.setItem("business_setup", "false");
-            }
-
-            sessionStorage.removeItem("registrationData");
-            localStorage.removeItem("otp_username");
-            // need to check for user Type 
-            window.location.href = "/dashboard";
+          localStorage.setItem("membership", "false");
+          if (userType === "BUSINESS") {
+            localStorage.setItem("business_setup", "false");
           }
+
+          sessionStorage.removeItem("registrationData");
+          localStorage.removeItem("otp_username");
+          // need to check for user Type 
+          window.location.href = "/dashboard";
+
         } catch {
           throw new Error(
             "Your account is verified, but login failed. Please try again."
@@ -148,7 +148,7 @@ const OTPVerifyForm: React.FC = () => {
       };
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}auth/register/resend/otp/`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}auth/register/resend/otp/`,
         {
           method: "POST",
           body: JSON.stringify(payload),
@@ -178,6 +178,7 @@ const OTPVerifyForm: React.FC = () => {
 
       // Re-enable resend button if there's an error
       setIsResendDisabled(false);
+      
     }
   };
 

@@ -8,6 +8,7 @@ import { RootState } from "@/lib/redux/store";
 import { showToast } from "@/lib/utilities/toastService";
 import { removePrefix } from "@/lib/utils";
 import { validateRequired } from "@/lib/validation/common";
+import { constant } from "lodash";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import React, { useState } from "react";
@@ -142,12 +143,13 @@ const CurrencyForm = () => {
       let baseUrl = "";
       // process.env.NEXT_PUBLIC_BASE_URL}
       if (registerMethod === "EMAIL") {
-        baseUrl = `${process.env.NEXT_PUBLIC_API_URL}auth/email-register/`;
+        baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}auth/email-register/`;
       } else if (registerMethod === "PHONE") {
-        baseUrl = `${process.env.NEXT_PUBLIC_API_URL}auth/phone-register/`;
+        baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}auth/phone-register/`;
       } else {
         return;
       }
+      
 
       // Create a URL object to handle query params easily
       const urlObj = new URL(baseUrl);
@@ -155,8 +157,8 @@ const CurrencyForm = () => {
       // Append query params if available
       if (breferalcode) urlObj.searchParams.append("bpms", breferalcode);
       if (ureferalcode) urlObj.searchParams.append("referral", ureferalcode);
-
       const url = urlObj.toString();
+
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(combinedFormData),

@@ -1,6 +1,4 @@
 "use client";
-
-import { useAxiosClient } from "@/lib/axios/axiosClient";
 // import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 // import MoreFoodApiClient from "@/lib/axios/morefood/MoreFoodApiClient";
 // import MoreFoodApiClientWC from "@/lib/axios/morefood/MoreFoodApiClientWC";
@@ -439,12 +437,12 @@ export const useFetchRestaurant = () => {
       });
 
       const response = await api.get(
-        `orders/user/list/?${queryParams.toString()}`
+        `public/orders/list/user/?${queryParams.toString()}`
       );
 
       return { data: response.data.data, meta: response.data.meta };
     } catch (error) {
-      console.error("Error fetching restaurants:", error);
+      console.error("Error fetching order list:", error);
       return { data: [] as Order[], meta: {} as MetaData };
     }
   };

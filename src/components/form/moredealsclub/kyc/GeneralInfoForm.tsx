@@ -3,8 +3,6 @@ import { Button } from '@/components/ui/button';
 import CustomDatePicker from '@/components/ui/customInputs/DatePicker';
 import PhoneNumberInput from '@/components/ui/customInputs/PhoneNumberInput';
 import { Input } from '@/components/ui/input';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import useMoredealsClient from '@/lib/axios/moredealsClient';
 import { showToast } from '@/lib/utilities/toastService';
 import { removeEmptyStrings } from '@/lib/utils';
 import { validateRequired } from '@/lib/validation/common';
@@ -14,6 +12,7 @@ import ImageUploadDropBox from '@/components/ui/customInputs/ImageUploads';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AutoCompleteInput from '@/components/MapBox/AutoCompleteMapInput';
 import { useQueryClient } from '@tanstack/react-query';
+import MoreClubApiClient from '@/lib/axios/moreclub/MoreClubApiClient';
 
 
 interface Address {
@@ -39,7 +38,6 @@ const validateEmailAddress = async (email: string): Promise<string> => {
 };
 
 const GeneralInformation = ({ userdata }: { userdata?: any }) => {
-    const axios = useMoredealsClient();
     const queryClient = useQueryClient();
     const initialFormData = {
         fatherName: "",
@@ -307,7 +305,7 @@ const GeneralInformation = ({ userdata }: { userdata?: any }) => {
 
             const cleanedData = removeEmptyStrings(data)
 
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}kyc/details/`, cleanedData,
+            const res = await MoreClubApiClient.post(`${process.env.NEXT_PUBLIC_BASE_URL}kyc/details/`, cleanedData,
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",

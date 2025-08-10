@@ -2,7 +2,6 @@
 import { Button } from '@/components/ui/button';
 import CustomDatePicker from '@/components/ui/customInputs/DatePicker';
 import { Input } from '@/components/ui/input';
-import useMoredealsClient from '@/lib/axios/moredealsClient';
 import { showToast } from '@/lib/utilities/toastService';
 import { removeEmptyStrings } from '@/lib/utils';
 import { validateRequired } from '@/lib/validation/common';
@@ -11,13 +10,13 @@ import React, { useState } from 'react'
 import ImageUploadDropBox from '@/components/ui/customInputs/ImageUploads';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { KYCProps } from '@/lib/type/moreclub/User';
+import MoreClubApiClient from '@/lib/axios/moreclub/MoreClubApiClient';
 
 
 
 
 
 const DocumentForm = ({ userdata }: { userdata?: KYCProps }) => {
-    const axios = useMoredealsClient();
     const initialFormData = {
         documentType: userdata?.document_type ?? "",
         documentNumber: userdata?.document_id ?? "",
@@ -116,7 +115,7 @@ const DocumentForm = ({ userdata }: { userdata?: KYCProps }) => {
             }
 
             const cleanedData = removeEmptyStrings(data)
-            const res = await axios.patch(`${process.env.NEXT_PUBLIC_BASE_URL}kyc/details/`, cleanedData,
+            const res = await MoreClubApiClient.patch(`${process.env.NEXT_PUBLIC_BASE_URL}kyc/details/`, cleanedData,
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",

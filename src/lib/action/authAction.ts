@@ -10,13 +10,14 @@ import { removePrefix } from "../utils";
 
 
 export async function doLogout() {
- 
+
+ const response = await api.post(`auth/logout/`,);
+
   // await signOut({ redirectTo: "/" })
 }
 
 export async function doCredentialLogin(formData: FormData) {
   try {
-    console.log("login action ")
     const email = formData.get("email") ?? null;
     const phone_number = formData.get("phone_number") 
       ? removePrefix(formData.get("phone_number")?.toString() ?? "", formData.get("phone_prefix")?.toString() ?? "")

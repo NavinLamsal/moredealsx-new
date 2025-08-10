@@ -1,5 +1,7 @@
 export interface NetworkList {
+  id: string;
   user: NetworkUser;
+  created: string;
 }
 
 export interface NetworkUser {
@@ -9,4 +11,5 @@ export interface NetworkUser {
   first_name: string;
   last_name: string;
   display_picture: string;
+  user_id: string;
 }

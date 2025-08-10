@@ -21,17 +21,14 @@ export default function HotDeals({
   const city_code =
     typeof window !== "undefined" ? localStorage.getItem("city_code") : null;
 
-  const {
-    data: offerrs = [],
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["offers", "hotdeals", country_code , city_code],
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["offers", "hotdeals", country_code, city_code],
     queryFn: async () => await fetchHOTDealsList(country_code, city_code),
     staleTime: 360000,
     enabled: !!country_code,
   });
 
+  const offerrs = data?.data || [];
 
   return (
     <section
@@ -50,12 +47,12 @@ export default function HotDeals({
           </p>
         ) : isLoading ? (
           <OfferSkeleton />
-        ) : offerrs && offerrs.length === 0 ? (
+        ) : offerrs && offerrs?.length === 0 ? (
           <p className="py-12 bg-card w-full  text-center">
             Hot deals are not available
           </p>
         ) : (
-          offerrs.map((offer, index) => (
+          offerrs?.map((offer, index) => (
             <div className="flex-shrink-0 w-72" key={offer.id}>
               <AnimatedSection index={index}>
                 <MoreOfferCard item={offer} />

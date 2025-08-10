@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PhoneIcon, MailIcon } from "lucide-react";
@@ -211,6 +211,26 @@ const LoginForm: React.FC = () => {
           {serverErrors}
         </p>
       )}
+         <div className="flex justify-center gap-4">
+           <Suspense fallback={<div>Loading...</div>}>
+            <GoogleLoginComponent />
+          </Suspense> 
+          {/* <button
+            type="button"
+            className="w-10 h-10 rounded-full bg-black text-yellow-400 border border-yellow-400 flex items-center justify-center text-lg cursor-pointer transition-all hover:bg-yellow-400 hover:text-black hover:-translate-y-1"
+          >
+            F
+          </button> */}
+        </div>
+
+        <div className="my-8 text-center">
+        <p className="relative text-gray-400 mb-4 before:absolute before:top-1/2 before:left-0 before:w-1/4 sm:before:w-1/4 before:h-px before:bg-gray-700 after:absolute after:top-1/2 after:right-0 after:w-1/4 sm:after:w-1/4 after:h-px after:bg-gray-700">
+          or continue with
+        </p>
+       
+      </div>
+
+
       {isEmailLogin ? (
         <div>
           <label className="block font-medium mb-1">Email</label>
@@ -282,38 +302,7 @@ const LoginForm: React.FC = () => {
           {isEmailLogin ? "Login with Phone Number" : "Login with Email"}
         </Button>
       </div>
-
-      {/* <div className="my-8">
-                <p className="relative mb-4 text-muted-foreground before:absolute before:top-1/2 before:left-0 before:translate-y-[-50%] before:w-1/2 before:h-px after:absolute after:top-1/2 after:right-0 after:translate-y-[-50%] after:w-1/2 after:h-px">Or login with</p>
-                <div className="social-icons">
-                    <div className="social-icon">
-                        <i className="fab fa-google"></i>
-                    </div>
-                    <div className="social-icon">
-                        <i className="fab fa-facebook-f"></i>
-                    </div>
-                    <div className="social-icon">
-                        <i className="fab fa-apple"></i>
-                    </div>
-                </div>
-            </div> */}
-
-      <div className="my-8 text-center">
-        <p className="relative text-gray-400 mb-4 before:absolute before:top-1/2 before:left-0 before:w-1/4 sm:before:w-1/3 before:h-px before:bg-gray-700 after:absolute after:top-1/2 after:right-0 after:w-1/4 sm:after:w-1/3 after:h-px after:bg-gray-700">
-          or continue with
-        </p>
-        <div className="flex justify-center gap-4">
-          {/* <Suspense fallback={<div>Loading...</div>}>
-            <GoogleLoginComponent />
-          </Suspense> */}
-          {/* <button
-            type="button"
-            className="w-10 h-10 rounded-full bg-black text-yellow-400 border border-yellow-400 flex items-center justify-center text-lg cursor-pointer transition-all hover:bg-yellow-400 hover:text-black hover:-translate-y-1"
-          >
-            F
-          </button> */}
-        </div>
-      </div>
+      
 
       <div className="mt-8 p-6 bg-yellow-500/25 border-l-2 border-primary rounded-s-sm">
         <h3 className="text-primary font-semibold mb-2">

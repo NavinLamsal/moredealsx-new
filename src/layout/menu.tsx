@@ -74,7 +74,6 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import menuData from "@/data.json"; 
-import { useSession } from "next-auth/react";
 import LogoutTrigger from "@/components/auth/logouts/logouttrigger";
 import { useAuth } from "@/providers/auth-provider";
 
@@ -104,7 +103,6 @@ const exclusions = {
 export default function Menu() {
   const [search, setSearch] = useState<string>("");
   const {user, }= useAuth()
-  // const {data: session} = useSession();
   // Safely extract and narrow user type
   const userType = (user?.user_type ?? 'NORMAL') as 'BUSINESS' | 'NORMAL' | 'DELIVERY';
 

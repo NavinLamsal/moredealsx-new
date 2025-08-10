@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PhoneIcon, MailIcon } from "lucide-react";
 import PhoneNumberInput from "@/components/ui/customInputs/PhoneNumberInput";
-import { createServerPlatformAxiosInstance } from "@/lib/axios/platformBasedAxios";
 import { showToast } from "@/lib/utilities/toastService";
 import { removePrefix } from "@/lib/utils";
 import axios from "axios";

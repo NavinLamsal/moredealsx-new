@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { showToast } from "@/lib/utilities/toastService";
-import useMoredealsClient from "@/lib/axios/moredealsClient";
 import { removeEmptyStrings } from "@/lib/utils";
 import AddressForm from "../user/AutomaticAddressInput";
+import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 
 
 interface Address {
@@ -16,7 +16,7 @@ interface Address {
 }
 
 export default function AddressInfoForm({ userData }: { userData?: any }) {
-    const axios = useMoredealsClient();
+
     // ✅ Set initial state for the address
     const [address, setAddress] = useState<Address>({
         address: userData?.user_profile?.address ?? "",
@@ -42,7 +42,7 @@ export default function AddressInfoForm({ userData }: { userData?: any }) {
             }
             const cleanedData = removeEmptyStrings(data)
 
-            const res = await axios.patch(`${process.env.NEXT_PUBLIC_BASE_URL}users/details/me/`, cleanedData,
+            const res = await MoreClubApiClient.patch(`${process.env.NEXT_PUBLIC_BASE_URL}users/details/me/`, cleanedData,
             )
             showToast("Your changes are updated", "success");
             return res

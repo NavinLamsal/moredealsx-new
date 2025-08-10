@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import PINInput from "@/components/ui/customInputs/PinInput";
-import MoreFoodApiClient from "@/lib/axios/morefood/MoreFoodApiClient";
+import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 import { FoodOrderTypes } from "@/lib/type/morefood/restaurant";
 import { showToast } from "@/lib/utilities/toastService";
 import { AlertOctagonIcon } from "lucide-react";
@@ -37,7 +37,7 @@ const MoredealsPayment = ({
     const data = { ...formattedOrderType, pin: pin, payment_method: "moredeals" };
     try {
       setErrorMessage("")
-      const response = await MoreFoodApiClient.post(`orders/create/`, data)
+      const response = await MoreClubApiClient.post(`orders/create/`, data)
       showToast("order placed", "success")
       window.location.replace(`/morefood/checkout/success/`)
 

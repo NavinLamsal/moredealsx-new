@@ -13,7 +13,6 @@ import { validateRequired } from '@/lib/validation/common';
 import api from '@/utils/api';
 import { useQueryClient } from '@tanstack/react-query';
 import { Loader2Icon, Mail, Phone } from 'lucide-react';
-import { useSession } from 'next-auth/react';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 

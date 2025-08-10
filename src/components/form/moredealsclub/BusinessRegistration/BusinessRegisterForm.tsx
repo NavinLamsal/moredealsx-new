@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import { useSession } from "next-auth/react";
-
 import BusinessForm from "./BusinessForm";
 
 import UpgradeFormPopup from "../pricing/UpgradeFormPopup";
@@ -13,6 +11,7 @@ import { AppDispatch, RootState } from "@/lib/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile } from "@/lib/action/moreClub/User";
 import { useAuth } from "@/providers/auth-provider";
+import { SkeletonBox } from "@/components/Skeletons/packageSkelton";
 
 const BusinessSetupModal = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,6 +25,7 @@ const BusinessSetupModal = () => {
   useEffect(() => {
     const isNewUser = sessionStorage.getItem("newuser") === "true";
     const pinset = localStorage.getItem("membership") === "false";
+   
     const businessSetup = localStorage.getItem("business_setup") === "false";
 
     if (isNewUser) {
@@ -103,7 +103,11 @@ const BusinessSetupModal = () => {
                 Choose the plan that best suits your needs.
               </CardDescription>
 
-              {isLoading && <div>Loading...</div>}
+              {isLoading && <div className="grid md:grid-cols-2 gap-4">
+                {[1, 2].map((i) => (
+                  <SkeletonBox key={i} className="h-40 rounded-md" />
+                ))}
+              </div>}
               {!isLoading && !session && <div>Unauthorized</div>}
               {session && (
                <>

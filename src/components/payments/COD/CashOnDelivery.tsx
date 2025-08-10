@@ -1,4 +1,4 @@
-import MoreFoodApiClient from '@/lib/axios/morefood/MoreFoodApiClient';
+import MoreClubApiClient from '@/lib/axios/moreclub/MoreClubApiClient';
 import { FoodOrderTypes } from '@/lib/type/morefood/restaurant'
 import { showToast } from '@/lib/utilities/toastService';
 import { useRouter } from 'next/navigation';
@@ -15,7 +15,7 @@ const CashOnDelivery = ({ formattedOrderType, currency_symbol, amount }: { forma
         setIsProcessing(true);
         const data = { ...formattedOrderType, payment_method: "cod" };
         try {
-            const response = await MoreFoodApiClient.post(`orders/create/`, data)
+            const response = await MoreClubApiClient.post(`orders/create/`, data)
             showToast("order placed", "success")
             window.location.replace(`/morefood/checkout/success/`)
 

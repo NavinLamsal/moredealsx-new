@@ -3,11 +3,11 @@ import { Card } from "@/components/ui/card";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 import menuData from "@/data.json";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { usePathname, useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useAuth } from "@/providers/auth-provider";
 
 interface SettingItem {
   url: string;
@@ -24,9 +24,10 @@ const SettingsLayout: React.FC = () => {
   const isMobile = useIsMobile(); // Check if it's a mobile device
   const router = useRouter();
 
-  const { data: session, status } = useSession()
+  const {user:session ,isLoading}= useAuth();
 
-  if (status === "loading") {
+
+  if (isLoading && !session) {
     return <p>Loading...</p>
   }
 
@@ -69,7 +70,7 @@ const SettingsLayout: React.FC = () => {
                   {section.items
                     .filter(item => {
                       // If user is BUSINESS and the item is excluded, skip it
-                      const isBusiness = session?.user?.userDetails?.user_type === "NORMAL";
+                      const isBusiness = session?.user_type === "NORMAL";
                       return !(isBusiness && excludedForBusiness.includes(item.title));
                     })
                     .map((item, idx) => (

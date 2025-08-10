@@ -28,10 +28,11 @@ const Page = () => {
       {/* <Offers /> */}
       {/* <TodaysOffer /> */}
       <CategoriesList />
-      <FeaturedRestaurants  dashboard={true}/>
-      <NearestRestaurant  dashboard={true}/>
-      <PopularRestaurant  dashboard={true}/>
-      {/* <PopularCombos /> */}
+      {/* <FeaturedRestaurants/> */}
+      <NearestRestaurant dashboard={true} />
+      <PopularRestaurant dashboard={true} />
+      
+      <Heading title="All Restaurants" />
       <AllRestaurantList />
     </>
   );

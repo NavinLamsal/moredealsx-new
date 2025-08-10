@@ -5,8 +5,6 @@ import CategoriesTopList from "@/components/morefood/Category/categoryListing";
 import OfferList from "@/components/morefood/OfferList";
 import BackButton from "@/components/ui/back_button";
 
-
-
 export default async function Page({
   params,
   searchParams,
@@ -51,8 +49,9 @@ export default async function Page({
             </div>
           </HeadingChild>
           <RestaurantList
+            dashboard={true}
             type={`list`}
-            searchParams={{...searchparams, category: category}}
+            searchParams={{ ...searchparams, category: category }}
           />
         </div>
       ) : (
@@ -61,7 +60,7 @@ export default async function Page({
             <Heading title={title as string} />
           </div>
 
-          <RestaurantList type={`${slug}/list`} searchParams={searchparams} />
+          <RestaurantList dashboard={true} type={`${slug}/list`} searchParams={searchparams} />
         </>
       )}
     </>

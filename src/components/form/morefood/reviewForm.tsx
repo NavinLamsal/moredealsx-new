@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import RatingInput from "@/components/ui/customInputs/RatingInput";
 import { showToast } from "@/lib/utilities/toastService";
 import { validateNumber, validateRequired } from "@/lib/validation/common";
-import MoreFoodApiClient from "@/lib/axios/morefood/MoreFoodApiClient";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQueryClient } from "@tanstack/react-query";
+import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
 
 export const ReviewForm = ({ onSubmit, initialReview, isEditing , onCancel , slug }: { onSubmit: Function, initialReview?: any, isEditing: boolean , onCancel: Function , slug: string}) => {
   const [rating, setRating] = useState<number>(initialReview?.rating || 1);
@@ -56,12 +56,12 @@ export const ReviewForm = ({ onSubmit, initialReview, isEditing , onCancel , slu
         const reviewUpdated = initialReview.rating !== rating || initialReview.comment !== comment;
 
         if (reviewUpdated) {
-          await MoreFoodApiClient.patch(`reviews/restaurant/${slug}/review/${initialReview.id}/`, reviewData);
+          await MoreClubApiClient.patch(`reviews/restaurant/${slug}/review/${initialReview.id}/`, reviewData);
         }      
         showToast("Review updated successfully", "success");
 
       } else {
-        await MoreFoodApiClient.post(`reviews/restaurant/${slug}/reviews/`, reviewData);
+        await MoreClubApiClient.post(`reviews/restaurant/${slug}/reviews/`, reviewData);
         showToast("Review submitted successfully", "success");
       }
       queryClient.invalidateQueries({ queryKey: ["user-review", slug] }),

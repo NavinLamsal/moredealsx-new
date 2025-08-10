@@ -10,6 +10,7 @@ import { setLoading } from "@/lib/redux/slice/CurrencySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/redux/store";
 import { fetchPackages } from "@/lib/action/moreClub/pricing";
+import { useAuth } from "@/providers/auth-provider";
 
 export interface UpgradeFormDataType {
   package: string;
@@ -33,7 +34,8 @@ const UpgradeFormPopup = ({
   onFinish: () => void;
 }) => {
   const dispatch = useDispatch<AppDispatch>();
-  // const { data: session } = useSession();
+  const {user:session}= useAuth()
+
   const user = useSelector((state: RootState) => state.user);
 
   const packages = useSelector((state: RootState) => state.pricing.packages);
@@ -49,7 +51,7 @@ const UpgradeFormPopup = ({
     amount: "",
     pin: "",
     plan_time: "monthly",
-    plan_type: userType,
+    plan_type: session?.user_type as "BUSINESS"|"NORMAL" ?? "NORMAL",
     transaction_date: new Date().toISOString(),
     currency_symbol: "",
     currency_code: "",
@@ -183,7 +185,16 @@ const UpgradeFormPopup = ({
 
   const handleSkip = useCallback(async () => {
     try {
+
+      if(user?.profile?.membership?.membership_name === "Free"){
+        showToast("Subscribed successfully!", "success");
+        setServerError("");
+        onFinish();
+        return;
+      }
+
       if (!(await validate())) return;
+      
       setServerError("");
       showToast("Subscribed successfully!", "success");
       onFinish();

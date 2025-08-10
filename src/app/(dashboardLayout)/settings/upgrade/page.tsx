@@ -10,8 +10,7 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
 const Page = () => {
-  // const { data: session } = useSession();
-  // const session = await auth()
+ 
   const user = useAppSelector((state: RootState) => state.user);
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {

@@ -1,5 +1,4 @@
 import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
-import { createServerPlatformAxiosInstance } from "@/lib/axios/platformBasedAxios";
 import axios from "axios";
 
 

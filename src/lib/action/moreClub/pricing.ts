@@ -17,7 +17,8 @@ export const fetchPackages = createAsyncThunk(
     try {
       const response = await MoreClubApiClient.get(`subscriptions/list/?plan_type=${type}&plan_time=${cycle}&country_code=${country_code}`);
       const data = response.data.data;
-      dispatch(setPackages({ type, cycle, data})); // ✅ Store fetched data in Redux
+      dispatch(setPackages({ type, cycle: "monthly", data})); // ✅ Store fetched data in Redux
+      dispatch(setPackages({ type, cycle: "yearly", data}));
     } catch (error: any) {
       console.error("Failed to fetch packages:", error);
     }

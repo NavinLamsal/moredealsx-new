@@ -3,8 +3,6 @@ import { Button } from '@/components/ui/button';
 import CustomDatePicker from '@/components/ui/customInputs/DatePicker';
 import PhoneNumberInput from '@/components/ui/customInputs/PhoneNumberInput';
 import { Input } from '@/components/ui/input';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import useMoredealsClient from '@/lib/axios/moredealsClient';
 import { showToast } from '@/lib/utilities/toastService';
 import { removeEmptyStrings } from '@/lib/utils';
 import { validateRequired } from '@/lib/validation/common';
@@ -14,6 +12,7 @@ import ImageUploadDropBox from '@/components/ui/customInputs/ImageUploads';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AutoCompleteInput from '@/components/MapBox/AutoCompleteMapInput';
 import { KYCProps } from '@/lib/type/moreclub/User';
+import MoreClubApiClient from '@/lib/axios/moreclub/MoreClubApiClient';
 
 
 
@@ -40,7 +39,6 @@ const validateEmailAddress = async (email: string): Promise<string> => {
 };
 
 const Generalupdate = ({ userdata }: { userdata?: KYCProps }) => {
-    const axios = useMoredealsClient();
     const initialFormData = {
         fatherName: userdata?.father_name ?? "",
         mothername: userdata?.mother_name ?? "",
@@ -246,7 +244,7 @@ const Generalupdate = ({ userdata }: { userdata?: KYCProps }) => {
 
             const cleanedData = removeEmptyStrings(data)
 
-            const res = await axios.patch(`${process.env.NEXT_PUBLIC_BASE_URL}kyc/details/`, cleanedData,
+            const res = await MoreClubApiClient.patch(`${process.env.NEXT_PUBLIC_BASE_URL}kyc/details/`, cleanedData,
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",

@@ -6,7 +6,7 @@ export interface ResturantListType {
   address: string;
   slug: string;
   is_open: boolean;
-  domain?: string;
+  domain: string;
   banner: string;
   review_count?: number;
   offers?: string;
@@ -325,12 +325,32 @@ export type FoodItem = {
 };
 
 export type Order = {
-  order_id: string;
-  created: string; // ISO date format
-  order_status: string;
-  order_type: string;
-  restaurant_name: string;
-  order_banner: string;
+  id: string;
+  restaurant: string;
+  total: string;
+  status: string;
+  delivery_type: string;
+  orderedAt: string;
+  food_items: {
+    id: string;
+    restaurant_id: string;
+    restaurant_slug: string;
+    name: string;
+    image: string;
+    description: string;
+    price: string;
+    quantity: number;
+    variation_value: string;
+    currency_symbol: string;
+    currency_code: string;
+    related_food_item: {
+      id: string;
+      name: string;
+      image: string;
+      price: string;
+      discount_price: string;
+    }[];
+  }[];
 };
 
 export type OrderItem = {

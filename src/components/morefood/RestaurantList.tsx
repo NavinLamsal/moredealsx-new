@@ -8,9 +8,11 @@ import RestaurantCard from "../cards/morefood/RestaurantCard";
 import { ResturantListType } from "@/lib/type/morefood/restaurant";
 
 const RestaurantList = ({
+  dashboard =false,
   type,
   searchParams,
 }: {
+  dashboard?: boolean;
   type: string;
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
@@ -89,12 +91,13 @@ const RestaurantList = ({
       )}
 
       {/* Transaction List */}
-      <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3">
+    <div className={ dashboard ? "container grid grid-cols-1 min-[500px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 4xl:container 4xl:flex 4xl:flex-wrap   gap-3" : "grid grid-cols-1 min-[500px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-7 4xl:container 4xl:flex 4xl:flex-wrap  gap-3"
+    }>
         {data?.pages.map((page, pageIndex) =>
           page.data.map((restaurant, index) => (
             <div key={`${pageIndex}-${index}`}>
               <div
-                className="flex-shrink-0 sm:w-48 lg:w-60 2xl:w-64"
+                className={dashboard ? "flex-shrink-0 w-full 4xl:w-64":"flex-shrink-0 w-full 4xl:w-64"}
                 key={restaurant.id}
               >
                 <AnimatedSection key={restaurant.id} index={index}>

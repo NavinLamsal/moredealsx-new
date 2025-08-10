@@ -3,11 +3,18 @@
 import React from "react";
 
 import { LogOut } from "lucide-react";
-import { doLogout } from "@/lib/action/authAction";
+import { useAuth } from "@/providers/auth-provider";
+import { useRouter } from "next/navigation";
+
 
 const Logout = () => {
+  const router = useRouter();
+  const { logout } = useAuth();
   const handleLogout = async () => {
-     await doLogout();
+
+    logout?.mutate(undefined, {
+      onSuccess: () => router.push("/authlogin"),
+    })
   }
 
   return (
@@ -16,7 +23,7 @@ const Logout = () => {
         onClick={handleLogout}
         className="flex items-center gap-2 w-full"
       >
-       <LogOut size={16}/> LogOut
+        <LogOut size={16} /> LogOut
       </button>
     </div>
   );

@@ -1,5 +1,3 @@
-import CartButton from "@/components/morefood/cart/CartButton";
-import BalanceCartView from "@/layout/morefood/balanceCartView";
 import { getMetadata } from "@/lib/action/PubilcCommon";
 import { CompanyMeta } from "@/lib/type/CommonType";
 import { Metadata } from "next";

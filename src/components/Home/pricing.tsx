@@ -4,20 +4,20 @@ import { useEffect } from "react";
 import { AppDispatch } from "@/lib/redux/store";
 import { useDispatch } from "react-redux";
 import { fetchPackages } from "@/lib/action/moreClub/pricing";
-import { useSession } from "next-auth/react";
+import { useAuth } from "@/providers/auth-provider";
 
 
 
 
 export default function Pricing() {
-  const  { data: session } = useSession();
+  const  { user: session } = useAuth();
+
   const dispatch = useDispatch<AppDispatch>();
    useEffect(() => {
       if(!session) return;
-      dispatch(fetchPackages({ type: "BUSINESS", cycle: "monthly",  country_code:session.user.userDetails.country.code }));
-      dispatch(fetchPackages({ type: "BUSINESS", cycle: "yearly" ,country_code:session.user.userDetails.country.code}));
-      dispatch(fetchPackages({ type: "NORMAL", cycle: "yearly", country_code:session.user.userDetails.country.code }));
-      dispatch(fetchPackages({ type: "NORMAL", cycle: "monthly", country_code:session.user.userDetails.country.code }));
+      dispatch(fetchPackages({ type: "BUSINESS", cycle: "monthly",  country_code:session.country.code }));
+      dispatch(fetchPackages({ type: "NORMAL", cycle: "yearly", country_code:session.country.code }));
+
     }, [ dispatch]);
   
 

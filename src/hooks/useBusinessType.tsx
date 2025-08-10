@@ -1,6 +1,5 @@
 'use client';
 import { useAuth } from '@/providers/auth-provider';
-import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
 type BusinessType = 'restaurant' | 'hotel' | 'unknown';

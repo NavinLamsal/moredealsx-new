@@ -113,11 +113,12 @@ const NetworkLeadFilter: React.FC<NetworkLeadFilterProps> = ({
               <option value="week">This Week</option>
               <option value="month">This Month</option>
               <option value="year">This Year</option>
+              <option value="custom">Custom</option>
             </select>
           </div>
         </div>
 
-        {showDateFilter && (
+        {(showDateFilter || filterTime === "custom") && (
           <div className="flex flex-wrap gap-4">
             <div>
               <label className="block text-sm">From</label>

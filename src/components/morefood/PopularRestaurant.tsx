@@ -44,8 +44,7 @@ const PopularRestaurant = ({ dashboard=false }: { dashboard?: boolean }) => {
     <div className="p-1 lg:p-4">
       <HorizontalCarousel
         title="Popular Restaurants"
-        viewAll={`/morefood/category/popular?title=Popular Restaurants`}
-        dashboard={dashboard}
+        viewAll={ dashboard ? `/morefood/category/popular?title=Popular Restaurants` :`/category/popular?title=Popular Restaurants`}
       >
         {data.data.map((restaurant, index) => (
           <div className="flex-shrink-0 w-60" key={index}>

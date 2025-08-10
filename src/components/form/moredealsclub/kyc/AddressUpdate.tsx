@@ -1,7 +1,6 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import useMoredealsClient from '@/lib/axios/moredealsClient';
 import { showToast } from '@/lib/utilities/toastService';
 import { removeEmptyStrings } from '@/lib/utils';
 import { validateRequired } from '@/lib/validation/common';
@@ -9,6 +8,7 @@ import { Loader2Icon, PinIcon, } from 'lucide-react';
 import React, { ChangeEvent, useState } from 'react'
 import AutoCompleteInput from '@/components/MapBox/AutoCompleteMapInput';
 import { KYCProps } from '@/lib/type/moreclub/User';
+import MoreClubApiClient from '@/lib/axios/moreclub/MoreClubApiClient';
 
 
 interface Address {
@@ -21,7 +21,7 @@ interface Address {
 }
 
 const Addressupdate = ({ userdata }: { userdata?: KYCProps }) => {
-    const axios = useMoredealsClient();
+    
     const initialFormData = {
 
 
@@ -165,7 +165,7 @@ const Addressupdate = ({ userdata }: { userdata?: KYCProps }) => {
 
             const cleanedData = removeEmptyStrings(data)
 
-            const res = await axios.patch(`${process.env.NEXT_PUBLIC_BASE_URL}kyc/details/`, cleanedData,
+            const res = await MoreClubApiClient.patch(`${process.env.NEXT_PUBLIC_BASE_URL}kyc/details/`, cleanedData,
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",

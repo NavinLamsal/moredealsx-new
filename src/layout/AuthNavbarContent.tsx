@@ -1,10 +1,8 @@
 "use client";
-
 import React from "react";
 import MenuDropdown from "./MenuDropdown";
 import { ModeToggle } from "@/components/ui/themeToggle";
 import NotificationDropDown from "./notification-drop";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
@@ -12,9 +10,21 @@ import MobileMenuDropdown from "./mobilemenudropdown";
 import { useAuth } from "@/providers/auth-provider";
 
 const AuthNavbarContent = ({ header }: { header?: boolean }) => {
-  const { logout, user, } = useAuth()
+  const { logout, user, isLoading } = useAuth();
 
-  if (!user) {
+  if (isLoading || !user) {
+    return (
+      <div className="flex items-center gap-2">
+        <ModeToggle />
+        <Button variant="outline" className="text-white sm:block hidden">
+          Loading...
+        </Button>
+      </div>
+    );
+  }
+
+
+ if (!user) {
     return (
       <div className="flex items-center gap-2">
         <ModeToggle />
@@ -63,7 +73,6 @@ const AuthNavbarContent = ({ header }: { header?: boolean }) => {
         <div className="flex lg:hidden gap-2 items-center">
           <MobileMenuDropdown header={header} />
         </div>
-          
       </div>
     );
   }

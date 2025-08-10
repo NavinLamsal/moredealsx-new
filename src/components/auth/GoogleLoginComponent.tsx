@@ -4,17 +4,20 @@ import React, { useState } from "react";
 import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { showToast } from "@/lib/utilities/toastService";
-import { doOTPVerifyLogin } from "@/lib/action/authAction";
+// import { doOTPVerifyLogin } from "@/lib/action/authAction";
 import { getSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
 import { useSearchParams } from "next/navigation";
 import { UniversalTextLoading } from "../loaders/UniversalTypingLoader";
 import Image from "next/image";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetchUserDetails } from "@/lib/action/authAction";
 
 const GoogleLoginButton: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [isLoading, setIsLoading] = useState(false);
+  const queryClient = useQueryClient();
 
   const searchParams = useSearchParams();
   const login = useGoogleLogin({
@@ -22,11 +25,17 @@ const GoogleLoginButton: React.FC = () => {
       setIsLoading(true);
       try {
         const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}auth/google/login/`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}auth/google/login/`,
           {
             access_token: tokenResponse.access_token,
+          },
+          {
+            withCredentials: true,
           }
         );
+
+
+        
 
         const data = response?.data?.data;
         if (
@@ -36,47 +45,34 @@ const GoogleLoginButton: React.FC = () => {
         ) {
           sessionStorage.setItem("newuser", "true");
         }
+        dispatch({
+          type: "SET_USER",
+          payload: data,
+        });
+        showToast("Login successful!", "success");
+        queryClient.refetchQueries({ queryKey: ["user"] });
 
-        try {
-          const formData = new FormData();
-          formData.append("token", data?.access);
-          formData.append("refresh", data?.refresh);
 
-          const loginResponse = await doOTPVerifyLogin(formData);
-          if (loginResponse?.success) {
-            showToast("Login successful!", "success");
-            const session = await getSession();
-            if (session?.user?.userDetails?.membership === false) {
-              localStorage.setItem("membership", "false");
-            } else {
-              localStorage.removeItem("membership");
-            }
+        const user = await fetchUserDetails();
+        const { user_type, exists_business_profile, membership, country } = user;
 
-            if (
-              session?.user?.userDetails?.user_type === "BUSINESS" &&
-              session?.user?.userDetails?.exists_business_profile === false
-            ) {
-              localStorage.setItem("business_setup", "false");
-            } else {
-              localStorage.removeItem("business_setup");
-            }
+        if (membership === false) localStorage.setItem("membership", "false");
+        else localStorage.removeItem("membership");
 
-            const callbackUrl = searchParams.get("callbackUrl");
-            window.location.href = callbackUrl ?? "/dashboard";
-          } else {
-            throw new Error("Invalid credentials");
-          }
-        } catch {
-          throw new Error(
-            "Your account is verified, but login failed. Please try again."
-          );
+        if (user_type === "BUSINESS" && exists_business_profile === false) {
+          localStorage.setItem("business_setup", "false");
+        } else {
+          localStorage.removeItem("business_setup");
         }
+        setIsLoading(false);
+        const callbackUrl = searchParams.get("callbackUrl");
+        window.location.href = callbackUrl ?? "/dashboard";
       } catch (error: any) {
         showToast(
           error?.response?.data?.non_field_errors[0] ||
-            error.response?.data?.message ||
-            error?.message ||
-            "Google login failed. Please try again.",
+          error.response?.data?.message ||
+          error?.message ||
+          "Google login failed. Please try again.",
           "error"
         );
       } finally {

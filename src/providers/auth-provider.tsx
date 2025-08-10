@@ -61,7 +61,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const router = useRouter()
 
   const logout = useMutation({
-    mutationFn: async () => await api.post("/api/auth/logout"),
+    mutationFn: async () => await api.post("auth/logout/"),
     onSuccess: async () => {
       queryClient.resetQueries({
         queryKey: ["user"],

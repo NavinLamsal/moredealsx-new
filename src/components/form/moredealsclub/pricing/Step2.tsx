@@ -1,5 +1,5 @@
 "use client";
-import PaymentInformation from "@/components/morefood/cart/Paymentinformation";
+import PaymentInformation from "@/components/payments/Paymentinformation";
 import { Button } from "@/components/ui/button";
 import { AlertOctagonIcon } from "lucide-react";
 import React from "react";

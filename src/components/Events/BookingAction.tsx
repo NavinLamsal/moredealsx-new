@@ -1,13 +1,11 @@
 
 "use client";
 import React, { use, useState } from "react";
-import PINInput from "../ui/customInputs/PinInput";
-import { Button } from "../ui/button";
-import MoreClubApiClient from "@/lib/axios/moreclub/MoreClubApiClient";
-import { showToast } from "@/lib/utilities/toastService";
 import { useQueryClient } from "@tanstack/react-query";
-import PaymentInformation from "../morefood/cart/Paymentinformation";
-import { useSession } from "next-auth/react";
+// import PaymentInformation from "../morefood/cart/Paymentinformation";
+import { useAuth } from "@/providers/auth-provider";
+import PaymentInformation from "../payments/Paymentinformation";
+
 
 
 
@@ -17,9 +15,9 @@ const BookingAction = ({ slug, type, setShowDialog, setShowSheet , bookingData}:
     price: string,
     currency: string
   } }) => {
-    const {data: session}= useSession();
+    const {user:session}= useAuth();
     const [pin, setPin] = useState("");
-    const [pinError, setPinError] = useState("")
+    
     const [serverError, setServerError] = useState("")
 
     const queryClient = useQueryClient();
@@ -90,7 +88,7 @@ const BookingAction = ({ slug, type, setShowDialog, setShowSheet , bookingData}:
                     "payment_type": "event",
                     "event_id": bookingData.id,
                     "currency_code": bookingData.currency.toLowerCase(),
-                    "payer_detail": `{\"user_id\": \"${session?.user.userDetails.id}\", \"email\": \"${session?.user.userDetails.email}\", \"phone_number\": \"${session?.user.userDetails.phone_number}\"}`,
+                    "payer_detail": `{\"user_id\": \"${session?.id}\", \"email\": \"${session?.email}\", \"phone_number\": \"${session?.phone_number}\"}`,
                     "payment_method": "stripe"
                 }}
 

@@ -1,6 +1,4 @@
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { LayoutDashboard } from 'lucide-react'
 import React, { useEffect } from 'react'
 import Menu from './menu'
 import { DropdownMenu,DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
@@ -38,6 +36,18 @@ const MobileMenuDropdown = ({header}:{header?:boolean}) => {
             <CardTitle>Menu</CardTitle>
           </CardHeader>
           <CardContent className="max-h-[400px] hide-scroll-bar overflow-y-auto ">
+            <div className="flex items-center gap-2">
+          <Avatar className='bg-primary text-primary-foreground'>
+            <AvatarImage className='bg-primary text-primary-foreground' src={users?.profile?.display_picture?? '/images/png/user.png'} />
+            <AvatarFallback className='bg-primary text-primary-foreground uppercase font-extrabold'>{users?.profile?.first_name[0]}{users?.profile?.last_name[0]}</AvatarFallback>
+          </Avatar>
+
+          <div>
+            <div className="font-bold text-lg">{users?.profile?.first_name}&nbsp;{users?.profile?.last_name}</div>
+            <p className='text-primary text-sm '>{users.profile?.membership?.membership_name ?? ""} Member</p>
+          </div>
+        </div>
+
             <Menu />
           </CardContent>
           <CardFooter>

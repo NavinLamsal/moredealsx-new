@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/redux/store";
-import { toggleUserSelection, updateSelectionData } from "@/lib/redux/slice/NetworkSlice";
+import { toggleUserSelection } from "@/lib/redux/slice/NetworkSlice";
 import { NetworkUser } from "@/lib/type/moreclub/Network";
 
 
@@ -10,10 +10,11 @@ import { NetworkUser } from "@/lib/type/moreclub/Network";
 
 interface NetworkCardProps {
   user: NetworkUser;
+  id: string;
   permissions?: { send_sms_refer?: boolean };
 }
 
-const NetworkCard: React.FC<NetworkCardProps> = ({ user, permissions }) => {
+const NetworkCard: React.FC<NetworkCardProps> = ({ user, id, permissions }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const selectedRows = useSelector((state: RootState) => state.network);
@@ -31,7 +32,7 @@ const NetworkCard: React.FC<NetworkCardProps> = ({ user, permissions }) => {
 >
   <input type="checkbox" checked={isSelected} onChange={()=>toggleSelection(user)} className="w-5 h-5 accent-blue-600" />
 
-  <div className="flex items-center gap-4 cursor-pointer flex-grow" onClick={() => router.push(`/network/${user.username}`)}>
+  <div className="flex items-center gap-4 cursor-pointer flex-grow" onClick={() => router.push(`/networks/${id}`)}>
     {user.display_picture ? (
       <img src={user.display_picture} alt={`${user.first_name} ${user.last_name}`} className="w-12 h-12 rounded-full object-cover" />
     ) : (

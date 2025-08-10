@@ -21,8 +21,6 @@ const LogoutTrigger = ({
 
   const handleClick = (e?: React.MouseEvent) => {
     if (e) e.preventDefault();
-    console.log("Logout Trigger Clicked");
-    setCookie("accessToken", "7", )
     setOpen(true);
   };
 
