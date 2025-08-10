@@ -9,6 +9,7 @@ import { showToast } from '@/lib/utilities/toastService';
 import { extractSubdomainFromMalformedUrl, removeEmptyStrings, removePrefix } from '@/lib/utils';
 import { validateRequired } from '@/lib/validation/common';
 import { useAuth } from '@/providers/auth-provider';
+import { useQueryClient } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -45,6 +46,7 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
   const router = useRouter();
   const {user:session} = useAuth()
   const [isAlreadyCreated, setIsAlreadyCreated]= useState(false)
+    const queryClient = useQueryClient();
 
   const [formData, setFormData] = useState({
     username: session?.username || "",
@@ -222,13 +224,8 @@ const CRMCreateForm = ({ businessData }: { businessData: any }) => {
       const res = await MoreClubApiClient.post(url, cleanedData)
       showToast("CRM Created Successfully", "success");
 
-      const updateData = {
-        ...session,
-        crm_link: {
-          restro_link: res.data.data.domain
-        }
-      }
-
+      
+      queryClient.refetchQueries({ queryKey: ["user"] });
       // update({ userDetails: updateData })
       router.push("/business/crm/manage")
 

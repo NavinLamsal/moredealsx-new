@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MenuDropdown from "./MenuDropdown";
 import { ModeToggle } from "@/components/ui/themeToggle";
 import NotificationDropDown from "./notification-drop";
@@ -8,9 +8,11 @@ import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
 import MobileMenuDropdown from "./mobilemenudropdown";
 import { useAuth } from "@/providers/auth-provider";
+import { getCookie } from "cookies-next/client";
 
 const AuthNavbarContent = ({ header }: { header?: boolean }) => {
   const { user, isLoading } = useAuth();
+
 
   if (isLoading) {
     return (

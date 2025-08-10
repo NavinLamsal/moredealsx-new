@@ -37,6 +37,7 @@ const CRMDetailList = () => {
       {business.businessQRInfo && business.businessQRInfo.length > 0 && (        
           <CRMTabContent categories={business.businessQRInfo} />
       )}
+      
       {business.lastFetchedQRInfoAt &&
         business.businessQRInfo &&
         business.businessQRInfo.length === 0 && (

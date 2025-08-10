@@ -79,7 +79,6 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     },
     onError: (error) => {
       const errorData = error
-      console.error(errorData)
       const errorMessage =
         (errorData as { message?: string }).message ||
         "An error occurred while logging out."

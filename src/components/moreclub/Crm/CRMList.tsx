@@ -34,13 +34,9 @@ const CRMList = ({ name }: { name: string }) => {
   };
 
   if (!session) {
-    return <div>crm listing for {name}</div>;
+    return <div>Getting your  {name} CRM ...</div>;
   }
 
-  const userDetails = session;
-  const crmLink = userDetails?.crm_link[
-    crmData.urlkey
-  ] as keyof typeof userDetails;
 
   if (!session?.crm_link) {
     return (

@@ -7,7 +7,7 @@ import CRMList from './CRMList';
 import { useSearchParams } from 'next/navigation';
 import { BusinessQRInfo } from '@/lib/redux/slice/moreclub/BusinessSlice';
 
-const CRMTabContent =async ({categories}:{categories:BusinessQRInfo[]}) => {
+const CRMTabContent =({categories}:{categories:BusinessQRInfo[]}) => {
     const searchParams = useSearchParams();
     const tab =searchParams.get("tab");
   
