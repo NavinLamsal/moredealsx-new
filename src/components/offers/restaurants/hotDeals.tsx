@@ -32,7 +32,7 @@ export default function HotDeals({
 
   return (
     <section
-      className={` py-20 ${Dashboard ? "w-full" : "w-11/12 mx-auto"} `}
+      className={` pt-20 ${Dashboard ? "w-full" : "w-11/12 mx-auto"} `}
       id="offers"
     >
       <HorizontalCarousel

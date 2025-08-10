@@ -20,6 +20,7 @@ export default async function Home() {
       <Suspense fallback={<div>Loading...</div>}>
         <HotDeals classname="min-[660px]:pl-0 min-[570px]:pl-20 min-[460px]:pl-40 pl-64" />
       </Suspense>
+      
       <Suspense fallback={<div>Loading...</div>}>
         <OfferSection classname="min-[660px]:pl-0 min-[570px]:pl-20 min-[460px]:pl-40 pl-64" />
       </Suspense>

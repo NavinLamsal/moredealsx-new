@@ -75,12 +75,12 @@ export default function OfferSection({
     const isCategoryAllowed = filteredCategories.some(
       (cat) => cat.value === activeCategory
     );
-  
+
     if (!isCategoryAllowed) {
       setActiveCategory("All");
       return;
     }
-  
+
     // Apply logic ONLY if activeCategory is "All" and has no offers
     if (
       activeCategory === "All" &&
@@ -91,10 +91,10 @@ export default function OfferSection({
       const currentIndex = filteredCategories.findIndex(
         (cat) => cat.value === "All"
       );
-  
+
       // Check the next category in the list
       const nextCategory = filteredCategories[currentIndex + 1];
-  
+
       if (nextCategory) {
         fetchOfferList(nextCategory.value, country).then((nextOffers) => {
           // Only switch if the next one has offers
@@ -107,7 +107,7 @@ export default function OfferSection({
       }
     }
   }, [filteredCategories, activeCategory, isLoading, isError, offerrs.length]);
-  
+
 
 
 
@@ -120,7 +120,7 @@ export default function OfferSection({
 
   return (
     <section
-      className={`py-20 ${Dashboard ? "w-full" : "w-11/12 mx-auto"}`}
+      className={`pb-20 ${Dashboard ? "w-full" : "w-11/12 mx-auto"}`}
       id="offers"
     >
       {Dashboard ? (
@@ -151,7 +151,7 @@ export default function OfferSection({
             <p className="py-12 bg-card w-full text-center">
               {(activeCategory === "All" || activeCategory === "morefood")
                 ? "No offers found."
-                : <ComingSoon/>}
+                : <ComingSoon />}
             </p>
           ) : activeCategory === "morefood" && isMoreFoodOffers(offerrs) ? (
             <HorizontalCarouselWithOutTitle title="">

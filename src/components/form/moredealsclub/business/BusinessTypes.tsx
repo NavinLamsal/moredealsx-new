@@ -26,6 +26,7 @@ const BusinessTypes: React.FC = () => {
   const businessQRInfo = useSelector(
     (state: RootState) => state.business.businessQRInfo
   );
+  
   const [isAdding, setIsAdding] = useState(false);
 
   const [businessData, setBusinessData] = useState(
@@ -208,19 +209,19 @@ const BusinessTypes: React.FC = () => {
                     <CircleAlert className="w-5 h-5 " strokeWidth={1.5} />
                   </div>
                   <p>
-                    Affiliated discount must be greater than 5%,
+                    Platform Commission  must be greater than 5%,
                     <br />
                   </p>
                 </div>
                 <span className="text-foreground text-xs">
-                  Affiliated discount is the service fee applied when ordering
+                  Platform Commission  is the service fee applied when ordering
                   through our platform
                 </span>
               </div>
 
               {/* Individual Submit Button */}
               <div className="flex w-full gap-2 col-span-1 sm:col-span-2 justify-end">
-                {!isExisting && (
+                {isExisting && (
                   <Button
                     type="button"
                     variant={"destructive"}

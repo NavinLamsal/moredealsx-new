@@ -23,7 +23,6 @@ export default function Page() {
       <Memberships />
       <Partners />
       <BusinessViews/>
-      {/* <OfferSection Dashboard={true}  /> */}
       <Treasurehunts />
       <TrendingEvents />
       <RestaurantTrendingEvents title="Taste & Experience – Restaurant Events" dashboard={true} />
