@@ -107,13 +107,11 @@ const LoginForm: React.FC = () => {
       }
   
       const res = await api.post(`auth/login/`, formDatas);
-      console.log("Login response:", res.data);
 
       return res.data;
     },
   
     onSuccess: async (res: any) => {
-      console.log("Login success:", res);
       if (!res?.success) {
         throw new Error(res?.error || "Invalid credentials");
       }
@@ -139,12 +137,11 @@ const LoginForm: React.FC = () => {
       }
       setIsLoading(false);
       showToast("Login successful!", "success");
-      // const callbackUrl = searchParams.get("callbackUrl");
-      // window.location.href = callbackUrl ?? "/dashboard";
+      const callbackUrl = searchParams.get("callbackUrl");
+      window.location.href = callbackUrl ?? "/dashboard";
     },
   
     onError: (error: any) => {
-      console.error("Login error:", error);
       const message = error.response.data.errors.non_field_errors[0] ||error.response.data.message || "Login failed!";
       setServerErrors(message);
       showToast(message, "error");
