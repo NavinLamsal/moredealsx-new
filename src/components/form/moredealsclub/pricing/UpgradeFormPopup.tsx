@@ -63,7 +63,7 @@ const UpgradeFormPopup = ({
   });
 
   useEffect(() => {
-    if (user?.profile?.country.code) {
+    if (user?.profile?.country?.code) {
       dispatch(
         fetchPackages({
           type: formData.plan_type,

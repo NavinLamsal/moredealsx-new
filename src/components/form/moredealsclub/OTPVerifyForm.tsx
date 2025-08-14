@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/lib/redux/store";
 import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
+import { setTokenCookie } from "@/lib/utils/access";
 
 // Utility function to remove prefix
 
@@ -92,7 +93,10 @@ const OTPVerifyForm: React.FC = () => {
 
       if (data?.success) {
         try {
-          showToast("Login successful!", "success");
+
+          setTokenCookie("xaccess_token", data.access_token);
+          setTokenCookie("xrefresh_token", data.refresh_token , 60 * 60 * 24 * 7);
+          
           queryClient.refetchQueries({ queryKey: ["user"] });
 
 
@@ -104,6 +108,8 @@ const OTPVerifyForm: React.FC = () => {
           sessionStorage.removeItem("registrationData");
           localStorage.removeItem("otp_username");
           // need to check for user Type 
+                    showToast("Login successful!", "success");
+
           window.location.href = "/dashboard";
 
         } catch {

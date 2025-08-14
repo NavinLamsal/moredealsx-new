@@ -13,6 +13,7 @@ import { UniversalTextLoading } from "../loaders/UniversalTypingLoader";
 import Image from "next/image";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchUserDetails } from "@/lib/action/authAction";
+import { setTokenCookie } from "@/lib/utils/access";
 
 const GoogleLoginButton: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -39,9 +40,9 @@ const GoogleLoginButton: React.FC = () => {
 
         const data = response?.data?.data;
         if (
-          data?.user_details.country === null ||
-          data?.user_details.user_type === null ||
-          data?.user_details.gender === null
+          data?.country === null ||
+          data?.user_type === null ||
+          data?.gender === null
         ) {
           sessionStorage.setItem("newuser", "true");
         }
@@ -49,7 +50,10 @@ const GoogleLoginButton: React.FC = () => {
           type: "SET_USER",
           payload: data,
         });
-        showToast("Login successful!", "success");
+
+        setTokenCookie("xaccess_token", data.access_token);
+        setTokenCookie("xrefresh_token", data.refresh_token , 60 * 60 * 24 * 7);
+        
         queryClient.refetchQueries({ queryKey: ["user"] });
 
 
@@ -65,6 +69,7 @@ const GoogleLoginButton: React.FC = () => {
           localStorage.removeItem("business_setup");
         }
         setIsLoading(false);
+        showToast("Login successful!", "success");
         const callbackUrl = searchParams.get("callbackUrl");
         window.location.href = callbackUrl ?? "/dashboard";
       } catch (error: any) {

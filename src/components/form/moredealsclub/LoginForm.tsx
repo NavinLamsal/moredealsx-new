@@ -117,7 +117,7 @@ const LoginForm: React.FC = () => {
       }
       
       setTokenCookie("xaccess_token", res?.data.access_token);
-      setTokenCookie("xrefresh_token", res?.data.refresh_token);
+      setTokenCookie("xrefresh_token", res?.data.refresh_token , 60 * 60 * 24 * 7);
 
       
       queryClient.refetchQueries({ queryKey: ["user"] });
