@@ -12,6 +12,7 @@ import { useAuth } from "@/providers/auth-provider";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { clearStorage } from "./logoutFunction";
 
 
 
@@ -32,35 +33,36 @@ const LogoutDialog = ({ open, onOpenChange, onLogout }: LogoutDialogProps) => {
     setIsLoading(true);
 
     // Clear localStorage
-    const localKeys = [
-      "token",
-      "business_setup",
-      "membership",
-      "forget_username",
-      "forget_code",
-      "otp_username",
-    ];
-    localKeys.forEach((key) => localStorage.removeItem(key));
+    // const localKeys = [
+    //   "token",
+    //   "business_setup",
+    //   "membership",
+    //   "forget_username",
+    //   "forget_code",
+    //   "otp_username",
+    // ];
+    // localKeys.forEach((key) => localStorage.removeItem(key));
 
-    // Clear sessionStorage
-    const sessionKeys = [
-      "bpms",
-      "registrationData",
-      "BusinessRegistrationData",
-      "pin_via",
-      "orderStep",
-      "deliverytype",
-      "receiverName",
-      "mobileNumber",
-      "receiverEmail",
-      "note",
-      "arrivalTime",
-      "no_of_people",
-      "location",
-      "lat",
-      "lon",
-    ];
-    sessionKeys.forEach((key) => sessionStorage.removeItem(key));
+    // // Clear sessionStorage
+    // const sessionKeys = [
+    //   "bpms",
+    //   "registrationData",
+    //   "BusinessRegistrationData",
+    //   "pin_via",
+    //   "orderStep",
+    //   "deliverytype",
+    //   "receiverName",
+    //   "mobileNumber",
+    //   "receiverEmail",
+    //   "note",
+    //   "arrivalTime",
+    //   "no_of_people",
+    //   "location",
+    //   "lat",
+    //   "lon",
+    // ];
+    // sessionKeys.forEach((key) => sessionStorage.removeItem(key));
+    clearStorage();
 
     // Optional callback
     onLogout?.();

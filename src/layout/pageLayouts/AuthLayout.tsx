@@ -13,7 +13,7 @@ const AuthPageLayout = ({ children }: AuthPageLayoutProps) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const token = getCookie("access_token")
+    const token = getCookie("xaccess_token") || getCookie("xrefresh_token")
 
     if (token) {
       router.replace("/dashboard")

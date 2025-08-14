@@ -14,7 +14,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
-    const token = getCookie("access_token")
+    const token = getCookie("xaccess_token") || getCookie("xrefresh_token")
 
     if (!token) {
       router.replace("/auth/login")

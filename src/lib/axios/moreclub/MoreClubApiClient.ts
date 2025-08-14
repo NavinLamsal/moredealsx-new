@@ -49,6 +49,8 @@
 import axios from "axios"
 import { jwtDecode } from "jwt-decode"
 import { getCookie, deleteCookie } from "cookies-next"
+import { clearStorage } from "@/components/auth/logouts/logoutFunction"
+import { refreshAccessToken } from "@/utils/refreshToken"
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL
 const MoreClubApiClient = axios.create({
@@ -71,23 +73,24 @@ export const toDateTime = (secs: number) => {
 
 MoreClubApiClient.interceptors.request.use(
   async (config) => {
-    const authToken = await getCookie("access_token")
-
-    if (authToken && authToken !== null && authToken !== "null") {
-      const detail = jwtDecode(authToken)
-      if (detail?.exp) {
-        console.log("Expiry", detail?.exp);
-        if (toDateTime(detail?.exp) < new Date()) {
-          // handle logout here 
-          // await signOut();
-          config.headers.Authorization = null
-          return config
-        }
-        config.headers.Authorization = `Bearer ${authToken}`
-      }
-      config.headers.Authorization = `Bearer ${authToken}`
-    }
-    return config
+    let authToken = await getCookie("xaccess_token")
+   
+     if (authToken && authToken !== "null" && authToken !== null) {
+       const detail = jwtDecode<{ exp: number }>(authToken);
+   
+       if (detail?.exp && toDateTime(detail.exp) < new Date()) {
+         let newToken = await refreshAccessToken();
+         if (!newToken) {
+           clearStorage();
+           window.location.href = "/auth/login";
+           return config;
+         }
+         authToken = newToken;
+       }
+       config.headers.Authorization = `Bearer ${authToken}`;
+     }
+   
+     return config;
   },
   (error) => {
     Promise.reject(error)

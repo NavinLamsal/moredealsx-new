@@ -15,6 +15,7 @@ import GoogleLoginComponent from "@/components/auth/GoogleLoginComponent";
 import api from "@/utils/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { removePrefix } from "@/lib/utils";
+import { setTokenCookie } from "@/lib/utils/access";
 
 export const CheckUserName = async (username: string, prefix?: string) => {
   const isEmail = (username: string) =>
@@ -106,6 +107,8 @@ const LoginForm: React.FC = () => {
       }
   
       const res = await api.post(`auth/login/`, formDatas);
+     
+
       return res.data;
     },
   
@@ -113,6 +116,10 @@ const LoginForm: React.FC = () => {
       if (!res?.success) {
         throw new Error(res?.error || "Invalid credentials");
       }
+      
+      setTokenCookie("xaccess_token", res?.data.access_token);
+      setTokenCookie("xrefresh_token", res?.data.refresh_token);
+
       showToast("Login successful!", "success");
       queryClient.refetchQueries({ queryKey: ["user"] });
 
