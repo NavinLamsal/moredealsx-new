@@ -1,6 +1,5 @@
 "use client"
 import BusinessViews from "@/components/Dashboard/BusinessView"
-import { Memberships } from "@/components/Dashboard/Memberships"
 import { Partners } from "@/components/Dashboard/Partners"
 import Stat from "@/components/Dashboard/Stat"
 import Treasurehunts from "@/components/Dashboard/treasurehunts"
@@ -20,7 +19,6 @@ export default function Page() {
       <BusinessSetupModal />
       <CrmAlert/>
       <Stat />
-      <Memberships />
       <Partners />
       <BusinessViews/>
       <Treasurehunts />

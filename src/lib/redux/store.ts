@@ -16,12 +16,14 @@ import notificationsReducer from "./slice/notificationSlice";
 import userReducer from "./slice/moreclub/UserSlice";
 import authReducer from "./slice/moreclub/authStore";
 import leadDetailReducer from "./slice/moreclub/network";
+import dashboardStatsReducer from "./slice/DashboardSlice";
 
 
 const rootReducer = combineReducers({
   auth: authReducer,
   notification:notificationsReducer,
 
+  dashboardStats: dashboardStatsReducer,
   // products: productReducer,
   comments:commentsReducer,
   currency: currencyReducer,
