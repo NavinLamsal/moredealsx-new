@@ -7,6 +7,13 @@ import { useSelector } from "react-redux";
 import DashboardSectionTitle from "../ui/DashboardSectionTitle";
 import { Award, PackageOpen, PiggyBank, Users } from "lucide-react";
 
+const periods = [
+  { label: "Week", value: "weekly" },
+  { label: "Month", value: "monthly" },
+  { label: "Year", value: "yearly" },
+];
+
+
 const STATIC_STATS = [
   { name: "Total Points", value: "4,420", unit: "pts", icon: <Award/> },
   { name: "Savings This Month", value: "$1,250", unit: "USD", icon: <PiggyBank/> },
@@ -41,10 +48,11 @@ const SkeletonGrid = ({ count = 4 }) => (
 const Stat = () => {
   const dispatch = useAppDispatch();
   const { data, loading, error } = useSelector(selectDashboardStats);
+  const [period, setPeriod] = React.useState<"weekly" | "monthly" | "yearly">("monthly");
 
   useEffect(() => {
-    dispatch(fetchDashboardStats());
-  }, [dispatch]);
+    dispatch(fetchDashboardStats(period));
+  }, [dispatch , period]);
 
   const { mergedStats, updatedMemberships } = useMemo(() => {
     if (!data) {
@@ -54,7 +62,7 @@ const Stat = () => {
     return {
       mergedStats: [
         { name: "Total Points", value: data.total_points?.toLocaleString() || "0", unit: "pts", icon: <Award/>},
-        { name: "Savings This Month", value: data.total_savings?.toLocaleString() || "0", unit: data.currency_symbol.toString() || "SEK" ,  icon: <PiggyBank/>},
+        { name: `Savings this`, value: data.total_savings?.toLocaleString() || "0", unit: data.currency_symbol.toString() || "SEK" ,  icon: <PiggyBank/>},
         { name: "Active Memberships", value: data.active_deals?.toLocaleString() || "0", unit: "deals", icon: <PackageOpen/> },
         { name: "Network Size", value: data.network_size?.toLocaleString() || "0", unit: "people" ,icon: <Users/>  },
       ],
@@ -67,8 +75,11 @@ const Stat = () => {
     };
   }, [data]);
 
-  if (loading) return <SkeletonGrid />;
+  if (loading && !data) return <SkeletonGrid />;
   if (error) return null;
+
+
+
 
   return (
     <>
@@ -80,7 +91,10 @@ const Stat = () => {
             className="bg-card rounded-xl p-5 shadow-md shadow-black/30 border-l-4 border-primary dark:shadow-white/30"
           >
             <h3 className="text-sm flex justify-between items-center text-muted-foreground mb-2 uppercase font-medium">
-             <span>{item.name}</span> 
+             <span>{item.name} {item.name.toLowerCase().includes("saving") && (
+                  <SavingsDropdown small period={period} setPeriod={setPeriod} />
+                )}</span> 
+             
               {item.icon}
             </h3>
             <div className="text-2xl font-extrabold text-primary">
@@ -123,3 +137,30 @@ const Stat = () => {
 };
 
 export default Stat;
+
+
+function SavingsDropdown({
+  small = false,
+  period,
+  setPeriod,
+}: {
+  small?: boolean;
+  period: "weekly" | "monthly" | "yearly";
+  setPeriod: (val: "weekly" | "monthly" | "yearly") => void;
+}) {
+  return (
+    <select
+      value={period}
+      onChange={(e) => setPeriod(e.target.value as "weekly" | "monthly" | "yearly")}
+      className={`ml-2 border border-gray-300 rounded-md bg-trasparent text-foreground ${
+        small ? "text-xs px-1 py-0.5" : "text-sm px-2 py-1"
+      }`}
+    >
+      {periods.map((p) => (
+        <option key={p.label} value={p.value}>
+          {p.label}
+        </option>
+      ))}
+    </select>
+  );
+}

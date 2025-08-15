@@ -27,12 +27,14 @@ const initialState: DashboardStatsState = {
   loading: false,
   error: null,
 };
-
 export const fetchDashboardStats = createAsyncThunk(
   "dashboard/fetchStats",
-  async (_, { rejectWithValue }) => {
+  async (period: "weekly" | "monthly" | "yearly" = "monthly", { rejectWithValue }) => {
     try {
-      const response = await MoreClubApiClient.get(`rewards/user/points/list/`);
+      // Example: rewards/user/points/list/?period=monthly
+      const response = await MoreClubApiClient.get(
+        `rewards/user/points/list/?period=${period}`
+      );
       return response.data.data;
     } catch (error: any) {
       return rejectWithValue(
@@ -41,7 +43,6 @@ export const fetchDashboardStats = createAsyncThunk(
     }
   }
 );
-
 const dashboardStatsSlice = createSlice({
   name: "dashboardStats",
   initialState,

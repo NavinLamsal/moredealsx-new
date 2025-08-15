@@ -11,7 +11,12 @@ interface ProviderProps {
 const Provider: FC<ProviderProps> = ({ children }) => {
     return (
         <ApiProvider>
-            <ThemeProvider>
+            <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+            >
                 <StoreProvider>
                     {/* <AuthenticationModal> */}
                     {/* <UpgradeProvider>

@@ -73,7 +73,8 @@ const GoogleLoginButton: React.FC = () => {
         const callbackUrl = searchParams.get("callbackUrl");
         window.location.href = callbackUrl ?? "/dashboard";
       } catch (error: any) {
-        showToast(
+        console.log("error",error.response.data.message);
+        showToast(error?.response?.data?.message ||
           error?.response?.data?.non_field_errors[0] ||
           error.response?.data?.message ||
           error?.message ||
@@ -84,7 +85,8 @@ const GoogleLoginButton: React.FC = () => {
         setIsLoading(false);
       }
     },
-    onError: () => {
+    onError: (e) => {
+      console.log("Login failed!", e);
       alert("Google login failed. Please try again.");
     },
     flow: "implicit", // or 'auth-code' if your backend supports the authorization code flow

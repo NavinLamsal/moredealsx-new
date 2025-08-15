@@ -14,7 +14,7 @@ export default function BusinessLayout({ children }: BusinessLayoutProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
-    const token = getCookie("xaccess_token") || getCookie("xrefresh_token")
+    const token = getCookie("xaccess_token") 
 
     if (!token) {
       router.replace("/auth/login")

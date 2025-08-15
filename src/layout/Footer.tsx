@@ -112,7 +112,7 @@ export default function Footer({ data }: FooterProps) {
               <div className="flex gap-4 mt-5">
                 <a
                   href="#"
-                  className="social-icon bg-neutral-900 text-yellow-400 hover:bg-yellow-400 hover:text-black transition w-10 h-10 rounded-full flex items-center justify-center text-xl"
+                  className="social-icon text-yellow-400 hover:bg-yellow-400 hover:text-black transition w-10 h-10 rounded-full flex items-center justify-center text-xl"
                 >
                   <Image
                     src={"/images/svg/facebook.svg"}
