@@ -78,12 +78,21 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       // }
     },
     onError: (error) => {
-      const errorData = error
-      const errorMessage =
-        (errorData as { message?: string }).message ||
-        "An error occurred while logging out."
+      const errorData: any = error
+      const errormessages = errorData?.response?.data?.detail || errorData?.response?.data?.message ||errorData.message || "logout Failed"
+      
+     if(errormessages === "Authentication credentials were not provided."){
+       queryClient.resetQueries({
+       queryKey: ["user"],
+     })
+       showToast("Logout successful!", "warning")
 
-        showToast("Logout failed!", "error")
+       router.push("/")
+     }else{
+       showToast(errormessages || "logout Failed", "error")
+        
+     }
+
     },
   })
 

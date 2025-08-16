@@ -185,7 +185,6 @@ const UpgradeFormPopup = ({
 
   const handleSkip = useCallback(async () => {
     try {
-      console.log("Skipping upgrade...", );
       if(user?.profile?.membership?.membership_name === "Free" || user?.profile?.membership) {
         showToast("Subscribed successfully!", "success");
         setServerError("");
