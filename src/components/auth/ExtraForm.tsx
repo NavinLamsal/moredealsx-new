@@ -79,7 +79,6 @@ const ExtraInfoForm = ({ onFinish }: { onFinish: () => void }) => {
       onFinish();  
 
     }catch(err:any){
-      console.log(err);
       showToast( err?.response?.data.errors?.non_field_errors[0] || err?.response?.data?.message ||"Error updating your profile", "error");
     }
     

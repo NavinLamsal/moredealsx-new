@@ -192,7 +192,7 @@ const UpgradeFormPopup = ({
         onFinish();
         return;
       }
-      if (!(await validate())) return;
+      // if (!(await validate())) return;
       
       setServerError("");
       showToast("Subscribed successfully!", "success");
