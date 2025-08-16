@@ -28,7 +28,10 @@ api.interceptors.request.use(
     let authToken = await getCookie("xaccess_token")
 
   if (authToken && authToken !== "null" && authToken !== null) {
+    console.log(authToken)
     const detail = jwtDecode<{ exp: number }>(authToken);
+  
+    
 
     if (detail?.exp && toDateTime(detail.exp) < new Date()) {
       let newToken = await refreshAccessToken();

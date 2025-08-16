@@ -20,7 +20,7 @@ const BusinessSetupModal = () => {
   const [showExtraInfo, setShowExtraInfo] = useState(false);
 
   const {user:session , isLoading}= useAuth();
-  const user = useSelector((state: RootState) => state.user);
+  // const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     const isNewUser = sessionStorage.getItem("newuser") === "true";

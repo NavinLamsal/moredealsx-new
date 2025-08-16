@@ -93,9 +93,9 @@ const OTPVerifyForm: React.FC = () => {
 
       if (data?.success) {
         try {
-
-          setTokenCookie("xaccess_token", data.access_token);
-          setTokenCookie("xrefresh_token", data.refresh_token , 60 * 60 * 24 * 7);
+          console.log(data);
+          setTokenCookie("xaccess_token", data.data.access_token);
+          setTokenCookie("xrefresh_token", data.data.refresh_token , 60 * 60 * 24 * 7);
           
           queryClient.refetchQueries({ queryKey: ["user"] });
 
